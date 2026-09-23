@@ -1,0 +1,14 @@
+{
+  "meeting_id": "IB4011",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/IB4011_transcript.json",
+  "started_at": "2026-09-17T09:47:55Z",
+  "updated_at": "2026-09-18T11:09:31Z"
+}

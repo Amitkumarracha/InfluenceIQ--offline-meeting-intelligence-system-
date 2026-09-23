@@ -1,0 +1,14 @@
+{
+  "meeting_id": "ES2013a",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/ES2013a_transcript.json",
+  "started_at": "2026-09-17T09:05:25Z",
+  "updated_at": "2026-09-18T10:54:11Z"
+}

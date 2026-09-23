@@ -1,0 +1,14 @@
+{
+  "meeting_id": "IN1016",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/IN1016_transcript.json",
+  "started_at": "2026-09-17T10:14:35Z",
+  "updated_at": "2026-09-18T11:19:10Z"
+}

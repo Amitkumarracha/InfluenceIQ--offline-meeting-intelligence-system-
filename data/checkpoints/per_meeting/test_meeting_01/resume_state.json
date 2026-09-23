@@ -1,0 +1,14 @@
+{
+  "meeting_id": "test_meeting_01",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/test_meeting_01_transcript.json",
+  "started_at": "2026-09-21T06:17:08Z",
+  "updated_at": "2026-09-21T06:17:46Z"
+}

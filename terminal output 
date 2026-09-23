@@ -1,0 +1,296 @@
+[Diarization Summary]
+  Speakers found  : 4
+  Speaker IDs     : SPEAKER_00, SPEAKER_01, SPEAKER_02, SPEAKER_03
+  Segments        : 744
+  Diarization JSON: /home/CL502-12/MAI Project/data/processed/audio/TS3012c_diarization.json
+2026-09-12 21:03:55 [INFO] pipeline: === Stage 4: ASR + Speaker Attribution ===
+2026-09-12 21:03:55 [INFO] src.audio.asr: Loaded 744 diarization segments (4 speakers)
+2026-09-12 21:03:55 [INFO] src.audio.asr: Loading faster-whisper model: size=base device=cuda compute_type=float16
+2026-09-12 21:03:55 [INFO] src.audio.asr: Transcribing: /home/CL502-12/MAI Project/data/processed/audio/TS3012c_processed.wav
+Traceback (most recent call last):
+  File "/home/CL502-12/MAI Project/scripts/run_pipeline.py", line 538, in <module>
+    main()
+  File "/home/CL502-12/MAI Project/scripts/run_pipeline.py", line 534, in main
+    run_audio_pipeline(args)
+  File "/home/CL502-12/MAI Project/scripts/run_pipeline.py", line 496, in run_audio_pipeline
+    asr_result, asr_json_path, asr_txt_path = run_asr(
+  File "/home/CL502-12/MAI Project/src/audio/asr.py", line 198, in run_asr
+    segments_iter, info = model.transcribe(str(audio_path), **transcribe_kwargs)
+  File "/home/CL502-12/MAI Project/.venv/lib/python3.10/site-packages/faster_whisper/transcribe.py", line 942, in transcribe
+    ) = self.detect_language(
+  File "/home/CL502-12/MAI Project/.venv/lib/python3.10/site-packages/faster_whisper/transcribe.py", line 1819, in detect_language
+    encoder_output = self.encode(
+  File "/home/CL502-12/MAI Project/.venv/lib/python3.10/site-packages/faster_whisper/transcribe.py", line 1400, in encode
+    return self.model.encode(features, to_cpu=to_cpu)
+RuntimeError: Library libcublas.so.12 is not found or cannot be loaded
+===== Processing audio on GPU: TS3012d =====
+2026-09-12 21:04:01 [INFO] pipeline: === Stage 1: Audio Preprocessing ===
+2026-09-12 21:04:01 [INFO] src.audio.preprocess: Preprocessing audio: data/raw/audio/TS3012d.wav
+2026-09-12 21:04:01 [INFO] src.audio.preprocess: Loaded: duration=2341.60s, sample_rate=16000, channels=1
+2026-09-12 21:04:01 [INFO] src.audio.preprocess: Preprocessing complete: output=/home/CL502-12/MAI Project/data/processed/audio/TS3012d_processed.wav, duration=2341.60s, elapsed=0.59s
+
+[Preprocessing Summary]
+  Input file      : TS3012d.wav
+  Original SR     : 16000 Hz
+  Processed SR    : 16000 Hz
+  Original ch     : 1
+  Original dur    : 2341.60s
+  Processed dur   : 2341.60s
+  Output          : /home/CL502-12/MAI Project/data/processed/audio/TS3012d_processed.wav
+2026-09-12 21:04:01 [INFO] pipeline: === Stage 2: Voice Activity Detection ===
+2026-09-12 21:04:01 [INFO] src.audio.vad: Running VAD on: /home/CL502-12/MAI Project/data/processed/audio/TS3012d_processed.wav
+2026-09-12 21:04:01 [INFO] src.audio.vad: VAD params — threshold=0.50, min_speech_ms=250, min_silence_ms=100
+2026-09-12 21:04:01 [INFO] src.audio.vad: Audio duration: 2341.60s
+Using cache found in /home/CL502-12/.cache/torch/hub/snakers4_silero-vad_master
+/home/CL502-12/MAI Project/.venv/lib/python3.10/site-packages/torch/jit/_serialization.py:176: FutureWarning: `torch.jit.load` is deprecated. Please switch to `torch.export`.
+  warnings.warn(
+2026-09-12 21:04:45 [INFO] src.audio.vad: VAD complete: 735 segments, total_speech=1183.60s, elapsed=43.68s
+2026-09-12 21:04:45 [INFO] src.audio.vad: VAD results saved: /home/CL502-12/MAI Project/data/processed/audio/TS3012d_vad.json
+
+[VAD Summary]
+  Speech segments : 735
+  Total speech    : 1183.60s
+  VAD JSON        : /home/CL502-12/MAI Project/data/processed/audio/TS3012d_vad.json
+2026-09-12 21:04:45 [INFO] pipeline: === Stage 3: Speaker Diarization ===
+2026-09-12 21:04:45 [INFO] src.audio.diarization: Starting diarization: meeting_id=TS3012d, audio=/home/CL502-12/MAI Project/data/processed/audio/TS3012d_processed.wav
+2026-09-12 21:04:48 [INFO] src.audio.diarization: Loading diarization pipeline: pyannote/speaker-diarization-3.1
+2026-09-12 21:04:50 [INFO] src.audio.diarization: Diarization pipeline successfully moved to CUDA device
+/home/CL502-12/MAI Project/.venv/lib/python3.10/site-packages/pyannote/audio/utils/reproducibility.py:74: ReproducibilityWarning: TensorFloat-32 (TF32) has been disabled as it might lead to reproducibility issues and lower accuracy.
+It can be re-enabled by calling
+   >>> import torch
+   >>> torch.backends.cuda.matmul.allow_tf32 = True
+   >>> torch.backends.cudnn.allow_tf32 = True
+See https://github.com/pyannote/pyannote-audio/issues/1370 for more details.
+
+  warnings.warn(
+/home/CL502-12/MAI Project/.venv/lib/python3.10/site-packages/pyannote/audio/models/blocks/pooling.py:103: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /__w/pytorch/pytorch/aten/src/ATen/native/ReduceOps.cpp:1913.)
+  std = sequences.std(dim=-1, correction=1)
+2026-09-12 21:06:09 [INFO] src.audio.diarization: Diarization model finished in 84.42s
+2026-09-12 21:06:09 [INFO] src.audio.diarization: Diarization complete: 4 speakers, 657 segments, elapsed=84.42s
+2026-09-12 21:06:09 [INFO] src.audio.diarization: Diarization results saved: /home/CL502-12/MAI Project/data/processed/audio/TS3012d_diarization.json
+
+[Diarization Summary]
+  Speakers found  : 4
+  Speaker IDs     : SPEAKER_00, SPEAKER_01, SPEAKER_02, SPEAKER_03
+  Segments        : 657
+  Diarization JSON: /home/CL502-12/MAI Project/data/processed/audio/TS3012d_diarization.json
+2026-09-12 21:06:09 [INFO] pipeline: === Stage 4: ASR + Speaker Attribution ===
+2026-09-12 21:06:09 [INFO] src.audio.asr: Loaded 657 diarization segments (4 speakers)
+2026-09-12 21:06:09 [INFO] src.audio.asr: Loading faster-whisper model: size=base device=cuda compute_type=float16
+2026-09-12 21:06:10 [INFO] src.audio.asr: Transcribing: /home/CL502-12/MAI Project/data/processed/audio/TS3012d_processed.wav
+Traceback (most recent call last):
+  File "/home/CL502-12/MAI Project/scripts/run_pipeline.py", line 538, in <module>
+    main()
+  File "/home/CL502-12/MAI Project/scripts/run_pipeline.py", line 534, in main
+    run_audio_pipeline(args)
+  File "/home/CL502-12/MAI Project/scripts/run_pipeline.py", line 496, in run_audio_pipeline
+    asr_result, asr_json_path, asr_txt_path = run_asr(
+  File "/home/CL502-12/MAI Project/src/audio/asr.py", line 198, in run_asr
+    segments_iter, info = model.transcribe(str(audio_path), **transcribe_kwargs)
+  File "/home/CL502-12/MAI Project/.venv/lib/python3.10/site-packages/faster_whisper/transcribe.py", line 942, in transcribe
+    ) = self.detect_language(
+  File "/home/CL502-12/MAI Project/.venv/lib/python3.10/site-packages/faster_whisper/transcribe.py", line 1819, in detect_language
+    encoder_output = self.encode(
+  File "/home/CL502-12/MAI Project/.venv/lib/python3.10/site-packages/faster_whisper/transcribe.py", line 1400, in encode
+    return self.model.encode(features, to_cpu=to_cpu)
+RuntimeError: Library libcublas.so.12 is not found or cannot be loaded
+(.venv) CL502-12@CL502-12:~/MAI Project$ 
+ *  History restored 
+
+CL502-12@CL502-12:~/MAI Project$  source "/home/CL502-12/MAI Project/.venv/bin/activate"
+(.venv) CL502-12@CL502-12:~/MAI Project$ for wav in data/raw/audio/*.wav; do     meeting_id=$(basename $wav .wav);     echo "===== Processing audio on GPU: $meeting_id =====";     python3 scripts/run_pipeline.py         --audio "$wav"         --meeting-id "$meeting_id"; done^C
+(.venv) CL502-12@CL502-12:~/MAI Project$ # 6. Convert all .ppt files to .pptx, organized per meeting
+ *  History restored 
+
+CL502-12@CL502-12:~/MAI Project$  source "/home/CL502-12/MAI Project/.venv/bin/activate"
+(.venv) CL502-12@CL502-12:~/MAI Project$ # 10. Align transcripts to slides for every meeting
+for transcript in data/processed/audio/*_transcript.json; do
+    meeting_id=$(basename $transcript _transcript.json)
+    slides="data/processed/slides/${meeting_id}_slides.json"
+    if [ -f "$slides" ]; then
+        echo "===== Aligning: $meeting_id ====="
+        python3 scripts/run_pipeline.py \
+            --transcript "$transcript" \
+            --slides "$slides" \
+            --meeting-id "$meeting_id"
+    fi
+done
+(.venv) CL502-12@CL502-12:~/MAI Project$ # 10. Align transcripts to slides for every meeting
+for transcript in data/processed/audio/*_transcript.json; do
+    meeting_id=$(basename $transcript _transcript.json)
+    slides="data/processed/slides/${meeting_id}_slides.json"
+    if [ -f "$slides" ]; then
+        echo "===== Aligning: $meeting_id ====="
+        python3 scripts/run_pipeline.py \
+            --transcript "$transcript" \
+            --slides "$slides" \
+            --meeting-id "$meeting_id"
+    fi
+done
+(.venv) CL502-12@CL502-12:~/MAI Project$ # 11. Extract events and evidence from the multimodal representation
+for mm in data/processed/alignment/*_multimodal.json; do
+    meeting_id=$(basename $mm _multimodal.json)
+    echo "===== Event extraction: $meeting_id ====="
+    python3 scripts/run_pipeline.py \
+        --multimodal "$mm" \
+        --meeting-id "$meeting_id"
+done
+===== Event extraction: * =====
+2026-09-15 14:43:32 [ERROR] pipeline: Multimodal JSON not found: data/processed/alignment/*_multimodal.json
+(.venv) CL502-12@CL502-12:~/MAI Project$ # 12. Reconstruct decisions from events and evidence
+for events in data/processed/events/*_events.json; do
+    meeting_id=$(basename $events _events.json)
+    evidence="data/processed/events/${meeting_id}_evidence.json"
+    echo "===== Decision reconstruction: $meeting_id ====="
+    python3 scripts/run_pipeline.py \
+        --events "$events" \
+        --evidence "$evidence" \
+        --meeting-id "$meeting_id"
+done
+===== Decision reconstruction: * =====
+2026-09-15 14:43:44 [INFO] pipeline: === Phase 9: Decision Reconstruction ===
+2026-09-15 14:43:44 [ERROR] pipeline: Decision reconstruction failed — missing input: Events JSON not found: data/processed/events/*_events.json
+(.venv) CL502-12@CL502-12:~/MAI Project$ # 13. Analyze participant interactions
+for decisions in data/processed/decisions/*_decisions.json; do
+    meeting_id=$(basename $decisions _decisions.json)
+    events="data/processed/events/${meeting_id}_events.json"
+    evidence="data/processed/events/${meeting_id}_evidence.json"
+    echo "===== Interaction analysis: $meeting_id ====="
+    python3 scripts/run_pipeline.py \
+        --decisions "$decisions" \
+        --events "$events" \
+        --evidence "$evidence" \
+        --meeting-id "$meeting_id"
+done
+===== Interaction analysis: * =====
+usage: run_pipeline.py [-h]
+                       (--audio AUDIO | --ppt PPT | --transcript TRANSCRIPT | --multimodal MULTIMODAL | --events EVENTS | --decisions DECISIONS | --interactions INTERACTIONS)
+                       [--meeting-id MEETING_ID] [--skip-diarization] [--skip-asr] [--diarization-json DIARIZATION_JSON] [--skip-embeddings] [--slides SLIDES]
+                       [--embeddings EMBEDDINGS] [--evidence EVIDENCE]
+run_pipeline.py: error: argument --events: not allowed with argument --decisions
+(.venv) CL502-12@CL502-12:~/MAI Project$ # 14. Rank participant influence
+for interactions in data/processed/interactions/*_interactions.json; do
+    meeting_id=$(basename $interactions _interactions.json)
+    decisions="data/processed/decisions/${meeting_id}_decisions.json"
+    events="data/processed/events/${meeting_id}_events.json"
+    evidence="data/processed/events/${meeting_id}_evidence.json"
+    echo "===== Influence analysis: $meeting_id ====="
+    python3 scripts/run_pipeline.py \
+        --interactions "$interactions" \
+        --decisions "$decisions" \
+        --events "$events" \
+        --evidence "$evidence" \
+        --meeting-id "$meeting_id"
+done
+===== Influence analysis: * =====
+usage: run_pipeline.py [-h]
+                       (--audio AUDIO | --ppt PPT | --transcript TRANSCRIPT | --multimodal MULTIMODAL | --events EVENTS | --decisions DECISIONS | --interactions INTERACTIONS)
+                       [--meeting-id MEETING_ID] [--skip-diarization] [--skip-asr] [--diarization-json DIARIZATION_JSON] [--skip-embeddings] [--slides SLIDES]
+                       [--embeddings EMBEDDINGS] [--evidence EVIDENCE]
+run_pipeline.py: error: argument --decisions: not allowed with argument --interactions
+(.venv) CL502-12@CL502-12:~/MAI Project$ # 15. Generate final reports for all processed meetings
+for influence in data/processed/influence/*_influence.json; do
+    meeting_id=$(basename $influence _influence.json)
+    echo "===== Generating report: $meeting_id ====="
+    python3 scripts/generate_report.py --meeting-id "$meeting_id"
+done
+===== Generating report: * =====
+2026-09-15 14:44:02 [INFO] generate_report: Generating report for meeting: *
+2026-09-15 14:44:02 [INFO] generate_report: Input dir : data/processed
+2026-09-15 14:44:02 [INFO] generate_report: Output dir: outputs/reports
+2026-09-15 14:44:02 [INFO] generate_report: Formats   : ['json', 'markdown', 'html', 'csv']
+2026-09-15 14:44:02 [INFO] report.generator: Generating report for * | events=missing | decisions=missing | influence=missing
+2026-09-15 14:44:02 [INFO] report.exporter: JSON report saved: outputs/reports/*_report.json
+2026-09-15 14:44:02 [INFO] report.exporter: Markdown report saved: outputs/reports/*_report.md
+2026-09-15 14:44:02 [INFO] report.exporter: HTML report saved: outputs/reports/*_report.html
+2026-09-15 14:44:02 [INFO] report.exporter: Participants CSV saved: outputs/reports/*_participants.csv
+2026-09-15 14:44:02 [INFO] report.exporter: Decisions CSV saved: outputs/reports/*_decisions.csv
+2026-09-15 14:44:02 [INFO] report.exporter: Influence CSV saved: outputs/reports/*_influence.csv
+2026-09-15 14:44:02 [INFO] report.exporter: Action items CSV saved: outputs/reports/*_action_items.csv
+
+[Report Generation Summary — *]
+  Participants   : 0
+  Events         : 0
+  Decisions      : 0
+  Action Items   : 0
+  Interactions   : 0
+
+  json        : outputs/reports/*_report.json
+  markdown    : outputs/reports/*_report.md
+  html        : outputs/reports/*_report.html
+  participants: outputs/reports/*_participants.csv
+  decisions   : outputs/reports/*_decisions.csv
+  influence   : outputs/reports/*_influence.csv
+  action_items: outputs/reports/*_action_items.csv
+
+NOTE: Report content is derived from existing pipeline outputs.
+No ML model was rerun. Missing sections are marked as unavailable.
+
+Done.
+(.venv) CL502-12@CL502-12:~/MAI Project$ # 15. Generate final reports for all processed meetings
+for influence in data/processed/influence/*_influence.json; do
+    meeting_id=$(basename $influence _influence.json)
+    echo "===== Generating report: $meeting_id ====="
+    python3 scripts/generate_report.py --meeting-id "$meeting_id"
+done
+===== Generating report: * =====
+2026-09-15 14:44:14 [INFO] generate_report: Generating report for meeting: *
+2026-09-15 14:44:14 [INFO] generate_report: Input dir : data/processed
+2026-09-15 14:44:14 [INFO] generate_report: Output dir: outputs/reports
+2026-09-15 14:44:14 [INFO] generate_report: Formats   : ['json', 'markdown', 'html', 'csv']
+2026-09-15 14:44:14 [INFO] report.generator: Generating report for * | events=missing | decisions=missing | influence=missing
+2026-09-15 14:44:14 [INFO] report.exporter: JSON report saved: outputs/reports/*_report.json
+2026-09-15 14:44:14 [INFO] report.exporter: Markdown report saved: outputs/reports/*_report.md
+2026-09-15 14:44:14 [INFO] report.exporter: HTML report saved: outputs/reports/*_report.html
+2026-09-15 14:44:14 [INFO] report.exporter: Participants CSV saved: outputs/reports/*_participants.csv
+2026-09-15 14:44:14 [INFO] report.exporter: Decisions CSV saved: outputs/reports/*_decisions.csv
+2026-09-15 14:44:14 [INFO] report.exporter: Influence CSV saved: outputs/reports/*_influence.csv
+2026-09-15 14:44:14 [INFO] report.exporter: Action items CSV saved: outputs/reports/*_action_items.csv
+
+[Report Generation Summary — *]
+  Participants   : 0
+  Events         : 0
+  Decisions      : 0
+  Action Items   : 0
+  Interactions   : 0
+
+  json        : outputs/reports/*_report.json
+  markdown    : outputs/reports/*_report.md
+  html        : outputs/reports/*_report.html
+  participants: outputs/reports/*_participants.csv
+  decisions   : outputs/reports/*_decisions.csv
+  influence   : outputs/reports/*_influence.csv
+  action_items: outputs/reports/*_action_items.csv
+
+NOTE: Report content is derived from existing pipeline outputs.
+No ML model was rerun. Missing sections are marked as unavailable.
+
+Done.
+(.venv) CL502-12@CL502-12:~/MAI Project$ # Optional: Run evaluation metrics and ablation study
+for meeting in data/processed/influence/*_influence.json; do
+    meeting_id=$(basename $meeting _influence.json)
+    echo "===== Evaluating: $meeting_id ====="
+    python3 scripts/run_evaluation.py --meeting-id "$meeting_id" --ablation
+done
+===== Evaluating: * =====
+2026-09-15 14:44:28 [INFO] evaluation: Metrics saved: outputs/evaluation/*_metrics.json
+2026-09-15 14:44:28 [INFO] evaluation: Baselines saved: outputs/evaluation/*_baselines.json
+2026-09-15 14:44:28 [WARNING] evaluation: Ablation skipped — some required pipeline outputs missing.
+
+[Evaluation Summary — *]
+  wer         : ground_truth_unavailable
+  der         : ground_truth_unavailable
+  alignment   : ground_truth_unavailable
+  events      : ground_truth_unavailable
+  decisions   : ground_truth_unavailable
+  lineage     : ground_truth_unavailable
+  influence   : ground_truth_unavailable
+
+  Metrics JSON   : outputs/evaluation/*_metrics.json
+  Baselines JSON : outputs/evaluation/*_baselines.json
+
+NOTE: ground_truth_unavailable means no annotation was supplied.
+Do NOT interpret unit-test results as real dataset performance.
+
+Done.
+(.venv) CL502-12@CL502-12:~/MAI Project$ 

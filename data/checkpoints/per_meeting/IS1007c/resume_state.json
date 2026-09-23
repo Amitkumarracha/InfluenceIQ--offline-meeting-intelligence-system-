@@ -1,0 +1,14 @@
+{
+  "meeting_id": "IS1007c",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/IS1007c_transcript.json",
+  "started_at": "2026-09-17T11:02:00Z",
+  "updated_at": "2026-09-18T11:35:36Z"
+}

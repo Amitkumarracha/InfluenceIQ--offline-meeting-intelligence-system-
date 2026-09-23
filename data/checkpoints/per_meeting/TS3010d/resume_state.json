@@ -1,0 +1,14 @@
+{
+  "meeting_id": "TS3010d",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/TS3010d_transcript.json",
+  "started_at": "2026-09-18T13:49:38Z",
+  "updated_at": "2026-09-18T14:24:17Z"
+}

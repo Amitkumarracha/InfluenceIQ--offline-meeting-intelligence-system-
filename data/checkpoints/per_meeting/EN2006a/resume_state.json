@@ -1,0 +1,14 @@
+{
+  "meeting_id": "EN2006a",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/EN2006a_transcript.json",
+  "started_at": "2026-09-17T07:31:48Z",
+  "updated_at": "2026-09-18T10:22:37Z"
+}

@@ -1,0 +1,171 @@
+project:
+  name: Offline Multimodal Meeting-Intelligence System
+  version: "0.1.0"
+
+paths:
+  audio:
+    raw: data/raw/audio
+    processed: data/processed/audio
+  ppt:
+    raw: data/raw/ppt
+    processed: data/processed/slides
+  models: models/
+  outputs:
+    reports: outputs/reports
+    visualizations: outputs/visualizations
+    exports: outputs/exports
+
+audio:
+  sample_rate: 16000
+  mono: true
+
+vad:
+  threshold: 0.5
+  min_speech_duration_ms: 250
+  min_silence_duration_ms: 100
+
+diarization:
+  model: pyannote/speaker-diarization-3.1
+  min_speakers: null
+  max_speakers: null
+  merge_gap_s: 0.5
+
+ppt:
+  extract_text: true
+  extract_tables: true
+  extract_notes: true
+  extract_visual_metadata: true
+  ocr_enabled: false
+  embeddings:
+    # sentence-transformers model for slide-level semantic embeddings.
+    # Requires: pip install sentence-transformers
+    # Set to null to skip embedding generation.
+    model: all-MiniLM-L6-v2
+
+decision_analysis:
+  # Maximum time gap (seconds) around an anchor event to form a cluster.
+  # NOTE: Prototype default — not validated against annotated data.
+  temporal_window: 120.0
+  # Not used for scoring yet; reserved for future semantic grouping.
+  semantic_threshold: 0.5
+  # If true, only produce decisions with an explicit "decision"-type event.
+  require_final_decision: false
+  # Default status label for proposals with no resolution.
+  unresolved_status: unresolved
+
+meeting_analysis:
+  # Active event types (subset of the full taxonomy below).
+  # Remove types you don't need to speed up extraction.
+  event_types:
+    - proposal
+    - question
+    - objection
+    - evidence
+    - correction
+    - clarification
+    - agreement
+    - disagreement
+    - revision
+    - decision
+    - action_item
+  # Minimum pattern-match confidence to emit an event.
+  # NOTE: This is an initial prototype parameter only.
+  # It has NOT been validated against annotated data.
+  confidence_threshold: 0.3
+  # Maximum time gap (seconds) between events to form an evidence link.
+  evidence_window_s: 60.0
+
+alignment:
+  # Number of top slide candidates to retain per transcript segment.
+  top_k: 3
+  # Weights for combining temporal and semantic scores.
+  # NOTE: These are initial prototype defaults only.
+  # They have NOT been validated experimentally and MUST be tuned
+  # against ground-truth alignment annotations before production use.
+  temporal_weight: 0.5
+  semantic_weight: 0.5
+  # Minimum combined score required to assign a slide.
+  # Segments below this threshold are labelled NO_CONFIDENT_SLIDE.
+  threshold: 0.3
+
+interaction:
+  # Maximum time gap (seconds) between events to create a Pass-3 interaction.
+  # NOTE: Prototype default — not validated against annotated data.
+  temporal_window: 60
+  # Minimum semantic similarity score (reserved for future semantic pass).
+  # NOTE: Prototype default — not validated.
+  semantic_threshold: 0.5
+
+influence:
+  # Normalisation strategy: "max" (divide by max across participants).
+  normalization: max
+  # Feature weights for the weighted influence score.
+  # NOTE: These are INITIAL PROTOTYPE WEIGHTS ONLY.
+  # They have NOT been validated experimentally.
+  # All weights must be non-negative; they are normalised to sum to 1.0.
+  weights:
+    proposal:      0.15
+    evidence:      0.20
+    objection:     0.15
+    revision:      0.20
+    decision:      0.15
+    interaction:   0.05
+    slide_grounding: 0.10
+
+evaluation:
+  metrics:
+    wer:        true
+    der:        true
+    alignment:  true
+    events:     true
+    decisions:  true
+    lineage:    true
+    influence:  true
+    efficiency: true
+  influence:
+    ranking_metrics:
+      - spearman
+      - kendall
+  alignment:
+    # Tolerance in seconds for timestamp-based event/alignment matching.
+    timestamp_tolerance: 5
+  efficiency:
+    measure_memory: true
+
+report:
+  formats:
+    - json
+    - markdown
+    - html
+    - csv
+  include:
+    summary:      true
+    participants: true
+    topics:       true
+    slides:       true
+    proposals:    true
+    evidence:     true
+    decisions:    true
+    action_items: true
+    interactions: true
+    influence:    true
+    evaluation:   true
+    ablation:     true
+    traceability: true
+
+asr:
+  # faster-whisper model size: tiny | base | small | medium | large-v2 | large-v3
+  model_size: base
+  # Device for inference: cpu | cuda | auto
+  # Default to CPU for stability on machines without a working CUDA runtime.
+  device: cpu
+  # Compute type: int8 | float16 | float32 (int8 on CPU, float16 on CUDA)
+  compute_type: int8
+  # Language hint (null = auto-detect)
+  language: null
+  # Beam size for decoding
+  beam_size: 5
+  # Minimum overlap fraction (0.0–1.0) for speaker attribution.
+  # An ASR segment must overlap a diarization segment by at least this fraction
+  # of the ASR segment's duration to be attributed to that speaker.
+  min_overlap_ratio: 0.3

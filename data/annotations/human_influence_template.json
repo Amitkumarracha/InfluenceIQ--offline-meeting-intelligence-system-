@@ -1,0 +1,26 @@
+{
+  "_description": "Human annotation template for participant influence evaluation.",
+  "_instructions": [
+    "This template must be filled in by a human annotator.",
+    "Do NOT populate with fabricated or system-generated rankings.",
+    "Rankings must reflect genuine human judgment about decision influence.",
+    "Multiple annotators should fill in separate copies for inter-rater agreement."
+  ],
+  "meeting_id": "<meeting_id>",
+  "annotator_id": "<annotator_id>",
+  "annotation_date": "<YYYY-MM-DD>",
+  "meeting_level_ranking": {
+    "_instructions": "List participants from most to least influential in decisions overall.",
+    "ranking": []
+  },
+  "decision_rankings": [
+    {
+      "_instructions": "Repeat this block for each decision.",
+      "decision_id": "<decision_id>",
+      "decision_summary": "<brief description of the decision>",
+      "ranking": [],
+      "notes": {}
+    }
+  ],
+  "inter_rater_notes": "<Optional: notes about agreement/disagreement with other annotators>"
+}

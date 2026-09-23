@@ -1,0 +1,14 @@
+{
+  "meeting_id": "IB4003",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/IB4003_transcript.json",
+  "started_at": "2026-09-17T09:39:01Z",
+  "updated_at": "2026-09-18T11:06:17Z"
+}

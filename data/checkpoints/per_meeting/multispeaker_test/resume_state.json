@@ -1,0 +1,14 @@
+{
+  "meeting_id": "multispeaker_test",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/multispeaker_test_transcript.json",
+  "started_at": "2026-09-18T18:42:27Z",
+  "updated_at": "2026-09-18T19:14:30Z"
+}

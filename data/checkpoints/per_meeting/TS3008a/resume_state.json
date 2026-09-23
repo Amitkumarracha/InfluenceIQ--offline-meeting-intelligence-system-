@@ -1,0 +1,14 @@
+{
+  "meeting_id": "TS3008a",
+  "current_stage": "asr",
+  "completed_stages": [
+    "asr",
+    "diarization",
+    "preprocessing",
+    "vad"
+  ],
+  "status": "running",
+  "last_output": "/home/CL502-12/MAI Project/data/processed/audio/TS3008a_transcript.json",
+  "started_at": "2026-09-18T13:02:21Z",
+  "updated_at": "2026-09-18T13:04:23Z"
+}

@@ -1,0 +1,27 @@
+{
+  "_description": "Ground-truth annotation schema for Phase 12 evaluation.",
+  "_instructions": [
+    "Fill in each section with real human annotations.",
+    "Do NOT populate this file with fabricated values.",
+    "Leave a section as null if the ground truth is unavailable for that metric.",
+    "Clearly distinguish GROUND TRUTH from SYSTEM OUTPUT."
+  ],
+  "meeting_id": "<meeting_id>",
+  "dataset": "<dataset_name_and_version_if_known>",
+
+  "transcript_ground_truth": null,
+
+  "speaker_ground_truth": null,
+
+  "alignment_ground_truth": null,
+
+  "event_ground_truth": null,
+
+  "decision_ground_truth": null,
+
+  "lineage_ground_truth": null,
+
+  "influence_ranking": null,
+
+  "decision_influence_ranking": null
+}

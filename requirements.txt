@@ -1,0 +1,14 @@
+torch
+faster-whisper
+pyannote.audio
+silero-vad
+python-pptx
+sentence-transformers
+numpy
+pandas
+scikit-learn
+networkx
+PyYAML
+tqdm
+soundfile
+scipy

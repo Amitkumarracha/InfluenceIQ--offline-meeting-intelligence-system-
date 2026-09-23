@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# Databases
+*.db
+*.sqlite3
+
+# Node / React Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# Flutter
+flutter_frontend/.dart_tool/
+flutter_frontend/.packages
+flutter_frontend/build/
+flutter_frontend/.flutter-plugins
+flutter_frontend/.flutter-plugins-dependencies
+
+# Data & Output (HUGE files - DO NOT PUSH)
+data/custom_test/*.wav
+data/custom_test/*.webm
+data/processed/
+outputs/
+temp/
+logs/
+*.mp4
+*.m4a
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Massive Data and ML Models
+AMI_dataset/
+models/
+.venv_cuda12/
+*.pt
+*.bin

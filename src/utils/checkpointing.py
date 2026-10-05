@@ -71,7 +71,8 @@ def save_resume_state(
     if extra:
         for key, value in extra.items():
             current[key] = value
-    state_file.write_text(json.dumps(current, indent=2), encoding="utf-8")
+    from src.utils.cache import atomic_json
+    atomic_json(state_file, current)
     return current
 
 

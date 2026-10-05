@@ -229,6 +229,23 @@ _PATTERNS: dict[str, list[re.Pattern[str]]] = {
 }
 
 
+# Separate banks avoid diluting existing English scores when adding a language.
+# ponytail: phrase matching misses context; replace only after labelled bilingual evaluation.
+_BILINGUAL_PATTERNS = {
+    "proposal": [r"हमें .+ चाहिए", r"मेरा सुझाव", r"हम .+ कर सकते", r"\bhume[n]? .+ chahiye\b", r"\bmera sujha[av]+\b"],
+    "question": [r"^(क्या|क्यों|कैसे|कब|कौन|कहाँ)", r"\b(kya|kyun|kaise|kab|kaun)\b.*\?"],
+    "objection": [r"समस्या यह है", r"यह काम नहीं करेगा", r"\b(yeh|ye) kaam nahi[n]? karega\b"],
+    "evidence": [r"आंकड़ों के अनुसार", r"डेटा के अनुसार", r"रिपोर्ट के अनुसार", r"\bdata ke (hisab|hisaab|anusaar)\b"],
+    "clarification": [r"मेरा मतलब", r"स्पष्ट कर", r"\bmera matlab\b"],
+    "agreement": [r"मैं सहमत हूँ", r"मैं सहमत हूं", r"बिल्कुल सही", r"\bmain sehmat (hoon|hun)\b", r"\bbilkul sahi\b"],
+    "disagreement": [r"सहमत नहीं", r"मैं असहमत", r"\bsehmat nahi[n]?\b"],
+    "revision": [r"इसके बजाय", r"बदलना चाहिए", r"\biske baja[yi]\b"],
+    "decision": [r"हमने (तय|फैसला|निर्णय) किया", r"तय हो गया", r"अंतिम निर्णय", r"\bhumne (tay|faisla|decide) kiya\b", r"\bfinal decision (hai|yeh)\b"],
+    "action_item": [r"मैं .+ (भेज|तैयार|पूरा|कर).*(दूंगा|दूँगा|दूंगी|दूँगी|करूंगा|करूँगा|करूंगी|करूँगी)", r"\bmain .+ (bhej|complete|prepare|kar).*(dunga|dungi|karunga|karungi)\b"],
+}
+_BILINGUAL_PATTERNS = {key: [re.compile(p, re.I) for p in patterns] for key, patterns in _BILINGUAL_PATTERNS.items()}
+
+
 def _match_event_type(
     text: str,
     active_types: list[str],
@@ -249,11 +266,14 @@ def _match_event_type(
             continue
 
         hits = sum(1 for p in patterns if p.search(text))
-        if hits == 0:
+        bilingual_hits = sum(1 for p in _BILINGUAL_PATTERNS.get(etype, []) if p.search(text))
+        if etype == "decision" and re.search(r"(?:not|never)\s+(?:yet\s+)?decided|निर्णय नहीं|फैसला नहीं|तय नहीं|decide nahi", text, re.I):
+            continue
+        if hits == 0 and bilingual_hits == 0:
             continue
 
         # Normalise by number of patterns; cap at 1.0
-        score = min(1.0, hits / max(1, len(patterns)) * 3.0)
+        score = max(min(1.0, hits / max(1, len(patterns)) * 3.0), min(0.8, bilingual_hits * 0.6))
         if score > best_score:
             best_score = score
             best_type = etype

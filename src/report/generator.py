@@ -132,6 +132,7 @@ class MeetingReport:
     evaluation: dict[str, Any]
     ablation: dict[str, Any]
     traceability: dict[str, Any]
+    processing: dict[str, Any] = field(default_factory=dict)
 
 
 # ---------------------------------------------------------------------------
@@ -202,6 +203,7 @@ def _resolve_input_paths(meeting_id: str, input_dir: Path) -> dict[str, Path]:
     sld_dir  = input_dir / "slides"
     aln_dir  = input_dir / "alignment"
     return {
+        "transcript":   input_dir / "audio" / f"{meeting_id}_transcript.json",
         "events":       ev_dir  / f"{meeting_id}_events.json",
         "evidence":     ev_dir  / f"{meeting_id}_evidence.json",
         "decisions":    dec_dir / f"{meeting_id}_decisions.json",
@@ -259,14 +261,16 @@ def _build_participants(
     interactions_data: dict | None,
     influence_data: dict | None,
     decisions_data: dict | None,
+    transcript_data: dict | None = None,
 ) -> list[ParticipantSummary]:
     events = (events_data or {}).get("events", [])
-    all_speakers = sorted({e.get("speaker", "UNKNOWN") for e in events})
+    speech = transcript_data.get("segments", []) if transcript_data is not None else events
+    all_speakers = sorted({e.get("speaker", "UNKNOWN") for e in speech if e.get("speaker") != "UNKNOWN"})
 
     # Speaking duration and turns
     speaking_time: dict[str, float] = {sp: 0.0 for sp in all_speakers}
     turn_count: dict[str, int] = {sp: 0 for sp in all_speakers}
-    for e in events:
+    for e in speech:
         sp = e.get("speaker", "UNKNOWN")
         if sp in speaking_time:
             speaking_time[sp] += float(e.get("end", 0)) - float(e.get("start", 0))
@@ -710,6 +714,7 @@ def generate_report(
     input_dir: Path,
     eval_metrics_path: Path | None = None,
     ablation_path: Path | None = None,
+    include_slides: bool = True,
 ) -> MeetingReport:
     """
     Generate a MeetingReport from existing pipeline outputs.
@@ -728,13 +733,14 @@ def generate_report(
     paths = _resolve_input_paths(meeting_id, input_dir)
 
     # Load all available outputs
+    transcript_data  = _load_json(paths["transcript"])
     events_data      = _load_json(paths["events"])
     evidence_data    = _load_json(paths["evidence"])
     decisions_data   = _load_json(paths["decisions"])
     interactions_data = _load_json(paths["interactions"])
     influence_data   = _load_json(paths["influence"])
-    slides_data      = _load_json(paths["slides"])
-    alignment_data   = _load_json(paths["alignment"])
+    slides_data      = _load_json(paths["slides"]) if include_slides else None
+    alignment_data   = _load_json(paths["alignment"]) if include_slides else None
     eval_data        = _load_json(eval_metrics_path or paths["eval_metrics"])
     ablation_data    = _load_json(ablation_path or paths["eval_ablation"])
 
@@ -747,7 +753,10 @@ def generate_report(
     )
 
     overview     = _build_overview(meeting_id, events_data, decisions_data, interactions_data, slides_data)
-    participants = _build_participants(events_data, interactions_data, influence_data, decisions_data)
+    participants = _build_participants(events_data, interactions_data, influence_data, decisions_data, transcript_data)
+    if transcript_data is not None:
+        overview.duration_s = transcript_data.get("duration")
+        overview.num_participants = len(participants)
     summary      = _build_executive_summary(events_data, decisions_data)
     slide_discs  = _build_slide_discussions(events_data, alignment_data)
     proposals    = _build_proposals(events_data, decisions_data)

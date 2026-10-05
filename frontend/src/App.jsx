@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { 
-  UploadCloud, FileAudio, FileVideo, Activity, Users, CheckCircle, ChevronRight, 
-  BarChart3, Database, History, RefreshCw, X, Lock, Mail, MessageSquare, 
-  Search, Download, Settings, MessageCircle, Kanban, BookOpen, Edit2, Check,
-  Key, HardDrive, Printer, AlignLeft, User, PlayCircle, Mic2
+import { saveChunk, clearRecording, recordingExists, restoreRecording } from './recordingStore';
+import {
+  FileAudio, FileVideo, Users, CheckCircle, ChevronRight,
+  BarChart3, History, RefreshCw, X, Lock, Mail, MessageSquare,
+  Search, Download, Kanban, Edit2, Check,
+  Key, Printer, AlignLeft, User, PlayCircle, Mic2
 } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 // Add global interceptor for JWT
 axios.interceptors.request.use((config) => {
@@ -22,24 +22,23 @@ function App() {
   const [email, setEmail] = useState(localStorage.getItem('userEmail') || '');
 
   // Auth Views: 'login', 'register', 'forgot', 'reset'
-  const [authView, setAuthView] = useState('login'); 
+  const [authView, setAuthView] = useState('login');
   const [authEmail, setAuthEmail] = useState('');
   const [authPassword, setAuthPassword] = useState('');
   const [resetToken, setResetToken] = useState('');
   const [authError, setAuthError] = useState('');
   const [authSuccess, setAuthSuccess] = useState('');
 
-  const [activeTab, setActiveTab] = useState('meetings'); 
   const [meetings, setMeetings] = useState([]);
   const [selectedMeetingId, setSelectedMeetingId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [transcriptSearch, setTranscriptSearch] = useState('');
-  
+
   const [audioFiles, setAudioFiles] = useState(null);
   const [pptFiles, setPptFiles] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const [reportData, setReportData] = useState(null);
   const [meetingStatus, setMeetingStatus] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -53,7 +52,10 @@ function App() {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const mediaRecorderRef = React.useRef(null);
-  const audioChunksRef = React.useRef([]);
+  const recordingWriteRef = React.useRef(Promise.resolve());
+  const [hasDraft, setHasDraft] = useState(false);
+  const [processingStage, setProcessingStage] = useState(null);
+  const [modelReady, setModelReady] = useState(null);
   const timerRef = React.useRef(null);
 
   // --- Authentication Handlers ---
@@ -114,18 +116,19 @@ function App() {
 
   useEffect(() => {
     if (!token) return;
-    fetchMeetings();
+    Promise.resolve().then(fetchMeetings);
     const interval = setInterval(fetchMeetings, 10000);
     return () => clearInterval(interval);
   }, [token]);
 
   useEffect(() => {
     let interval = null;
-    if (selectedMeetingId && meetingStatus === 'processing') {
+    if (selectedMeetingId && ['queued', 'processing'].includes(meetingStatus)) {
       interval = setInterval(async () => {
         try {
           const res = await axios.get(`${API_URL}/meetings/${selectedMeetingId}`);
           setMeetingStatus(res.data.status);
+          setProcessingStage(res.data.stage);
           if (res.data.status === 'completed') {
             setReportData(res.data.data);
             setAudioUrl(res.data.audio_url);
@@ -133,7 +136,7 @@ function App() {
             fetchMeetings();
           } else if (res.data.status === 'failed') {
             clearInterval(interval);
-            setError("Meeting processing failed.");
+            setError(res.data.error || "Meeting processing failed.");
           }
         } catch (err) { console.error(err); }
       }, 3000);
@@ -143,19 +146,21 @@ function App() {
 
   // --- App Actions ---
   const loadMeeting = async (id) => {
-    setActiveTab('meetings'); 
-    setSelectedMeetingId(id); 
-    setError(''); 
+    setSelectedMeetingId(id);
+    setError('');
     setReportData(null);
     setAudioUrl(null);
     setReportViewTab('highlights');
     setTranscriptSearch('');
+    setSpeakerNames(JSON.parse(localStorage.getItem(`speakerNames:${email}:${id}`) || '{}'));
     try {
       const res = await axios.get(`${API_URL}/meetings/${id}`);
       setMeetingStatus(res.data.status);
+      setProcessingStage(res.data.stage);
+      if (res.data.status === "failed") setError(res.data.error || "Processing failed");
       setAudioUrl(res.data.audio_url);
       if (res.data.status === 'completed') setReportData(res.data.data);
-    } catch (err) { setError("Failed to load meeting."); }
+    } catch { setError("Failed to load meeting."); }
   };
 
   const handleAnalyze = async (overrideAudioFiles = null) => {
@@ -168,33 +173,67 @@ function App() {
     try {
       const res = await axios.post(`${API_URL}/analyze`, formData, { headers: { 'Content-Type': 'multipart/form-data' }});
       fetchMeetings(); loadMeeting(res.data.meeting_id); setAudioFiles(null); setPptFiles(null);
-    } catch (err) { setError("Upload failed."); } finally { setUploading(false); }
+      if (targetAudio[0]?.name.startsWith("meeting-recording")) { await clearRecording(); setHasDraft(false); }
+    } catch (err) { setError(err.response?.data?.detail || "Upload failed. Your saved recording is still available."); } finally { setUploading(false); }
+  };
+
+  useEffect(() => {
+    recordingExists().then(count => setHasDraft(count > 0)).catch(() => {});
+    axios.get(`${API_URL}/health`).then(res => setModelReady(res.data.asr_ready)).catch(() => setModelReady(false));
+    return () => {
+      clearInterval(timerRef.current);
+      const recorder = mediaRecorderRef.current;
+      if (recorder?.state === 'recording') recorder.stop();
+      recorder?.stream.getTracks().forEach(track => track.stop());
+    };
+  }, []);
+
+  useEffect(() => {
+    const warn = event => { if (isRecording) { event.preventDefault(); event.returnValue = ''; } };
+    window.addEventListener('beforeunload', warn);
+    return () => window.removeEventListener('beforeunload', warn);
+  }, [isRecording]);
+
+  const recoverDraft = async () => {
+    try { const file = await restoreRecording(); if (file) setAudioFiles([file]); }
+    catch { setError('Could not recover the saved recording.'); }
   };
 
   const startRecording = async () => {
+    let stream;
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream);
-      audioChunksRef.current = [];
-      
-      mediaRecorderRef.current.ondataavailable = (e) => {
-        if (e.data.size > 0) audioChunksRef.current.push(e.data);
+      if (hasDraft) { setError('Recover or discard the saved recording before starting another.'); return; }
+      if (!navigator.mediaDevices?.getUserMedia) throw new Error('Microphone recording requires HTTPS or localhost.');
+      stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+      const mimeType = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/ogg;codecs=opus'].find(type => MediaRecorder.isTypeSupported(type));
+      const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : {});
+      mediaRecorderRef.current = recorder;
+      await clearRecording();
+      recordingWriteRef.current = Promise.resolve();
+      recorder.ondataavailable = event => {
+        if (!event.data.size) return;
+        recordingWriteRef.current = recordingWriteRef.current.then(() => saveChunk(event.data));
+        recordingWriteRef.current.catch(() => {
+          setError('Recording storage is full or unavailable. Recording stopped; recover the saved portion.');
+          if (recorder.state === 'recording') recorder.stop();
+        });
       };
-      
-      mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-        const file = new File([audioBlob], "live_recording.webm", { type: 'audio/webm' });
-        setAudioFiles([file]);
-        handleAnalyze([file]); 
+      recorder.onstop = async () => {
+        stream.getTracks().forEach(track => track.stop());
+        clearInterval(timerRef.current);
+        setIsRecording(false);
+        try { await recordingWriteRef.current; } catch { /* Recover the persisted portion below. */ }
+        setHasDraft(true);
+        await recoverDraft();
       };
-      
-      mediaRecorderRef.current.start(1000);
+      recorder.onerror = () => { setError('Microphone recording was interrupted. Recover the saved recording.'); recorder.stream.getTracks().forEach(track => track.stop()); };
+      recorder.start(5000);
       setIsRecording(true);
       setRecordingTime(0);
       timerRef.current = setInterval(() => setRecordingTime(prev => prev + 1), 1000);
     } catch (err) {
-      console.error("Error accessing mic:", err);
-      setError("Microphone access denied or unavailable.");
+      stream?.getTracks().forEach(track => track.stop());
+      setError(err.message || 'Microphone access denied or unavailable.');
     }
   };
 
@@ -206,7 +245,7 @@ function App() {
       clearInterval(timerRef.current);
     }
   };
-  
+
   const formatTime = (secs) => {
     const m = Math.floor(secs / 60).toString().padStart(2, '0');
     const s = (secs % 60).toString().padStart(2, '0');
@@ -215,24 +254,22 @@ function App() {
   const saveSpeakerName = (speakerId) => {
     setSpeakerNames(prev => ({ ...prev, [speakerId]: editNameValue }));
     setEditingSpeaker(null);
+    localStorage.setItem(`speakerNames:${email}:${selectedMeetingId}`, JSON.stringify({ ...speakerNames, [speakerId]: editNameValue }));
   };
 
-  const exportReport = () => {
-    if (!reportData) return;
-    let content = `# Intelligence Report: ${selectedMeetingId}\n\n`;
-    content += `## Metrics\n- Participants: ${reportData.participants?.length || 0}\n- Decisions: ${reportData.executive_summary?.num_confirmed_decisions || 0}\n- Events: ${reportData.executive_summary?.num_proposals || 0}\n\n`;
-    content += `## Highlights & Decisions\n`;
-    if (reportData.executive_summary?.confirmed_decisions) {
-      reportData.executive_summary.confirmed_decisions.forEach((d, i) => { content += `${i+1}. ${d.final_decision}\n`; });
-    }
-    const blob = new Blob([content], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = `${selectedMeetingId}_report.md`; a.click();
+  const exportReport = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/meetings/${selectedMeetingId}/export`, { responseType: 'blob' });
+      const url = URL.createObjectURL(response.data);
+      const link = document.createElement('a');
+      link.href = url; link.download = `${selectedMeetingId}_report.json`; link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch { setError('Report export failed.'); }
   };
 
   const findContext = (textOrTimestamp) => {
     if (!reportData || !reportData.transcript_segments || reportData.transcript_segments.length === 0) return null;
-    
+
     let index = -1;
     if (typeof textOrTimestamp === 'string' && textOrTimestamp) {
       const target = textOrTimestamp.trim().toLowerCase();
@@ -253,7 +290,7 @@ function App() {
 
     const startIdx = Math.max(0, index - 1);
     const endIdx = Math.min(reportData.transcript_segments.length - 1, index + 1);
-    
+
     return reportData.transcript_segments.slice(startIdx, endIdx + 1).map(s => ({
       ...s,
       isTarget: s === reportData.transcript_segments[index]
@@ -274,7 +311,7 @@ function App() {
           <div className="p-8">
             {authError && <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm font-medium rounded-lg border border-red-200">{authError}</div>}
             {authSuccess && <div className="mb-4 p-3 bg-emerald-50 text-emerald-600 text-sm font-medium rounded-lg border border-emerald-200">{authSuccess}</div>}
-            
+
             <form onSubmit={handleAuthSubmit} className="space-y-5">
               {authView !== 'reset' && (
                 <div>
@@ -328,7 +365,7 @@ function App() {
 
   // --- Main App ---
   const filteredMeetings = meetings.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase()) || m.id.includes(searchQuery));
-  
+
   return (
     <div className="flex h-screen bg-slate-50 text-slate-900 font-sans overflow-hidden print:h-auto print:block print:bg-white">
       {/* Dark Premium Sidebar - HIDDEN ON PRINT */}
@@ -339,32 +376,32 @@ function App() {
           </div>
           <h1 className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300 tracking-tight">Meet IQ</h1>
         </div>
-        
+
         <div className="p-4 flex-1 flex flex-col overflow-hidden">
-          <button 
+          <button
             onClick={() => { setSelectedMeetingId(null); setReportData(null); setMeetingStatus(null); setAudioUrl(null); }}
             className="w-full mb-6 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center transition shadow-lg"
           >
             + Analyze New Meeting
           </button>
-          
+
           <div className="relative mb-6">
             <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
             <input type="text" placeholder="Search history..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-9 pr-3 py-2 bg-slate-800 border-none rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-200 placeholder-slate-500" />
           </div>
-          
+
           <div className="flex items-center space-x-2 mb-3 text-slate-500 px-1">
             <History className="w-4 h-4" />
             <h2 className="text-xs font-bold uppercase tracking-widest">Meeting Library</h2>
           </div>
-          
+
           <div className="space-y-2 overflow-y-auto flex-1 pr-1 custom-scrollbar">
             {filteredMeetings.map(m => (
               <div key={m.id} onClick={() => loadMeeting(m.id)} className={`p-3 rounded-xl cursor-pointer border transition ${selectedMeetingId === m.id ? 'bg-indigo-900/50 border-indigo-500/50 shadow-inner' : 'bg-slate-800/30 border-transparent hover:bg-slate-800'}`}>
                 <div className="flex justify-between items-center mb-1">
                   <span className="font-semibold text-sm truncate pr-2 text-slate-200">{m.title}</span>
                   {m.status === 'completed' && <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />}
-                  {m.status === 'processing' && <RefreshCw className="w-4 h-4 text-indigo-400 animate-spin flex-shrink-0" />}
+                  {['queued', 'processing'].includes(m.status) && <RefreshCw className="w-4 h-4 text-indigo-400 animate-spin flex-shrink-0" />}
                   {m.status === 'failed' && <X className="w-4 h-4 text-red-400 flex-shrink-0" />}
                 </div>
                 <div className="text-xs text-slate-500 font-mono truncate">{m.id}</div>
@@ -389,13 +426,19 @@ function App() {
 
       {/* Main Content Area */}
       <main className="flex-1 h-full overflow-y-auto p-10 relative bg-slate-50 print:p-0 print:overflow-visible print:bg-white print:block">
-        
+        {modelReady === false && <p role="status" className="p-4 bg-amber-50 text-amber-900">Speech model is unavailable. Complete model setup on the laptop before analysis.</p>}
+        {hasDraft && <div className="p-4 bg-blue-50 flex flex-wrap gap-3 items-center"><span>Recording saved on this device.</span><button onClick={recoverDraft} className="underline">Recover recording</button><button onClick={async () => { await clearRecording(); setHasDraft(false); setAudioFiles(null); }} className="underline">Discard recording</button></div>}
+        {['queued', 'processing'].includes(meetingStatus) && <p role="status" className="p-4 bg-indigo-50">Processing stage: {processingStage || meetingStatus}. You can return to this meeting later.</p>}
+        {meetingStatus === 'failed' && <button className="m-4 underline" onClick={async () => { try { await axios.post(`${API_URL}/meetings/${selectedMeetingId}/retry`); setMeetingStatus('queued'); setError(''); } catch (err) { setError(err.response?.data?.detail || 'Retry failed'); } }}>Retry processing</button>}
+        {reportData?.processing?.warnings?.map((warning, i) => <p key={i} className="p-4 bg-amber-50 text-amber-900">{warning}</p>)}
+
+
         {/* Upload State */}
         {!selectedMeetingId && (
           <div className="max-w-2xl mx-auto bg-white p-10 rounded-2xl shadow-xl border border-slate-100 animate-fade-in mt-10 print:hidden">
             <h2 className="text-3xl font-extrabold mb-2 text-slate-900">Ingest Offline Data</h2>
-            <p className="text-slate-500 mb-8 font-medium">Record live or upload hardware mic arrays for AI processing.</p>
-            
+            <p className="text-slate-500 mb-8 font-medium">Record on your device or upload meeting audio for local analysis.</p>
+
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Live Record Card */}
@@ -407,7 +450,7 @@ function App() {
                         <div className="w-6 h-6 bg-red-600 rounded-full relative z-10"></div>
                       </div>
                       <span className="text-xl font-black text-red-600 mb-2">{formatTime(recordingTime)}</span>
-                      <button onClick={stopRecording} className="mt-2 px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold shadow-md transition w-full">Stop & Analyze</button>
+                      <button onClick={stopRecording} className="mt-2 px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold shadow-md transition w-full">Stop & Save</button>
                     </>
                   ) : (
                     <>
@@ -437,9 +480,9 @@ function App() {
                 {pptFiles && pptFiles.length > 0 && <p className="mt-2 text-xs text-indigo-600 font-bold bg-indigo-100 px-3 py-1 rounded-full">{pptFiles.length} file(s) selected</p>}
               </div>
             </div>
-            
+
             {error && <p className="text-red-500 text-sm mt-6 text-center font-bold bg-red-50 py-2 rounded-lg">{error}</p>}
-            
+
             {!isRecording && (
               <button onClick={() => handleAnalyze(null)} disabled={uploading || (!audioFiles || audioFiles.length === 0)} className="w-full mt-8 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center transition shadow-lg text-lg">
                 {uploading ? 'Initializing GPU Pipeline...' : 'Launch Intelligence Engine'} <ChevronRight className="w-6 h-6 ml-2" />
@@ -449,7 +492,7 @@ function App() {
         )}
 
         {/* Processing State */}
-        {selectedMeetingId && meetingStatus === 'processing' && (
+        {selectedMeetingId && ['queued', 'processing'].includes(meetingStatus) && (
           <div className="flex flex-col items-center justify-center h-full space-y-8 animate-fade-in pb-20 print:hidden">
             <div className="relative">
               <div className="absolute inset-0 border-4 border-indigo-200 rounded-full animate-ping opacity-30"></div>
@@ -466,7 +509,7 @@ function App() {
         {/* Dashboard State */}
         {selectedMeetingId && meetingStatus === 'completed' && reportData && (
           <div className="space-y-8 animate-fade-in max-w-5xl mx-auto pb-20 pt-2 print:space-y-6 print:pb-0 print:pt-0 print:max-w-none" id="printable-report">
-            
+
             {/* Header */}
             <div className="flex items-end justify-between border-b border-slate-200 pb-6 print:border-b-2 print:border-black print:pb-4">
               <div>
@@ -478,11 +521,11 @@ function App() {
                   <Printer className="w-4 h-4" /><span>Print PDF</span>
                 </button>
                 <button onClick={exportReport} className="flex items-center space-x-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold transition shadow-md">
-                  <Download className="w-4 h-4" /><span>Export .md</span>
+                  <Download className="w-4 h-4" /><span>Export JSON</span>
                 </button>
               </div>
             </div>
-            
+
             {/* Audio Player (If Available) - HIDDEN ON PRINT */}
             {audioUrl && (
               <div className="bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-5 flex items-center space-x-6 print:hidden">
@@ -500,7 +543,7 @@ function App() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 print:grid-cols-3 print:gap-2">
                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-5 print:shadow-none print:border print:border-slate-300">
                  <div className="bg-indigo-50 p-4 rounded-2xl print:hidden"><Users className="text-indigo-600 w-6 h-6" /></div>
-                 <div><p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1 print:text-black">Participants</p><p className="text-3xl font-black text-slate-800 print:text-black">{reportData.participants?.length || 0}</p></div>
+                 <div><p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1 print:text-black">Participants</p><p className="text-3xl font-black text-slate-800 print:text-black">{reportData.processing?.speaker_separation === false ? "Unknown" : reportData.participants?.length || 0}</p></div>
                </div>
                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-5 print:shadow-none print:border print:border-slate-300">
                  <div className="bg-emerald-50 p-4 rounded-2xl print:hidden"><CheckCircle className="text-emerald-600 w-6 h-6" /></div>
@@ -550,7 +593,7 @@ function App() {
                 </table>
               </div>
             </div>
-            
+
             {/* Tabbed View: Highlights vs Transcript - HIDDEN ON PRINT */}
             <div className="mt-10 border-b border-slate-200 print:hidden">
               <nav className="flex space-x-10">
@@ -567,7 +610,7 @@ function App() {
             <div className={`bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-fade-in print:shadow-none print:border-none print:rounded-none print:block print:mt-10 ${reportViewTab === 'highlights' ? 'block' : 'hidden'}`}>
                 <div className="px-8 py-5 border-b border-slate-200 bg-slate-50 flex items-center space-x-3 print:bg-white print:border-b-2 print:border-black print:px-0">
                   <MessageSquare className="w-5 h-5 text-indigo-600 print:hidden" />
-                  <h3 className="font-bold text-slate-800 text-2xl print:text-black">Confirmed Decisions</h3>
+                  <h3 className="font-bold text-slate-800 text-2xl print:text-black">Decision Candidates</h3>
                 </div>
                 <div className="p-8 space-y-6 print:px-0">
                   {reportData.executive_summary?.confirmed_decisions && reportData.executive_summary.confirmed_decisions.length > 0 ? (
@@ -579,7 +622,7 @@ function App() {
                           <div className="absolute top-0 left-0 w-1.5 bottom-0 bg-emerald-500 print:hidden"></div>
                           <h4 className="font-black text-emerald-800 mb-2 text-xs uppercase tracking-widest print:text-black">Decision {i+1}</h4>
                           <p className="text-emerald-950 font-medium text-lg leading-relaxed print:text-black">"{dec.final_decision}"</p>
-                          
+
                           {context && (
                             <div className="mt-4 pt-4 border-t border-emerald-200/50">
                               <p className="text-xs font-bold uppercase tracking-widest text-emerald-700/70 mb-2 print:text-slate-500">Transcript Context</p>
@@ -588,7 +631,7 @@ function App() {
                                    const speakerName = speakerNames[seg.speaker] || seg.speaker;
                                    return (
                                      <div key={idx} className={`text-sm leading-relaxed ${seg.isTarget ? 'font-black text-emerald-900 print:text-black' : 'text-emerald-700/70 font-medium print:text-slate-600'}`}>
-                                       <span className="font-semibold uppercase tracking-wide mr-2 text-xs opacity-70">{speakerName}:</span> 
+                                       <span className="font-semibold uppercase tracking-wide mr-2 text-xs opacity-70">{speakerName}:</span>
                                        {seg.text}
                                      </div>
                                    )
@@ -624,7 +667,7 @@ function App() {
                               <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 border border-amber-300 print:bg-transparent print:border-black print:text-black">Assigned: {assigneeName}</span>
                             </div>
                             <p className="text-amber-950 font-medium text-lg leading-relaxed print:text-black">{task.text}</p>
-                            
+
                             {(() => {
                               const context = findContext(task.text);
                               if (!context) return null;
@@ -636,7 +679,7 @@ function App() {
                                        const speakerName = speakerNames[seg.speaker] || seg.speaker;
                                        return (
                                          <div key={idx} className={`text-sm leading-relaxed ${seg.isTarget ? 'font-black text-amber-900 print:text-black' : 'text-amber-700/70 font-medium print:text-slate-600'}`}>
-                                           <span className="font-semibold uppercase tracking-wide mr-2 text-xs opacity-70">{speakerName}:</span> 
+                                           <span className="font-semibold uppercase tracking-wide mr-2 text-xs opacity-70">{speakerName}:</span>
                                            {seg.text}
                                          </div>
                                        )
@@ -667,7 +710,7 @@ function App() {
                     <input type="text" placeholder="Search transcript..." value={transcriptSearch} onChange={(e) => setTranscriptSearch(e.target.value)} className="pl-9 pr-3 py-1.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none" />
                   </div>
                 </div>
-                
+
                 <div className="p-8 overflow-y-auto space-y-5 flex-1 custom-scrollbar print:p-0 print:overflow-visible print:max-h-none print:mt-6">
                   {reportData.transcript_segments && reportData.transcript_segments.length > 0 ? (
                     reportData.transcript_segments.filter(s => s.text.toLowerCase().includes(transcriptSearch.toLowerCase()) || (speakerNames[s.speaker] || s.speaker).toLowerCase().includes(transcriptSearch.toLowerCase())).map((segment, i) => {
@@ -679,7 +722,7 @@ function App() {
                       return (
                         <div key={i} className="flex flex-col mb-4 print:break-inside-avoid">
                           <span className="text-xs font-black text-slate-400 uppercase tracking-wider mb-1.5 px-1 flex items-center print:text-black">
-                            {speakerName} <span className="font-mono lowercase text-slate-400 ml-3 font-medium print:text-slate-600">{new Date(segment.start * 1000).toISOString().substring(14, 19)}</span>
+                            {speakerName} <span className="font-mono lowercase text-slate-400 ml-3 font-medium print:text-slate-600">{formatTime(Math.floor(segment.start))}</span>
                           </span>
                           <div className={`p-4 rounded-2xl rounded-tl-sm border inline-block max-w-[90%] shadow-sm ${colorClass} text-base leading-relaxed print:bg-transparent print:border-none print:p-0 print:shadow-none print:text-black print:max-w-full`}>
                             {segment.text}

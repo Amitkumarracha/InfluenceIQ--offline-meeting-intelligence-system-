@@ -1,0 +1,28 @@
+const { chromium } = require(process.env.MAI_PLAYWRIGHT || '../.runtime/browser/node_modules/playwright');
+(async () => {
+ const browser = await chromium.launch({headless:true, channel:'chromium', args:['--no-sandbox']});
+ const page = await browser.newPage({viewport:{width:390,height:844}});
+ const errors=[]; page.on('pageerror', error=>errors.push(error.message));
+ await page.goto('http://127.0.0.1:8000');
+ await page.getByRole('button',{name:'Register',exact:true}).click();
+ await page.locator('input[type=email]').fill(`validation-${Date.now()}@example.invalid`);
+ await page.locator('input[type=password]').fill('Laptop-validation-2026');
+ await page.getByRole('button',{name:'Create Account',exact:true}).click();
+ await page.getByText('Analyze New Meeting',{exact:false}).waitFor();
+ const fileInputs=page.locator('input[type=file]');
+ await fileInputs.first().setInputFiles('.runtime/validation/ami_90s.wav');
+ await page.screenshot({path:'.runtime/validation/browser-mobile.png',fullPage:true});
+ const width=await page.evaluate(()=>({content:document.documentElement.scrollWidth,viewport:innerWidth}));
+ console.log(JSON.stringify({errors,width,fileInputs:await fileInputs.count(),text:(await page.locator('body').innerText()).slice(-1600)}));
+ if(errors.length || width.content > width.viewport) throw new Error('Browser error or horizontal overflow');
+ const responsePromise = page.waitForResponse(response => response.url().endsWith('/api/analyze') && response.request().method() === 'POST');
+ await page.getByRole('button', {name:'Launch Intelligence Engine'}).click();
+ const response = await responsePromise;
+ if(response.status() !== 202) throw new Error(await response.text());
+ const {meeting_id} = await response.json();
+ await page.waitForFunction(()=>!!document.querySelector('audio'), null, {timeout:180000});
+ await page.screenshot({path:'.runtime/validation/browser-report.png',fullPage:true});
+ console.log(JSON.stringify({meeting_id,reportLoaded:!!await page.locator('audio').count(),errors}));
+ if(errors.length) throw new Error(errors.join(';'));
+ await browser.close();
+})().catch(error=>{console.error(error);process.exit(1)});

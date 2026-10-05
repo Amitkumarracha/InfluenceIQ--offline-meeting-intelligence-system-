@@ -449,7 +449,8 @@ class TestRunASR:
         assert txt_path.exists()
 
     def test_speaker_attribution_correct(self, tmp_path):
-        wav = _make_synthetic_wav(tmp_path / "audio.wav")
+        # The mocked transcript extends to 9s, so the source must cover it.
+        wav = _make_synthetic_wav(tmp_path / "audio.wav", duration=10)
         diar_path = tmp_path / "meet_diarization.json"
         _write_diarization_json(diar_path, [
             {"start": 0.0, "end": 5.0, "speaker": "SPEAKER_00"},

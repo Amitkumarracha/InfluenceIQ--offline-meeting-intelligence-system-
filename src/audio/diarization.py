@@ -13,56 +13,6 @@ from src.utils.paths import get_processed_audio_dir
 logger = get_logger(__name__)
 
 
-def _apply_compatibility_shims() -> None:
-    """Apply compatibility shims for NumPy 2.x, PyTorch 2.6+, and modern huggingface_hub."""
-    import huggingface_hub
-    import numpy as np
-    import torch
-    import torch.serialization
-
-    # 1. NumPy 2.x compatibility (np.NaN was removed in NumPy 2.0)
-    if not hasattr(np, "NaN"):
-        np.NaN = np.nan
-    if not hasattr(np, "NAN"):
-        np.NAN = np.nan
-
-    # 2. PyTorch 2.6+ compatibility (weights_only=True default breaks pyannote/lightning checkpoints)
-    if hasattr(torch.serialization, "add_safe_globals"):
-        try:
-            import torch.torch_version
-            torch.serialization.add_safe_globals([torch.torch_version.TorchVersion])
-        except Exception:
-            pass
-
-    if not getattr(torch, "_mai_patched_load", False):
-        orig_torch_load = torch.load
-
-        def _patched_torch_load(*args, **kwargs):
-            # Explicitly force weights_only=False for legacy model checkpoints
-            kwargs["weights_only"] = False
-            return orig_torch_load(*args, **kwargs)
-
-        torch.load = _patched_torch_load
-        torch.serialization.load = _patched_torch_load
-        torch._mai_patched_load = True
-
-    # 3. huggingface_hub compatibility (use_auth_token deprecated/removed in favor of token)
-    if not getattr(huggingface_hub, "_mai_patched_download", False):
-        orig_hf_hub_download = huggingface_hub.hf_hub_download
-
-        def _patched_hf_hub_download(*args, **kwargs):
-            if "use_auth_token" in kwargs:
-                kwargs["token"] = kwargs.pop("use_auth_token")
-            return orig_hf_hub_download(*args, **kwargs)
-
-        huggingface_hub.hf_hub_download = _patched_hf_hub_download
-        huggingface_hub._mai_patched_download = True
-
-
-# Apply compatibility shims on module import
-_apply_compatibility_shims()
-
-
 @dataclass
 class DiarizationSegment:
     segment_id: int
@@ -81,7 +31,6 @@ class DiarizationResult:
 
 def _load_pipeline(hf_token: str):
     """Load pyannote diarization pipeline (model weights cached locally after first run)."""
-    _apply_compatibility_shims()
     import torch
     from pyannote.audio import Pipeline
 
@@ -92,7 +41,10 @@ def _load_pipeline(hf_token: str):
     except TypeError:
         pipeline = Pipeline.from_pretrained(model_name, token=hf_token)
 
-    if torch.cuda.is_available():
+    if pipeline is None:
+        raise RuntimeError("Diarization model unavailable. Run scripts/download_models.py --diarization first.")
+
+    if get("diarization.device", "cpu") == "cuda" and torch.cuda.is_available():
         pipeline.to(torch.device("cuda"))
         logger.info("Diarization pipeline successfully moved to CUDA device")
     else:
@@ -192,8 +144,10 @@ def run_diarization(
     out_dir = output_dir or get_processed_audio_dir()
     out_path = out_dir / f"{meeting_id}_diarization.json"
 
-    # Return cached diarization result if available
-    if out_path.exists():
+    from src.utils.cache import fingerprint, read_cache, atomic_json
+    key = fingerprint([audio_path], get("diarization"))
+    cached = read_cache(out_path, key)
+    if cached is not None:
         logger.info("Cached diarization found; loading from %s", out_path)
         with open(out_path, encoding="utf-8") as f:
             cached = json.load(f)
@@ -315,8 +269,8 @@ def run_diarization(
         "segments": [asdict(s) for s in result.segments],
     }
 
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, indent=2)
+    output["cache_key"] = key
+    atomic_json(out_path, output)
 
     logger.info("Diarization results saved: %s", out_path)
     return result, out_path

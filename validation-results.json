@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-05",
+  "status": "tested research prototype; production accuracy and physical-phone validation incomplete",
+  "automated_tests": {
+    "passed": 461,
+    "warnings": 7,
+    "elapsed_s": 29.65
+  },
+  "frontend_build": "passed",
+  "frontend_lint": "passed",
+  "python_dependencies": "consistent",
+  "small_english_ami": {
+    "dataset": "AMI manual 1.6.2",
+    "meeting": "ES2002a",
+    "channel": "Array1-01",
+    "start_s": 30,
+    "duration_s": 600.0,
+    "asr_model": "small",
+    "device": "cpu",
+    "compute_type": "int8",
+    "elapsed_s": 174.973,
+    "real_time_factor": 0.2916,
+    "process_peak_rss_mb": 890.1,
+    "wer": {
+      "status": "ok",
+      "metric": "wer",
+      "wer": 0.458364,
+      "substitutions": 150,
+      "deletions": 447,
+      "insertions": 25,
+      "reference_length": 1357,
+      "hypothesis_length": 935
+    },
+    "limitations": [
+      "Single English AMI meeting; not Hindi/English accuracy evidence",
+      "Overlapping reference words ordered by time",
+      "NFKC, lowercase, punctuation-to-spaces normalization",
+      "Elapsed time may include cache reuse on repeat runs",
+      "Speaker separation unavailable; DER not evaluated"
+    ]
+  },
+  "medium_scoped_english_ami": {
+    "dataset": "AMI manual 1.6.2",
+    "meeting": "ES2002a",
+    "channel": "Array1-01",
+    "start_s": 30,
+    "duration_s": 600.0,
+    "asr_model": "medium",
+    "device": "cpu",
+    "compute_type": "int8",
+    "elapsed_s": 357.776,
+    "real_time_factor": 0.5963,
+    "process_peak_rss_mb": 2309.2,
+    "wer": {
+      "status": "ok",
+      "metric": "wer",
+      "wer": 0.408254,
+      "substitutions": 132,
+      "deletions": 391,
+      "insertions": 31,
+      "reference_length": 1357,
+      "hypothesis_length": 997
+    },
+    "limitations": [
+      "Single English AMI meeting; not Hindi/English accuracy evidence",
+      "Overlapping reference words ordered by time",
+      "NFKC, lowercase, punctuation-to-spaces normalization",
+      "Elapsed time may include cache reuse on repeat runs",
+      "Speaker separation unavailable; DER not evaluated"
+    ]
+  },
+  "long_timeline_offline": {
+    "duration_s": 7290,
+    "elapsed_s": 189.739,
+    "network_connect_attempts": 0,
+    "transcript_segments": 21,
+    "first_segment_start": 7202.05,
+    "peak_rss_mb": 854.6,
+    "passed": true,
+    "limitation": "Synthetic long silence plus 90 seconds of English AMI speech; not long-meeting accuracy validation."
+  },
+  "android": {
+    "emulator_inference_passed": true,
+    "audio_seconds": 20,
+    "elapsed_s": 111.7,
+    "segments": 10,
+    "checkpoint_recovery_elapsed_s": 2.1,
+    "apk_signature_verified": true,
+    "apk_16kb_alignment_verified": true,
+    "internet_permission": false,
+    "physical_phone_tested": false
+  },
+  "bilingual_ground_truth_evaluated": false,
+  "speaker_diarization_evaluated": false,
+  "patent_novelty_assessed": false
+}

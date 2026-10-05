@@ -68,37 +68,23 @@ def _levenshtein(a: list[str], b: list[str]) -> tuple[int, int, int]:
     Returns (substitutions, deletions, insertions).
     Uses standard dynamic-programming Wagner-Fischer algorithm.
     """
-    m, n = len(a), len(b)
-    # dp[i][j] = edit distance between a[:i] and b[:j]
-    dp = [[0] * (n + 1) for _ in range(m + 1)]
-    for i in range(m + 1):
-        dp[i][0] = i
-    for j in range(n + 1):
-        dp[0][j] = j
-
-    for i in range(1, m + 1):
-        for j in range(1, n + 1):
-            if a[i - 1] == b[j - 1]:
-                dp[i][j] = dp[i - 1][j - 1]
-            else:
-                dp[i][j] = 1 + min(dp[i - 1][j - 1],  # substitution
-                                    dp[i - 1][j],       # deletion
-                                    dp[i][j - 1])       # insertion
-
-    # Backtrack to count substitutions, deletions, insertions
-    i, j = m, n
-    subs = dels = ins = 0
-    while i > 0 or j > 0:
-        if i > 0 and j > 0 and a[i - 1] == b[j - 1]:
-            i -= 1; j -= 1
-        elif i > 0 and j > 0 and dp[i][j] == dp[i - 1][j - 1] + 1:
-            subs += 1; i -= 1; j -= 1
-        elif i > 0 and dp[i][j] == dp[i - 1][j] + 1:
-            dels += 1; i -= 1
-        else:
-            ins += 1; j -= 1
-
-    return subs, dels, ins
+    # Carry edit counts alongside the cost in two rows: O(len(b)) memory.
+    previous = [(j, 0, 0, j) for j in range(len(b) + 1)]
+    for i, left in enumerate(a, 1):
+        current = [(i, 0, i, 0)]
+        for j, right in enumerate(b, 1):
+            if left == right:
+                current.append(previous[j-1])
+                continue
+            cost, subs, dels, ins = previous[j-1]
+            candidates = [(cost+1, subs+1, dels, ins)]
+            cost, subs, dels, ins = previous[j]
+            candidates.append((cost+1, subs, dels+1, ins))
+            cost, subs, dels, ins = current[j-1]
+            candidates.append((cost+1, subs, dels, ins+1))
+            current.append(min(candidates, key=lambda item: item[0]))
+        previous = current
+    return previous[-1][1:]
 
 
 def calculate_wer(
@@ -177,67 +163,44 @@ def calculate_der(
 
     Implementation note
     -------------------
-    This is a frame-level approximation using 10 ms frames.
-    A full NIST md-eval compliant implementation requires the
-    'pyannote.metrics' package.  This implementation is a transparent
-    approximation documented as such.
+    Uses pyannote.metrics with optimal speaker mapping, overlap, and collar.
     """
     if reference is None or len(reference) == 0:
         return _no_gt("der")
     if hypothesis is None:
         hypothesis = []
 
-    FRAME_MS = 0.01   # 10 ms resolution
+    from pyannote.core import Annotation, Segment, Timeline
+    from pyannote.metrics.diarization import DiarizationErrorRate
 
-    def _to_frames(segments: list[dict], frame_s: float) -> dict[int, str]:
-        """Map time → speaker at 10 ms resolution."""
-        frames: dict[int, str] = {}
-        for seg in segments:
-            s = int(seg["start"] / frame_s)
-            e = int(seg["end"] / frame_s)
-            sp = str(seg.get("speaker", "UNKNOWN"))
-            for f in range(s, e):
-                frames[f] = sp
-        return frames
+    def annotation(segments):
+        result = Annotation()
+        for i, item in enumerate(segments):
+            if item["end"] > item["start"]:
+                result[Segment(item["start"], item["end"]), i] = str(item["speaker"])
+        return result
 
-    ref_frames = _to_frames(reference, FRAME_MS)
-    hyp_frames = _to_frames(hypothesis, FRAME_MS)
-
-    all_frames = set(ref_frames.keys()) | set(hyp_frames.keys())
-
-    missed = 0       # in reference but not hypothesis
-    false_alarm = 0  # in hypothesis but not reference
-    speaker_error = 0  # both have speech but different speaker
-
-    for f in all_frames:
-        in_ref = f in ref_frames
-        in_hyp = f in hyp_frames
-        if in_ref and not in_hyp:
-            missed += 1
-        elif in_hyp and not in_ref:
-            false_alarm += 1
-        elif in_ref and in_hyp and ref_frames[f] != hyp_frames[f]:
-            speaker_error += 1
-
-    total_ref = len(ref_frames)
-    if total_ref == 0:
+    if collar < 0:
+        raise ValueError("DER collar must be non-negative")
+    ref, hyp = annotation(reference), annotation(hypothesis)
+    end = max((item['end'] for item in reference + hypothesis), default=0)
+    if end <= 0:
         return _no_gt("der")
-
-    der = (missed + false_alarm + speaker_error) / total_ref
-
+    # Optimal speaker permutation, overlap and the requested collar are handled
+    # by the established metric; speaker cluster names are arbitrary labels.
+    metric = DiarizationErrorRate(collar=collar, skip_overlap=False)
+    detail = metric(ref, hyp, uem=Timeline([Segment(0, end)]), detailed=True)
+    total = detail['total']
+    if total <= 0:
+        return _no_gt("der")
     return {
-        "status": STATUS_OK,
-        "metric": "der",
-        "der": round(der, 6),
-        "missed_speech_rate": round(missed / total_ref, 6),
-        "false_alarm_rate": round(false_alarm / total_ref, 6),
-        "speaker_error_rate": round(speaker_error / total_ref, 6),
-        "total_reference_frames": total_ref,
-        "collar_s": collar,
-        "note": (
-            "Frame-level DER approximation at 10 ms resolution. "
-            "For NIST md-eval compliant DER use pyannote.metrics."
-        ),
+        "status": STATUS_OK, "metric": "der",
+        "der": round(detail['diarization error rate'], 6),
+        "missed_speech_rate": round(detail['missed detection'] / total, 6),
+        "false_alarm_rate": round(detail['false alarm'] / total, 6),
+        "speaker_error_rate": round(detail['confusion'] / total, 6),
+        "total_reference_duration": total, "collar_s": collar,
+        "note": "pyannote.metrics DER with optimal label mapping and overlap included.",
     }
 
 

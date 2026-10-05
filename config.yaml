@@ -26,6 +26,7 @@ vad:
 
 diarization:
   model: pyannote/speaker-diarization-3.1
+  device: cpu
   min_speakers: null
   max_speakers: null
   merge_gap_s: 0.5
@@ -155,7 +156,7 @@ report:
 
 asr:
   # faster-whisper model size: tiny | base | small | medium | large-v2 | large-v3
-  model_size: base
+  model_size: small
   # Device for inference: cpu | cuda | auto
   # Default to CPU for stability on machines without a working CUDA runtime.
   device: cpu
@@ -163,9 +164,13 @@ asr:
   compute_type: int8
   # Language hint (null = auto-detect)
   language: null
+  # User target: Hindi/English code switching. Use [] for unrestricted detection.
+  allowed_languages: [en, hi]
   # Beam size for decoding
   beam_size: 5
   # Minimum overlap fraction (0.0–1.0) for speaker attribution.
   # An ASR segment must overlap a diarization segment by at least this fraction
   # of the ASR segment's duration to be attributed to that speaker.
   min_overlap_ratio: 0.3
+  cpu_threads: 4
+  chunk_seconds: 300

@@ -176,8 +176,8 @@ class TestDER:
         assert r["status"] == STATUS_NO_GT
 
     def test_speaker_error_detected(self):
-        ref = [self._seg(0.0, 1.0, "A")]
-        hyp = [self._seg(0.0, 1.0, "B")]   # wrong speaker
+        ref = [self._seg(0.0, 1.0, "A"), self._seg(1.0, 2.0, "B")]
+        hyp = [self._seg(0.0, 2.0, "X")]   # incorrectly merged two speakers
         r = calculate_der(ref, hyp)
         assert r["status"] == STATUS_OK
         assert r["der"] > 0.0

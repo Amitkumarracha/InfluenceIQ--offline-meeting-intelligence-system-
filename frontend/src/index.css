@@ -9,3 +9,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8fafc; /* slate-50 */
 }
+
+@media (max-width: 760px) {
+  #root > .flex.h-screen { flex-direction: column; height: 100dvh; }
+  #root aside { width: 100%; max-height: 32vh; }
+  #root aside > div:first-child { padding: 0.5rem 1rem; }
+  #root aside > div:last-child { padding: 0.4rem 1rem; }
+  #root aside .mb-6 { margin-bottom: 0.5rem; }
+  #root main { padding: 1rem; min-height: 0; }
+  #root main .grid { grid-template-columns: minmax(0, 1fr); }
+  #root main .p-8, #root main .px-8, #root main .p-12 { padding: 1rem; }
+  #root main .flex.justify-between { flex-wrap: wrap; gap: 0.75rem; }
+}

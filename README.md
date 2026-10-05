@@ -1,179 +1,133 @@
-# Multimodal Meeting Intelligence System
+# Meet IQ — Offline Meeting Intelligence
 
-## 1. Project Overview
-The Multimodal Meeting Intelligence System is an offline, GPU-accelerated pipeline designed to extract structured business and social intelligence from raw meeting recordings and presentation slides. It processes temporal audio streams and static visual assets (PPTs) to construct a directed interaction graph, enabling the deterministic extraction of decisions, participant interactions, and influence rankings without relying on hallucinatory LLMs.
+Meet IQ has two local execution paths:
 
-### Core Capabilities
-* **Offline Execution:** Uses local, open-source models (faster-whisper, pyannote.audio, sentence-transformers) to ensure complete data privacy and zero API costs.
-* **Multimodal Fusion:** Maps spoken dialogue to specific presentation slides using semantic embeddings.
-* **Deterministic Intelligence:** Algorithmically derives participant roles (decision-maker, objector) and influence scores based on meeting interaction graphs.
-* **Resilience:** Includes aggressive caching for intermediate steps (VAD, Diarization, Embeddings) to prevent data loss and save compute time during interruptions.
+- **Laptop application:** React interface, FastAPI/SQLite queue, multilingual faster-whisper, optional pyannote speaker separation and presentation alignment, and evidence-linked reports.
+- **Android prototype:** native microphone recording, whisper.cpp inference, timestamped Hindi/English/Hinglish event candidates, local history, resumable analysis, and exports. It has **no INTERNET permission**. It currently does **not** perform speaker separation or the laptop's full interaction/influence analysis.
 
----
+This is a tested research prototype, not a validated high-accuracy product. See [PROJECT_STATUS.md](PROJECT_STATUS.md) for measured results, implemented changes, and remaining work. Earlier workstation instructions in `NEXT_STEPS.md`, `PROJECT_EXECUTION_GUIDE.md`, and the conversion guide are historical.
 
-## 2. System Architecture & Pipeline Phases
+## Run on this laptop
 
-The system processes data in 11 sequential phases:
+The isolated Python 3.11 environment and local speech models have been installed.
 
-1. **Audio Preprocessing:** Normalizes raw `.wav` audio.
-2. **Voice Activity Detection (VAD):** Identifies speech segments using Silero VAD.
-3. **Speaker Diarization:** Clusters speech by speaker identity using `pyannote/speaker-diarization-3.1`.
-4. **Automatic Speech Recognition (ASR):** Transcribes audio using `faster-whisper` (GPU-accelerated, FP16).
-5. **PPT Extraction & Embeddings:** Extracts text/images from `.pptx` and computes semantic vectors using `all-MiniLM-L6-v2`.
-6. **Semantic Alignment:** Maps audio transcript segments to relevant slides based on temporal and semantic proximity.
-7. **Event Extraction:** Classifies multimodal segments into interaction events (e.g., questions, proposals).
-8. **Evidence Linking:** Links events to specific evidence (transcripts/slides).
-9. **Decision Reconstruction:** Algorithmically pieces together events to identify confirmed/rejected decisions.
-10. **Interaction Analysis:** Constructs a directed graph of who responded to whom (agreements, objections).
-11. **Influence Scoring:** Runs PageRank-style algorithms on the interaction graph to rank participant influence.
-
----
-
-## 3. Environment Setup & Prerequisites
-
-### Hardware & OS
-* **OS:** Ubuntu Linux
-* **Python:** 3.10
-* **Compute:** NVIDIA GPU (e.g., RTX A4000) recommended.
-* **CUDA:** System CUDA 13 (with CUDA 12 compatibility libraries available).
-
-### Installation
-1. **Create and Activate Virtual Environment:**
-   ```bash
-   python3.10 -m venv .venv
-   source .venv/bin/activate
-   ```
-2. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Environment Variables:**
-   Copy `.env.example` to `.env` and add your Hugging Face Token (required for Pyannote 3.1):
-   ```bash
-   cp .env.example .env
-   # Edit .env to add: HF_TOKEN=your_token_here
-   ```
-
-### Important System Quirks (CUDA 12 vs 13)
-`faster-whisper` (via `CTranslate2`) natively requests CUDA 12 libraries (`libcublas.so.12`). If the host system runs CUDA 13, you must point the environment to the CUDA 12 compatibility libraries before running the pipeline:
 ```bash
-export LD_LIBRARY_PATH="/usr/local/lib/ollama/cuda_v12:$LD_LIBRARY_PATH"
+cd '/home/amitkumar/Music/MAI Project'
+bash start_app.sh
 ```
 
----
+Open **http://127.0.0.1:8000**. Register a local account, upload audio or record in the browser, and open the generated meeting report. No email or external account is needed. Browser recording uses device storage for recovery; stop and save, then submit the recording. Keep the tab open while recording. The native Android app is the preferred path for background phone recording.
 
-## 4. Execution Commands
+The API processes one meeting at a time. Uploads are limited to 1 GiB total by default, can contain up to 32 sequential parts, and accept WAV, MP3, M4A, MP4, WebM, OGG, FLAC and AAC. Parts are joined chronologically; these are **not synchronized microphone-array channels**. One optional PPTX is supported. Failed jobs can be retried; queued/interrupted jobs recover after restart. Transcription reuses verified completed chunks.
 
-*Run all commands from the project root with the `.venv` activated.*
+### Rebuild the environment
 
-### Phase A: Audio Pipeline (Batch Processing)
-This command processes all audio files, utilizing smart caching to skip previously processed meetings.
+Requires Linux, Python 3 with venv, Node/npm, FFmpeg and ffprobe. The setup script installs a separate Python 3.11 and CPU PyTorch wheels, without changing system Python.
+
 ```bash
-source .venv/bin/activate
-export LD_LIBRARY_PATH="/usr/local/lib/ollama/cuda_v12:$LD_LIBRARY_PATH"
-
-python3 run_small_chunk.py $(python3 - <<'PY'
-import glob, os
-ids = [os.path.splitext(os.path.basename(f))[0] for f in sorted(glob.glob("data/raw/audio/*.wav"))]
-print(" ".join(ids))
-PY
-)
+bash scripts/setup.sh
+.venv/bin/python scripts/download_models.py --slides
 ```
 
-### Phase B: Presentation (PPT) Pipeline
-Extracts slides and builds semantic embeddings. We use `HF_HUB_OFFLINE=1` to force the `sentence-transformers` library to use the locally cached model, avoiding SSL timeout issues on restricted networks.
-```bash
-source .venv/bin/activate
-export HF_HUB_OFFLINE=1
+`requirements.txt` pins the compatibility-sensitive libraries; `requirements-lock.txt` captures the installed package versions. Model download is an explicit **one-time online operation**. Meeting processing defaults to offline mode, with local models under `models/hf`.
 
-for meeting_dir in data/raw/ppt/*/; do
-    meeting_id=$(basename "$meeting_dir")
-    pptx=$(ls "$meeting_dir"*.pptx 2>/dev/null | head -1)
-    if [ -n "$pptx" ]; then
-        echo "===== Processing Slides: $meeting_id ====="
-        python3 scripts/run_pipeline.py --ppt "$pptx" --meeting-id "$meeting_id"
-    fi
-done
+### Speaker separation
+
+The transferred model credentials did not grant access. To enable it:
+
+1. Accept the conditions for [speaker-diarization-3.1](https://huggingface.co/pyannote/speaker-diarization-3.1) and [segmentation-3.0](https://huggingface.co/pyannote/segmentation-3.0).
+2. Put an authorized `HF_TOKEN` in `.env` locally. Never commit it or paste it into chat.
+3. Run `.venv/bin/python scripts/download_models.py --diarization` while online.
+
+Default `auto` mode continues transcription if speaker separation fails, labels speakers `UNKNOWN`, and shows a warning. It does not invent a speaker count. Use `--diarization required` to fail instead, or `--diarization off` to disable it explicitly. Human names are not automatically identified.
+
+### Model profiles
+
+`small` multilingual/int8 is the default CPU profile. `medium` has also been provisioned. On the measured ten-minute English sample, it reduced WER from 45.84% to 40.83%, while processing time increased from about 175 to 358 seconds. This does not establish Hindi/English accuracy. To choose it for the server:
+
+```bash
+MAI_ASR_MODEL=medium bash start_app.sh
 ```
 
-### Phase C: Intelligence Pipeline
-Fuses audio and slides to construct the interaction graph and influence metrics.
+Or provision another model explicitly:
+
 ```bash
-source .venv/bin/activate
-export HF_HUB_OFFLINE=1
-
-# 1. Align transcripts with slides
-for transcript in data/processed/audio/*_transcript.json; do
-    mid=$(basename "$transcript" _transcript.json)
-    slides="data/processed/slides/${mid}_slides.json"
-    [ -f "$slides" ] && python3 scripts/run_pipeline.py --transcript "$transcript" --slides "$slides" --meeting-id "$mid"
-done
-
-# 2. Extract events
-for mm in data/processed/alignment/*_multimodal.json; do
-    mid=$(basename "$mm" _multimodal.json)
-    python3 scripts/run_pipeline.py --multimodal "$mm" --meeting-id "$mid"
-done
-
-# 3. Reconstruct decisions
-for ev in data/processed/events/*_events.json; do
-    mid=$(basename "$ev" _events.json)
-    evi="data/processed/events/${mid}_evidence.json"
-    [ -f "$evi" ] && python3 scripts/run_pipeline.py --events "$ev" --evidence "$evi" --meeting-id "$mid"
-done
-
-# 4. Analyze interactions
-for dec in data/processed/decisions/*_decisions.json; do
-    mid=$(basename "$dec" _decisions.json)
-    ev="data/processed/events/${mid}_events.json"
-    evi="data/processed/events/${mid}_evidence.json"
-    [ -f "$ev" ] && [ -f "$evi" ] && python3 scripts/run_pipeline.py --decisions "$dec" --events "$ev" --evidence "$evi" --meeting-id "$mid"
-done
-
-# 5. Calculate influence
-for inter in data/processed/interactions/*_interactions.json; do
-    mid=$(basename "$inter" _interactions.json)
-    dec="data/processed/decisions/${mid}_decisions.json"
-    ev="data/processed/events/${mid}_events.json"
-    evi="data/processed/events/${mid}_evidence.json"
-    [ -f "$dec" ] && [ -f "$ev" ] && [ -f "$evi" ] && python3 scripts/run_pipeline.py --interactions "$inter" --decisions "$dec" --events "$ev" --evidence "$evi" --meeting-id "$mid"
-done
+.venv/bin/python scripts/download_models.py --asr-model medium
 ```
 
-### Phase D: Report Generation
-Compiles all JSON data into human-readable Markdown, HTML, and CSV formats.
-```bash
-source .venv/bin/activate
-export HF_HUB_OFFLINE=1
+Use multilingual models, not `.en` models, for Hindi/English meetings. Language detection is automatic within the configured Hindi/English scope; set `asr.allowed_languages: []` to remove that restriction. `MAI_ASR_LANGUAGE=hi` or `en` is available for experiments; forcing a language is not a guarantee of code-switching accuracy. Model size, CPU threads, chunk duration and speaker constraints are configurable in `config.yaml`.
 
-for inf in data/processed/influence/*_influence.json; do
-    mid=$(basename "$inf" _influence.json)
-    echo "===== Generating Report: $mid ====="
-    python3 scripts/generate_report.py --meeting-id "$mid" --format json markdown html csv
-done
+### Command-line processing
+
+```bash
+.venv/bin/python scripts/process_meeting.py \
+  --audio /path/to/meeting.m4a --meeting-id my_meeting --diarization auto
+
+# Optional presentation:
+.venv/bin/python scripts/process_meeting.py \
+  --audio /path/to/meeting.wav --ppt /path/to/slides.pptx \
+  --meeting-id my_slides_meeting --diarization required
 ```
 
----
+Outputs: `data/processed/` contains stage artifacts and transcript chunks; `outputs/reports/` contains reports. Use a distinct meeting ID for each meeting. The API generates unique IDs; rerunning a CLI meeting invalidates changed ASR inputs and refreshes its reports.
 
-## 5. Output Directory Structure
-After execution, the intelligence outputs are cleanly organized:
+### Local account recovery
 
-* `data/processed/audio/` - `.json` and `.txt` transcripts with speaker timestamps.
-* `data/processed/slides/` - Extracted PPT text, image mappings, and `.npy` vector embeddings.
-* `data/processed/alignment/` - Fused timelines of which slide was discussed when.
-* `data/processed/interactions/` & `decisions/` - Graph data of social dynamics.
-* `outputs/reports/` - Final compiled outputs (Markdown, HTML, CSV). **Use these for frontend displays and analysis.**
+Public reset-token endpoints are disabled. Recover an account from the laptop terminal:
 
----
+```bash
+.venv/bin/python scripts/reset_password.py
+```
 
-## 6. Next Steps: Frontend & Deployment
+The server binds to loopback by default. The browser's recording permission requires localhost or HTTPS; merely exposing the server on a LAN HTTP address does not enable phone microphone capture. The Android native app does not need the server.
 
-To convert this backend engine into a fully deployed web application:
+## Android app
 
-1. **Frontend Dashboard:** Use the generated data in `outputs/reports/` as a "mock database" to build a React, Streamlit, or Gradio dashboard immediately without waiting for GPU processing.
-2. **API Layer:** Wrap `scripts/run_pipeline.py` in a FastAPI server (`app.py`) that exposes endpoints like `/upload-audio` and `/get-influence-score`.
-3. **Containerization:** Create a `Dockerfile` that installs `requirements.txt`, sets the `HF_HUB_OFFLINE=1` and `LD_LIBRARY_PATH` variables, and runs the FastAPI server.
-4. **Packaging for Deployment:** Zip the codebase for transfer to a production server (omitting heavy raw datasets):
-   ```bash
-   zip -r full_project_deployment.zip src/ scripts/ config.yaml requirements.txt .env.example run_small_chunk.py README.md data/processed/ outputs/reports/
-   ```
+Install [android/build/meet-iq-debug.apk](android/build/meet-iq-debug.apk) on an Android 8+ ARM64 phone. This is a development APK, not a store release. It also includes x86_64 for emulator testing.
+
+1. Transfer `models/ggml-base.bin` to the phone's Downloads directory.
+2. Open Meet IQ Offline and select **Import multilingual Whisper model**. The app copies it into private storage.
+3. Grant microphone permission, record a meeting, and tap **Stop recording**.
+4. Select the meeting and tap **Analyse / resume**. Processing happens on the phone.
+5. View timestamped transcript/event candidates; export JSON or original WAV when needed.
+
+Recording uses 16 kHz mono PCM, about **115 MB/hour**, and stops at six hours. A visible foreground-service notification and wake lock support recording/analysis while the screen is off. Android may still stop the process; recordings and completed analysis chunks are retained. Interruption, battery/thermal behavior, microphone quality and long meetings need physical-device validation. Analysis pauses between chunks rather than instantly interrupting native inference.
+
+Source and build instructions: [android/README.md](android/README.md).
+
+## Verification
+
+```bash
+.venv/bin/python scripts/validate_setup.py
+OMP_NUM_THREADS=4 .venv/bin/python -m pytest -q
+npm --prefix frontend run build
+npm --prefix frontend run lint
+
+# Uses existing local AMI audio and manual word annotations:
+OMP_NUM_THREADS=4 .venv/bin/python scripts/benchmark_ami.py --seconds 600
+MAI_ASR_MODEL=medium OMP_NUM_THREADS=4 .venv/bin/python scripts/benchmark_ami.py --seconds 600
+
+# Timestamp/memory/offline smoke test, not an accuracy benchmark:
+OMP_NUM_THREADS=4 .venv/bin/python scripts/smoke_long_offline.py
+```
+
+For a clean speed comparison, use fresh meeting IDs/cache directories and avoid other heavy workloads. Tests mock model boundaries where appropriate; integration results are reported separately. Do not equate passing tests or a model's confidence score with measured transcription accuracy.
+
+## Source layout
+
+| Directory/file | Responsibility |
+|---|---|
+| `api.py` | Local accounts, ownership checks, uploads, durable queued jobs, playback and export |
+| `src/pipeline/orchestrator.py` | Complete audio-to-report workflow |
+| `src/audio/` | Streaming decode, packaged VAD, diarization, chunked ASR and word-level speaker attribution |
+| `src/ppt/`, `src/fusion/` | Optional slide extraction, embeddings and transcript/slide alignment |
+| `src/meeting/` | Event rules, evidence links, decision candidates, interaction and influence estimates |
+| `src/report/` | JSON, Markdown, HTML and CSV reports |
+| `src/evaluation/` | WER, permutation-aware DER, event/decision metrics and ablations |
+| `frontend/` | Responsive browser UI and recoverable IndexedDB recording |
+| `android/` | Standalone on-device Android prototype and JNI bindings |
+| `scripts/`, `tests/` | Setup, provisioning, runners, benchmarks and regression checks |
+| `.venv/`, `.runtime/`, `models/` | Local environment, private runtime artifacts and model weights; ignored by Git |
+| `AMI_dataset/`, `data/`, `outputs/` | Existing research data and generated artifacts; not application source |
+
+Model references: [faster-whisper](https://github.com/SYSTRAN/faster-whisper), [whisper.cpp](https://github.com/ggml-org/whisper.cpp), and [pyannote 3.1](https://huggingface.co/pyannote/speaker-diarization-3.1). Review their licenses and the AMI dataset terms before redistributing models or data.

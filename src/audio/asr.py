@@ -7,7 +7,12 @@ Phase 5 of the Multimodal Meeting Intelligence Pipeline.
 """
 
 import json
+from bisect import bisect_left, bisect_right
+from itertools import accumulate
 import math
+import os
+import soundfile as sf
+from src.utils.cache import atomic_json, fingerprint, read_cache
 import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
@@ -103,7 +108,9 @@ def _load_whisper_model():
             model_size, device, compute_type,
         )
         try:
-            return WhisperModel(model_size, device=device, compute_type=compute_type)
+            return WhisperModel(model_size, device=device, compute_type=compute_type,
+                cpu_threads=int(get("asr.cpu_threads", 4)),
+                local_files_only=os.environ.get("HF_HUB_OFFLINE", "1") == "1")
         except Exception as exc:  # pragma: no cover - exercised in integration envs
             msg = str(exc)
             if "libcublas" in msg.lower() or "cuda" in msg.lower() and "not found" in msg.lower():
@@ -150,19 +157,27 @@ def attribute_speaker(
     of the ASR segment duration.
     """
     asr_duration = max(asr_end - asr_start, 1e-6)
-    best_overlap = 0.0
-    best_speaker = "UNKNOWN"
-
+    # Union intervals per speaker: split diarization turns must not undercount,
+    # and overlapping tracks from the same speaker must not double-count.
+    intervals = {}
     for seg in diar_segments:
-        overlap = compute_overlap(asr_start, asr_end, seg["start"], seg["end"])
-        if overlap > best_overlap:
-            best_overlap = overlap
-            best_speaker = seg["speaker"]
-
-    if best_overlap / asr_duration < min_overlap_ratio:
+        a, b = max(asr_start, seg["start"]), min(asr_end, seg["end"])
+        if b > a:
+            intervals.setdefault(seg["speaker"], []).append((a, b))
+    totals = {}
+    for speaker, spans in intervals.items():
+        end = float('-inf')
+        total = 0.0
+        for a, b in sorted(spans):
+            total += max(0, b - max(a, end))
+            end = max(end, b)
+        totals[speaker] = total
+    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)
+    if not ranked or ranked[0][1] / asr_duration < min_overlap_ratio:
         return "UNKNOWN"
-
-    return best_speaker
+    if len(ranked) > 1 and abs(ranked[0][1] - ranked[1][1]) < 1e-6:
+        return "UNKNOWN"
+    return ranked[0][0]
 
 
 # ---------------------------------------------------------------------------
@@ -210,16 +225,15 @@ def run_asr(
         diarization_path = audio_path.parent / f"{meeting_id}_diarization.json"
     diarization_path = Path(diarization_path)
     if not diarization_path.exists():
-        raise FileNotFoundError(
-            f"Diarization JSON not found: {diarization_path}\n"
-            "Run Phase 4 (diarization) first, or pass diarization_path explicitly."
-        )
+        raise FileNotFoundError(f"Diarization JSON not found: {diarization_path}")
 
     language: str | None = get("asr.language", None)
     beam_size: int = int(get("asr.beam_size", 5))
     min_overlap_ratio: float = float(get("asr.min_overlap_ratio", 0.3))
 
-    diar_segments = _load_diarization_json(diarization_path)
+    diar_segments = sorted(_load_diarization_json(diarization_path), key=lambda item: item["start"])
+    diar_starts = [item["start"] for item in diar_segments]
+    diar_end_prefix = list(accumulate((item["end"] for item in diar_segments), max))
     diar_speakers = sorted({seg["speaker"] for seg in diar_segments if seg.get("speaker")})
     logger.info(
         "Loaded %d diarization segments (%d speakers)",
@@ -231,55 +245,98 @@ def run_asr(
     json_path = out_dir / f"{meeting_id}_transcript.json"
     txt_path = out_dir / f"{meeting_id}_transcript.txt"
 
-    # Return cached result if available
-    if json_path.exists():
-        logger.info("Cached ASR result found; loading from %s", json_path)
-        with open(json_path, encoding="utf-8") as f:
-            cached = json.load(f)
-        return _deserialise_result(cached), json_path, txt_path
+    settings = dict(get("asr", {}))
+    settings["model_size"] = get("asr.model_size", "small")
+    settings["language"] = get("asr.language", None)
+    settings["pipeline_version"] = 3
+    key = fingerprint([audio_path, diarization_path], settings)
+    cached = read_cache(json_path, key)
+    if cached is not None:
+        result = _deserialise_result(cached)
+        if not txt_path.exists():
+            _save_txt(result, txt_path)
+        return result, json_path, txt_path
 
-    model = _load_whisper_model()
-    logger.info("Transcribing: %s", audio_path)
-    t_start = time.time()
-
-    transcribe_kwargs: dict[str, Any] = {
-        "beam_size": beam_size,
-        "word_timestamps": False,
-    }
-    if language:
-        transcribe_kwargs["language"] = language
-
-    segments_iter, info = model.transcribe(str(audio_path), **transcribe_kwargs)
-    detected_language: str | None = getattr(info, "language", None)
-    duration: float = getattr(info, "duration", 0.0)
-    logger.info("Language: %s  Duration: %.2fs", detected_language, duration)
-
-    raw_segments = list(segments_iter)
-    elapsed = time.time() - t_start
-    logger.info("Transcription done in %.2fs — %d raw segments", elapsed, len(raw_segments))
-
-    transcript_segments: list[TranscriptSegment] = []
-    for idx, seg in enumerate(raw_segments):
-        seg_start = round(float(seg.start), 3)
-        seg_end = round(float(seg.end), 3)
-        text = (seg.text or "").strip()
-
-        speaker = attribute_speaker(
-            seg_start, seg_end, diar_segments, min_overlap_ratio=min_overlap_ratio
-        )
-
-        confidence: float | None = None
-        if hasattr(seg, "avg_logprob") and seg.avg_logprob is not None:
-            confidence = round(min(1.0, max(0.0, math.exp(float(seg.avg_logprob)))), 4)
-
-        transcript_segments.append(TranscriptSegment(
-            segment_id=idx + 1,
-            start=seg_start,
-            end=seg_end,
-            speaker=speaker,
-            text=text,
-            confidence=confidence,
-        ))
+    chunk_seconds = int(get("asr.chunk_seconds", 300))
+    if chunk_seconds < 10:
+        raise ValueError("asr.chunk_seconds must be at least 10")
+    chunk_dir = out_dir / f"{meeting_id}_asr_chunks" / key
+    transcript_segments = []
+    detected_language = language
+    model = None
+    with sf.SoundFile(audio_path) as audio:
+        sr = audio.samplerate
+        if sr != 16000 or audio.channels != 1:
+            raise ValueError("ASR requires 16 kHz mono audio; preprocess first")
+        duration = len(audio) / sr
+        for index, first in enumerate(range(0, len(audio), chunk_seconds * sr)):
+            chunk_path = chunk_dir / f"{index:06d}.json"
+            cached_chunk = read_cache(chunk_path, key)
+            if cached_chunk is not None:
+                transcript_segments.extend(TranscriptSegment(**item) for item in cached_chunk["segments"])
+                detected_language = detected_language or cached_chunk.get("language")
+                continue
+            if model is None:
+                model = _load_whisper_model()
+            offset = max(0, first - 2 * sr)
+            end = min(len(audio), first + (chunk_seconds + 2) * sr)
+            audio.seek(offset)
+            samples = audio.read(end - offset, dtype="float32")
+            kwargs = dict(beam_size=beam_size, word_timestamps=True,
+                          vad_filter=True, condition_on_previous_text=False,
+                          temperature=0.0, task="transcribe")
+            if language:
+                kwargs["language"] = language
+            segments_iter, info = model.transcribe(samples, **kwargs)
+            chunk_language = getattr(info, "language", None)
+            allowed = get("asr.allowed_languages", [])
+            if not language and allowed and isinstance(chunk_language, str) and chunk_language not in allowed:
+                probabilities = getattr(info, "all_language_probs", None) or []
+                choices = [(code, probability) for code, probability in probabilities if code in allowed]
+                if not choices:
+                    raise RuntimeError("Detected language outside configured meeting languages; set MAI_ASR_LANGUAGE explicitly")
+                selected_language = max(choices, key=lambda choice: choice[1])[0]
+                logger.warning("Detected %s outside configured languages %s; decoding with %s", chunk_language, allowed, selected_language)
+                segments_iter, info = model.transcribe(samples, **{**kwargs, "language": selected_language})
+                chunk_language = selected_language
+            detected_language = detected_language or chunk_language
+            chunk_segments = []
+            for seg in segments_iter:
+                words = getattr(seg, "words", None)
+                if not isinstance(words, (list, tuple)) or not words:
+                    words = [seg]
+                group = None
+                for word in words:
+                    a = max(0.0, offset / sr + float(word.start))
+                    b = min(duration, offset / sr + float(word.end))
+                    # Each word belongs to one central chunk, keeping overlap
+                    # context without emitting duplicate boundary words.
+                    midpoint = (a + b) / 2
+                    if not first / sr <= midpoint < min(duration, first / sr + chunk_seconds):
+                        continue
+                    text = (getattr(word, "word", None) if word is not seg else seg.text) or ""
+                    if not isinstance(text, str) or not text.strip() or b <= a:
+                        continue
+                    candidates = diar_segments[bisect_right(diar_end_prefix, a):bisect_left(diar_starts, b)]
+                    speaker = attribute_speaker(a, b, candidates, min_overlap_ratio)
+                    logprob = getattr(seg, "avg_logprob", None)
+                    confidence = round(min(1.0, math.exp(float(logprob))), 4) if isinstance(logprob, (int, float)) else None
+                    if group is not None and group.speaker == speaker and a - group.end < 1.0:
+                        group.end = round(b, 3)
+                        group.text += text
+                    else:
+                        group = TranscriptSegment(0, round(a, 3), round(b, 3), speaker, text, confidence)
+                        chunk_segments.append(group)
+                group = None
+            for item in chunk_segments:
+                item.text = item.text.strip()
+            atomic_json(chunk_path, {"cache_key": key, "language": detected_language,
+                                    "segments": [asdict(item) for item in chunk_segments]})
+            transcript_segments.extend(chunk_segments)
+            logger.info("ASR checkpoint %d: %.1f / %.1f seconds", index + 1,
+                        min(duration, first / sr + chunk_seconds), duration)
+    for index, segment in enumerate(transcript_segments, 1):
+        segment.segment_id = index
 
     transcript_speakers = sorted(
         {s.speaker for s in transcript_segments if s.speaker != "UNKNOWN"}
@@ -294,7 +351,7 @@ def run_asr(
         segments=transcript_segments,
     )
 
-    _save_json(result, json_path)
+    _save_json(result, json_path, key)
     _save_txt(result, txt_path)
     logger.info(
         "Transcript saved: %d segments, %d speakers — %s",
@@ -308,7 +365,7 @@ def run_asr(
 # ---------------------------------------------------------------------------
 
 
-def _save_json(result: TranscriptResult, path: Path) -> None:
+def _save_json(result: TranscriptResult, path: Path, cache_key=None) -> None:
     """Serialise TranscriptResult to a JSON file."""
     payload = {
         "meeting_id": result.meeting_id,
@@ -318,8 +375,8 @@ def _save_json(result: TranscriptResult, path: Path) -> None:
         "speakers": result.speakers,
         "segments": [asdict(s) for s in result.segments],
     }
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False)
+    payload["cache_key"] = cache_key
+    atomic_json(path, payload)
 
 
 def _save_txt(result: TranscriptResult, path: Path) -> None:

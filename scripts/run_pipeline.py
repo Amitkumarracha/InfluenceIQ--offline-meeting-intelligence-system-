@@ -487,9 +487,17 @@ def run_audio_pipeline(args: argparse.Namespace) -> None:
             print(f"  Speaker IDs     : {', '.join(diar_result.speakers)}")
             print(f"  Segments        : {len(diar_result.segments)}")
             print(f"  Diarization JSON: {diar_json_path}")
-        except EnvironmentError as e:
+        except (EnvironmentError, RuntimeError) as e:
             logger.error("Diarization skipped: %s", e)
             print(f"\n[Diarization] Skipped — {e}")
+
+    # ASR remains available without speaker separation, including this legacy CLI.
+    if not args.skip_asr and diar_json_path is None:
+        from src.utils.cache import atomic_json
+        from src.utils.paths import get_processed_audio_dir
+        diar_json_path = get_processed_audio_dir() / f"{meeting_id}_unknown_diarization.json"
+        atomic_json(diar_json_path, {"meeting_id": meeting_id, "segments": []})
+        logger.warning("Speaker separation unavailable/disabled; transcribing with UNKNOWN speakers")
 
     # --- Stage 4: ASR + Speaker Attribution ---
     if args.skip_asr:
@@ -516,6 +524,7 @@ def run_audio_pipeline(args: argparse.Namespace) -> None:
         except FileNotFoundError as e:
             logger.error("ASR failed: %s", e)
             print(f"\n[ASR] Failed — {e}")
+            raise SystemExit(1) from e
 
     print("\nDone.")
 

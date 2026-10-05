@@ -1,19 +1,11 @@
-"""Audio preprocessing: load, mono conversion, resampling to 16 kHz."""
-
-import time
+"""Bounded-memory decoding of phone recordings into lossless 16 kHz PCM."""
+import json
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
-import numpy as np
-import soundfile as sf
-from scipy.signal import resample_poly
-from math import gcd
-
 from src.utils.config import get
-from src.utils.logging import get_logger
 from src.utils.paths import get_processed_audio_dir
-
-logger = get_logger(__name__)
 
 
 @dataclass
@@ -26,73 +18,45 @@ class AudioMetadata:
     original_channels: int
 
 
-def preprocess_audio(input_path: str | Path) -> tuple[Path, AudioMetadata]:
-    """
-    Load an audio file, convert to mono, resample to 16 kHz, and save.
+def probe_audio(path):
+    result = subprocess.run([
+        'ffprobe', '-v', 'error', '-protocol_whitelist', 'file,pipe', '-select_streams', 'a:0',
+        '-show_entries', 'stream=sample_rate,channels,duration:format=duration',
+        '-of', 'json', str(path),
+    ], capture_output=True, text=True, timeout=60)
+    if result.returncode:
+        raise ValueError('Invalid or unsupported audio file')
+    data = json.loads(result.stdout)
+    if not data.get('streams'):
+        raise ValueError('File contains no audio stream')
+    stream = data['streams'][0]
+    duration = float(data.get('format', {}).get('duration') or stream.get('duration') or 0)
+    return stream, duration
 
-    Args:
-        input_path: Path to the source audio file.
 
-    Returns:
-        Tuple of (processed_audio_path, AudioMetadata).
-    """
+def preprocess_audio(input_path, output_path=None):
     input_path = Path(input_path)
-    if not input_path.exists():
-        raise FileNotFoundError(f"Audio file not found: {input_path}")
-
-    target_sr: int = get("audio.sample_rate", 16000)
-    force_mono: bool = get("audio.mono", True)
-
-    logger.info("Preprocessing audio: %s", input_path)
-    t_start = time.time()
-
-    # Load audio — soundfile returns (samples [T, C] or [T], samplerate)
-    waveform, orig_sr = sf.read(str(input_path), dtype="float32", always_2d=True)
-    # waveform shape: [T, C]
-    orig_channels = waveform.shape[1]
-    orig_duration = waveform.shape[0] / orig_sr
-
-    logger.info(
-        "Loaded: duration=%.2fs, sample_rate=%d, channels=%d",
-        orig_duration,
-        orig_sr,
-        orig_channels,
-    )
-
-    # Convert to mono by averaging channels
-    if force_mono and orig_channels > 1:
-        waveform = waveform.mean(axis=1, keepdims=True)
-        logger.info("Converted to mono.")
-
-    # Resample if needed using polyphase filter (high quality, memory-efficient)
-    if orig_sr != target_sr:
-        divisor = gcd(target_sr, orig_sr)
-        up = target_sr // divisor
-        down = orig_sr // divisor
-        waveform = resample_poly(waveform, up, down, axis=0).astype(np.float32)
-        logger.info("Resampled %d Hz -> %d Hz.", orig_sr, target_sr)
-
-    processed_duration = waveform.shape[0] / target_sr
-
-    # Save as 16-bit PCM WAV
-    out_dir = get_processed_audio_dir()
-    out_path = out_dir / (input_path.stem + "_processed.wav")
-    sf.write(str(out_path), waveform, target_sr, subtype="PCM_16")
-
-    elapsed = time.time() - t_start
-    logger.info(
-        "Preprocessing complete: output=%s, duration=%.2fs, elapsed=%.2fs",
-        out_path,
-        processed_duration,
-        elapsed,
-    )
-
-    metadata = AudioMetadata(
-        file_name=input_path.name,
-        original_duration=orig_duration,
-        processed_duration=processed_duration,
-        original_sample_rate=orig_sr,
-        processed_sample_rate=target_sr,
-        original_channels=orig_channels,
-    )
-    return out_path, metadata
+    if not input_path.is_file():
+        raise FileNotFoundError(f'Audio file not found: {input_path}')
+    stream, duration = probe_audio(input_path)
+    target_sr = int(get('audio.sample_rate', 16000))
+    out_path = Path(output_path) if output_path else get_processed_audio_dir() / (input_path.stem + '_processed.wav')
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = out_path.with_suffix('.partial.wav')
+    cmd = ['ffmpeg', '-nostdin', '-v', 'error', '-y', '-protocol_whitelist', 'file,pipe', '-i', str(input_path), '-map', '0:a:0', '-vn', '-ar', str(target_sr)]
+    if get('audio.mono', True):
+        cmd += ['-ac', '1']
+    # Avoid automatic denoising/loudnorm: these can distort quiet speech and
+    # cannot repair clipping, overlap, or distant microphones.
+    try:
+        result = subprocess.run(cmd + ['-c:a', 'pcm_s16le', str(temporary)], capture_output=True, timeout=7200)
+        if result.returncode:
+            raise ValueError('Audio decoding failed')
+        _, processed_duration = probe_audio(temporary)
+        if processed_duration <= 0:
+            raise ValueError('Audio is empty')
+        temporary.replace(out_path)
+    finally:
+        temporary.unlink(missing_ok=True)
+    return out_path, AudioMetadata(input_path.name, duration, processed_duration,
+                                  int(stream['sample_rate']), target_sr, int(stream['channels']))

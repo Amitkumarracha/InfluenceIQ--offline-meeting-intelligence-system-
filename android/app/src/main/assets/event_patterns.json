@@ -1,0 +1,82 @@
+{
+  "decision": [
+    "\\bwe (have |will |are going to )?(decided?|agreed?|concluded?|resolved?)\\b",
+    "\\bthe (final |agreed |chosen )?(decision|choice|approach|solution) (is|will be)\\b",
+    "\\bgoing (ahead|forward) with\\b",
+    "\\blet'?s (go with|use|adopt|implement)\\b",
+    "\\bwe('ll| will) (use|go with|implement|adopt)\\b",
+    "\\bit('s| is) (settled|decided|agreed)\\b",
+    "हमने (तय|फैसला|निर्णय) किया",
+    "तय हो गया",
+    "अंतिम निर्णय",
+    "\\bhumne (tay|faisla|decide) kiya\\b",
+    "\\bfinal decision (hai|yeh)\\b"
+  ],
+  "action_item": [
+    "\\b(please|can you|could you|would you)\\b.*\\b(do|check|update|send|write|create|look into|follow up|review|fix|make sure)\\b",
+    "\\b(name|someone|everyone|who)\\b.*\\bwill\\b.*\\b(do|handle|take care|be responsible)\\b",
+    "\\baction (item|required|needed)\\b",
+    "\\bfollow[- ]?up\\b",
+    "\\bby (monday|tuesday|wednesday|thursday|friday|next week|end of (day|week|month))\\b",
+    "\\b(assigned?|responsible) (to|for)\\b",
+    "\\btake (care of|this|that)\\b",
+    "मैं .+ (भेज|तैयार|पूरा|कर).*(दूंगा|दूँगा|दूंगी|दूँगी|करूंगा|करूँगा|करूंगी|करूँगी)",
+    "\\bmain .+ (bhej|complete|prepare|kar).*(dunga|dungi|karunga|karungi)\\b"
+  ],
+  "proposal": [
+    "\\bwe should\\b",
+    "\\bi propose\\b",
+    "\\blet('s| us)\\b",
+    "\\bwhy don't we\\b",
+    "\\bmy suggestion\\b",
+    "\\bi suggest\\b",
+    "\\bwhat if we\\b",
+    "\\bone option (is|would be)\\b",
+    "\\bwe could\\b",
+    "\\bwe might\\b",
+    "\\bhow about\\b",
+    "हमें .+ चाहिए",
+    "मेरा सुझाव",
+    "हम .+ कर सकते",
+    "\\bhume[n]? .+ chahiye\\b",
+    "\\bmera sujha[av]+\\b"
+  ],
+  "question": [
+    "\\?$",
+    "\\?\\s*$",
+    "^(what|when|where|who|why|how|which|could you|can you|do you|did|does|is|are|was|were)\\b",
+    "\\bcan anyone\\b",
+    "\\bdoes anyone\\b",
+    "\\bwould you\\b",
+    "\\bany (questions|thoughts|comments)\\b",
+    "^(क्या|क्यों|कैसे|कब|कौन|कहाँ)",
+    "\\b(kya|kyun|kaise|kab|kaun)\\b.*\\?"
+  ],
+  "agreement": [
+    "\\bi agree\\b",
+    "\\byes\\b.*\\b(that'?s?|this)\\b",
+    "\\bthat('s| is) (right|correct|a good point|exactly|true)\\b",
+    "\\bsounds? (good|great|right|correct)\\b",
+    "\\bexactly\\b",
+    "\\bprecisely\\b",
+    "\\bi('m| am) (on board|fine with|ok with)\\b",
+    "\\bthat makes sense\\b",
+    "मैं सहमत हूँ",
+    "मैं सहमत हूं",
+    "बिल्कुल सही",
+    "\\bmain sehmat (hoon|hun)\\b",
+    "\\bbilkul sahi\\b"
+  ],
+  "disagreement": [
+    "\\bi disagree\\b",
+    "\\bi don'?t (think|agree|believe)\\b",
+    "\\bthat('s| is) not (right|correct|accurate|true)\\b",
+    "\\bno,? i\\b",
+    "\\bno,? (that|this)\\b",
+    "\\bi('m| am) not (sure|convinced) (about|that|this)\\b",
+    "\\bthat's not (how|what|the right)\\b",
+    "सहमत नहीं",
+    "मैं असहमत",
+    "\\bsehmat nahi[n]?\\b"
+  ]
+}

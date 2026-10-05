@@ -114,6 +114,7 @@ def _influence_to_dict(i: InfluenceReport) -> dict[str, Any]:
 def export_json(report: MeetingReport, output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
+        "processing": report.processing,
         "meeting_overview":     _overview_to_dict(report.meeting_overview),
         "participants":         [_participant_to_dict(p) for p in report.participants],
         "executive_summary":    report.executive_summary,
@@ -161,6 +162,10 @@ def export_markdown(report: MeetingReport, output_path: Path) -> None:
         "> *All conclusions are evidence-based analytical estimates, not causal claims.*",
         "",
     ]
+
+    for warning in report.processing.get("warnings", []):
+        lines += [f"> **Review required:** {warning}", ""]
+    lines += ["> Events and decisions are heuristic candidates; verify against the recording.", ""]
 
     # 1. Overview
     lines += [
@@ -492,6 +497,10 @@ def export_html(report: MeetingReport, output_path: Path) -> None:
 
     def _sec(title: str, content: str) -> str:
         return f"<section><h2>{_h(title)}</h2>{content}</section>"
+
+    for warning in report.processing.get("warnings", []):
+        sections.append(f'<p class="note">{_h(warning)}</p>')
+    sections.append('<p class="note">Events and decisions are heuristic candidates; verify against the recording.</p>')
 
     # Overview
     overview_rows = [

@@ -33,6 +33,12 @@ def load_env(env_path: Path | None = None) -> None:
 # Load .env variables on module import
 load_env()
 
+# All inference is local; provisioning explicitly opts into model downloads.
+os.environ.setdefault("HF_HOME", str(PROJECT_ROOT / "models" / "hf"))
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
+
 
 def load_config(path: Path | None = None) -> dict[str, Any]:
     """Load config from disk (cached after first load)."""
@@ -46,6 +52,9 @@ def load_config(path: Path | None = None) -> dict[str, Any]:
 
 def get(key_path: str, default: Any = None) -> Any:
     """Retrieve a nested config value using dot notation e.g. 'audio.sample_rate'."""
+    overrides = {"asr.model_size": "MAI_ASR_MODEL", "asr.language": "MAI_ASR_LANGUAGE"}
+    if key_path in overrides and os.environ.get(overrides[key_path]):
+        return os.environ[overrides[key_path]]
     cfg = load_config()
     keys = key_path.split(".")
     val: Any = cfg

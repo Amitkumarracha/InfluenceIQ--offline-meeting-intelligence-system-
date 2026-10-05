@@ -43,3 +43,30 @@ models/
 .venv_cuda12/
 *.pt
 *.bin
+
+# Secrets
+.env
+.env.*
+*.env
+
+# Transferred workstation home directories, credentials and local runtime
+.bootstrap/
+.runtime/
+.Xauthority
+.bash_logout
+.config/
+.dmrc
+.emulator_console_auth_token
+.gitconfig
+.gradle/
+.idea/
+.npm/
+.nvm/
+.wget-hsts
+jdk-*/
+data/checkpoints/
+!.env.example
+
+# Native build dependencies and private debug signing key
+android/vendor/
+android/build/

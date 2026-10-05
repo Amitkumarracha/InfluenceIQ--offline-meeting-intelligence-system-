@@ -347,7 +347,7 @@ def extract_features(
     decisions = decision_result.decisions
 
     # Initialise vectors for every speaker seen in events
-    all_speakers = sorted({e.speaker for e in events})
+    all_speakers = sorted({e.speaker for e in events if e.speaker != "UNKNOWN"})
     vectors: dict[str, FeatureVector] = {
         sp: FeatureVector(participant=sp) for sp in all_speakers
     }
@@ -472,6 +472,7 @@ def extract_baselines(
     event_result: EventExtractionResult,
     evidence_result: EvidenceExtractionResult,
     decision_result: DecisionResult,
+    transcript_segments: list[dict] | None = None,
 ) -> dict[str, BaselineScores]:
     """
     Compute baseline scores for all participants.
@@ -486,12 +487,14 @@ def extract_baselines(
     (Phase 5 output) should be used.  This is documented as a limitation.
     """
     events = event_result.events
-    all_speakers = sorted({e.speaker for e in events})
+    from types import SimpleNamespace
+    speech = [SimpleNamespace(**segment) for segment in transcript_segments] if transcript_segments is not None else events
+    all_speakers = sorted({e.speaker for e in speech if e.speaker != "UNKNOWN"})
 
     # B1: speaking time (sum of event durations per speaker)
     speaking_time: dict[str, float] = {sp: 0.0 for sp in all_speakers}
     turn_count: dict[str, int] = {sp: 0 for sp in all_speakers}
-    for ev in events:
+    for ev in speech:
         sp = ev.speaker
         if sp in speaking_time:
             speaking_time[sp] += ev.end - ev.start
@@ -1042,6 +1045,13 @@ def run_influence_analysis(
         event_result, evidence_result, decision_result, interaction_result,
         weights=weights, ablation_flags=ablation_flags,
     )
+
+    transcript_path = events_path.parent.parent / "audio" / f"{meeting_id}_transcript.json"
+    if transcript_path.exists():
+        transcript = json.loads(transcript_path.read_text(encoding="utf-8"))
+        result.baselines = list(extract_baselines(event_result, evidence_result, decision_result,
+                                                transcript.get("segments", [])).values())
+        result.method["speaking_time_source"] = "full_transcript"
 
     elapsed = time.time() - t0
 

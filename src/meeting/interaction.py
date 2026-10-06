@@ -493,12 +493,19 @@ def save_interactions_json(result: InteractionResult, output_path: Path) -> None
 
 
 def save_interaction_graph_json(result: InteractionResult, output_path: Path) -> None:
-    """Save the participant interaction graph as JSON."""
+    """Serialize interaction data directly, preserving parallel interactions."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    G = build_participant_graph(result)
-    payload = _participant_graph_to_dict(G, result.meeting_id)
+    stats = {s.participant: s for s in result.participant_stats}
+    nodes = [{"speaker": speaker,
+              "interactions_initiated": stats[speaker].interactions_initiated if speaker in stats else 0,
+              "interactions_received": stats[speaker].interactions_received if speaker in stats else 0}
+             for speaker in result.participants]
+    edges = [{"source": i.source_speaker, "target": i.target_speaker,
+              "interaction_type": i.interaction_type, "interaction_id": i.interaction_id,
+              "timestamp": i.timestamp, "related_decision_id": i.related_decision_id}
+             for i in result.interactions if i.target_speaker is not None]
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False)
+        json.dump({"meeting_id": result.meeting_id, "nodes": nodes, "edges": edges}, f, indent=2, ensure_ascii=False)
     logger.info("Interaction graph JSON saved: %s", output_path)
 
 

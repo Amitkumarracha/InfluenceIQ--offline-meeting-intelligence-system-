@@ -75,3 +75,19 @@ def test_password_reset_never_returns_takeover_token(api_client):
     assert response.status_code == 403
     assert 'dev_token' not in response.json()
     assert client.post('/api/auth/register', json={'email': 'hi@example.com', 'password': 'अ'*30}).status_code == 422
+
+
+def test_processing_preview_is_private(api_client, tmp_path, monkeypatch):
+    api, client = api_client
+    owner = register(client, 'preview-owner@example.com')
+    other = register(client, 'preview-other@example.com')
+    with api.SessionLocal() as db:
+        user = db.query(api.User).filter_by(email='preview-owner@example.com').one()
+        db.add(api.Meeting(id='preview_test', user_id=user.id, title='Private draft', status='processing'))
+        db.commit()
+    monkeypatch.setattr(api, 'PROJECT_ROOT', tmp_path)
+    directory = tmp_path / 'data/processed/audio'; directory.mkdir(parents=True)
+    (directory / 'preview_test_preview.json').write_text(json.dumps({'transcript_segments': [{'text': 'निजी चर्चा'}]}))
+    assert client.get('/api/meetings/preview_test', headers=other).status_code == 404
+    result = client.get('/api/meetings/preview_test', headers=owner)
+    assert result.json()['preview']['transcript_segments'][0]['text'] == 'निजी चर्चा'

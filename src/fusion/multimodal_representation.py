@@ -152,6 +152,7 @@ def align_segment(
     temporal_weight: float,
     semantic_weight: float,
     threshold: float,
+    lexical_scores: dict[str, float] | None = None,
 ) -> AlignmentResult:
     """
     Align one transcript segment to the best matching slide(s).
@@ -193,16 +194,12 @@ def align_segment(
     # Indices into the full slide list for the candidates
     slide_id_to_idx = {sid: i for i, sid in enumerate(slide_ids)}
     candidate_indices = [slide_id_to_idx[sid] for sid in candidate_ids]
-    candidate_embeddings = slide_embeddings[candidate_indices]
-
-    # Step 3: semantic scores
-    sem_results = compute_semantic_scores(
-        segment.text,
-        candidate_ids,
-        candidate_embeddings,
-        embedding_model,
-    )
-    semantic_scores: dict[str, float] = {r.slide_id: r.score for r in sem_results}
+    if lexical_scores is not None:
+        semantic_scores = lexical_scores
+    else:
+        candidate_embeddings = slide_embeddings[candidate_indices]
+        sem_results = compute_semantic_scores(segment.text, candidate_ids, candidate_embeddings, embedding_model)
+        semantic_scores = {r.slide_id: r.score for r in sem_results}
 
     # Step 4: combined scores for all candidates
     candidates: list[SlideCandidate] = []
@@ -249,6 +246,7 @@ def run_alignment(
     embeddings_path: Path | None = None,
     meeting_id: str | None = None,
     output_dir: Path | None = None,
+    method: str | None = None,
 ) -> tuple[list[AlignmentResult], list[MultimodalSegment], Path, Path]:
     """
     Align a full transcript to slides and produce multimodal representations.
@@ -279,12 +277,15 @@ def run_alignment(
     if not slides_path.exists():
         raise FileNotFoundError(f"Slides JSON not found: {slides_path}")
 
+    method = method or get("alignment.method", "embeddings")
+    if method not in {"tfidf", "embeddings"}:
+        raise ValueError("alignment.method must be tfidf or embeddings")
     # Resolve embeddings path
     if embeddings_path is None:
         embeddings_path = slides_path.parent / (
             slides_path.stem.replace("_slides", "") + "_embeddings.npy"
         )
-    if not embeddings_path.exists():
+    if method == "embeddings" and not embeddings_path.exists():
         raise FileNotFoundError(
             f"Slide embeddings not found: {embeddings_path}\n"
             "Run Phase 6 (PPT processing) with embeddings enabled first."
@@ -303,7 +304,7 @@ def run_alignment(
     pdata = load_presentation_json(slides_path)
 
     logger.info("Loading embeddings: %s", embeddings_path)
-    slide_embeddings = load_embeddings(embeddings_path)
+    slide_embeddings = load_embeddings(embeddings_path) if method == "embeddings" else None
 
     meeting_id = meeting_id or transcript.meeting_id
 
@@ -334,7 +335,12 @@ def run_alignment(
 
     # ---- Load embedding model ----
     logger.info("Loading embedding model: %s", model_name)
-    embedding_model = load_embedding_model(model_name)
+    embedding_model = load_embedding_model(model_name) if method == "embeddings" else None
+    lexical = None
+    if method == "tfidf":
+        from src.fusion.lexical_alignment import TfidfIndex
+        from src.ppt.embeddings import build_slide_text
+        lexical = TfidfIndex([build_slide_text(slide) for slide in pdata.slides])
 
     slide_ids = [s.slide_id for s in pdata.slides]
 
@@ -351,6 +357,7 @@ def run_alignment(
             temporal_weight=temporal_weight,
             semantic_weight=semantic_weight,
             threshold=threshold,
+            lexical_scores=dict(zip(slide_ids, lexical.scores(seg.text))) if lexical is not None else None,
         )
         alignment_results.append(result)
 
@@ -386,8 +393,8 @@ def run_alignment(
     alignment_path = out_dir / f"{meeting_id}_alignment.json"
     multimodal_path = out_dir / f"{meeting_id}_multimodal.json"
 
-    _save_alignment_json(alignment_results, meeting_id, alignment_path)
-    _save_multimodal_json(multimodal_segments, meeting_id, multimodal_path)
+    _save_alignment_json(alignment_results, meeting_id, alignment_path, method)
+    _save_multimodal_json(multimodal_segments, meeting_id, multimodal_path, method)
 
     logger.info("Alignment JSON  : %s", alignment_path)
     logger.info("Multimodal JSON : %s", multimodal_path)
@@ -441,9 +448,11 @@ def _save_alignment_json(
     results: list[AlignmentResult],
     meeting_id: str,
     path: Path,
+    method: str = "embeddings",
 ) -> None:
     payload = {
         "meeting_id": meeting_id,
+        "alignment_method": method,
         "num_segments": len(results),
         "segments": [_alignment_to_dict(a) for a in results],
     }
@@ -456,9 +465,11 @@ def _save_multimodal_json(
     segments: list[MultimodalSegment],
     meeting_id: str,
     path: Path,
+    method: str = "embeddings",
 ) -> None:
     payload = {
         "meeting_id": meeting_id,
+        "alignment_method": method,
         "num_segments": len(segments),
         "segments": [_multimodal_to_dict(m) for m in segments],
     }

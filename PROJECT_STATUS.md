@@ -108,6 +108,32 @@ Detailed local evidence:
 
 These generated logs and artifacts are local and ignored by Git; benchmark scripts and regression tests are included in the source.
 
+## Repository-inspired app upgrade — 5 October 2026
+
+Reviewed all four supplied repositories and the three product sites; selected source files were downloaded for inspection into ignored `.runtime/reference-review/`. No third-party application code was copied. Details and source links are in [REPOSITORY_REVIEW.md](REPOSITORY_REVIEW.md); foreground-only launch and provisioning commands are in [RUN_MANUALLY.md](RUN_MANUALLY.md).
+
+The laptop now saves per-meeting speech model/language/vocabulary/speaker-count settings, reports transcription progress, and includes local Ollama notes with checked quotations and source timestamps. Long notes jobs checkpoint each bounded transcript part and recover after restart. Unknown owners/deadlines are not filled in. The UI includes retrieved-passage meeting questions, cross-meeting transcript search, persisted speaker aliases/titles, microphone selection and levels, pause/resume, optional shared-tab audio, upload-part ordering, timestamp playback, 100-passage transcript pages, full printing, and JSON/Markdown/TXT/SRT/VTT/CSV exports. The launcher rebuilds the current frontend every time.
+
+Android version 0.3.0 adds normalized PCM WAV import, playback, searchable transcript pages, meeting titles, Markdown export, language/vocabulary settings, context overlap, partial reports after each completed chunk, and recovery of already completed analyses without model loading. It retains no INTERNET permission and explicit UNKNOWN speaker labels.
+
+Current verification:
+
+| Check | Result | Boundary |
+| --- | --- | --- |
+| Python suite | **470 passed, 7 dependency warnings, 7.27 seconds** | Local notes model output is mocked; tests verify evidence, ownership, settings, export and resume logic. |
+| Frontend | Vite production build and oxlint passed | No new dependencies added. |
+| Foreground browser fixture check | Synthetic microphone record/pause/resume, IndexedDB reload recovery, settings submission, late transcript pages, complete print DOM, notes polling, questions and Markdown download passed; no JS errors or horizontal overflow at 390 px | API/AI responses are intercepted fixtures; no web/API server was started. |
+| Real 30-second AMI pipeline | Small model + English/vocabulary job settings produced 10 transcript segments and reports in 4.89 seconds, with **zero network connection attempts** under a blocked socket connect | An integration check, not a new WER measurement. |
+| Android | ARM64/x86_64 APK compiled and signed; PCM JVM checks passed | New native/UI flows have not been retested on a phone/emulator. |
+
+Ollama was not installed or started during this work. Actual semantic notes require manual local model provisioning/startup and a model quality evaluation. Existing small/medium WER baselines below remain unchanged; no higher accuracy or competitor superiority is claimed. No background app server was launched, no model weights were downloaded in this upgrade, and no existing user meetings were removed.
+
+## Focused efficiency and bilingual fixes — 6 October 2026
+
+Resumed the interrupted work and fixed duplicate WAV conversion, Hindi token splitting, negation/question false confirmations, repeated Android rule compilation/scanning and graph relationship loss. Added owner-protected partial previews, exact-silence skipping, audio diagnostics, optional TF-IDF slide matching, an inactive optional ONNX diarization adapter, and manual phone-recording evaluation. **494 Python tests passed**; frontend build/lint and browser fixtures passed; Android 0.3.1 was compiled/signed and JVM audio/bilingual checks passed. Existing neural slide alignment and pyannote remain the defaults; no dependencies/models were installed and no app server was launched.
+
+Fresh small-model tests on the same ten-minute English AMI sample gave **45.8364% WER / 82.254 seconds with 300-second chunks**, and **41.4886% WER / 115.043 seconds with 120-second chunks**. The shorter setting improved this sample but was slower overall. Hindi/Hinglish ground-truth accuracy remains unmeasured. The long synthetic timeline passed with zero network connections in 17.896 seconds; real speech + PPT also passed offline. Details, verification boundaries and manual commands are in [EFFICIENCY_IMPROVEMENTS.md](EFFICIENCY_IMPROVEMENTS.md) and [efficiency-results.json](efficiency-results.json).
+
 ## Remaining work, in priority order
 
 1. **Unblock real diarization.** Hugging Face rejected the transferred token/model access. Accept both pyannote model gates and update `.env` locally; then provision and evaluate with real speaker annotations. No physical identity recognition is implemented.
@@ -124,7 +150,7 @@ These generated logs and artifacts are local and ignored by Git; benchmark scrip
 - Speaker labels are clusters, not real names. Inference confidences and influence scores are uncalibrated analytical estimates.
 - Small/base models are practical CPU baselines; neither guarantees good far-field or mixed-language accuracy.
 - The legacy English MiniLM slide model has not been validated for Hindi/English cross-language alignment.
-- Native Android analysis uses non-overlapping chunks, so boundary quality needs further work. Both native and browser recordings can be interrupted by their operating systems.
+- Native Android analysis now uses context overlap; boundary quality still needs validation. Both native and browser recordings can be interrupted by their operating systems.
 - Browser recordings remain local until upload; laptop processing then requires that laptop. The native Android path requires no laptop after model import.
 - The laptop API is a single-process local service, not a hardened internet-facing multi-tenant deployment. Files are private local artifacts, not an encrypted application vault.
 - Existing transferred databases/data were retained. User-preexisting `.gitignore` changes and Flutter deletions were preserved. No commit, push or publication was performed.

@@ -52,7 +52,7 @@ def load_config(path: Path | None = None) -> dict[str, Any]:
 
 def get(key_path: str, default: Any = None) -> Any:
     """Retrieve a nested config value using dot notation e.g. 'audio.sample_rate'."""
-    overrides = {"asr.model_size": "MAI_ASR_MODEL", "asr.language": "MAI_ASR_LANGUAGE"}
+    overrides = {"asr.model_size": "MAI_ASR_MODEL", "asr.language": "MAI_ASR_LANGUAGE", "asr.chunk_seconds": "MAI_ASR_CHUNK_SECONDS"}
     if key_path in overrides and os.environ.get(overrides[key_path]):
         return os.environ[overrides[key_path]]
     cfg = load_config()

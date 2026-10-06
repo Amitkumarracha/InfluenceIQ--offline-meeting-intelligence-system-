@@ -4,7 +4,7 @@ import json
 import logging
 import os
 import secrets
-import subprocess
+import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
@@ -13,7 +13,7 @@ from pathlib import Path
 
 import bcrypt
 import jwt
-from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, Form
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, Form, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -59,6 +59,7 @@ def redact_media_token(record):
 logging.getLogger('uvicorn.access').addFilter(redact_media_token)
 security = HTTPBearer()
 MAX_UPLOAD_BYTES = int(os.environ.get('MAI_MAX_UPLOAD_BYTES', 1024 ** 3))
+summary_lock = threading.Lock()
 
 
 class User(Base):
@@ -94,12 +95,13 @@ def job_state(meeting_id):
 
 
 def run_pipeline_background(user_id, meeting_id):
-    from src.audio.preprocess import preprocess_audio
+    from src.audio.parts import decode_parts
     from src.pipeline.orchestrator import run_meeting
     state = job_state(meeting_id)
 
-    def progress(stage):
-        state.update(stage=stage, error=None)
+    def progress(stage, details=None):
+        state.update(stage=stage, error=None, progress=details,
+                     updated_at=datetime.now(timezone.utc).isoformat())
         atomic_json(job_path(meeting_id), state)
 
     with SessionLocal() as db:
@@ -110,29 +112,15 @@ def run_pipeline_background(user_id, meeting_id):
         db.commit()
     try:
         progress('decoding')
-        parts = []
-        for index, raw in enumerate(state['audio']):
-            dest = DATA_DIR / f'{meeting_id}_part{index}.wav'
-            preprocess_audio(raw, dest)
-            parts.append(dest)
-        final_audio = DATA_DIR / f'{meeting_id}.wav'
-        # Normalized PCM parts can be concatenated without codec mismatches.
-        import soundfile as sf
-        with sf.SoundFile(final_audio, 'w', samplerate=16000, channels=1, subtype='PCM_16') as output:
-            for part in parts:
-                with sf.SoundFile(part) as source:
-                    for block in source.blocks(blocksize=16000 * 30, dtype='int16'):
-                        output.write(block)
-        for part in parts:
-            part.unlink(missing_ok=True)
+        final_audio = decode_parts(state['audio'], DATA_DIR / f'{meeting_id}.wav')
         report_path = run_meeting(final_audio, meeting_id, state.get('ppt'),
-                                  state.get('diarization', 'auto'), progress)
+                                  state.get('diarization', 'auto'), progress, state.get('options'))
+        progress('completed')
         with SessionLocal() as db:
             meeting = db.query(Meeting).filter_by(id=meeting_id, user_id=user_id).one()
             meeting.report_data = report_path.read_text(encoding='utf-8')
             meeting.status = 'completed'
             db.commit()
-        progress('completed')
     except Exception as exc:
         logger.exception('Meeting %s failed', meeting_id)
         state.update(stage='failed', error=f'{type(exc).__name__}: {str(exc)[:400]}')
@@ -142,6 +130,38 @@ def run_pipeline_background(user_id, meeting_id):
             if meeting:
                 meeting.status = 'failed'
                 db.commit()
+
+
+def run_summary_background(user_id, meeting_id):
+    from src.meeting.local_notes import summarize
+
+    def progress(details):
+        state = job_state(meeting_id)
+        state.update(summary_status='processing', summary_progress=details, summary_error=None)
+        atomic_json(job_path(meeting_id), state)
+
+    try:
+        with SessionLocal() as db:
+            meeting = db.query(Meeting).filter_by(id=meeting_id, user_id=user_id).first()
+            if not meeting:
+                return
+            data = json.loads(meeting.report_data)
+        progress({'completed_chunks': 0, 'total_chunks': None})
+        notes = summarize(data.get('transcript_segments', []), job_state(meeting_id)['summary_model'],
+                          RUNTIME / 'notes' / meeting_id, progress)
+        with summary_lock, SessionLocal() as db:
+            meeting = db.query(Meeting).filter_by(id=meeting_id, user_id=user_id).one()
+            data = json.loads(meeting.report_data)
+            data['local_notes'] = notes
+            meeting.report_data = json.dumps(data, ensure_ascii=False)
+            db.commit()
+        state = job_state(meeting_id)
+        state.update(summary_status='completed', summary_error=None)
+        atomic_json(job_path(meeting_id), state)
+    except Exception as exc:
+        state = job_state(meeting_id)
+        state.update(summary_status='failed', summary_error=f'{type(exc).__name__}: {str(exc)[:400]}')
+        atomic_json(job_path(meeting_id), state)
 
 
 @asynccontextmanager
@@ -161,6 +181,9 @@ async def lifespan(app):
             else:
                 meeting.status = 'failed'
         db.commit()
+        for meeting in db.query(Meeting).filter_by(status='completed'):
+            if job_state(meeting.id).get('summary_status') in {'queued', 'processing'}:
+                app.state.executor.submit(run_summary_background, meeting.user_id, meeting.id)
     try:
         yield
     finally:
@@ -255,23 +278,39 @@ def health():
     from huggingface_hub import snapshot_download
     from src.utils.config import get
     from faster_whisper.utils import _MODELS
+    available = []
+    for name in ('tiny', 'base', 'small', 'medium', 'large-v3', 'large-v3-turbo'):
+        try:
+            location = snapshot_download(_MODELS[name], local_files_only=True)
+            if (Path(location) / 'model.bin').exists():
+                available.append(name)
+        except Exception:
+            pass
+    from src.meeting.local_notes import local_models
     try:
-        location = snapshot_download(_MODELS[get('asr.model_size')], local_files_only=True)
-        ready = (Path(location) / 'model.bin').exists()
-    except Exception:
-        ready = False
+        models = [m['name'] for m in local_models()]
+    except RuntimeError:
+        models = []
+    ready = get('asr.model_size') in available
     return {'status': 'ok', 'inference': 'local-laptop', 'asr_ready': ready,
-            'asr_model': get('asr.model_size'), 'offline': True}
+            'asr_model': get('asr.model_size'), 'asr_models': available,
+            'summary_models': models, 'offline': True, 'max_upload_bytes': MAX_UPLOAD_BYTES}
 
 
 @app.post('/api/analyze', status_code=202)
 async def analyze_meeting(audio: list[UploadFile] = File(...), ppt: list[UploadFile] | None = File(None),
                           title: str = Form(''), diarization: str = Form('auto'),
+                          model_size: str = Form(''), language: str = Form('auto'),
+                          vocabulary: str = Form('', max_length=1000), num_speakers: int | None = Form(None, ge=1, le=50),
                           current_user: User = Depends(get_current_user)):
     if not audio or len(audio) > 32:
         raise HTTPException(422, 'Supply between 1 and 32 audio parts, in chronological order')
     if diarization not in {'auto', 'required', 'off'}:
         raise HTTPException(422, 'Invalid diarization mode')
+    if model_size and model_size not in {'tiny', 'base', 'small', 'medium', 'large-v3', 'large-v3-turbo'}:
+        raise HTTPException(422, 'Invalid speech model')
+    if language not in {'auto', 'en', 'hi'}:
+        raise HTTPException(422, 'Choose auto, English or Hindi')
     slides = [f for f in (ppt or []) if f.filename]
     if len(slides) > 1:
         raise HTTPException(422, 'Upload one combined PPTX presentation')
@@ -311,7 +350,9 @@ async def analyze_meeting(audio: list[UploadFile] = File(...), ppt: list[UploadF
                 raise HTTPException(422, 'File does not contain decodable audio')
             paths.append(path)
         ppt_path = await save(slides[0], 'slides', {'.pptx'}) if slides else None
-        state = {'audio': paths, 'ppt': ppt_path, 'diarization': diarization, 'stage': 'queued', 'error': None}
+        state = {'audio': paths, 'ppt': ppt_path, 'diarization': diarization, 'stage': 'queued', 'error': None,
+                 'options': {'model_size': model_size or None, 'language': None if language == 'auto' else language,
+                             'vocabulary': vocabulary.strip(), 'num_speakers': num_speakers}}
         atomic_json(job_path(meeting_id), state)
         with SessionLocal() as db:
             db.add(Meeting(id=meeting_id, user_id=current_user.id,
@@ -343,6 +384,16 @@ def get_meetings(db=Depends(get_db), current_user: User = Depends(get_current_us
         'created_at': m.created_at.isoformat()} for m in db.query(Meeting).filter_by(user_id=current_user.id).order_by(Meeting.created_at.desc())]}
 
 
+@app.get('/api/search')
+def search_meetings(q: str = Query(min_length=1, max_length=500), db=Depends(get_db), current_user: User = Depends(get_current_user)):
+    from src.meeting.search import search_segments
+    results = []
+    for meeting in db.query(Meeting).filter_by(user_id=current_user.id, status='completed').yield_per(20):
+        for hit in search_segments(json.loads(meeting.report_data).get('transcript_segments', []), q, limit=3):
+            results.append({**hit, 'meeting_id': meeting.id, 'title': meeting.title})
+    return {'results': sorted(results, key=lambda hit: -hit['score'])[:50]}
+
+
 @app.get('/api/meetings/{meeting_id}')
 def get_meeting(meeting_id: str, db=Depends(get_db), current_user: User = Depends(get_current_user)):
     m = owned_meeting(db, meeting_id, current_user)
@@ -354,8 +405,17 @@ def get_meeting(meeting_id: str, db=Depends(get_db), current_user: User = Depend
     media_token = jwt.encode({'sub': current_user.id, 'mid': meeting_id, 'purpose': 'audio',
         'exp': datetime.now(timezone.utc) + timedelta(hours=8)}, SECRET_KEY, algorithm='HS256')
     state = job_state(meeting_id)
+    preview = None
+    if m.status in {'processing', 'failed'}:
+        preview_path = PROJECT_ROOT / 'data' / 'processed' / 'audio' / f'{meeting_id}_preview.json'
+        try:
+            preview = json.loads(preview_path.read_text())
+        except (OSError, ValueError):
+            pass
     return {'id': m.id, 'title': m.title, 'status': m.status, 'created_at': m.created_at.isoformat(),
             'data': data, 'stage': state.get('stage'), 'error': state.get('error'),
+            'progress': state.get('progress'), 'preview': preview, 'summary_status': state.get('summary_status'),
+            'summary_progress': state.get('summary_progress'), 'summary_error': state.get('summary_error'),
             'audio_url': f'/api/meetings/{meeting_id}/audio?token={media_token}' if data else None}
 
 
@@ -390,14 +450,90 @@ def retry(meeting_id: str, db=Depends(get_db), current_user: User = Depends(get_
     return {'status': 'queued'}
 
 
+class NotesRequest(BaseModel):
+    model: str = Field(min_length=1, max_length=200)
+
+
+@app.post('/api/meetings/{meeting_id}/summarize', status_code=202)
+def generate_notes(meeting_id: str, body: NotesRequest, db=Depends(get_db), current_user: User = Depends(get_current_user)):
+    meeting = owned_meeting(db, meeting_id, current_user)
+    if meeting.status != 'completed' or not json.loads(meeting.report_data).get('transcript_segments'):
+        raise HTTPException(409, 'Complete a meeting with a transcript first')
+    from src.meeting.local_notes import require_local_model
+    try:
+        require_local_model(body.model)
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(422, str(exc))
+    with summary_lock:
+        state = job_state(meeting_id)
+        if state.get('summary_status') in {'queued', 'processing'}:
+            raise HTTPException(409, 'Notes generation already queued or running')
+        state.update(summary_model=body.model, summary_status='queued', summary_progress=None, summary_error=None)
+        atomic_json(job_path(meeting_id), state)
+        app.state.executor.submit(run_summary_background, current_user.id, meeting_id)
+    return {'status': 'queued'}
+
+
+class QuestionRequest(BaseModel):
+    question: str = Field(min_length=1, max_length=500)
+    model: str | None = Field(default=None, max_length=200)
+
+
+@app.post('/api/meetings/{meeting_id}/ask')
+async def ask_meeting(meeting_id: str, body: QuestionRequest, db=Depends(get_db), current_user: User = Depends(get_current_user)):
+    meeting = owned_meeting(db, meeting_id, current_user)
+    if meeting.status != 'completed':
+        raise HTTPException(409, 'Complete the meeting first')
+    from src.meeting.local_notes import ask
+    segments = json.loads(meeting.report_data).get('transcript_segments', [])
+    try:
+        if not body.model:
+            return ask(segments, body.question)
+        # Share the inference executor so Q&A cannot compete with transcription on the CPU.
+        return await asyncio.wrap_future(app.state.executor.submit(ask, segments, body.question, body.model))
+    except (ValueError, RuntimeError) as exc:
+        raise HTTPException(422, str(exc))
+
+
+class MeetingEdit(BaseModel):
+    title: str | None = Field(default=None, min_length=1, max_length=200)
+    speaker_names: dict[str, str] | None = None
+
+
+@app.post('/api/meetings/{meeting_id}/edit')
+def edit_meeting(meeting_id: str, body: MeetingEdit, db=Depends(get_db), current_user: User = Depends(get_current_user)):
+    with summary_lock:
+        meeting = owned_meeting(db, meeting_id, current_user)
+        if body.title is not None:
+            if not body.title.strip():
+                raise HTTPException(422, 'Enter a meeting title')
+            meeting.title = body.title.strip()
+        if body.speaker_names is not None:
+            if meeting.status != 'completed':
+                raise HTTPException(409, 'Speaker names can be edited after processing')
+            data = json.loads(meeting.report_data)
+            known = {s['speaker'] for s in data.get('transcript_segments', [])} - {'UNKNOWN'}
+            if len(body.speaker_names) > 50 or any(k not in known or len(v) > 100 for k, v in body.speaker_names.items()):
+                raise HTTPException(422, 'Use known speaker IDs and names up to 100 characters')
+            data['speaker_names'] = {k: v.strip() for k, v in body.speaker_names.items() if v.strip()}
+            meeting.report_data = json.dumps(data, ensure_ascii=False)
+        db.commit()
+        return {'status': 'saved'}
+
+
 @app.get('/api/meetings/{meeting_id}/export')
-def export_meeting(meeting_id: str, db=Depends(get_db), current_user: User = Depends(get_current_user)):
+def export_meeting(meeting_id: str, format: str = Query('json', pattern='^(json|md|txt|srt|vtt|csv)$'), db=Depends(get_db), current_user: User = Depends(get_current_user)):
     meeting = owned_meeting(db, meeting_id, current_user)
     if meeting.status != 'completed':
         raise HTTPException(409, 'Meeting is not completed')
     from fastapi.responses import Response
-    return Response(meeting.report_data, media_type='application/json',
-                    headers={'Content-Disposition': f'attachment; filename="{meeting_id}_report.json"'})
+    content, media_type = meeting.report_data, 'application/json'
+    if format != 'json':
+        from src.report.transcript_export import render_export
+        content, media_type = render_export(json.loads(meeting.report_data), meeting.title, format)
+    return Response(content, media_type=media_type,
+                    headers={'Content-Disposition': f'attachment; filename="{meeting_id}_report.{format}"',
+                             'Cache-Control': 'private, no-store'})
 
 
 if (PROJECT_ROOT / 'frontend' / 'dist').exists():

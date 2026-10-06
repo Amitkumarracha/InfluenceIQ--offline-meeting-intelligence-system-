@@ -11,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class MeetingService extends Service {
     static volatile String status = "Ready. Audio and reports stay on this phone.";
@@ -19,6 +18,9 @@ public class MeetingService extends Service {
     private volatile boolean stopping = false;
     private PowerManager.WakeLock wakeLock;
     private Thread worker;
+    private EventRules eventRules;
+    private JSONArray eventCandidates = new JSONArray();
+    private int analysedSegments = 0;
 
     public IBinder onBind(Intent intent) { return null; }
     public void onCreate() {
@@ -44,9 +46,11 @@ public class MeetingService extends Service {
         wakeLock = getSystemService(PowerManager.class).newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "meetiq:meeting");
         wakeLock.acquire(6 * 60 * 60 * 1000L);
         final String meeting = intent.getStringExtra("meeting");
+        final String language = intent.getStringExtra("language");
+        final String vocabulary = intent.getStringExtra("vocabulary");
         worker = new Thread(() -> {
             try {
-                if (record) recordMeeting(); else analyse(meeting);
+                if (record) recordMeeting(); else analyse(meeting, language, vocabulary);
             } catch (Exception | LinkageError error) {
                 status = "Stopped: " + error.getMessage() + ". Saved audio and completed chunks are retained.";
             } finally {
@@ -69,7 +73,7 @@ public class MeetingService extends Service {
         AudioRecord recorder = new AudioRecord(MediaRecorder.AudioSource.VOICE_RECOGNITION, 16000,
             AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, Math.max(minimum * 2, 32000));
         try (RandomAccessFile output = new RandomAccessFile(new File(directory, "audio.wav"), "rw")) {
-            header(output, 0);
+            WavAudio.writeHeader(output, 0);
             if (recorder.getState() != AudioRecord.STATE_INITIALIZED) throw new IOException("Microphone could not initialize");
             recorder.startRecording();
             byte[] buffer = new byte[32000];
@@ -78,8 +82,10 @@ public class MeetingService extends Service {
                 int count = recorder.read(buffer, 0, buffer.length);
                 if (count < 0) throw new IOException("Microphone interrupted: " + count);
                 if (count == 0) continue;
+                if (count % 2 != 0) throw new IOException("Incomplete microphone sample");
+                if (directory.getUsableSpace() < count + 1024 * 1024) throw new IOException("Phone storage is full");
                 output.write(buffer, 0, count); bytes += count;
-                header(output, bytes); // Update WAV length; recoverable after process death.
+                WavAudio.writeHeader(output, bytes); // Update WAV length; recoverable after process death.
                 output.getFD().sync();
                 status = "Recording " + (bytes / 32000) + " seconds. Keep the phone close to the speakers.";
             }
@@ -90,47 +96,54 @@ public class MeetingService extends Service {
         }
     }
 
-    static void header(RandomAccessFile output, long bytes) throws IOException {
-        output.seek(0);
-        output.writeBytes("RIFF"); output.writeInt(Integer.reverseBytes((int)(bytes + 36)));
-        output.writeBytes("WAVEfmt "); output.writeInt(Integer.reverseBytes(16));
-        output.writeShort(Short.reverseBytes((short)1)); output.writeShort(Short.reverseBytes((short)1));
-        output.writeInt(Integer.reverseBytes(16000)); output.writeInt(Integer.reverseBytes(32000));
-        output.writeShort(Short.reverseBytes((short)2)); output.writeShort(Short.reverseBytes((short)16));
-        output.writeBytes("data"); output.writeInt(Integer.reverseBytes((int)bytes));
-        output.seek(bytes + 44);
-    }
-
-    private void analyse(String meeting) throws Exception {
+    private void analyse(String meeting, String requestedLanguage, String requestedVocabulary) throws Exception {
+        analysedSegments = 0; eventCandidates = new JSONArray();
         if (meeting == null || !meeting.matches("[0-9]+")) throw new IOException("Select a meeting");
         File directory = new File(getFilesDir(), "meetings/" + meeting);
         File audio = new File(directory, "audio.wav");
         File model = new File(getFilesDir(), "model.bin");
         if (!model.isFile()) throw new IOException("Import a multilingual GGML model first");
-        String identity = "v2:" + sha256(model) + ":" + sha256(audio);
+        String language = requestedLanguage == null ? "auto" : requestedLanguage;
+        if (!Arrays.asList("auto", "en", "hi").contains(language)) throw new IOException("Invalid language");
+        String vocabulary = requestedVocabulary == null ? "" : requestedVocabulary.trim();
+        if (vocabulary.length() > 1000) throw new IOException("Vocabulary must be under 1000 characters");
+        String identity = "v3:" + sha256(model) + ":" + sha256(audio) + ":" + language + ":" + vocabulary;
         File checkpoint = new File(directory, "checkpoint.json");
         JSONObject saved = checkpoint.exists() ? new JSONObject(new String(Files.readAllBytes(checkpoint.toPath()), StandardCharsets.UTF_8)) : new JSONObject();
         JSONArray segments = identity.equals(saved.optString("identity")) ? saved.getJSONArray("segments") : new JSONArray();
         int completed = identity.equals(saved.optString("identity")) ? saved.optInt("completed") : 0;
+        long samples = Math.max(0, (audio.length() - 44) / 2);
+        if (samples == 0) throw new IOException("Recording contains no audio");
+        int chunk = 120 * 16000;
+        saveReport(directory, segments, samples / 16000.0, completed * (long)chunk >= samples, language);
+        if (completed * (long)chunk >= samples) { status = "Completed transcript recovered from saved chunks."; return; }
         status = "Loading local speech model…";
-        long context = NativeWhisper.open(model.getAbsolutePath());
+        long context = 0;
         try (RandomAccessFile input = new RandomAccessFile(audio, "r")) {
-            long samples = Math.max(0, (input.length() - 44) / 2);
-            if (samples == 0) throw new IOException("Recording contains no audio");
-            int chunk = 120 * 16000;
             for (long start = (long)completed * chunk; start < samples && !stopping; start += chunk) {
-                int count = (int)Math.min(chunk, samples - start);
+                long offset = Math.max(0, start - 2 * 16000);
+                int count = (int)(Math.min(samples, start + chunk + 2 * 16000) - offset);
                 byte[] pcm = new byte[count * 2];
-                input.seek(44 + start * 2); input.readFully(pcm);
+                input.seek(44 + offset * 2); input.readFully(pcm);
                 float[] values = new float[count];
-                for (int i=0; i<count; i++) values[i] = (short)((pcm[i*2] & 255) | (pcm[i*2+1] << 8)) / 32768f;
+                boolean digitalSilence = true;
+                for (int i=0; i<count; i++) {
+                    values[i] = (short)((pcm[i*2] & 255) | (pcm[i*2+1] << 8)) / 32768f;
+                    if (values[i] != 0) digitalSilence = false;
+                }
                 status = "Transcribing " + (start / 16000) + " / " + (samples / 16000) + " seconds locally…";
-                JSONArray found = new JSONArray(NativeWhisper.run(context, values));
+                JSONArray found = new JSONArray();
+                if (!digitalSilence) {
+                    if (context == 0) context = NativeWhisper.open(model.getAbsolutePath());
+                    found = new JSONArray(NativeWhisper.run(context, values, language, vocabulary));
+                }
                 for (int i=0; i<found.length(); i++) {
                     JSONObject item = found.getJSONObject(i);
                     String text = item.getString("text").trim();
-                    double a = item.getDouble("start") + start / 16000.0;
-                    double b = Math.min(samples / 16000.0, item.getDouble("end") + start / 16000.0);
+                    double a = Math.max(0, item.getDouble("start") + offset / 16000.0);
+                    double b = Math.min(samples / 16000.0, item.getDouble("end") + offset / 16000.0);
+                    double midpoint = (a + b) / 2;
+                    if (midpoint < start / 16000.0 || midpoint >= Math.min(samples, start + chunk) / 16000.0) continue;
                     if (text.isEmpty() || b <= a) continue;
                     item.put("start", a).put("end", b).put("text", text)
                         .put("speaker", "UNKNOWN").put("segment_id", segments.length() + 1);
@@ -138,42 +151,53 @@ public class MeetingService extends Service {
                 }
                 completed++;
                 atomic(checkpoint, new JSONObject().put("identity", identity).put("completed", completed).put("segments", segments));
+                saveReport(directory, segments, samples / 16000.0, false, language);
             }
-            JSONObject report = new JSONObject().put("transcript_segments", segments)
-                .put("duration", samples / 16000.0).put("completed", !stopping)
-                .put("analysis_method", "Keyword candidates; verify against source audio. Speaker separation unavailable.")
-                .put("events", events(segments)).put("accuracy_measured", false);
-            atomic(new File(directory, "report.json"), report);
+            saveReport(directory, segments, samples / 16000.0, completed * (long)chunk >= samples, language);
             status = stopping ? "Analysis paused. Tap Analyse to resume." : "Report saved. Review transcript and event candidates before using them.";
         } finally { NativeWhisper.close(context); }
     }
 
-    private JSONArray events(JSONArray segments) throws Exception {
+    private void saveReport(File directory, JSONArray segments, double duration, boolean complete, String language) throws Exception {
+        JSONObject report = new JSONObject().put("transcript_segments", segments)
+            .put("duration", duration).put("completed", complete).put("language", language)
+            .put("analysis_method", "Keyword candidates; verify against source audio. Speaker separation unavailable.")
+            .put("events", events(segments)).put("accuracy_measured", false);
+        atomic(new File(directory, "report.json"), report);
+    }
+
+    private Map<String,List<String>> ruleAsset(String file) throws Exception {
         String raw;
-        try (InputStream stream = getAssets().open("event_patterns.json")) {
+        try (InputStream stream = getAssets().open(file)) {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream(); byte[] block = new byte[8192]; int count;
             while ((count = stream.read(block)) != -1) bytes.write(block, 0, count);
             raw = new String(bytes.toByteArray(), StandardCharsets.UTF_8);
         }
-        JSONObject bank = new JSONObject(raw); JSONArray result = new JSONArray();
-        Map<String,List<Pattern>> patterns = new LinkedHashMap<>();
+        JSONObject bank = new JSONObject(raw);
+        Map<String,List<String>> result = new LinkedHashMap<>();
         for (Iterator<String> keys=bank.keys(); keys.hasNext();) {
-            String type = keys.next(); JSONArray items = bank.getJSONArray(type); List<Pattern> compiled = new ArrayList<>();
-            for (int i=0; i<items.length(); i++) compiled.add(Pattern.compile(items.getString(i), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
-            patterns.put(type, compiled);
-        }
-        for (int i=0; i<segments.length(); i++) {
-            JSONObject seg = segments.getJSONObject(i); String text = seg.getString("text");
-            for (Map.Entry<String,List<Pattern>> entry : patterns.entrySet()) {
-                if (entry.getKey().equals("decision") && Pattern.compile("not\\s+(yet\\s+)?decided|निर्णय नहीं|फैसला नहीं|तय नहीं|decide nahi", Pattern.CASE_INSENSITIVE).matcher(text).find()) continue;
-                for (Pattern pattern : entry.getValue()) if (pattern.matcher(text).find()) {
-                    result.put(new JSONObject().put("event_type", entry.getKey()).put("text", text)
-                        .put("start", seg.getDouble("start")).put("end", seg.getDouble("end"))
-                        .put("source_segment_id", seg.getInt("segment_id")).put("requires_review", true)); break;
-                }
-            }
+            String type = keys.next(); JSONArray items = bank.getJSONArray(type); List<String> patterns = new ArrayList<>();
+            for (int i=0; i<items.length(); i++) patterns.add(items.getString(i));
+            result.put(type, patterns);
         }
         return result;
+    }
+
+    private JSONArray events(JSONArray segments) throws Exception {
+        if (eventRules == null) eventRules = new EventRules(ruleAsset("event_patterns.json"), ruleAsset("event_blockers.json"));
+        if (segments.length() < analysedSegments) { analysedSegments = 0; eventCandidates = new JSONArray(); }
+        // Completed transcript parts are immutable within an analysis run.
+        // Compile once and analyse only new passages, rather than rescanning all history.
+        for (int i=analysedSegments; i<segments.length(); i++) {
+            JSONObject seg = segments.getJSONObject(i); String text = seg.getString("text");
+            for (String type : eventRules.eventTypes(text)) {
+                eventCandidates.put(new JSONObject().put("event_type", type).put("text", text)
+                    .put("start", seg.getDouble("start")).put("end", seg.getDouble("end"))
+                    .put("source_segment_id", seg.getInt("segment_id")).put("requires_review", true));
+            }
+        }
+        analysedSegments = segments.length();
+        return eventCandidates;
     }
     private static String sha256(File file) throws Exception {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");

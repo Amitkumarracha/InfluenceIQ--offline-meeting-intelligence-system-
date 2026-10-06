@@ -13,4 +13,4 @@ if __name__ == '__main__':
     p.add_argument('--diarization', choices=['auto', 'required', 'off'], default='auto')
     args = p.parse_args()
     print(run_meeting(args.audio, args.meeting_id, args.ppt, args.diarization,
-                      progress=lambda stage: print('Stage:', stage, flush=True)))
+                      progress=lambda stage, details=None: print('Stage:', stage, details or '', flush=True)))

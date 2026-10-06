@@ -1,28 +1,4 @@
 {
-  "decision": [
-    "\\bwe (have |will |are going to )?(decided?|agreed?|concluded?|resolved?)\\b",
-    "\\bthe (final |agreed |chosen )?(decision|choice|approach|solution) (is|will be)\\b",
-    "\\bgoing (ahead|forward) with\\b",
-    "\\blet'?s (go with|use|adopt|implement)\\b",
-    "\\bwe('ll| will) (use|go with|implement|adopt)\\b",
-    "\\bit('s| is) (settled|decided|agreed)\\b",
-    "हमने (तय|फैसला|निर्णय) किया",
-    "तय हो गया",
-    "अंतिम निर्णय",
-    "\\bhumne (tay|faisla|decide) kiya\\b",
-    "\\bfinal decision (hai|yeh)\\b"
-  ],
-  "action_item": [
-    "\\b(please|can you|could you|would you)\\b.*\\b(do|check|update|send|write|create|look into|follow up|review|fix|make sure)\\b",
-    "\\b(name|someone|everyone|who)\\b.*\\bwill\\b.*\\b(do|handle|take care|be responsible)\\b",
-    "\\baction (item|required|needed)\\b",
-    "\\bfollow[- ]?up\\b",
-    "\\bby (monday|tuesday|wednesday|thursday|friday|next week|end of (day|week|month))\\b",
-    "\\b(assigned?|responsible) (to|for)\\b",
-    "\\btake (care of|this|that)\\b",
-    "मैं .+ (भेज|तैयार|पूरा|कर).*(दूंगा|दूँगा|दूंगी|दूँगी|करूंगा|करूँगा|करूंगी|करूँगी)",
-    "\\bmain .+ (bhej|complete|prepare|kar).*(dunga|dungi|karunga|karungi)\\b"
-  ],
   "proposal": [
     "\\bwe should\\b",
     "\\bi propose\\b",
@@ -50,7 +26,60 @@
     "\\bwould you\\b",
     "\\bany (questions|thoughts|comments)\\b",
     "^(क्या|क्यों|कैसे|कब|कौन|कहाँ)",
-    "\\b(kya|kyun|kaise|kab|kaun)\\b.*\\?"
+    "\\b(kya|kyun|kaise|kab|kaun)\\b.*\\?",
+    "^(kya|kyun|kaise|kab|kaun|kahaan|kahan)\\b"
+  ],
+  "objection": [
+    "\\bbut (that|this|it)\\b",
+    "\\bthat('s| is) (wrong|incorrect|not right|a problem)\\b",
+    "\\bi('m| am) not (sure|convinced|comfortable)\\b",
+    "\\bthe (issue|problem|concern) (is|with)\\b",
+    "\\bthat won't work\\b",
+    "\\bthis is problematic\\b",
+    "\\bhowever\\b.*\\bconcern\\b",
+    "\\bi have (a|some) concern\\b",
+    "\\bactually,? (no|that's not)\\b",
+    "समस्या यह है",
+    "यह काम नहीं करेगा",
+    "\\b(yeh|ye) kaam nahi[n]? karega\\b"
+  ],
+  "evidence": [
+    "\\baccording to\\b",
+    "\\bthe (data|results?|findings?|numbers?|figure[s]?|chart[s]?)\\b",
+    "\\bas (shown|seen|displayed|indicated|presented)\\b",
+    "\\bour (experiments?|tests?|evaluation|benchmark|analysis)\\b",
+    "\\bthis (shows?|demonstrates?|confirms?|proves?|indicates?)\\b",
+    "\\bfor example\\b",
+    "\\bfor instance\\b",
+    "\\bon (slide|page)\\b",
+    "\\bthe (table|graph|plot)\\b",
+    "\\b\\d+(\\.\\d+)?%\\b",
+    "\\bstatistically\\b",
+    "आंकड़ों के अनुसार",
+    "डेटा के अनुसार",
+    "रिपोर्ट के अनुसार",
+    "\\bdata ke (hisab|hisaab|anusaar)\\b"
+  ],
+  "correction": [
+    "\\bactually\\b.*\\b(is|was|should|it'?s)\\b",
+    "\\bthat('s| is) (actually|not quite|incorrect|wrong)\\b",
+    "\\blet me correct\\b",
+    "\\bi meant to say\\b",
+    "\\bto clarify the (numbers?|figures?|stats?)\\b",
+    "\\bsorry,? (i meant|the correct)\\b",
+    "\\bno,? (actually|the correct)\\b"
+  ],
+  "clarification": [
+    "\\bto (clarify|be clear|be more specific|elaborate)\\b",
+    "\\bwhat i (mean|meant) (is|was)\\b",
+    "\\bin other words\\b",
+    "\\bthat is to say\\b",
+    "\\bjust to (be clear|clarify|explain)\\b",
+    "\\bmore specifically\\b",
+    "\\bto (put|rephrase) it\\b",
+    "मेरा मतलब",
+    "स्पष्ट कर",
+    "\\bmera matlab\\b"
   ],
   "agreement": [
     "\\bi agree\\b",
@@ -77,6 +106,49 @@
     "\\bthat's not (how|what|the right)\\b",
     "सहमत नहीं",
     "मैं असहमत",
-    "\\bsehmat nahi[n]?\\b"
+    "\\bsehmat nahi[n]?\\b",
+    "\\b(main|mein|mai) .{0,20}(agree|sehmat|sahmat) nahi[n]?\\b",
+    "\\bbilkul sahi nahi[n]?\\b"
+  ],
+  "revision": [
+    "\\binstead (of|we should|let('s| us))\\b",
+    "\\bwe (could|should) (revise|update|change|modify|adjust)\\b",
+    "\\ba (revised?|updated?|modified?) (version|approach|proposal)\\b",
+    "\\bchanging it to\\b",
+    "\\bmodifying\\b.*\\bto\\b",
+    "\\brather than\\b.*\\bwe should\\b",
+    "इसके बजाय",
+    "बदलना चाहिए",
+    "\\biske baja[yi]\\b"
+  ],
+  "decision": [
+    "\\bwe (have |will |are going to )?(decided?|agreed?|concluded?|resolved?)\\b",
+    "\\bthe (final |agreed |chosen )?(decision|choice|approach|solution) (is|will be)\\b",
+    "\\bgoing (ahead|forward) with\\b",
+    "\\blet'?s (go with|use|adopt|implement)\\b",
+    "\\bwe('ll| will) (use|go with|implement|adopt)\\b",
+    "\\bit('s| is) (settled|decided|agreed)\\b",
+    "हमने (तय|फैसला|निर्णय) किया",
+    "तय हो गया",
+    "अंतिम निर्णय",
+    "\\bhumne (tay|faisla|decide) kiya\\b",
+    "\\bfinal decision (hai|yeh)\\b",
+    "\\bhumne .{0,40}(final|finalize) kar (diya|liya)\\b",
+    "हमने .{0,40}(फाइनल|तय) कर (दिया|लिया)"
+  ],
+  "action_item": [
+    "\\b(please|can you|could you|would you)\\b.*\\b(do|check|update|send|write|create|look into|follow up|review|fix|make sure)\\b",
+    "\\b(name|someone|everyone|who)\\b.*\\bwill\\b.*\\b(do|handle|take care|be responsible)\\b",
+    "\\baction (item|required|needed)\\b",
+    "\\bfollow[- ]?up\\b",
+    "\\bby (monday|tuesday|wednesday|thursday|friday|next week|end of (day|week|month))\\b",
+    "\\b(assigned?|responsible) (to|for)\\b",
+    "\\btake (care of|this|that)\\b",
+    "\\b(?:i|we)(?:'ll| will)\\s+(?:send|prepare|review|check|update|write|create|complete|fix|follow up)\\b",
+    "मैं .+ (भेज|तैयार|पूरा|कर).*(दूंगा|दूँगा|दूंगी|दूँगी|करूंगा|करूँगा|करूंगी|करूँगी)",
+    "\\bmain .+ (bhej|complete|prepare|kar).*(dunga|dungi|karunga|karungi)\\b",
+    "\\b(main|mein|mai) .{1,80}(kar|bhej|send|complete|prepare|review).{0,30}(dunga|dungi|karunga|karungi|lunga|lungi)\\b",
+    "\\b(aap|tum) .{1,60}(bhej|send|check|review|update).{0,25}(dena|dijiye|do)\\b",
+    "(आप|तुम) .{1,60}(भेज|तैयार|जाँच|अपडेट).{0,25}(देना|दीजिए|दें)"
   ]
 }

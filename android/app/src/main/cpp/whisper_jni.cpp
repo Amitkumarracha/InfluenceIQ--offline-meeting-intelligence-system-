@@ -27,7 +27,7 @@ extern "C" JNIEXPORT jlong JNICALL Java_org_meetiq_offline_NativeWhisper_open(JN
     if (!ctx) fail(env, "Invalid or unsupported Whisper model. Import a multilingual GGML model.");
     return reinterpret_cast<jlong>(ctx);
 }
-extern "C" JNIEXPORT jbyteArray JNICALL Java_org_meetiq_offline_NativeWhisper_transcribe(JNIEnv *env, jclass, jlong handle, jfloatArray audio) {
+extern "C" JNIEXPORT jbyteArray JNICALL Java_org_meetiq_offline_NativeWhisper_transcribe(JNIEnv *env, jclass, jlong handle, jfloatArray audio, jstring language, jstring vocabulary) {
     auto *ctx = reinterpret_cast<whisper_context *>(handle);
     if (!ctx) { fail(env, "Speech model is not loaded"); return nullptr; }
     const int size = env->GetArrayLength(audio);
@@ -44,13 +44,27 @@ extern "C" JNIEXPORT jbyteArray JNICALL Java_org_meetiq_offline_NativeWhisper_tr
     params.n_threads = std::max(1, std::min(4, static_cast<int>(sysconf(_SC_NPROCESSORS_ONLN))));
     // The requested product scope is Hindi/English; unconstrained detection
     // can choose an unrelated language from noisy room audio.
-    std::vector<float> probabilities(whisper_lang_max_id() + 1, 0.0f);
-    if (whisper_pcm_to_mel(ctx, samples, size, params.n_threads) != 0 ||
-        whisper_lang_auto_detect(ctx, 0, params.n_threads, probabilities.data()) < 0) {
-        env->ReleaseFloatArrayElements(audio, samples, JNI_ABORT);
-        fail(env, "Language detection failed"); return nullptr;
+    const char *requested = env->GetStringUTFChars(language, nullptr);
+    std::string selected(requested);
+    env->ReleaseStringUTFChars(language, requested);
+    const char *hint = env->GetStringUTFChars(vocabulary, nullptr);
+    std::string prompt(hint);
+    env->ReleaseStringUTFChars(vocabulary, hint);
+    if (selected == "auto") {
+        std::vector<float> probabilities(whisper_lang_max_id() + 1, 0.0f);
+        if (whisper_pcm_to_mel(ctx, samples, size, params.n_threads) != 0 ||
+            whisper_lang_auto_detect(ctx, 0, params.n_threads, probabilities.data()) < 0) {
+            env->ReleaseFloatArrayElements(audio, samples, JNI_ABORT);
+            fail(env, "Language detection failed"); return nullptr;
+        }
+        selected = probabilities[whisper_lang_id("hi")] > probabilities[whisper_lang_id("en")] ? "hi" : "en";
     }
-    params.language = probabilities[whisper_lang_id("hi")] > probabilities[whisper_lang_id("en")] ? "hi" : "en";
+    if (selected != "en" && !whisper_is_multilingual(ctx)) {
+        env->ReleaseFloatArrayElements(audio, samples, JNI_ABORT);
+        fail(env, "Import a multilingual model for Hindi meetings"); return nullptr;
+    }
+    params.language = selected.c_str();
+    params.initial_prompt = prompt.empty() ? nullptr : prompt.c_str();
     params.translate = false;
     params.no_context = true;
     params.print_progress = params.print_realtime = params.print_timestamps = params.print_special = false;

@@ -42,6 +42,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from src.utils.text import normalize_text
+from src.meeting.language_rules import BLOCKERS
 from src.utils.config import get
 from src.utils.logging import get_logger
 
@@ -229,6 +231,10 @@ _PATTERNS: dict[str, list[re.Pattern[str]]] = {
 }
 
 
+# Explicit commitments should remain usable without installing a notes model.
+_PATTERNS["action_item"].append(re.compile(
+    r"\b(?:i|we)(?:'ll| will)\s+(?:send|prepare|review|check|update|write|create|complete|fix|follow up)\b", re.I))
+
 # Separate banks avoid diluting existing English scores when adding a language.
 # ponytail: phrase matching misses context; replace only after labelled bilingual evaluation.
 _BILINGUAL_PATTERNS = {
@@ -243,6 +249,14 @@ _BILINGUAL_PATTERNS = {
     "decision": [r"हमने (तय|फैसला|निर्णय) किया", r"तय हो गया", r"अंतिम निर्णय", r"\bhumne (tay|faisla|decide) kiya\b", r"\bfinal decision (hai|yeh)\b"],
     "action_item": [r"मैं .+ (भेज|तैयार|पूरा|कर).*(दूंगा|दूँगा|दूंगी|दूँगी|करूंगा|करूँगा|करूंगी|करूँगी)", r"\bmain .+ (bhej|complete|prepare|kar).*(dunga|dungi|karunga|karungi)\b"],
 }
+_BILINGUAL_PATTERNS["question"] += [r"^(kya|kyun|kaise|kab|kaun|kahaan|kahan)\b"]
+_BILINGUAL_PATTERNS["decision"] += [r"\bhumne .{0,40}(final|finalize) kar (diya|liya)\b", r"हमने .{0,40}(फाइनल|तय) कर (दिया|लिया)"]
+_BILINGUAL_PATTERNS["disagreement"] += [r"\b(main|mein|mai) .{0,20}(agree|sehmat|sahmat) nahi[n]?\b", r"\bbilkul sahi nahi[n]?\b"]
+_BILINGUAL_PATTERNS["action_item"] += [
+    r"\b(main|mein|mai) .{1,80}(kar|bhej|send|complete|prepare|review).{0,30}(dunga|dungi|karunga|karungi|lunga|lungi)\b",
+    r"\b(aap|tum) .{1,60}(bhej|send|check|review|update).{0,25}(dena|dijiye|do)\b",
+    r"(आप|तुम) .{1,60}(भेज|तैयार|जाँच|अपडेट).{0,25}(देना|दीजिए|दें)"]
+_BLOCKERS = {key: [re.compile(pattern, re.I) for pattern in bank] for key, bank in BLOCKERS.items()}
 _BILINGUAL_PATTERNS = {key: [re.compile(p, re.I) for p in patterns] for key, patterns in _BILINGUAL_PATTERNS.items()}
 
 
@@ -257,6 +271,7 @@ def _match_event_type(
     number available for that type — a rough heuristic, NOT a calibrated
     probability.  Returns (None, None) when no type matches.
     """
+    text = normalize_text(text).strip()
     best_type: str | None = None
     best_score: float = 0.0
 
@@ -267,7 +282,7 @@ def _match_event_type(
 
         hits = sum(1 for p in patterns if p.search(text))
         bilingual_hits = sum(1 for p in _BILINGUAL_PATTERNS.get(etype, []) if p.search(text))
-        if etype == "decision" and re.search(r"(?:not|never)\s+(?:yet\s+)?decided|निर्णय नहीं|फैसला नहीं|तय नहीं|decide nahi", text, re.I):
+        if any(pattern.search(text) for pattern in _BLOCKERS.get(etype, [])):
             continue
         if hits == 0 and bilingual_hits == 0:
             continue

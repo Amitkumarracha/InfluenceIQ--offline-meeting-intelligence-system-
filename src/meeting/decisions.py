@@ -666,18 +666,23 @@ def save_decisions_json(result: DecisionResult, output_path: Path) -> None:
 
 
 def save_decision_graph_json(result: DecisionResult, output_path: Path) -> None:
-    """Serialise NetworkX decision graphs to JSON (node/edge lists)."""
+    """Write source graph data directly; no NetworkX object needed for JSON."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    graphs: list[dict[str, Any]] = []
+    graphs = []
     for decision in result.decisions:
-        G = _build_networkx_graph(decision)
-        graphs.append({
-            "decision_id": decision.decision_id,
-            "graph": _graph_to_dict(G),
-        })
-    payload = {"meeting_id": result.meeting_id, "decision_graphs": graphs}
+        ids = {entry["event_id"] for bank in (decision.discussion, decision.supporting_evidence,
+                decision.revisions, decision.agreements) for entry in bank}
+        for entry in (decision.proposal, decision.final_decision):
+            if entry:
+                ids.add(entry["event_id"])
+        ids.update(endpoint for edge in decision.lineage for endpoint in (edge.source, edge.target))
+        graphs.append({"decision_id": decision.decision_id, "graph": {
+            "nodes": sorted(ids),
+            "edges": [{"source": edge.source, "target": edge.target, "relationship": edge.relationship}
+                      for edge in decision.lineage],
+            "attributes": {"decision_id": decision.decision_id, "status": decision.status}}})
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False)
+        json.dump({"meeting_id": result.meeting_id, "decision_graphs": graphs}, f, indent=2, ensure_ascii=False)
     logger.info("Decision graph JSON saved: %s", output_path)
 
 

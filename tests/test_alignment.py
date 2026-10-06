@@ -438,6 +438,7 @@ class TestInvalidInputs:
                 transcript_path=t,
                 slides_path=s,
                 embeddings_path=tmp_path / "missing.npy",
+                method="embeddings",
             )
 
     def test_semantic_scores_dim_mismatch(self):

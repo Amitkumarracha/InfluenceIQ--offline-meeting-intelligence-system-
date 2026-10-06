@@ -1,0 +1,88 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 179,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 195,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 203,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"whisper-build/src/libwhisper.a"
+			],
+			"targetId" : "whisper::@5c4c08eb26cb9fe5feee",
+			"targetIndex" : 4,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include",
+			"paths" : 
+			[
+				"/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/include/whisper.h"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "lib/cmake/whisper",
+			"paths" : 
+			[
+				"/home/amitkumar/Music/MAI Project/android/app/.cxx/Debug/2z4j1d3z/x86/whisper-build/whisper-config.cmake",
+				"/home/amitkumar/Music/MAI Project/android/app/.cxx/Debug/2z4j1d3z/x86/whisper-build/whisper-version.cmake"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "lib/pkgconfig",
+			"paths" : 
+			[
+				"/home/amitkumar/Music/MAI Project/android/app/.cxx/Debug/2z4j1d3z/x86/whisper-build/whisper.pc"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "whisper-build",
+		"source" : "/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp"
+	}
+}

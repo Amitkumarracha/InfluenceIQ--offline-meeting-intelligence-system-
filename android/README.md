@@ -38,14 +38,21 @@ Open the app and use its model-import button. Use a multilingual GGML model (`ti
 - Foreground service, visible notification, stop control and wake lock.
 - Streaming writes with a recoverable WAV header; six-hour recording ceiling.
 - Offline native Whisper inference in 120-second chunks, with original timestamps and language selection restricted to Hindi/English.
+- Two seconds of context around chunk boundaries; midpoint ownership avoids deliberately emitting each boundary segment twice.
+- Optional English/Hindi language selection and vocabulary prompts, included in checkpoint identity.
 - Atomic completed-chunk checkpoints tied to audio/model content hashes.
 - Retained audio on process interruption; manual analyse/resume after reopening.
-- Extracted event candidates using shared English/Hindi/Hinglish phrase banks.
-- Local meeting selection, transcript viewing, JSON/WAV export via the document picker.
+- Extracted event candidates using shared English/Hindi/Hinglish phrase banks, with question/negation guards. Compiled once and applied only to new passages.
+- Local meeting selection/titles, transcript search and 100-passage pages, clickable timestamps and recording playback.
+- Validated 16 kHz mono, 16-bit PCM WAV import; extra WAV chunks are normalized without changing samples.
+- Partial reports written after each completed transcription chunk; completed reports recover without loading the native model again.
+- Markdown/JSON/WAV export via the document picker, including every transcript passage.
 - No internet permission; model transfer occurs before offline operation.
 
 ## Current limits
 
-This app is a prototype, not feature parity with the laptop. It does not yet implement speaker separation, overlapping-speaker recovery, slide alignment, decision lineage/interaction graphs, influence scores, or local semantic summarization. Speaker labels are explicitly UNKNOWN. Native chunk boundaries are non-overlapping; boundary-word quality needs evaluation. Silence handling suppresses exact digital silence; real noise can still produce recognition errors. Mixed-language phrase rules are not a validated semantic model.
+This app is a prototype, not feature parity with the laptop. It does not yet implement speaker separation, overlapping-speaker recovery, slide alignment, decision lineage/interaction graphs, influence scores, or local semantic summarization. Speaker labels are explicitly UNKNOWN. Chunk overlap supplies context, not voice separation; boundary-word quality still needs evaluation. Silence handling suppresses exact digital silence; real noise can still produce recognition errors. Mixed-language phrase rules are not a validated semantic model.
 
 The emulator has verified installation, microphone foreground recording, native model loading/transcription and report creation. This does not establish physical-phone speed, battery/thermal behavior, background survival, or Hindi/English accuracy. No physical phone was connected during implementation.
+
+That emulator evidence predates the latest changes. Version 0.3.1 was compiled and signed for ARM64/x86_64; `bash android/test.sh` checks WAV parsing, header recovery, sample preservation and the actual exported bilingual rule banks on the JVM. The new native language/vocabulary, import and playback flows still need on-device testing. See [manual instructions](../RUN_MANUALLY.md).

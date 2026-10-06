@@ -34,12 +34,20 @@ def probe_audio(path):
     return stream, duration
 
 
-def preprocess_audio(input_path, output_path=None):
+def preprocess_audio(input_path, output_path=None, reuse_normalized=False):
     input_path = Path(input_path)
     if not input_path.is_file():
         raise FileNotFoundError(f'Audio file not found: {input_path}')
     stream, duration = probe_audio(input_path)
     target_sr = int(get('audio.sample_rate', 16000))
+    if (stream.get('sample_rate') == str(target_sr) and int(stream.get('channels', 0)) == 1
+            and input_path.suffix.lower() == '.wav' and (output_path is None or reuse_normalized)):
+        # One durable PCM source supports playback and restart; no duplicate WAV.
+        import soundfile as sf
+        with sf.SoundFile(input_path) as audio:
+            if audio.subtype == 'PCM_16' and len(audio) > 0:
+                return input_path, AudioMetadata(input_path.name, duration, len(audio) / target_sr,
+                                                target_sr, target_sr, 1)
     out_path = Path(output_path) if output_path else get_processed_audio_dir() / (input_path.stem + '_processed.wav')
     out_path.parent.mkdir(parents=True, exist_ok=True)
     temporary = out_path.with_suffix('.partial.wav')

@@ -25,6 +25,11 @@ vad:
   min_silence_duration_ms: 100
 
 diarization:
+  backend: pyannote  # Optional: sherpa-onnx; install and configure local weights manually.
+  onnx:
+    segmentation_model: ""
+    embedding_model: ""
+    cluster_threshold: 0.5  # Prototype; tune with labelled speakers.
   model: pyannote/speaker-diarization-3.1
   device: cpu
   min_speakers: null
@@ -77,6 +82,8 @@ meeting_analysis:
   evidence_window_s: 60.0
 
 alignment:
+  # tfidf: sparse lexical matching, no neural model; embeddings retains the previous method.
+  method: embeddings
   # Number of top slide candidates to retain per transcript segment.
   top_k: 3
   # Weights for combining temporal and semantic scores.
@@ -173,4 +180,5 @@ asr:
   # of the ASR segment's duration to be attributed to that speaker.
   min_overlap_ratio: 0.3
   cpu_threads: 4
-  chunk_seconds: 300
+  chunk_seconds: 120
+  skip_digital_silence: true

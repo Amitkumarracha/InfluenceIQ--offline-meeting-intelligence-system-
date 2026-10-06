@@ -1,0 +1,27 @@
+# Repository and product review — 5 October 2026
+
+The four repositories were inspected through their README, license information, repository trees and selected transcription/summary sources. Selected source files were downloaded into ignored `.runtime/reference-review/` for inspection, not integrated as dependencies. No third-party application code or prompts were copied into Meet IQ. The existing React/FastAPI/faster-whisper/Java stack was retained.
+
+| Project | Sources inspected | Useful observation and resulting Meet IQ change | Reuse position |
+| --- | --- | --- | --- |
+| [Natively](https://github.com/Natively-AI-assistant/natively-cluely-ai-assistant) | README, LICENSE, ConversationSummarizer, SemanticChunker | Shows local meeting memory and microphone/system capture as useful product capabilities. Meet IQ now offers library transcript search and browser microphone + shared-tab capture, using its own code. | Current [personal-use source license](https://github.com/Natively-AI-assistant/natively-cluely-ai-assistant/blob/main/LICENSE) restricts commercial/competitive use. No source integration. |
+| [PrivaNote](https://github.com/Rebell-Leader/PrivaNote) | README, utils/transcription.py, utils/ai_analysis.py | Distinguishes basic keyword analysis from local Ollama analysis. Meet IQ preserves existing rules and adds explicit optional local model notes with source evidence. | README says MIT, but no LICENSE file was present in the inspected tree and GitHub reported no detected license. No source integration. |
+| [Steno](https://github.com/stenolabs/stenoai) | [src/summarizer.py](https://github.com/stenolabs/stenoai/blob/main/src/summarizer.py), src/transcriber.py, LICENSE | Long transcripts require bounded chunks, progress and reliable failure handling. Meet IQ now checkpoints notes by transcript/model digest and keeps citations while deduplicating chunk notes. | [MIT](https://github.com/stenolabs/stenoai/blob/main/LICENSE); independent implementation, no code copied. |
+| [Meetily](https://github.com/shareefmx/meetily) | summary/processor.rs, summary/ask_ai.rs, audio/transcription/whisper_provider.rs, LICENSE.md | Local summaries, saved-meeting questions and recovery fit this product. Meet IQ adds queued local notes, retrieved-passage answers and full transcript exports. | [MIT](https://github.com/shareefmx/meetily/blob/main/LICENSE.md); independent implementation, no Rust/Tauri rewrite or code copying. |
+
+Product inspiration came from [Read AI](https://www.read.ai/)'s meeting notes and questions, [Plaud](https://in.plaud.ai/)'s recording-to-notes workflow, and [NeoSapien](https://neosapien.ai/)'s conversational notes and follow-ups. Their marketing is not evidence of comparable offline accuracy, and their hardware/cloud services were not integrated. Meet IQ's priority is local recording, recoverable processing, explicit evidence and useful exports.
+
+## Implementation choices
+
+- Retain multilingual faster-whisper because the current project already supports it. Add job-specific models, language hints, vocabulary and expected speaker counts; include these settings in cache identity. Expose all installed supported speech models, including provisioned large-v3/turbo models.
+- Use the existing single CPU executor for transcription, local notes and model Q&A. Notes have a durable job state and completed-chunk cache, including restart recovery. Plain transcript search does not need an LLM.
+- Use [Ollama's chat API](https://docs.ollama.com/api/chat) with a JSON schema and bounded UTF-8 transcript chunks. Reject missing citations and quotations that do not appear in cited segments. Owners and deadlines are accepted only when literally present. Do not present the checks as proof of semantic correctness.
+- Retain per-part evidence rather than running a global rewrite that can drop the end of a large meeting. The resulting notes can be longer than a single executive summary. Question answers use lexically retrieved turns; paraphrases and implicit references can be missed.
+- Keep recording chunks in IndexedDB. Add browser level monitoring, pause/resume, capture source/microphone selection, and explicit upload-part order. The browser tab must stay open; shared audio support depends on browser/platform.
+- Retain the standalone Android design with no internet permission. Add PCM WAV import, timestamp playback, transcript pages/search, titles, Markdown export, local language/vocabulary hints, overlapping context and partial reports after each completed chunk.
+
+## What still needs evidence
+
+Copying an application does not improve a speech model's acoustic accuracy. Existing English AMI WER measurements remain the baseline. These changes provide controls and reviewability; they do not establish a new accuracy score or superiority over the supplied competitors. Real bilingual, far-field, overlap and multi-hour recordings remain necessary to evaluate WER, speaker errors, decisions, commitments and phone battery/runtime.
+
+Ollama was not installed or started during implementation, so local model generation is covered by mocked model-boundary/recovery tests, not an actual LLM quality evaluation. The rebuilt Android APK was compiled and signed and its PCM helper was tested on the JVM; the new native settings/playback/import flows still require physical-device validation. Android does not yet provide speaker separation or semantic model summaries.

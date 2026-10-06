@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-06",
+  "scope": "Focused efficiency, correctness and bilingual improvements; no package/model installation or server launch",
+  "python_tests": {
+    "passed": 494,
+    "warnings": 7,
+    "elapsed_s": 7.41
+  },
+  "frontend": {
+    "build": "passed",
+    "lint": "passed",
+    "browser_fixture_check": {
+      "browser": "passed",
+      "microphone": "synthetic",
+      "recordingRecovery": true,
+      "pauseResume": true,
+      "settingsUpload": true,
+      "pagination": true,
+      "partialTranscript": true,
+      "notes": "mocked",
+      "download": true,
+      "width": {
+        "page": 390,
+        "viewport": 390
+      },
+      "errors": []
+    }
+  },
+  "asr_comparison": {
+    "300_seconds": {
+      "dataset": "AMI manual 1.6.2",
+      "meeting": "ES2002a",
+      "channel": "Array1-01",
+      "start_s": 30,
+      "duration_s": 600.0,
+      "asr_model": "small",
+      "device": "cpu",
+      "compute_type": "int8",
+      "chunk_seconds": 300,
+      "elapsed_s": 82.254,
+      "real_time_factor": 0.1371,
+      "process_peak_rss_mb": 1516.7,
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.458364,
+        "substitutions": 150,
+        "deletions": 447,
+        "insertions": 25,
+        "reference_length": 1357,
+        "hypothesis_length": 935
+      },
+      "limitations": [
+        "Single English AMI meeting; not Hindi/English accuracy evidence",
+        "Overlapping reference words ordered by time",
+        "NFKC, lowercase, punctuation-to-spaces normalization",
+        "Elapsed time may include cache reuse on repeat runs",
+        "Speaker separation unavailable; DER not evaluated"
+      ]
+    },
+    "120_seconds": {
+      "dataset": "AMI manual 1.6.2",
+      "meeting": "ES2002a",
+      "channel": "Array1-01",
+      "start_s": 30,
+      "duration_s": 600.0,
+      "asr_model": "small",
+      "device": "cpu",
+      "compute_type": "int8",
+      "chunk_seconds": 120,
+      "elapsed_s": 115.043,
+      "real_time_factor": 0.1917,
+      "process_peak_rss_mb": 1479.7,
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.414886,
+        "substitutions": 157,
+        "deletions": 380,
+        "insertions": 26,
+        "reference_length": 1357,
+        "hypothesis_length": 1003
+      },
+      "limitations": [
+        "Single English AMI meeting; not Hindi/English accuracy evidence",
+        "Overlapping reference words ordered by time",
+        "NFKC, lowercase, punctuation-to-spaces normalization",
+        "Elapsed time may include cache reuse on repeat runs",
+        "Speaker separation unavailable; DER not evaluated"
+      ]
+    },
+    "note": "One English meeting. Other local tests overlapped part of the comparison. Neither Hindi/Hinglish nor isolated performance evidence."
+  },
+  "long_offline_timeline": {
+    "duration_s": 7290,
+    "elapsed_s": 17.896,
+    "network_connect_attempts": 0,
+    "transcript_segments": 19,
+    "first_segment_start": 7202.05,
+    "peak_rss_mb": 1008.4,
+    "passed": true,
+    "limitation": "Synthetic long silence plus 90 seconds of English AMI speech; not long-meeting accuracy validation."
+  },
+  "real_audio_and_ppt_offline": {
+    "passed": true,
+    "audio_seconds": 90,
+    "slides": 2,
+    "transcript_segments": 21,
+    "network_attempts": 0,
+    "duplicate_processed_wav_created": false,
+    "alignment": "tfidf",
+    "elapsed_s": 16.362,
+    "peak_rss_mib": 1073.3
+  },
+  "android": {
+    "version": "0.3.1-prototype",
+    "abis": [
+      "arm64-v8a",
+      "x86_64"
+    ],
+    "build_and_signature": "passed",
+    "zip_alignment_16kb": "passed",
+    "jvm_pcm_tests": "passed",
+    "jvm_shared_bilingual_rules": "passed",
+    "internet_permission": false,
+    "new_flows_tested_on_phone_or_emulator": false,
+    "apk_sha256": "df77d60d989b6b32fcd67eb241f05914a4807b55b0a0764afc7559749db68b8f"
+  },
+  "optional_onnx": {
+    "adapter_regression_tests": "passed with mocked engine",
+    "package_or_models_installed": false,
+    "real_memory_speed_or_der_evaluated": false,
+    "default_enabled": false
+  },
+  "bilingual_ground_truth_evaluated": false,
+  "defaults": {
+    "chunk_seconds": 120,
+    "alignment_method": "embeddings",
+    "diarization_backend": "pyannote"
+  },
+  "limitations": [
+    "WER improvement measured only on one English AMI sample.",
+    "No general 70 percent RAM reduction is established.",
+    "Incremental previews are produced after audio ingestion, not while the microphone is recording.",
+    "Phone diarization and full laptop feature parity remain incomplete."
+  ]
+}

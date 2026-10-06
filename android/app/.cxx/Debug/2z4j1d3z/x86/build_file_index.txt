@@ -1,0 +1,6 @@
+/home/amitkumar/Music/MAI Project/android/app/src/main/cpp/CMakeLists.txt
+/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/CMakeLists.txt
+/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/ggml/CMakeLists.txt
+/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/ggml/src/CMakeLists.txt
+/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt
+/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/src/CMakeLists.txt

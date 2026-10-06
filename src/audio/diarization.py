@@ -31,10 +31,15 @@ class DiarizationResult:
 
 def _load_pipeline(hf_token: str):
     """Load pyannote diarization pipeline (model weights cached locally after first run)."""
+    model_name: str = get("diarization.model", "pyannote/speaker-diarization-3.1")
+    if os.environ.get("HF_HUB_OFFLINE", "1") == "1":
+        from huggingface_hub import snapshot_download
+        try:
+            snapshot_download(model_name, local_files_only=True)
+        except Exception as exc:
+            raise RuntimeError("Local pyannote model missing. Provision it manually or use diarization off/ONNX.") from exc
     import torch
     from pyannote.audio import Pipeline
-
-    model_name: str = get("diarization.model", "pyannote/speaker-diarization-3.1")
     logger.info("Loading diarization pipeline: %s", model_name)
     try:
         pipeline = Pipeline.from_pretrained(model_name, use_auth_token=hf_token)
@@ -118,12 +123,13 @@ def run_diarization(
     audio_path: str | Path,
     meeting_id: str | None = None,
     output_dir: Path | None = None,
+    num_speakers: int | None = None,
 ) -> tuple[DiarizationResult, Path]:
     """
     Run speaker diarization on a preprocessed 16 kHz mono WAV file.
 
-    Requires the environment variable HF_TOKEN to be set with a valid
-    HuggingFace token that has been granted access to:
+    The default pyannote backend requires authorized cached weights and
+    an HF_TOKEN with access to:
       https://huggingface.co/pyannote/speaker-diarization-3.1
 
     Args:
@@ -145,12 +151,19 @@ def run_diarization(
     out_path = out_dir / f"{meeting_id}_diarization.json"
 
     from src.utils.cache import fingerprint, read_cache, atomic_json
-    key = fingerprint([audio_path], get("diarization"))
+    backend = get("diarization.backend", "pyannote")
+    if backend not in {"pyannote", "sherpa-onnx"}:
+        raise ValueError("diarization.backend must be pyannote or sherpa-onnx")
+    if num_speakers is not None and not 1 <= num_speakers <= 50:
+        raise ValueError("Speaker count must be between 1 and 50")
+    models = []
+    if backend == "sherpa-onnx":
+        from src.audio.onnx_diarization import model_paths
+        models = model_paths()
+    key = fingerprint([audio_path, *models], {**get("diarization"), "num_speakers": num_speakers})
     cached = read_cache(out_path, key)
     if cached is not None:
         logger.info("Cached diarization found; loading from %s", out_path)
-        with open(out_path, encoding="utf-8") as f:
-            cached = json.load(f)
         cached_segments = [
             DiarizationSegment(
                 segment_id=s["segment_id"],
@@ -168,61 +181,71 @@ def run_diarization(
         )
         return cached_result, out_path
 
-    # Ensure .env is loaded
-    load_env()
-    hf_token = os.environ.get("HF_TOKEN", "").strip()
-    if not hf_token:
-        raise EnvironmentError(
-            "HF_TOKEN environment variable is not set. "
-            "Set it to your HuggingFace token to use pyannote.audio. "
-            "See .env.example for details."
-        )
-
-    # Speaker-count constraints and merge tolerance from config
-    min_speakers = get("diarization.min_speakers", None)
-    max_speakers = get("diarization.max_speakers", None)
-    merge_gap_s: float = float(get("diarization.merge_gap_s", 0.5))
-
-    logger.info("Starting diarization: meeting_id=%s, audio=%s", meeting_id, audio_path)
+    merge_gap_s = float(get("diarization.merge_gap_s", 0.5))
     t_start = time.time()
-
-    pipeline = _load_pipeline(hf_token)
-
-    # Build kwargs — only pass constraints when they are explicitly set
-    pipeline_kwargs: dict = {}
-    if min_speakers is not None:
-        pipeline_kwargs["min_speakers"] = int(min_speakers)
-    if max_speakers is not None:
-        pipeline_kwargs["max_speakers"] = int(max_speakers)
-
-    # Run pipeline — pyannote handles long audio internally via sliding window
-    diarization = pipeline(str(audio_path), **pipeline_kwargs)
-
-    elapsed = time.time() - t_start
-    logger.info("Diarization model finished in %.2fs", elapsed)
-
-    # Extract pyannote Annotation object (handles DiarizeOutput in pyannote 3.3+)
-    if isinstance(diarization, tuple):
-        annotation = diarization[0]
+    if backend == "sherpa-onnx":
+        from src.audio.onnx_diarization import diarize
+        raw_segments = diarize(audio_path, num_speakers)
+        elapsed = time.time() - t_start
     else:
-        annotation = diarization
-        speaker_diarization = getattr(diarization, "__dict__", {}).get("speaker_diarization")
-        if speaker_diarization is not None:
-            annotation = speaker_diarization
-        elif hasattr(type(diarization), "speaker_diarization"):
-            annotation = diarization.speaker_diarization
+        # Ensure .env is loaded
+        load_env()
+        hf_token = os.environ.get("HF_TOKEN", "").strip()
+        if not hf_token:
+            raise EnvironmentError(
+                "HF_TOKEN environment variable is not set. "
+                "Set it to your HuggingFace token to use pyannote.audio. "
+                "See .env.example for details."
+            )
 
-    if not hasattr(annotation, "itertracks"):
-        raise TypeError(
-            "Unsupported diarization output type: expected pyannote Annotation or diarize output."
-        )
+        # Speaker-count constraints and merge tolerance from config
+        min_speakers = get("diarization.min_speakers", None)
+        max_speakers = get("diarization.max_speakers", None)
 
-    # Convert pyannote Annotation tracks to raw tuples
-    raw_segments: list[tuple[float, float, str]] = [
-        (turn.start, turn.end, speaker)
-        for turn, _, speaker in annotation.itertracks(yield_label=True)
-    ]
-    raw_segments.sort(key=lambda x: (x[0], x[1]))
+        logger.info("Starting diarization: meeting_id=%s, audio=%s", meeting_id, audio_path)
+        t_start = time.time()
+
+        pipeline = _load_pipeline(hf_token)
+
+        # Build kwargs — only pass constraints when they are explicitly set
+        pipeline_kwargs: dict = {}
+        if num_speakers is not None:
+            if not 1 <= num_speakers <= 50:
+                raise ValueError("Speaker count must be between 1 and 50")
+            pipeline_kwargs["num_speakers"] = num_speakers
+        elif min_speakers is not None:
+            pipeline_kwargs["min_speakers"] = int(min_speakers)
+        if num_speakers is None and max_speakers is not None:
+            pipeline_kwargs["max_speakers"] = int(max_speakers)
+
+        # Run pipeline — pyannote handles long audio internally via sliding window
+        diarization = pipeline(str(audio_path), **pipeline_kwargs)
+
+        elapsed = time.time() - t_start
+        logger.info("Diarization model finished in %.2fs", elapsed)
+
+        # Extract pyannote Annotation object (handles DiarizeOutput in pyannote 3.3+)
+        if isinstance(diarization, tuple):
+            annotation = diarization[0]
+        else:
+            annotation = diarization
+            speaker_diarization = getattr(diarization, "__dict__", {}).get("speaker_diarization")
+            if speaker_diarization is not None:
+                annotation = speaker_diarization
+            elif hasattr(type(diarization), "speaker_diarization"):
+                annotation = diarization.speaker_diarization
+
+        if not hasattr(annotation, "itertracks"):
+            raise TypeError(
+                "Unsupported diarization output type: expected pyannote Annotation or diarize output."
+            )
+
+        # Convert pyannote Annotation tracks to raw tuples
+        raw_segments: list[tuple[float, float, str]] = [
+            (turn.start, turn.end, speaker)
+            for turn, _, speaker in annotation.itertracks(yield_label=True)
+        ]
+        raw_segments.sort(key=lambda x: (x[0], x[1]))
 
     # Merge adjacent same-speaker segments within tolerance
     merged_segments = merge_adjacent_segments(raw_segments, max_gap=merge_gap_s)
@@ -264,6 +287,7 @@ def run_diarization(
 
     output = {
         "meeting_id": result.meeting_id,
+        "backend": backend,
         "num_speakers": result.num_speakers,
         "speakers": result.speakers,
         "segments": [asdict(s) for s in result.segments],

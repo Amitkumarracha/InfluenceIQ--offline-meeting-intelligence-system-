@@ -5,7 +5,11 @@ Meet IQ has two local execution paths:
 - **Laptop application:** React interface, FastAPI/SQLite queue, multilingual faster-whisper, optional pyannote speaker separation and presentation alignment, and evidence-linked reports.
 - **Android prototype:** native microphone recording, whisper.cpp inference, timestamped Hindi/English/Hinglish event candidates, local history, resumable analysis, and exports. It has **no INTERNET permission**. It currently does **not** perform speaker separation or the laptop's full interaction/influence analysis.
 
-This is a tested research prototype, not a validated high-accuracy product. See [PROJECT_STATUS.md](PROJECT_STATUS.md) for measured results, implemented changes, and remaining work. Earlier workstation instructions in `NEXT_STEPS.md`, `PROJECT_EXECUTION_GUIDE.md`, and the conversion guide are historical.
+This is a tested research prototype, not a validated high-accuracy product. See [PROJECT_STATUS.md](PROJECT_STATUS.md) for measured results, implemented changes, and remaining work. The latest focused changes and speed/accuracy tradeoffs are in [EFFICIENCY_IMPROVEMENTS.md](EFFICIENCY_IMPROVEMENTS.md). Earlier workstation instructions in `NEXT_STEPS.md`, `PROJECT_EXECUTION_GUIDE.md`, and the conversion guide are historical.
+
+The latest app includes local AI notes with checked transcript quotations, meeting questions and library search, per-meeting speech model/language/vocabulary/speaker-count settings, visible transcription progress, timestamp playback, and full Markdown/text/subtitle/CSV exports. Browser recording supports microphone selection, level monitoring, pause/resume and optional shared-tab audio. Android adds local WAV import, playback, searchable transcript pages, meeting titles, Markdown export and overlapping transcription context.
+
+See [RUN_MANUALLY.md](RUN_MANUALLY.md) for foreground-only startup and optional local AI setup, and [REPOSITORY_REVIEW.md](REPOSITORY_REVIEW.md) for the four repository reviews and implementation choices. No third-party application code was copied into the app.
 
 ## Run on this laptop
 
@@ -18,7 +22,13 @@ bash start_app.sh
 
 Open **http://127.0.0.1:8000**. Register a local account, upload audio or record in the browser, and open the generated meeting report. No email or external account is needed. Browser recording uses device storage for recovery; stop and save, then submit the recording. Keep the tab open while recording. The native Android app is the preferred path for background phone recording.
 
+`start_app.sh` builds the current frontend before starting the API in the same terminal. Stop it with Ctrl+C. Model provisioning and Ollama startup are manual; the app does not start them.
+
 The API processes one meeting at a time. Uploads are limited to 1 GiB total by default, can contain up to 32 sequential parts, and accept WAV, MP3, M4A, MP4, WebM, OGG, FLAC and AAC. Parts are joined chronologically; these are **not synchronized microphone-array channels**. One optional PPTX is supported. Failed jobs can be retried; queued/interrupted jobs recover after restart. Transcription reuses verified completed chunks.
+
+Reorder uploaded parts before submission. Transcription settings are saved with the job and reused on retry. Automatic language selection is scoped to Hindi/English; vocabulary hints help spellings but are not corrections or an accuracy guarantee. Expected speaker count constrains an available diarization model; it does not enable an unavailable one.
+
+After processing, **Generate notes** uses an already installed local Ollama model. Long transcripts are split into bounded UTF-8 parts; completed notes parts are checkpointed by transcript/model digest. All parts are processed, then cited notes are deduplicated without a lossy global synthesis step. Every displayed note includes an exact quote from a cited segment; unknown owners/deadlines stay empty. Quote checks establish source provenance, not semantic truth. Q&A searches relevant passages and uses those retrieved passages as model context; it does not claim exhaustive understanding of every meeting. Search works without Ollama. Speaker aliases and meeting titles are saved locally and included in exports.
 
 ### Rebuild the environment
 
@@ -55,7 +65,7 @@ Or provision another model explicitly:
 .venv/bin/python scripts/download_models.py --asr-model medium
 ```
 
-Use multilingual models, not `.en` models, for Hindi/English meetings. Language detection is automatic within the configured Hindi/English scope; set `asr.allowed_languages: []` to remove that restriction. `MAI_ASR_LANGUAGE=hi` or `en` is available for experiments; forcing a language is not a guarantee of code-switching accuracy. Model size, CPU threads, chunk duration and speaker constraints are configurable in `config.yaml`.
+Use multilingual models, not `.en` models, for Hindi/English meetings. Language detection is automatic within the configured Hindi/English scope; set `asr.allowed_languages: []` to remove that restriction. `MAI_ASR_LANGUAGE=hi` or `en` is available for experiments; forcing a language is not a guarantee of code-switching accuracy. Model size, CPU threads, chunk duration and speaker constraints are configurable in `config.yaml`. The default chunk duration is now 120 seconds; `MAI_ASR_CHUNK_SECONDS=300` selects the larger throughput profile. The measured 120-second profile improved English WER but took longer overall; see the efficiency report.
 
 ### Command-line processing
 

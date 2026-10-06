@@ -10,6 +10,7 @@ ANDROID_JAR="${ANDROID_JAR:-$SDK/platforms/android-37.0/android.jar}"
 BUILD="$PROJECT_DIR/android/build"
 CMAKE="$PROJECT_DIR/.venv/bin/cmake"
 export PATH="$PROJECT_DIR/.venv/bin:$PATH"
+"$PROJECT_DIR/.venv/bin/python" scripts/export_event_rules.py
 mkdir -p "$BUILD/classes" "$BUILD/dex" "$BUILD/apk/lib"
 for ABI in arm64-v8a x86_64; do
     "$CMAKE" -S android/app/src/main/cpp -B "$BUILD/$ABI" -G Ninja \

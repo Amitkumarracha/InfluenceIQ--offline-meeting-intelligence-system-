@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "whisper-build/src",
+		"source" : "/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/src"
+	}
+}

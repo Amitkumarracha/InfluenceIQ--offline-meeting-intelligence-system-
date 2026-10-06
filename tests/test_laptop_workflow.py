@@ -14,7 +14,7 @@ from src.evaluation.metrics import calculate_der
 
 def test_word_level_turns_and_changed_input_invalidates_cache(tmp_path, monkeypatch):
     audio = tmp_path / 'meeting.wav'
-    sf.write(audio, np.zeros(16000 * 12), 16000)
+    sf.write(audio, np.ones(16000 * 12) * .005, 16000)
     diar = tmp_path / 'diar.json'
     diar.write_text(json.dumps({'segments': [
         {'start': 0, 'end': 5, 'speaker': 'A'}, {'start': 5, 'end': 12, 'speaker': 'B'}]}))
@@ -37,7 +37,7 @@ def test_word_level_turns_and_changed_input_invalidates_cache(tmp_path, monkeypa
 
 def test_interrupted_chunk_resume(tmp_path):
     audio = tmp_path / 'meeting.wav'
-    sf.write(audio, np.zeros(16000 * 22), 16000)
+    sf.write(audio, np.ones(16000 * 22) * .005, 16000)
     diar = tmp_path / 'diar.json'
     diar.write_text('{"segments": []}')
     calls = []

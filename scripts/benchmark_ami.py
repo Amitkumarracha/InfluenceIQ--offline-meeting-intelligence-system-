@@ -62,7 +62,7 @@ def main():
     hypothesis = normalize(' '.join(s['text'] for s in report['transcript_segments']))
     result = {'dataset': 'AMI manual 1.6.2', 'meeting': args.meeting, 'channel': args.channel,
               'start_s': args.start, 'duration_s': args.seconds, 'asr_model': get('asr.model_size'),
-              'device': 'cpu', 'compute_type': 'int8', 'elapsed_s': round(elapsed, 3),
+              'device': 'cpu', 'compute_type': 'int8', 'chunk_seconds': int(get('asr.chunk_seconds')), 'elapsed_s': round(elapsed, 3),
               'real_time_factor': round(elapsed / args.seconds, 4),
               'process_peak_rss_mb': round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024, 1),
               'wer': calculate_wer(reference, hypothesis),

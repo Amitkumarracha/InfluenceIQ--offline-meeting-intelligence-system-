@@ -52,6 +52,7 @@ class TranscriptResult:
     num_speakers: int
     speakers: list[str]
     segments: list[TranscriptSegment] = field(default_factory=list)
+    recording_quality: dict = field(default_factory=dict)
 
 
 # ---------------------------------------------------------------------------
@@ -81,7 +82,7 @@ def _preload_cuda_libraries() -> None:
                 logger.warning("Could not preload cublas from %s: %s", p, e)
 
 
-def _load_whisper_model():
+def _load_whisper_model(model_size=None):
     """Load the faster-whisper WhisperModel per config.yaml settings.
 
     Some environments advertise CUDA support for pyannote but do not have a
@@ -91,7 +92,7 @@ def _load_whisper_model():
     _preload_cuda_libraries()
     from faster_whisper import WhisperModel  # type: ignore[import-untyped]
 
-    model_size: str = get("asr.model_size", "base")
+    model_size = model_size or get("asr.model_size", "base")
     requested_device: str = str(get("asr.device", "cpu")).lower()
     requested_compute: str = str(get("asr.compute_type", "int8")).lower()
 
@@ -197,6 +198,9 @@ def run_asr(
     diarization_path: str | Path | None = None,
     meeting_id: str | None = None,
     output_dir: Path | None = None,
+    options: dict | None = None,
+    progress=None,
+    on_chunk=None,
 ) -> tuple["TranscriptResult", Path, Path]:
     """Transcribe meeting audio and attribute segments to speakers.
 
@@ -227,7 +231,10 @@ def run_asr(
     if not diarization_path.exists():
         raise FileNotFoundError(f"Diarization JSON not found: {diarization_path}")
 
-    language: str | None = get("asr.language", None)
+    options = options or {}
+    language = options.get("language", get("asr.language", None))
+    model_size = options.get("model_size") or get("asr.model_size", "small")
+    vocabulary = options.get("vocabulary", "").strip()
     beam_size: int = int(get("asr.beam_size", 5))
     min_overlap_ratio: float = float(get("asr.min_overlap_ratio", 0.3))
 
@@ -245,23 +252,28 @@ def run_asr(
     json_path = out_dir / f"{meeting_id}_transcript.json"
     txt_path = out_dir / f"{meeting_id}_transcript.txt"
 
+    chunk_seconds = int(get("asr.chunk_seconds", 300))
+    if chunk_seconds < 10:
+        raise ValueError("asr.chunk_seconds must be at least 10")
+
     settings = dict(get("asr", {}))
-    settings["model_size"] = get("asr.model_size", "small")
-    settings["language"] = get("asr.language", None)
-    settings["pipeline_version"] = 3
+    settings.update(model_size=model_size, language=language, vocabulary=vocabulary, chunk_seconds=chunk_seconds, pipeline_version=5)
     key = fingerprint([audio_path, diarization_path], settings)
     cached = read_cache(json_path, key)
     if cached is not None:
         result = _deserialise_result(cached)
+        if progress:
+            progress({"completed_seconds": result.duration, "total_seconds": result.duration, "cached": True})
+        if on_chunk:
+            on_chunk(result.segments[-50:], {"completed_seconds": result.duration,
+                "total_seconds": result.duration, "total_segments": len(result.segments), "cached": True})
         if not txt_path.exists():
             _save_txt(result, txt_path)
         return result, json_path, txt_path
 
-    chunk_seconds = int(get("asr.chunk_seconds", 300))
-    if chunk_seconds < 10:
-        raise ValueError("asr.chunk_seconds must be at least 10")
     chunk_dir = out_dir / f"{meeting_id}_asr_chunks" / key
     transcript_segments = []
+    quality_parts = []
     detected_language = language
     model = None
     with sf.SoundFile(audio_path) as audio:
@@ -269,36 +281,57 @@ def run_asr(
         if sr != 16000 or audio.channels != 1:
             raise ValueError("ASR requires 16 kHz mono audio; preprocess first")
         duration = len(audio) / sr
+        if progress:
+            progress({"completed_seconds": 0, "total_seconds": duration, "cached": False})
         for index, first in enumerate(range(0, len(audio), chunk_seconds * sr)):
             chunk_path = chunk_dir / f"{index:06d}.json"
             cached_chunk = read_cache(chunk_path, key)
             if cached_chunk is not None:
                 transcript_segments.extend(TranscriptSegment(**item) for item in cached_chunk["segments"])
+                quality_parts.append(cached_chunk.get("quality", {}))
                 detected_language = detected_language or cached_chunk.get("language")
+                if on_chunk:
+                    on_chunk(transcript_segments[-50:], {"completed_seconds": min(duration, first / sr + chunk_seconds),
+                        "total_seconds": duration, "total_segments": len(transcript_segments), "cached": True})
+                if progress:
+                    progress({"completed_seconds": min(duration, first / sr + chunk_seconds), "total_seconds": duration, "cached": True})
                 continue
-            if model is None:
-                model = _load_whisper_model()
             offset = max(0, first - 2 * sr)
             end = min(len(audio), first + (chunk_seconds + 2) * sr)
             audio.seek(offset)
             samples = audio.read(end - offset, dtype="float32")
-            kwargs = dict(beam_size=beam_size, word_timestamps=True,
-                          vad_filter=True, condition_on_previous_text=False,
-                          temperature=0.0, task="transcribe")
-            if language:
-                kwargs["language"] = language
-            segments_iter, info = model.transcribe(samples, **kwargs)
-            chunk_language = getattr(info, "language", None)
-            allowed = get("asr.allowed_languages", [])
-            if not language and allowed and isinstance(chunk_language, str) and chunk_language not in allowed:
-                probabilities = getattr(info, "all_language_probs", None) or []
-                choices = [(code, probability) for code, probability in probabilities if code in allowed]
-                if not choices:
-                    raise RuntimeError("Detected language outside configured meeting languages; set MAI_ASR_LANGUAGE explicitly")
-                selected_language = max(choices, key=lambda choice: choice[1])[0]
-                logger.warning("Detected %s outside configured languages %s; decoding with %s", chunk_language, allowed, selected_language)
-                segments_iter, info = model.transcribe(samples, **{**kwargs, "language": selected_language})
-                chunk_language = selected_language
+            central = samples[first - offset:min(len(samples), first - offset + chunk_seconds * sr)]
+            import numpy as np
+            quality = {"samples": len(central), "zeros": int(np.count_nonzero(central == 0)),
+                       "clipped": int(np.count_nonzero(np.abs(central) >= .999)),
+                       "peak": float(np.max(np.abs(central))) if len(central) else 0.0}
+            quality_parts.append(quality)
+            if get("asr.skip_digital_silence", True) and not np.any(samples):
+                # Exact silence only. Quiet speech/noise still receives normal VAD/ASR.
+                segments_iter, chunk_language = iter([]), None
+            else:
+                if model is None:
+                    model = _load_whisper_model(model_size) if options.get("model_size") else _load_whisper_model()
+                kwargs = dict(beam_size=beam_size, word_timestamps=True,
+                              vad_filter=True, condition_on_previous_text=False,
+                              temperature=0.0, task="transcribe")
+                if language:
+                    kwargs["language"] = language
+                if vocabulary:
+                    # Spelling hints only: never carry a generated transcript into the next chunk.
+                    kwargs["hotwords"] = vocabulary
+                segments_iter, info = model.transcribe(samples, **kwargs)
+                chunk_language = getattr(info, "language", None)
+                allowed = get("asr.allowed_languages", [])
+                if not language and allowed and isinstance(chunk_language, str) and chunk_language not in allowed:
+                    probabilities = getattr(info, "all_language_probs", None) or []
+                    choices = [(code, probability) for code, probability in probabilities if code in allowed]
+                    if not choices:
+                        raise RuntimeError("Detected language outside configured meeting languages; set MAI_ASR_LANGUAGE explicitly")
+                    selected_language = max(choices, key=lambda choice: choice[1])[0]
+                    logger.warning("Detected %s outside configured languages %s; decoding with %s", chunk_language, allowed, selected_language)
+                    segments_iter, info = model.transcribe(samples, **{**kwargs, "language": selected_language})
+                    chunk_language = selected_language
             detected_language = detected_language or chunk_language
             chunk_segments = []
             for seg in segments_iter:
@@ -330,9 +363,16 @@ def run_asr(
                 group = None
             for item in chunk_segments:
                 item.text = item.text.strip()
-            atomic_json(chunk_path, {"cache_key": key, "language": detected_language,
+            for sequence, item in enumerate(chunk_segments, len(transcript_segments) + 1):
+                item.segment_id = sequence
+            atomic_json(chunk_path, {"cache_key": key, "language": chunk_language, "quality": quality,
                                     "segments": [asdict(item) for item in chunk_segments]})
             transcript_segments.extend(chunk_segments)
+            if on_chunk:
+                on_chunk(transcript_segments[-50:], {"completed_seconds": min(duration, first / sr + chunk_seconds),
+                    "total_seconds": duration, "total_segments": len(transcript_segments), "cached": False})
+            if progress:
+                progress({"completed_seconds": min(duration, first / sr + chunk_seconds), "total_seconds": duration, "cached": False})
             logger.info("ASR checkpoint %d: %.1f / %.1f seconds", index + 1,
                         min(duration, first / sr + chunk_seconds), duration)
     for index, segment in enumerate(transcript_segments, 1):
@@ -349,6 +389,11 @@ def run_asr(
         num_speakers=len(transcript_speakers),
         speakers=transcript_speakers,
         segments=transcript_segments,
+        recording_quality={
+            "digital_silence_ratio": round(sum(p.get("zeros", 0) for p in quality_parts) / max(1, sum(p.get("samples", 0) for p in quality_parts)), 6),
+            "clipped_sample_ratio": round(sum(p.get("clipped", 0) for p in quality_parts) / max(1, sum(p.get("samples", 0) for p in quality_parts)), 6),
+            "peak_amplitude": max((p.get("peak", 0) for p in quality_parts), default=0),
+        },
     )
 
     _save_json(result, json_path, key)
@@ -374,6 +419,7 @@ def _save_json(result: TranscriptResult, path: Path, cache_key=None) -> None:
         "num_speakers": result.num_speakers,
         "speakers": result.speakers,
         "segments": [asdict(s) for s in result.segments],
+        "recording_quality": result.recording_quality,
     }
     payload["cache_key"] = cache_key
     atomic_json(path, payload)
@@ -428,4 +474,5 @@ def _deserialise_result(data: dict[str, Any]) -> TranscriptResult:
         num_speakers=data.get("num_speakers", 0),
         speakers=data.get("speakers", []),
         segments=segments,
+        recording_quality=data.get("recording_quality", {}),
     )

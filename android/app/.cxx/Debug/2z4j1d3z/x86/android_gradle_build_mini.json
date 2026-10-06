@@ -1,0 +1,56 @@
+{
+  "buildFiles": [
+    "/home/amitkumar/Music/MAI Project/android/app/src/main/cpp/CMakeLists.txt",
+    "/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/CMakeLists.txt",
+    "/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/ggml/CMakeLists.txt",
+    "/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/ggml/src/CMakeLists.txt",
+    "/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/ggml/src/ggml-cpu/CMakeLists.txt",
+    "/home/amitkumar/Music/MAI Project/android/vendor/whisper.cpp/src/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/amitkumar/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/amitkumar/Music/MAI Project/android/app/.cxx/Debug/2z4j1d3z/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/amitkumar/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/amitkumar/Music/MAI Project/android/app/.cxx/Debug/2z4j1d3z/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "whisper::@5c4c08eb26cb9fe5feee": {
+      "artifactName": "whisper",
+      "abi": "x86",
+      "output": "/home/amitkumar/Music/MAI Project/android/app/.cxx/Debug/2z4j1d3z/x86/whisper-build/src/libwhisper.a",
+      "runtimeFiles": []
+    },
+    "ggml::@fe13e92dabd0655ddef2": {
+      "artifactName": "ggml",
+      "abi": "x86",
+      "output": "/home/amitkumar/Music/MAI Project/android/app/.cxx/Debug/2z4j1d3z/x86/whisper-build/ggml/src/libggml.a",
+      "runtimeFiles": []
+    },
+    "ggml-base::@fe13e92dabd0655ddef2": {
+      "artifactName": "ggml-base",
+      "abi": "x86",
+      "output": "/home/amitkumar/Music/MAI Project/android/app/.cxx/Debug/2z4j1d3z/x86/whisper-build/ggml/src/libggml-base.a",
+      "runtimeFiles": []
+    },
+    "meetiq::@6890427a1f51a3e7e1df": {
+      "artifactName": "meetiq",
+      "abi": "x86",
+      "output": "/home/amitkumar/Music/MAI Project/android/app/build/intermediates/cxx/Debug/2z4j1d3z/obj/x86/libmeetiq.so",
+      "runtimeFiles": []
+    },
+    "ggml-cpu::@fe13e92dabd0655ddef2": {
+      "artifactName": "ggml-cpu",
+      "abi": "x86",
+      "output": "/home/amitkumar/Music/MAI Project/android/app/.cxx/Debug/2z4j1d3z/x86/whisper-build/ggml/src/libggml-cpu.a",
+      "runtimeFiles": []
+    }
+  }
+}

@@ -91,6 +91,7 @@ def _action_to_dict(a: ActionItem) -> dict[str, Any]:
         "text":                a.text,
         "speaker":             a.speaker,
         "timestamp":           _fmt_ts(a.timestamp),
+        "timestamp_s":         a.timestamp,
         "event_id":            a.event_id,
         "related_decision_id": a.related_decision_id,
         "related_slide_id":    a.related_slide_id,
@@ -130,6 +131,12 @@ def export_json(report: MeetingReport, output_path: Path) -> None:
         "evaluation":           report.evaluation,
         "ablation":             report.ablation,
         "traceability":         report.traceability,
+        "slides":               report.slides,
+        "aligned_segments":     report.aligned_segments,
+        "event_timeline":       report.event_timeline,
+        "influence_method":     report.influence_method,
+        "consistency_checks":   report.consistency_checks,
+        "language_analysis":    report.language_analysis,
     }
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)

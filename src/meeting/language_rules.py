@@ -15,6 +15,7 @@ BLOCKERS = {
         r"\b(?:sehmat|sahmat|sahi).{0,12}\b(?:nahi|nahin|nai)\b",
     ],
     'action_item': [
+        r"\b(?:nahi|nahin|nai|mat)\b.{0,30}\b(?:kar|bhej) (?:dena|dijiye|do)\b",
         r"\b(?:main|mein|mai)\b.{0,50}\b(?:nahi|nahin|nai)\b.{0,25}\b(?:karunga|karungi|dunga|dungi)\b",
         r"मैं.{0,50}(?:नहीं|नही).{0,25}(?:करूँगा|करूंगा|करूँगी|करूंगी|दूंगा|दूँगा|दूंगी|दूँगी)",
     ],

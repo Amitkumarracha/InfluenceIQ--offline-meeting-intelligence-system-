@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-10",
+  "main_submission_pdf": "Group12_Multimodal_AI_Final_Report_CA4.pdf",
+  "main_pages": 34,
+  "supporting_record_pdf": "Group12_Complete_CA1_to_CA4_Record.pdf",
+  "supporting_pages": 108,
+  "source_markdown": "Multimodal AI Mini Project Continuous Assessment 4.md",
+  "original_sources": {
+    "GRPUP_NO_12_MAI_REPORT_1.pdf": {
+      "pages": 29,
+      "sha256": "937e140bd911aab24874f810fcb98f013eb1d2e3eeecaf45b4342fc63ef803a1"
+    },
+    "Group12_Multimodal_AI_Report_2.pdf": {
+      "pages": 11,
+      "sha256": "6d98e66223e3031bceb1e5be28ac08afec19f6f2d955b33818ef019c86e9c360"
+    },
+    "Group12_Multimodal_AI_Report_CA3.pdf": {
+      "pages": 10,
+      "sha256": "bbf5af98c481ba338b7b04b84be7b0d0d85c66129672ef04fa2527cb237c608e"
+    },
+    "24070126501_Literature_Review_Individual.pdf": {
+      "pages": 24,
+      "sha256": "1d997d087d6266a1e0d68b098792df754e4d56a050f4c25ae4d440d46be968a8"
+    }
+  },
+  "output_sha256": {
+    "Multimodal AI Mini Project Continuous Assessment 4.md": "6e16a6860385297535fcefd2569aba0eff2ed2346d4db2d966d1e842870ba3e0",
+    "Group12_Multimodal_AI_Final_Report_CA4.pdf": "fc3e3accb696a6b5eeb528fc2d368ca093dade7fd116a05fadd059a9e44634d9",
+    "Group12_Complete_CA1_to_CA4_Record.pdf": "e4ef6b568967eb73b8d265f711e849eca5663479c679626204a7702138bed5f7"
+  },
+  "status": "Primary PDF is the one cumulative group report; combined record is optional supporting history."
+}

@@ -133,6 +133,12 @@ class MeetingReport:
     ablation: dict[str, Any]
     traceability: dict[str, Any]
     processing: dict[str, Any] = field(default_factory=dict)
+    slides: list[dict[str, Any]] = field(default_factory=list)
+    aligned_segments: list[dict[str, Any]] = field(default_factory=list)
+    event_timeline: list[dict[str, Any]] = field(default_factory=list)
+    influence_method: dict[str, Any] = field(default_factory=dict)
+    consistency_checks: dict[str, Any] = field(default_factory=dict)
+    language_analysis: dict[str, Any] = field(default_factory=dict)
 
 
 # ---------------------------------------------------------------------------
@@ -306,6 +312,16 @@ def _build_participants(
                 roles_map[sp].add(pr.get("role", ""))
                 if did and did not in supporting_dec_map[sp]:
                     supporting_dec_map[sp].append(did)
+
+    # Estimated contribution roles from observed events, not occupational titles.
+    event_roles = {'proposal': 'proposer', 'evidence': 'evidence_provider',
+        'objection': 'challenger', 'disagreement': 'challenger', 'correction': 'corrector',
+        'revision': 'reviser', 'decision': 'decision_maker', 'action_item': 'task_contributor',
+        'question': 'questioner', 'clarification': 'clarifier', 'agreement': 'supporter'}
+    for event in events:
+        speaker, role = event.get('speaker'), event_roles.get(event.get('event_type'))
+        if speaker in roles_map and role:
+            roles_map[speaker].add(role)
 
     # Interaction stats
     stats_map: dict[str, dict] = {}
@@ -572,6 +588,7 @@ def _build_interactions(interactions_data: dict | None) -> dict[str, Any]:
             1 for i in interactions if i.get("related_decision_id")
         ),
         "participant_stats": stats,
+        "relationships": interactions,
         "graph_summary": graph_lines[:50],  # limit for readability
         "note": "Statistics describe conversational interaction, NOT influence.",
     }
@@ -781,6 +798,14 @@ def generate_report(
             "status": d.get("status"),
         })
 
+    from src.meeting.consistency import check_consistency
+    from src.meeting.language import language_profile
+    slides = (slides_data or {}).get('slides', [])
+    aligned = []
+    for item in (alignment_data or {}).get('segments', []):
+        candidate = next((c for c in item.get('slide_candidates', []) if c['slide_id'] == item.get('selected_slide')), {})
+        aligned.append({**item, 'slide_id': item.get('selected_slide'), 'alignment_score': candidate.get('combined_score')})
+    languages = (transcript_data or {}).get('detected_languages') or [(transcript_data or {}).get('language')]
     return MeetingReport(
         meeting_id=meeting_id,
         meeting_overview=overview,
@@ -798,4 +823,9 @@ def generate_report(
         evaluation=evaluation,
         ablation=ablation,
         traceability=traceability,
+        slides=slides, aligned_segments=aligned,
+        event_timeline=(events_data or {}).get('events', []),
+        influence_method=(influence_data or {}).get('method', {}),
+        consistency_checks=check_consistency(aligned, slides),
+        language_analysis=language_profile((transcript_data or {}).get('segments', []), languages),
     )

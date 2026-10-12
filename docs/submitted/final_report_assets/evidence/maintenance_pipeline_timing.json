@@ -1,0 +1,88 @@
+[
+  {
+    "run": "fresh_input",
+    "processing": {
+      "warnings": [],
+      "speaker_separation": true,
+      "speaker_backend": "sherpa-onnx",
+      "generative_ai": false,
+      "language": "en",
+      "recording_quality": {
+        "digital_silence_ratio": 0.004117,
+        "clipped_sample_ratio": 0.0,
+        "peak_amplitude": 0.13909912109375
+      },
+      "asr_model": "small",
+      "options": {
+        "num_speakers": 4,
+        "language": "en"
+      },
+      "alignment_method": "embeddings",
+      "analysis_method": "English/Hindi/Hinglish keyword heuristics; review against source audio",
+      "accuracy_measured": false,
+      "stage_timings_seconds": {
+        "preprocessing": 0.049648,
+        "diarization": 18.409991,
+        "transcription": 16.125121,
+        "slides": 1.702411,
+        "alignment": 0.128228,
+        "events": 0.008073,
+        "decisions": 0.005532,
+        "interactions": 0.005674,
+        "influence": 0.015023,
+        "report": 0.008424
+      },
+      "asr_requested_device": "cpu",
+      "asr_requested_compute_type": "int8",
+      "cpu_threads": 4,
+      "asr_last_chunk_cached": false,
+      "elapsed_seconds": 36.463132,
+      "timing_scope": "Pipeline through report preparation; excludes upload/decode, queue wait and final JSON/checkpoint writes"
+    },
+    "passages": 20,
+    "participants": 4
+  },
+  {
+    "run": "cached_repeat",
+    "processing": {
+      "warnings": [],
+      "speaker_separation": true,
+      "speaker_backend": "sherpa-onnx",
+      "generative_ai": false,
+      "language": "en",
+      "recording_quality": {
+        "digital_silence_ratio": 0.004117,
+        "clipped_sample_ratio": 0.0,
+        "peak_amplitude": 0.13909912109375
+      },
+      "asr_model": "small",
+      "options": {
+        "num_speakers": 4,
+        "language": "en"
+      },
+      "alignment_method": "embeddings",
+      "analysis_method": "English/Hindi/Hinglish keyword heuristics; review against source audio",
+      "accuracy_measured": false,
+      "stage_timings_seconds": {
+        "preprocessing": 0.055295,
+        "diarization": 0.044051,
+        "transcription": 0.018003,
+        "slides": 0.032664,
+        "alignment": 0.116589,
+        "events": 0.015329,
+        "decisions": 0.004442,
+        "interactions": 0.00496,
+        "influence": 0.010058,
+        "report": 0.007849
+      },
+      "asr_requested_device": "cpu",
+      "asr_requested_compute_type": "int8",
+      "cpu_threads": 4,
+      "asr_last_chunk_cached": true,
+      "elapsed_seconds": 0.313768,
+      "timing_scope": "Pipeline through report preparation; excludes upload/decode, queue wait and final JSON/checkpoint writes"
+    },
+    "passages": 20,
+    "participants": 4
+  }
+]

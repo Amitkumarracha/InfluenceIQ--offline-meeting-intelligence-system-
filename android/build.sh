@@ -19,12 +19,14 @@ for ABI in arm64-v8a x86_64; do
     "$CMAKE" --build "$BUILD/$ABI" --target meetiq --parallel 4
     mkdir -p "$BUILD/apk/lib/$ABI"
     cp "$BUILD/$ABI/libmeetiq.so" "$BUILD/apk/lib/$ABI/"
+    cp android/vendor/sherpa-onnx/jniLibs/"$ABI"/libsherpa-onnx-c-api.so android/vendor/sherpa-onnx/jniLibs/"$ABI"/libonnxruntime.so "$BUILD/apk/lib/$ABI/"
 done
 javac --release 8 -classpath "$ANDROID_JAR" -d "$BUILD/classes" android/app/src/main/java/org/meetiq/offline/*.java
 jar cf "$BUILD/classes.jar" -C "$BUILD/classes" .
 "$BUILD_TOOLS/d8" --lib "$ANDROID_JAR" --min-api 26 --output "$BUILD/dex" "$BUILD/classes.jar"
+"$BUILD_TOOLS/aapt2" compile --dir android/app/src/main/res -o "$BUILD/resources.zip"
 "$BUILD_TOOLS/aapt2" link -o "$BUILD/unsigned.apk" -I "$ANDROID_JAR" \
-    --manifest android/app/src/main/AndroidManifest.xml --debug-mode -A android/app/src/main/assets
+    --manifest android/app/src/main/AndroidManifest.xml --debug-mode -A android/app/src/main/assets "$BUILD/resources.zip"
 cp "$BUILD/dex/classes.dex" "$BUILD/apk/"
 python3 - "$BUILD" <<'PYZIP'
 import sys, zipfile

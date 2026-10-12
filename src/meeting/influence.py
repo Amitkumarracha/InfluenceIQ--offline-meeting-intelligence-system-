@@ -652,7 +652,7 @@ def _generate_explanation(
     if norm_features.get("objection_contribution", 0) > 0.3:
         n = raw_features.get("objection_contribution", 0)
         lines.append(
-            f"Raised objection(s) associated with proposal revisions (raw: {n:.1f}). "
+            f"Raised decision-linked objection(s); the feature includes a bonus when a later revision is observed (raw: {n:.1f}). "
             f"Normalised objection score: {norm_features['objection_contribution']:.2f}."
         )
 
@@ -708,6 +708,7 @@ def compute_influence(
     interaction_result: InteractionResult,
     weights: dict[str, float] | None = None,
     ablation_flags: dict[str, bool] | None = None,
+    transcript_segments: list[dict] | None = None,
 ) -> InfluenceResult:
     """
     Compute participant influence scores.
@@ -748,6 +749,10 @@ def compute_influence(
         event_result, evidence_result, decision_result, interaction_result
     )
 
+    for segment in transcript_segments or []:
+        speaker = segment.get('speaker')
+        if speaker and speaker != 'UNKNOWN':
+            vectors.setdefault(speaker, FeatureVector(participant=speaker))
     all_speakers = sorted(vectors.keys())
     if not all_speakers:
         return InfluenceResult(
@@ -801,7 +806,7 @@ def compute_influence(
         prev_score = scores[sp]
 
     # Step 5: baselines
-    baseline_map = extract_baselines(event_result, evidence_result, decision_result)
+    baseline_map = extract_baselines(event_result, evidence_result, decision_result, transcript_segments)
 
     # Step 6: build ParticipantInfluence objects
     participants: list[ParticipantInfluence] = []
@@ -1040,10 +1045,12 @@ def run_influence_analysis(
         num_dec_evidence,
     )
 
+    transcript_path = events_path.parent.parent / "audio" / f"{meeting_id}_transcript.json"
+    transcript_segments = json.loads(transcript_path.read_text(encoding="utf-8")).get("segments", []) if transcript_path.exists() else None
     weights = _load_weights()
     result = compute_influence(
         event_result, evidence_result, decision_result, interaction_result,
-        weights=weights, ablation_flags=ablation_flags,
+        weights=weights, ablation_flags=ablation_flags, transcript_segments=transcript_segments,
     )
 
     transcript_path = events_path.parent.parent / "audio" / f"{meeting_id}_transcript.json"

@@ -1,4 +1,4 @@
-"""Optional sherpa-onnx adapter. Models/dependency must be provisioned manually."""
+"""Local sherpa-onnx adapter. Explicit provisioning precedes offline inference."""
 from pathlib import Path
 import soundfile as sf
 from src.utils.config import PROJECT_ROOT, get
@@ -28,8 +28,9 @@ def diarize(audio_path, num_speakers=None):
         raise RuntimeError('Install optional sherpa-onnx manually; see RUN_MANUALLY.md.') from exc
     config = sherpa_onnx.OfflineSpeakerDiarizationConfig(
         segmentation=sherpa_onnx.OfflineSpeakerSegmentationModelConfig(
-            pyannote=sherpa_onnx.OfflineSpeakerSegmentationPyannoteModelConfig(model=str(segmentation))),
-        embedding=sherpa_onnx.SpeakerEmbeddingExtractorConfig(model=str(embedding)),
+            pyannote=sherpa_onnx.OfflineSpeakerSegmentationPyannoteModelConfig(model=str(segmentation)),
+            num_threads=int(get("asr.cpu_threads", 4))),
+        embedding=sherpa_onnx.SpeakerEmbeddingExtractorConfig(model=str(embedding), num_threads=int(get("asr.cpu_threads", 4))),
         clustering=sherpa_onnx.FastClusteringConfig(num_clusters=num_speakers or -1,
             threshold=float(get('diarization.onnx.cluster_threshold', .5))),
         min_duration_on=.3, min_duration_off=.5)

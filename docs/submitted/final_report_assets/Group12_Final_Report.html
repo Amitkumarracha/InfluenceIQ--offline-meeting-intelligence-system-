@@ -1,0 +1,1232 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Group 12 — Final Multimodal AI Report</title><style>
+@page { size:A4; }
+* { box-sizing:border-box; }
+body { margin:0; color:#1d2730; font:11pt/1.33 "Liberation Serif", "Times New Roman", serif; }
+h1,h2,h3 { font-family:"DejaVu Sans",Arial,sans-serif; color:#203e53; }
+h1 { font-size:24pt; line-height:1.25; margin:22mm 0 10mm; }
+h2 { font-size:17pt; line-height:1.25; margin:0 0 7mm; break-before:page; }
+h3 { font-size:12pt; margin:5mm 0 3mm; break-after:avoid; }
+p { margin:0 0 3mm; orphans:3; widows:3; }
+a { color:#245c80; text-decoration:none; overflow-wrap:anywhere; }
+.cover { break-after:page; text-align:center; padding:3mm 0; }
+.cover h1 { border-bottom:2px solid #326481; padding-bottom:8mm; }
+.cover table { font:11pt/1.4 "Liberation Serif",serif; margin:8mm auto; width:90%; }
+.cover p:last-child { margin-top:9mm; font-size:10pt; }
+nav { break-after:page; }
+nav h2 { break-before:auto; }
+nav ol { list-style:none; padding:0; }
+nav li { display:flex; justify-content:space-between; gap:5mm; margin:2.2mm 0; font:10.5pt/1.3 "DejaVu Sans",Arial,sans-serif; }
+nav li a { color:#203e53; }
+nav small { font-family:"Liberation Serif",serif; }
+table { border-collapse:collapse; width:100%; table-layout:fixed; font-size:9.2pt; line-height:1.28; margin:4mm 0 5mm; }
+th,td { border:1px solid #b6c7d0; padding:1.8mm; vertical-align:top; overflow-wrap:anywhere; }
+th { background:#edf3f6; font-weight:bold; color:#203e53; }
+thead { display:table-header-group; }
+tr { break-inside:avoid; }
+table:has(th:nth-child(6)) { font-size:8.8pt; }
+table:has(th:nth-child(6)) th:first-child { width:24%; }
+table:has(th:nth-child(7)) th:first-child { width:24%; }
+img { display:block; max-width:100%; max-height:180mm; height:auto; margin:5mm auto 2mm; }
+p:has(>img) { break-inside:avoid; }
+p:has(>em:only-child) { font-size:9pt; color:#465560; }
+pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:8.3pt; line-height:1.38; background:#f4f6f7; padding:3mm; border-left:2px solid #326481; break-inside:avoid; }
+code { font-family:"DejaVu Sans Mono",monospace; font-size:.83em; overflow-wrap:anywhere; }
+ol,ul { padding-left:6mm; margin:2mm 0 4mm; }
+li { margin-bottom:2mm; }
+</style></head><body><section class="cover"><h1>Group 12 — Multimodal AI Final Project Report</h1>
+<p><strong>Continuous Assessment 4 · Consolidated project report (CA1–CA4)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>PRN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anushka Chatterjee</td>
+<td>23070126015</td>
+</tr>
+<tr>
+<td>Amitkumar Racha</td>
+<td>24070126501</td>
+</tr>
+<tr>
+<td>Sahil Awatramani</td>
+<td>23070126112</td>
+</tr>
+<tr>
+<td>Shriyans Sahoo</td>
+<td>23070126125</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Project:</strong> Offline Multimodal Meeting Intelligence for Decision and Participant Influence Analysis<br />
+<strong>Application:</strong> InfluenceIQ / Meet IQ<br />
+<strong>Programme:</strong> Bachelor of Technology in Artificial Intelligence &amp; Machine Learning<br />
+<strong>Course:</strong> Multimodal Artificial Intelligence<br />
+<strong>Institute:</strong> Symbiosis Institute of Technology, Pune, Symbiosis International (Deemed University)<br />
+<strong>Department:</strong> Artificial Intelligence &amp; Machine Learning<br />
+<strong>Guide:</strong> Dr. Nivedita Mishra<br />
+<strong>Academic year:</strong> 2026–2027<br />
+<strong>Report date:</strong> 10 October 2026</p>
+<p>This report consolidates the problem definition and literature review from Report 1, resources/dataset/EDA from Report 2, first implementation results from CA3, and the final implementation, experiments and fusion comparison for CA4. It is one group report. Earlier submitted PDFs remain unchanged as supporting records.</p>
+</section><nav><h2>Contents</h2><ol><li><a href="#section-1">Abstract</a><span data-page="section-1">3</span></li><li><a href="#section-2">1. Assessment coverage and evidence policy</a><span data-page="section-2">4</span></li><li><a href="#section-3">2. Introduction, problem and objectives</a><span data-page="section-3">5</span></li><li><a href="#section-4">3. Literature review and research positioning</a><span data-page="section-4">6</span></li><li><a href="#section-5">4. Dataset, modalities and corrected EDA</a><span data-page="section-5">7</span></li><li><a href="#section-6">5. Final architecture and implementation</a><span data-page="section-6">9</span></li><li><a href="#section-7">6. Fusion terminology, representation and formulas</a><span data-page="section-7">11</span></li><li><a href="#section-8">7. Experimental design and metrics</a><span data-page="section-8">14</span></li><li><a href="#section-9">8. Results: comparison of all three alignment techniques</a><span data-page="section-9">15</span></li><li><a href="#section-10">9. Speech-recognition and speaker results</a><span data-page="section-10">17</span></li><li><a href="#section-11">10. Historical CA3 outputs and error analysis</a><span data-page="section-11">19</span></li><li><a href="#section-12">11. Android, offline execution and optional workstation deployment</a><span data-page="section-12">21</span></li><li><a href="#section-13">12. Processing efficiency and reliability</a><span data-page="section-13">23</span></li><li><a href="#section-14">13. Training, baselines and evaluation status</a><span data-page="section-14">25</span></li><li><a href="#section-15">14. Software validation, resources and risk management</a><span data-page="section-15">26</span></li><li><a href="#section-16">15. Project evolution and cumulative deliverables</a><span data-page="section-16">28</span></li><li><a href="#section-17">16. Limitations, future work and conclusion</a><span data-page="section-17">29</span></li><li><a href="#section-18">References</a><span data-page="section-18">31</span></li><li><a href="#section-19">Appendix A. Controlled case manifest</a><span data-page="section-19">32</span></li><li><a href="#section-20">Appendix B. Result provenance and reproducibility</a><span data-page="section-20">33</span></li><li><a href="#section-21">Appendix C. Developer handover</a><span data-page="section-21">34</span></li></ol><small>One cumulative group report. The supporting record PDF appends earlier submissions unchanged.</small></nav><h2 id="section-1">Abstract</h2>
+<p>InfluenceIQ is an offline meeting-analysis prototype that connects speaker-attributed discussion to presentation content and exposes candidate actions, decisions and participant contributions with source references. The project combines pretrained speech recognition, speaker diarization, native PPT extraction and deterministic NLP analysis. The laptop implementation uses faster-whisper, local sherpa-onnx speaker models, React, FastAPI and SQLite; the Android implementation uses whisper.cpp, packaged speaker models and native Java analysis. Generative meeting notes and question answering are excluded from the final analytical workflow.</p>
+<p>The final assessment compares three project alignment configurations: temporal-only, semantic-only and combined temporal–semantic alignment. A reproducible diagnostic uses 24 author-designed cases and six constructed slides, with the pretrained sentence encoder frozen. Exact top-1 correctness was 12/24 (50.00%), 20/24 (83.33%) and 16/24 (66.67%), respectively. These results describe the controlled fixture, not real-meeting alignment accuracy. On a separate saved real recording with 1,008 transcript passages and 34 untimed slides, semantic and combined methods both linked 39 passages; independent relevance labels were unavailable. This demonstrates the implemented missing-timing fallback rather than a measured accuracy improvement.</p>
+<p>Existing annotated English AMI experiments provide separately scoped speech results: laptop small-model WER 42.30% on a ten-minute window; Android base-model WER 37.74% and native speaker DER 13.48% on a different 90-second window. The windows, models and execution paths differ, so these are not a direct platform comparison. The project delivers a usable local workflow and inspectable analysis, while natural Hindi/Hinglish accuracy, genuine timed-slide evaluation, human influence agreement and physical-phone validation remain research work.</p>
+<p><strong>Keywords:</strong> multimodal meeting intelligence; offline inference; speaker diarization; transcript–slide alignment; temporal fusion; semantic fusion; decision lineage; participant influence; extractive NLP.</p>
+<h2 id="section-2">1. Assessment coverage and evidence policy</h2>
+<p>The final-assessment instruction asks for results for the fusion techniques employed, a comparison of all three techniques, and a single report carrying the group number, member names and PRNs. Those details appear on the first page. The cumulative coverage is:</p>
+<table>
+<thead>
+<tr>
+<th>Assessment / source</th>
+<th>Contribution incorporated in this report</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Report 1, 29 pages</td>
+<td>Problem, motivation, objectives, literature themes, planned architecture and evaluation</td>
+</tr>
+<tr>
+<td>Report 2, 11 pages</td>
+<td>Resource allocation, risks, AMI dataset, selected modalities and EDA</td>
+</tr>
+<tr>
+<td>CA3, 10 pages</td>
+<td>First pipeline output, decision/action examples and influence-versus-participation observations</td>
+</tr>
+<tr>
+<td>Individual literature review, 24 pages</td>
+<td>Speech robustness, overlapping speech, speaker attribution and research protocol</td>
+</tr>
+<tr>
+<td>CA4 / current repository</td>
+<td>Final delivered application, actual fusion implementation, reproducible comparisons, measured speech/performance results and limitations</td>
+</tr>
+</tbody>
+</table>
+<p>The fusion comparison follows the project’s implemented audio–presentation alignment: <strong>temporal alignment, semantic alignment and their combined temporal–semantic scoring</strong>. The final assessment isolates the first two as temporal-only and semantic-only baselines and compares them with the combined aligner. Section 6 maps each technique to the actual code and explains how it connects the two input modalities. Early/intermediate/late terminology is background; it is not a claim that three separately trained neural architectures were built.</p>
+<p>Results are classified as: <strong>annotated real-data measurements</strong>, <strong>controlled diagnostic results</strong>, <strong>unlabelled real-data outputs</strong>, <strong>historical application outputs</strong>, and <strong>engineering checks</strong>. A count of extracted decisions, a model score or a passing software test is not an accuracy measurement. Accuracy needs a suitable reference annotation. All new fixture labels are explicitly author-designed; no independent human evaluation or training is asserted.</p>
+<h2 id="section-3">2. Introduction, problem and objectives</h2>
+<p>Meetings contain both spoken deliberation and documents that provide context, alternatives and evidence. A transcript preserves words but does not automatically explain which proposal was revised, which objection was addressed, which slide was relevant or whose contribution influenced a candidate decision. Manual review becomes costly for long recordings and multiple presentations.</p>
+<p>The project addresses an engineering and research question: <strong>can locally processed audio and presentation content be connected to an inspectable chain of discussion events and participant-contribution estimates?</strong> It uses speaking participation as a descriptive baseline while modelling decision-linked evidence and interactions separately. A score is an analytical estimate, not proof of causal influence or organizational authority.</p>
+<p>The objectives, carried forward from Report 1, are:</p>
+<ol>
+<li>Accept meeting recordings and produce timestamped, speaker-attributed transcripts.</li>
+<li>Extract slide titles, body text, tables and notes from presentations.</li>
+<li>Align discussion passages with slides using content and, where available, display-time information.</li>
+<li>Extract candidate proposals, objections, evidence, revisions, agreements, decisions and actions.</li>
+<li>Preserve source paths through evidence relations, candidate decision lineage and participant interactions.</li>
+<li>Compare alignment configurations and report their measured behavior and failure cases.</li>
+<li>Deliver local review interfaces with editable speaker names/roles, playback, exports and persistent history.</li>
+</ol>
+<p>The project prioritizes local processing and reviewability. Inference can work without connectivity after model provisioning. Optional remote workstation processing is a separate deployment mode requiring access to that server; it does not make remote processing offline from the client’s perspective.</p>
+<h2 id="section-4">3. Literature review and research positioning</h2>
+<p>The previous submissions reviewed speech enhancement, multi-talker recognition, diarization, multimodal alignment and meeting roles/influence. They motivate a modular pipeline in which errors and timestamps remain visible across stages. The final report retains that foundation without implying that every reviewed model has been implemented.</p>
+<table>
+<thead>
+<tr>
+<th>Literature theme</th>
+<th>Relevance to InfluenceIQ</th>
+<th>Final implementation boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Speech enhancement / separation</td>
+<td>Noise, reverberation and overlapping speech affect perception</td>
+<td>No newly trained separation or enhancement network is deployed</td>
+</tr>
+<tr>
+<td>Speaker diarization / attributed ASR</td>
+<td>Links words to speaker-time intervals</td>
+<td>Pretrained local inference and overlap-based attribution are implemented</td>
+</tr>
+<tr>
+<td>Multimodal representation / fusion</td>
+<td>Distinguishes feature, learned-representation and decision fusion</td>
+<td>Current slide matching combines separate content/time scores [2]</td>
+</tr>
+<tr>
+<td>Sentence embeddings</td>
+<td>Supports paraphrase-sensitive text relevance</td>
+<td>Frozen all-MiniLM-L6-v2 is used for Python semantic matching [3], [6]</td>
+</tr>
+<tr>
+<td>Speech/video-to-slide alignment</td>
+<td>Shows the value of document and visual evidence</td>
+<td>Native slide text is implemented; visual encoders/OCR are not [4]</td>
+</tr>
+<tr>
+<td>Participant roles / dominance</td>
+<td>Participation and decision contribution are different constructs</td>
+<td>Heuristic contribution scoring exists; human agreement remains unmeasured</td>
+</tr>
+</tbody>
+</table>
+<p>MaViLS is relevant prior work on speech, OCR and visual features for video-to-slide alignment [4]. Its published benchmark numbers are not results of this project. The supplied individual review discusses low-latency and overlap approaches, but they remain enabling literature rather than automatically implemented features.</p>
+<p>The project’s contribution is an <strong>offline integration with source-linked decision and contribution analysis</strong>, not the invention of Whisper, sentence embeddings or diarization. Evidence paths can help users review estimates, but extractive output is not guaranteed correct: ASR errors, speaker confusion, keyword false positives and incorrect slide grounding can propagate. A claim of research superiority would require matched labelled meetings and independently assessed influence; that experiment has not been completed.</p>
+<h2 id="section-5">4. Dataset, modalities and corrected EDA</h2>
+<h3>4.1 Dataset and selected modalities</h3>
+<p>The AMI Meeting Corpus provides approximately 100 hours of synchronized meeting recordings, including scenario-based design-team meetings and natural meetings, with transcripts and other annotations [1]. This project uses meeting audio and extracted presentation/document content. Video exists in the corpus but is not part of the deployed fusion pipeline.</p>
+<p>Audio supplies what was said, when and by which inferred speaker. Presentation text supplies topic, alternatives, quantities and document context. Acoustic audio reaches the fusion stage through ASR text/timestamps; the slide branch uses extracted text, tables and notes. Images are not converted to learned visual representations. The system therefore performs <strong>audio-derived text to document-text alignment</strong>, not an end-to-end acoustic–image network.</p>
+<p>A local inventory on 10 October found 2,039 AMI WAV files occupying approximately 138.03 GB (128.55 GiB), 171 WAV inputs under <code>data/raw/audio/</code>, and 987 PPTX files under <code>data/raw/ppt/</code>. These are file counts, including channels/document variants; they are not counts of independent labelled meetings or complete paired experiments. The local storage total need not equal the earlier estimate of more than 80 GB because acquisition coverage and channels differ.</p>
+<h3>4.2 Dialogue-act counts</h3>
+<p>A new XML enumeration of <code>ami_public_manual_1.6.2/dialogueActs/*.dialog-act.xml</code> used 556 files and the corpus’s <code>ontologies/da-types.xml</code> labels. It counted <strong>117,887 dialogue acts</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Ontology category</th>
+<th style="text-align:right">Count</th>
+<th style="text-align:right">Share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inform</td>
+<td style="text-align:right">33,484</td>
+<td style="text-align:right">28.40%</td>
+</tr>
+<tr>
+<td>Assess</td>
+<td style="text-align:right">21,391</td>
+<td style="text-align:right">18.15%</td>
+</tr>
+<tr>
+<td>Fragment</td>
+<td style="text-align:right">16,796</td>
+<td style="text-align:right">14.25%</td>
+</tr>
+<tr>
+<td>Backchannel</td>
+<td style="text-align:right">12,573</td>
+<td style="text-align:right">10.67%</td>
+</tr>
+<tr>
+<td>Suggest</td>
+<td style="text-align:right">9,391</td>
+<td style="text-align:right">7.97%</td>
+</tr>
+<tr>
+<td>Stall</td>
+<td style="text-align:right">8,459</td>
+<td style="text-align:right">7.18%</td>
+</tr>
+<tr>
+<td>Elicit-Inform</td>
+<td style="text-align:right">4,240</td>
+<td style="text-align:right">3.60%</td>
+</tr>
+<tr>
+<td>Comment-About-Understanding</td>
+<td style="text-align:right">2,367</td>
+<td style="text-align:right">2.01%</td>
+</tr>
+<tr>
+<td>Elicit-Assessment</td>
+<td style="text-align:right">2,265</td>
+<td style="text-align:right">1.92%</td>
+</tr>
+<tr>
+<td>Be-Positive</td>
+<td style="text-align:right">2,210</td>
+<td style="text-align:right">1.87%</td>
+</tr>
+<tr>
+<td>Other</td>
+<td style="text-align:right">2,204</td>
+<td style="text-align:right">1.87%</td>
+</tr>
+<tr>
+<td>Offer</td>
+<td style="text-align:right">1,530</td>
+<td style="text-align:right">1.30%</td>
+</tr>
+<tr>
+<td>Elicit-Offer-Or-Suggestion</td>
+<td style="text-align:right">686</td>
+<td style="text-align:right">0.58%</td>
+</tr>
+<tr>
+<td>Elicit-Comment-Understanding</td>
+<td style="text-align:right">193</td>
+<td style="text-align:right">0.16%</td>
+</tr>
+<tr>
+<td>Be-Negative</td>
+<td style="text-align:right">98</td>
+<td style="text-align:right">0.08%</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align:right"><strong>117,887</strong></td>
+<td style="text-align:right"><strong>100% before rounding</strong></td>
+</tr>
+</tbody>
+</table>
+<p><img src="eda_distribution.png" alt="Dialogue-act distribution" /></p>
+<p><em>Figure 1. Re-enumerated local manual dialogue acts. Small categories are grouped only in this chart; the table preserves all ontology labels.</em></p>
+<p>Report 2’s total of 116,357 is 1,530 lower, exactly the Offer count. Its Backchannel value of 21,910 also pools several other categories rather than representing the literal Backchannel label, while 686 corresponds to Elicit-Offer-Or-Suggestion. The final table uses the ontology directly and supersedes that earlier grouped summary. Dialogue-act counts describe the corpus; they are not event-extraction performance or influence labels.</p>
+<h3>4.3 Preprocessing implications</h3>
+<p>Variable sample rates/channels require normalization to 16 kHz mono PCM. Noisy or overlapping speech requires cautious speaker attribution; an ambiguous speaker can remain <code>UNKNOWN</code>. Legacy <code>.ppt</code> files require conversion to <code>.pptx</code> before native text extraction. Different recording lengths require per-meeting processing and recoverable chunks. A PPT file alone does not establish slide-display timestamps. Topic relevance and display time must be distinguished, especially when a speaker refers to an earlier slide.</p>
+<h2 id="section-6">5. Final architecture and implementation</h2>
+<p><img src="architecture.png" alt="System architecture" /></p>
+<p><em>Figure 2. Final processing architecture. The speech branch uses pretrained inference; the document branch extracts native text. Source-linked NLP follows alignment. The Android implementation is lighter than the Python evidence-graph workflow.</em></p>
+<h3>5.1 Laptop workflow</h3>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Implemented behavior / source area</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input and decoding</td>
+<td>Browser recording/uploads; FFmpeg conversion to normalized WAV; <code>src/audio/</code></td>
+</tr>
+<tr>
+<td>Speaker analysis</td>
+<td>sherpa-onnx segmentation, embedding and clustering; pyannote remains an optional alternative</td>
+</tr>
+<tr>
+<td>Transcription</td>
+<td>faster-whisper multilingual small by default, CPU/int8, four threads, 120-second central chunks with overlap</td>
+</tr>
+<tr>
+<td>Attribution</td>
+<td>Temporal matching between ASR words/passages and speaker intervals; ambiguous assignments can abstain</td>
+</tr>
+<tr>
+<td>Document extraction</td>
+<td>python-pptx titles/body/tables/notes; <code>src/ppt/</code></td>
+</tr>
+<tr>
+<td>Alignment</td>
+<td>Temporal overlap plus semantic embeddings or optional TF-IDF; <code>src/fusion/</code></td>
+</tr>
+<tr>
+<td>NLP and decisions</td>
+<td>Rule-based events, evidence relations, candidate decision reconstruction and interaction analysis</td>
+</tr>
+<tr>
+<td>Influence</td>
+<td>Configurable seven-feature weighted estimates with supporting event/decision references</td>
+</tr>
+<tr>
+<td>Presentation</td>
+<td>React interface, FastAPI single-worker queue, SQLite ownership/history and structured exports</td>
+</tr>
+</tbody>
+</table>
+<p>Stage artifacts are stored under <code>data/processed/</code>; report and evaluation artifacts are under <code>outputs/</code>. The queue serializes heavy meeting jobs. Resume state and transcription chunks permit recovery after interruption; changed inputs/settings invalidate relevant caches. Speaker failure in automatic mode produces a warning and <code>UNKNOWN</code> transcription rather than invented identities. Required-speaker mode fails when separation is unavailable.</p>
+<h3>5.2 NLP, lineage and influence</h3>
+<p>Keyword and bounded contextual rules identify candidate events in English/Hindi/Hinglish text. Evidence relations connect related events and selected slides; candidate decisions group proposal/discussion/evidence/revision/agreement/final-event information. Roles such as proposer, objector and evidence provider describe detected contributions, not verified job titles.</p>
+<p>The configured influence estimate is:</p>
+<pre><code class="language-text">I(p) = 0.15 P(p) + 0.20 E(p) + 0.15 O(p) + 0.20 R(p)
+     + 0.15 D(p) + 0.05 X(p) + 0.10 G(p)
+</code></pre>
+<p><code>P, E, O, R, D, X, G</code> are normalized proposal, evidence, objection, revision, decision, interaction and slide-grounded contribution features. Weights are prototype defaults, not trained or human-validated coefficients. Scores can be zero when no qualifying evidence is present. <code>UNKNOWN</code> is not treated as an identified person in current participant influence output.</p>
+<p>Candidate action items remain source sentences rather than newly generated instructions. Named ownership, deadlines and decision status still require review. A source identifier verifies where an extraction came from; it does not prove the extraction’s meaning or factual correctness.</p>
+<h3>5.3 Simplified interface and persistence</h3>
+<p>The final interface emphasizes Record meeting, Upload audio, optional Upload PPT and optional vocabulary hints. Users review transcript, participants, actions, decisions, influence, events and presentation evidence. Speaker names/roles are editable and reflected in transcript/export views. History preserves meetings and edits. Settings hold the profile, automatic Hindi/English language selection and advanced controls.</p>
+<p>The website accepts supported recordings and converts them locally; users are not required to pre-convert every input to 16 kHz/mono/16-bit PCM. Automatic language observations and Hindi-safe processing are implemented, but natural code-switching accuracy has not been measured. Generative notes/questions and cross-meeting word search were removed from the final product scope.</p>
+<h2 id="section-7">6. Fusion terminology, representation and formulas</h2>
+<h3>6.1 What fusion is actually implemented</h3>
+<p>The original inputs are <strong>meeting audio</strong> and <strong>presentation/document content</strong>. The audio branch produces timestamped speaker-attributed text; the document branch produces extracted slide text and embeddings. Temporal and semantic scores connect these representations. They are two alignment signals, not additional independent input modalities.</p>
+<table>
+<thead>
+<tr>
+<th>Implemented technique</th>
+<th>Actual code</th>
+<th>How it is used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Temporal alignment</td>
+<td><code>src/fusion/temporal_alignment.py</code>: <code>compute_temporal_scores()</code></td>
+<td>Scores passage/display-interval overlap when genuine slide times are supplied</td>
+</tr>
+<tr>
+<td>Semantic alignment</td>
+<td><code>src/fusion/semantic_alignment.py</code>: <code>compute_semantic_scores()</code> / <code>iter_semantic_scores()</code></td>
+<td>Matches audio-derived text to slide text using a shared frozen encoder and cosine similarity</td>
+</tr>
+<tr>
+<td>Combined temporal–semantic alignment</td>
+<td><code>src/fusion/multimodal_representation.py</code>: <code>combine_scores()</code> / <code>align_segment()</code> / <code>run_alignment()</code></td>
+<td>Combines available scores, applies candidate filtering/thresholds and returns source-linked records</td>
+</tr>
+</tbody>
+</table>
+<p>The application normally uses the combined aligner; for an untimed PPT it correctly falls back to content similarity. The assessment runner isolates temporal-only and semantic-only to compare their contributions. These are three executable alignment configurations of the implemented components, not three separate trained models or three user-facing model-selection options.</p>
+<p>The fused record preserves passage ID, speaker, start/end, transcript text, selected slide and time/content/combined scores. Event extraction carries the slide ID onward, evidence links refer to the slide/passage, and candidate decisions/influence retain supporting source IDs. This propagation is the project’s implemented multimodal integration beyond transcription.</p>
+<p>Optional lexical fusion uses <code>src/fusion/lexical_alignment.py</code>: <code>TfidfIndex</code>. It replaces the content scorer in the Python path; native Android uses its own slide-text TF-IDF implementation. No visual encoder, OCR or acoustic–image attention is claimed.</p>
+<h3>6.2 Early, intermediate and late terminology</h3>
+<p>The fusion literature distinguishes the stage at which information is combined [2]. In this project, implementation status must accompany the taxonomy:</p>
+<table>
+<thead>
+<tr>
+<th>Fusion family</th>
+<th>Typical combination point</th>
+<th>Status in this project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Early / feature fusion</td>
+<td>Combine modality features before a shared predictor</td>
+<td>No separately trained early-fusion classifier/network is deployed</td>
+</tr>
+<tr>
+<td>Intermediate / joint-representation fusion</td>
+<td>Combine encoded representations inside a joint learned model</td>
+<td>No joint acoustic–visual encoder or cross-attention model is deployed</td>
+</tr>
+<tr>
+<td>Late / score or decision fusion</td>
+<td>Combine independently computed outputs/scores</td>
+<td>Implemented: content similarity and optional display-time overlap are combined</td>
+</tr>
+</tbody>
+</table>
+<p>A joined JSON record of speaker, text and slide ID is not by itself a trained early-fusion model. The temporal–semantic combination is a hybrid of two alignment signals, but is still <strong>late score-level fusion</strong> in this taxonomy. Calling it “hybrid” does not establish a learned intermediate architecture. No empirical early-versus-intermediate-versus-late neural ranking is claimed.</p>
+<h3>6.3 Content and time representations</h3>
+<p>The slide representation concatenates title, body text, table cells and notes. The Python embedding model is all-MiniLM-L6-v2, producing 384-dimensional text vectors [6]. The same frozen encoder processes transcript passages. Its output expresses relevance, not entailment, and has not been validated here for Hindi/English cross-language matching.</p>
+<p>For passage <code>i = [a_i, b_i]</code> and displayed slide interval <code>j = [s_j, e_j]</code>:</p>
+<pre><code class="language-text">Overlap(i,j) = max(0, min(b_i,e_j) - max(a_i,s_j))
+T(i,j)       = min(1, Overlap(i,j) / max(b_i-a_i, epsilon))
+S(i,j)       = dot(u_i,v_j) / (norm(u_i) * norm(v_j))
+C(i,j)       = (w_t*T(i,j) + w_s*S(i,j)) / (w_t+w_s)
+</code></pre>
+<p><code>T</code> is unavailable when a slide has no valid start/end time. <code>S</code> is cosine similarity and can be negative; it is not a probability. Empty text uses a zero vector. Defaults are <code>w_t = w_s = 0.5</code>, top-k = 3 and selection threshold 0.3. With missing timing, the deployed combined path falls back to content similarity. With timed overlapping slides, the current candidate filter can exclude offscreen slides before scoring. Low-score results are marked <code>NO_CONFIDENT_SLIDE</code>.</p>
+<h3>6.4 Three configurations compared</h3>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Information used</th>
+<th>Main advantage</th>
+<th>Main limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Temporal-only</td>
+<td>Display overlap, no content score</td>
+<td>Resolves context-dependent speech when the active slide is known</td>
+<td>No basis for untimed decks; can link unrelated speech to the active slide</td>
+</tr>
+<tr>
+<td>Semantic-only</td>
+<td>Passage–slide embedding similarity; timing/filter removed</td>
+<td>Supports paraphrases, untimed slides and offscreen references</td>
+<td>Generic speech can lack a clear semantic match</td>
+</tr>
+<tr>
+<td>Temporal–semantic hybrid</td>
+<td>Current timed candidate filter and weighted time/content score</td>
+<td>Combines contextual display evidence with content matching</td>
+<td>Hard timing filter can suppress valid offscreen matches; time can overwhelm abstention</td>
+</tr>
+</tbody>
+</table>
+<p>The semantic-only experiment removes the timing filter completely. Merely setting the temporal weight to zero while retaining that filter would still use time and would not be a clean semantic-only baseline. Temporal-only uses zero content scores and abstains for untimed inputs.</p>
+<p>A fourth, optional deployment scorer is TF-IDF lexical similarity. It replaces the semantic content score; it is not ensembled with embeddings in the current pipeline. Android uses native-text TF-IDF. TF-IDF is a useful lightweight alternative but its accuracy is not measured by the three embedding/time experiments in this report.</p>
+<h2 id="section-8">7. Experimental design and metrics</h2>
+<h3>7.1 Controlled diagnostic</h3>
+<p>The final assessment runs 24 constructed transcript cases against six constructed slides. The slides cover budget, performance, schedule, offline deployment, risks and participant responsibilities. Six groups contain four cases each: exact content, paraphrases, offscreen references, missing timestamps, context-dependent statements and unrelated/blank speech.</p>
+<p>Expected relevant slide IDs or a no-slide label are specified in the authored fixture. Cases with times use a 5–10 second passage, a designated displayed slide from 0–30 seconds and other slides from 40–70 seconds. Untimed cases supply no slide times. All methods use the same cases, slide vectors and threshold 0.3, with a frozen encoder and four CPU threads. No weights are fitted to these cases and there is no train/validation/test split. This is an illustrative regression/behavior experiment, <strong>not an independently annotated meeting benchmark</strong>.</p>
+<p>The target is relevant slide content, which can differ from the displayed slide during an offscreen reference. Ground-truth author intent is known by construction. This makes the timed filter’s limitations visible but does not estimate their frequency in real meetings.</p>
+<h3>7.2 Metric definitions</h3>
+<pre><code class="language-text">Top-1 correctness = correctly selected slide/no-slide cases / all cases
+Coverage           = selected non-sentinel cases / all cases
+Grounded precision = correct slide links / all predicted slide links
+Grounded recall    = correct slide links / all cases needing a slide
+Grounded F1        = 2*precision*recall / (precision+recall)
+WER                = (substitutions+deletions+insertions) / reference words
+DER                = (missed speech+false alarm+speaker confusion)
+                     / reference speaker-time, after label mapping
+RTF                = processing time / audio duration
+</code></pre>
+<p>Coverage is not accuracy: linking every passage can create false positives. Exact no-slide matches contribute to top-1 correctness, while grounded precision/recall score actual slide links. CER/event/decision F1/influence correlation require different annotations and are not inferred from these metrics.</p>
+<h3>7.3 Real unlabelled comparison</h3>
+<p>The same three alignment configurations are rerun on the saved 2,560.569-second meeting <code>meeting_8e464f9471b34c46ad9f4ab3a547c923</code>: 1,008 transcript passages and 34 slides. This is a saved application recording and deck, not an independently labelled slide-relevance benchmark. None of its slides has valid display start/end times. Input hashes and counts are retained, but recording content and personal identities are not reproduced in this report.</p>
+<p>The experiment reuses saved ASR/speaker outputs to isolate alignment. It measures coverage, selection agreement and selection-stage runtime. WER, DER and influence are not recalculated for this unlabelled recording. Model loading/encoding are reported separately from selection; timings are one local run and not a general performance ranking.</p>
+<h2 id="section-9">8. Results: comparison of all three alignment techniques</h2>
+<h3>8.1 Controlled overall results</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:right">Correct / 24</th>
+<th style="text-align:right">Top-1</th>
+<th style="text-align:right">Grounded precision</th>
+<th style="text-align:right">Grounded recall</th>
+<th style="text-align:right">Grounded F1</th>
+<th style="text-align:right">Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Temporal-only</td>
+<td style="text-align:right">12</td>
+<td style="text-align:right">50.00%</td>
+<td style="text-align:right">60.00%</td>
+<td style="text-align:right">60.00%</td>
+<td style="text-align:right">0.6000</td>
+<td style="text-align:right">83.33%</td>
+</tr>
+<tr>
+<td>Semantic-only</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">83.33%</td>
+<td style="text-align:right">100.00%</td>
+<td style="text-align:right">80.00%</td>
+<td style="text-align:right">0.8889</td>
+<td style="text-align:right">66.67%</td>
+</tr>
+<tr>
+<td>Temporal–semantic hybrid</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">66.67%</td>
+<td style="text-align:right">66.67%</td>
+<td style="text-align:right">80.00%</td>
+<td style="text-align:right">0.7273</td>
+<td style="text-align:right">100.00%</td>
+</tr>
+</tbody>
+</table>
+<p><img src="fusion_comparison.png" alt="Controlled three-method comparison" /></p>
+<p><em>Figure 3. Results on 24 author-designed cases. These are controlled diagnostic scores, not AMI slide-alignment accuracy or evidence of a statistically generalizable winner.</em></p>
+<p>Semantic-only performed best on the chosen diagnostic cases. Its lower coverage reflects appropriate abstention on unrelated/blank speech and failure on generic context-dependent statements. The combined method recovered generic timed statements, but selected incorrect active slides during offscreen references and failed to abstain on unrelated speech. Temporal-only was unable to handle untimed slides or distinguish relevant from unrelated speech within a display interval.</p>
+<h3>8.2 Results by case type</h3>
+<table>
+<thead>
+<tr>
+<th>Case type, four cases each</th>
+<th style="text-align:right">Temporal-only</th>
+<th style="text-align:right">Semantic-only</th>
+<th style="text-align:right">Hybrid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exact content</td>
+<td style="text-align:right">4/4</td>
+<td style="text-align:right">4/4</td>
+<td style="text-align:right">4/4</td>
+</tr>
+<tr>
+<td>Paraphrases</td>
+<td style="text-align:right">4/4</td>
+<td style="text-align:right">4/4</td>
+<td style="text-align:right">4/4</td>
+</tr>
+<tr>
+<td>Offscreen references</td>
+<td style="text-align:right">0/4</td>
+<td style="text-align:right">4/4</td>
+<td style="text-align:right">0/4</td>
+</tr>
+<tr>
+<td>Missing slide times</td>
+<td style="text-align:right">0/4</td>
+<td style="text-align:right">4/4</td>
+<td style="text-align:right">4/4</td>
+</tr>
+<tr>
+<td>Context-dependent statements</td>
+<td style="text-align:right">4/4</td>
+<td style="text-align:right">0/4</td>
+<td style="text-align:right">4/4</td>
+</tr>
+<tr>
+<td>Unrelated/blank speech</td>
+<td style="text-align:right">0/4</td>
+<td style="text-align:right">4/4</td>
+<td style="text-align:right">0/4</td>
+</tr>
+</tbody>
+</table>
+<p>Model loading took 1.4648 seconds and shared slide/passage encoding took 0.2559 seconds for the controlled fixture. Those costs are distinct from selection time; temporal-only can operate without a text encoder.</p>
+<p>No statistical confidence interval or significance claim is reported for this small constructed fixture. Its purpose is to demonstrate the three executable strategies and reveal concrete behaviors, including failures. The per-case inputs, intended labels and outputs are included with the report assets for inspection.</p>
+<h3>8.3 Real unlabelled results</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:right">Linked / 1,008 passages</th>
+<th style="text-align:right">Coverage</th>
+<th style="text-align:right">Selection-stage time</th>
+<th>Alignment accuracy/F1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Temporal-only</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0.00%</td>
+<td style="text-align:right">0.0321 s</td>
+<td>Unavailable</td>
+</tr>
+<tr>
+<td>Semantic-only</td>
+<td style="text-align:right">39</td>
+<td style="text-align:right">3.87%</td>
+<td style="text-align:right">0.0442 s</td>
+<td>Unavailable</td>
+</tr>
+<tr>
+<td>Temporal–semantic hybrid</td>
+<td style="text-align:right">39</td>
+<td style="text-align:right">3.87%</td>
+<td style="text-align:right">0.0360 s</td>
+<td>Unavailable</td>
+</tr>
+</tbody>
+</table>
+<p>Shared passage encoding took 4.6531 seconds in this run; the table times cover selection only and exclude that encoding and model loading.</p>
+<p>Semantic/hybrid selected the same result for <strong>100% of passages</strong> because all slides lacked display times. That equality validates the fallback; it is not a benefit from temporal fusion. Low 3.87% coverage needs investigation against independently labelled relevance: it can reflect deck/recording mismatch, threshold/model behavior or largely unrelated discussion. Without labels, it cannot be interpreted as 3.87% accuracy or 96.13% failure.</p>
+<h3>8.4 What the comparison supports</h3>
+<p>Content information is necessary for untimed slides and offscreen references. Display context can help generic statements but can also generate false links. The current combined scheme is not universally better. Future experiments should test a semantic relevance gate before using time to boost scores, and retain offscreen candidates when appropriate. These are proposed changes, not deployed or benchmarked improvements. Real timed, paired recordings and independently checked slide labels are required before selecting a generally best configuration.</p>
+<h2 id="section-10">9. Speech-recognition and speaker results</h2>
+<h3>9.1 Laptop English AMI measurements</h3>
+<p>Existing experiments use AMI ES2002a Array1-01, source window 30–630 seconds, duration 600 seconds, with manual AMI word annotations and normalized full-transcript WER. The window includes some pre-meeting material not fully represented in the reference. Different runs/settings/cache states mean timings are descriptive rather than controlled speed comparisons.</p>
+<table>
+<thead>
+<tr>
+<th>Saved experiment</th>
+<th style="text-align:right">WER</th>
+<th style="text-align:right">Elapsed</th>
+<th style="text-align:right">Peak RSS</th>
+<th>Scope / difference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initial small</td>
+<td style="text-align:right">45.84%</td>
+<td style="text-align:right">174.973 s</td>
+<td style="text-align:right">890.1 MiB</td>
+<td>Historical small-model run</td>
+</tr>
+<tr>
+<td>Initial medium</td>
+<td style="text-align:right">66.76%</td>
+<td style="text-align:right">329.049 s</td>
+<td style="text-align:right">3,008.0 MiB</td>
+<td>Earlier poorer medium result retained</td>
+</tr>
+<tr>
+<td>Medium, language scope adjusted</td>
+<td style="text-align:right">40.83%</td>
+<td style="text-align:right">357.776 s</td>
+<td style="text-align:right">2,309.2 MiB</td>
+<td>Changed run/settings; not cherry-picked as an identical comparison</td>
+</tr>
+<tr>
+<td>Small, 300-second chunks</td>
+<td style="text-align:right">45.84%</td>
+<td style="text-align:right">82.254 s</td>
+<td style="text-align:right">1,516.7 MiB</td>
+<td>Throughput profile</td>
+</tr>
+<tr>
+<td>Small, 120-second chunks</td>
+<td style="text-align:right">41.49%</td>
+<td style="text-align:right">115.043 s</td>
+<td style="text-align:right">1,479.7 MiB</td>
+<td>Different chunk profile</td>
+</tr>
+<tr>
+<td>Later small, 120-second chunks</td>
+<td style="text-align:right">42.30%</td>
+<td style="text-align:right">105.945 s</td>
+<td style="text-align:right">1,057.2 MiB</td>
+<td>Later saved website-scope benchmark</td>
+</tr>
+</tbody>
+</table>
+<p>The 120-second profile was slower than 300 seconds in the recorded pair but had lower WER. The latest small result is slightly worse than the earlier 120-second WER. No monotonic accuracy improvement is claimed. These runs used unavailable/disabled speaker separation, so they do not measure complete diarized-transcript quality. WER is an error rate, not a generic application “accuracy” or an influence score.</p>
+<h3>9.2 Android English AMI measurements</h3>
+<p>The Android annotated experiment uses the different ES2002a Array1-01 window 60–150 seconds, 90 seconds total, a multilingual base GGML model and known count four. The normalized audio was verified against the source. Manual AMI transcripts and speaker intervals provide the references.</p>
+<table>
+<thead>
+<tr>
+<th>Measure</th>
+<th style="text-align:right">Saved result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reference words</td>
+<td style="text-align:right">265</td>
+</tr>
+<tr>
+<td>Substitutions / deletions / insertions</td>
+<td style="text-align:right">56 / 37 / 7</td>
+</tr>
+<tr>
+<td>WER</td>
+<td style="text-align:right">37.74%</td>
+</tr>
+<tr>
+<td>Native speaker-turn DER</td>
+<td style="text-align:right">13.48%</td>
+</tr>
+<tr>
+<td>Delivered passage-attribution DER</td>
+<td style="text-align:right">13.98%</td>
+</tr>
+<tr>
+<td>DER collar</td>
+<td style="text-align:right">0.25 s</td>
+</tr>
+<tr>
+<td>Cluster-label mapping / overlap</td>
+<td style="text-align:right">Optimal mapping; overlap included</td>
+</tr>
+</tbody>
+</table>
+<p>These are emulator-path results, not physical-phone performance. The native speaker test produced four clusters and 12 turns. The Android application test produced 33 attributed transcript passages, six event candidates and no decision candidates; all four participant influence scores were zero. It used three artificial slides, with eight selected links, solely to verify integration. Synthetic-slide counts do not constitute alignment accuracy.</p>
+<p>The laptop and Android results use different windows, models and pipelines. Neither platform is declared more accurate on that basis. Natural Hindi/Hinglish, owner/deadline extraction, decision quality and influence agreement remain unmeasured.</p>
+<h2 id="section-11">10. Historical CA3 outputs and error analysis</h2>
+<p>The representative CA3 record <code>meeting_288ab746</code> remains available. It demonstrates the earlier analytical output, not a independently scored benchmark:</p>
+<table>
+<thead>
+<tr>
+<th>Historical output field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meeting duration</td>
+<td>2,133.02 s / 00:35:33</td>
+</tr>
+<tr>
+<td>Reported participant rows</td>
+<td>6: five speaker IDs and one UNKNOWN row</td>
+</tr>
+<tr>
+<td>Slides</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Extracted events</td>
+<td>162</td>
+</tr>
+<tr>
+<td>Decision candidates marked confirmed</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Action candidates</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Participant interactions</td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+<p><code>UNKNOWN</code> does not mean a sixth identified person. The current implementation excludes unknown identity from identified participant influence. The candidate “Either whatever we decide the default to be” is labelled confirmed by rules, but the sentence fragment alone is insufficient to independently establish a final meeting decision. Candidate status must be checked with its surrounding source events.</p>
+<h3>10.1 Participation and influence fields</h3>
+<table>
+<thead>
+<tr>
+<th>Speaker</th>
+<th style="text-align:right">Historical duration field</th>
+<th style="text-align:right">Duration rank</th>
+<th style="text-align:right">Influence estimate</th>
+<th style="text-align:right">Influence rank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPEAKER_04</td>
+<td style="text-align:right">141.8 s</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.3250</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>SPEAKER_00</td>
+<td style="text-align:right">70.2 s</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">0.3667</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>SPEAKER_05</td>
+<td style="text-align:right">56.0 s</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">0.0833</td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td>SPEAKER_02</td>
+<td style="text-align:right">50.0 s</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.1333</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td>UNKNOWN</td>
+<td style="text-align:right">6.0 s</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">0.0167</td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td>SPEAKER_01</td>
+<td style="text-align:right">3.0 s</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">0.1167</td>
+<td style="text-align:right">4</td>
+</tr>
+</tbody>
+</table>
+<p><img src="historical_influence.png" alt="Historical participation and influence" /></p>
+<p><em>Figure 4. Historical CA3 fields normalized separately for display. The duration field can reflect the older event-duration proxy, not verified total speaking time. UNKNOWN is a historical unresolved row. Different ranks demonstrate different scoring definitions, not proven human influence.</em></p>
+<p>The difference between duration rank and influence rank illustrates how the heuristic uses decision-linked features. It does not establish agreement with human judgement. The earlier statement that one participant’s short contribution proved more influence than another’s long contribution should therefore be interpreted as a model-output observation.</p>
+<h3>10.2 Action-item examples</h3>
+<table>
+<thead>
+<tr>
+<th>Earlier candidate text</th>
+<th>Interpretation in the final assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“I’m just going to hopefully add something by next week…”</td>
+<td>Plausible task candidate; owner/commitment/deadline still require review</td>
+</tr>
+<tr>
+<td>“I’m not afraid to take that.”</td>
+<td>Not enough evidence by itself to establish a task</td>
+</tr>
+<tr>
+<td>“Like take care of yourself.”</td>
+<td>Conversational phrase; illustrates a keyword false-positive risk</td>
+</tr>
+</tbody>
+</table>
+<p>Extracting an exact ASR sentence does not make its category correct. Final wording replaces earlier “100% traceable/non-hallucinating/production-grade” claims with <strong>source-referenced output requiring review</strong>. No custom Whisper pretraining on AMI took place; all speech/speaker/embedding models were used as pretrained inference components.</p>
+<h2 id="section-12">11. Android, offline execution and optional workstation deployment</h2>
+<p>The native Android 0.6 prototype is implemented in <strong>Java with C++ inference integration</strong>, rather than the Kotlin wording in CA3. It records 16 kHz mono PCM, accepts supported audio via local platform codecs, imports the speech model, performs speaker analysis, lets users edit speaker names/roles, and extracts candidate NLP/decision/influence results. Native PPT text is indexed with TF-IDF. History, playback, exports and resume checkpoints stay in app-private storage.</p>
+<p><img src="android_analysis.png" alt="Android analysis screens" /></p>
+<p><em>Figure 5. Existing emulator validation screens for transcript/participants, influence and presentation references. Displayed results are examples, not an independent accuracy evaluation.</em></p>
+<p>The app has no INTERNET permission for its native workflow. Model setup and distribution need a provisioned GGML model; speaker weights are packaged. Recording supports up to six hours, but native speaker analysis has a separate one-hour limit. These limits must not be conflated. Pause waits for the current native stage/chunk to finish rather than interrupting inference instantaneously. ARM64 physical-phone battery/thermal/vendor-codec and long-meeting performance are not yet validated.</p>
+<p>The Python pipeline can be served on a workstation through the prepared launcher and HTTPS reverse-proxy examples. GPU use requires a compatible CUDA/cuDNN/CTranslate2 environment; an environment variable alone does not install it. Android’s optional cloud entry opens a browser site with separate server history; native upload/history synchronization is not implemented. No live public hosting or measured cloud-speed result is reported.</p>
+<p>Local processing is useful for confidential institutional/project meetings, poor connectivity, classroom project discussions and controlled research review. Server processing can help users with limited local compute but introduces network, deployment and access-management requirements. Such suitability is an intended use, not evidence of production certification.</p>
+<h2 id="section-13">12. Processing efficiency and reliability</h2>
+<h3>12.1 Avoided work</h3>
+<p>The final engineering update shares one cached configured Whisper model in the single worker, shares one sentence-embedding model between slides and passages, batches passage encoding in groups of 32, and normalizes slide vectors once. It also skips rebuilding an unchanged website at startup and records stage timings. Models, beam settings, chunk profile and clustering threshold were not changed by those performance fixes.</p>
+<p>A saved warm-model benchmark of 256 real passages and 34 slides measured scalar semantic scoring at <strong>1.6661 seconds</strong> and batched scoring at <strong>1.1672 seconds</strong>, a <strong>1.4274×</strong> stage speedup. All semantic-only selections agreed; rounded scores differed by at most approximately 1.01e-6. This is one local scoring run, not an end-to-end speedup or an alignment-accuracy result.</p>
+<h3>12.2 Fresh input and cached repeat</h3>
+<p>A real 90-second AMI integration with four expected speakers and an artificial three-slide PPT produced four participants and 20 Python transcript passages. Its recorded stages were:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th style="text-align:right">Fresh inference caches</th>
+<th style="text-align:right">Same-ID cached repeat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preprocessing</td>
+<td style="text-align:right">0.0496 s</td>
+<td style="text-align:right">0.0553 s</td>
+</tr>
+<tr>
+<td>Speaker analysis</td>
+<td style="text-align:right">18.4100 s</td>
+<td style="text-align:right">0.0441 s</td>
+</tr>
+<tr>
+<td>Transcription</td>
+<td style="text-align:right">16.1251 s</td>
+<td style="text-align:right">0.0180 s</td>
+</tr>
+<tr>
+<td>Slide extraction / embeddings</td>
+<td style="text-align:right">1.7024 s</td>
+<td style="text-align:right">0.0327 s</td>
+</tr>
+<tr>
+<td>Alignment</td>
+<td style="text-align:right">0.1282 s</td>
+<td style="text-align:right">0.1166 s</td>
+</tr>
+<tr>
+<td>Remaining NLP / report stages</td>
+<td style="text-align:right">Approximately 0.043 s</td>
+<td style="text-align:right">Approximately 0.043 s</td>
+</tr>
+<tr>
+<td>Recorded processing elapsed</td>
+<td style="text-align:right"><strong>36.4631 s</strong></td>
+<td style="text-align:right"><strong>0.3138 s</strong></td>
+</tr>
+</tbody>
+</table>
+<p><img src="processing_times.png" alt="Fresh and cached processing" /></p>
+<p><em>Figure 6. Recorded processing stages for a fresh-ID run and its cached repeat. The second run reuses outputs; it does not transcribe 90 seconds of new audio in 0.31 seconds.</em></p>
+<p>Times exclude module imports, upload/decode, queue wait and final JSON/checkpoint writes. The environment/model files were already provisioned; “fresh” means inference artifacts for that meeting ID were fresh. No matched complete-pipeline before/after benchmark was collected for the optimization.</p>
+<p>Separate 90-second speaker threading tests measured 20.4257 seconds at four threads, 35.2162 at one and 26.6317 at two, with the same DER 13.48%. Four remains the default. The cases ran in that order on one file, so this is a local setting check rather than a universal CPU recommendation.</p>
+<h3>12.3 Historical slowdown diagnosis</h3>
+<p>Saved comparable-duration 42.7-minute jobs differed in scope: the earlier job lacked successful speaker separation and PPT fusion; the later job performed both. Historical stage timings were absent, so their exact slowdown is not recoverable. New diagnostics distinguish stages, cached chunks and worker progress. Queue wait, fresh model setup, inference and cached reconstruction must be reported separately. Folder cleanup reclaims storage and reduces accidental scanning; it does not accelerate neural inference inherently.</p>
+<h2 id="section-14">13. Training, baselines and evaluation status</h2>
+<p>Pretrained perception models do not require retraining to run the app. The project did not train Whisper, diarization weights or MiniLM on AMI. A CPU training CLI exists to fit nonnegative influence-feature weights from human ratings with disjoint meeting-level train/validation/test splits, and exports a research artifact. No real labelled training run or deployment of trained influence weights has been completed.</p>
+<p>The evaluation library contains speaking-time/event-count/evidence/transcript-only/multimodal baselines and influence weight-sensitivity experiments. Some inherited baseline implementations use extracted-event durations, while the current main influence runner can use full transcript coverage. Their definitions must be harmonized before publication.</p>
+<p>Inherited ablation labels such as “without temporal” or “without semantic” change influence-feature weights rather than rerunning actual upstream fusion. They must not be used as the three fusion comparisons. The CA4 alignment script instead directly reruns the temporal-only, genuinely unfiltered semantic-only and current combined strategies on identical inputs.</p>
+<p>The corrected research runner now loads full transcript, diarization and alignment artifacts; resolves decision times from source events; records missing prediction artifacts as errors when references exist; and writes meeting-specific comparison CSVs. Missing human annotations remain explicitly unavailable. Existing matching primitives are coarse for some event/decision cases and do not establish independent human influence agreement.</p>
+<table>
+<thead>
+<tr>
+<th>Evaluation target</th>
+<th>Evidence currently available</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>English ASR</td>
+<td>Scoped annotated AMI WER experiments</td>
+</tr>
+<tr>
+<td>Speaker attribution</td>
+<td>Scoped 90-second AMI DER experiment</td>
+</tr>
+<tr>
+<td>Three alignment configurations</td>
+<td>Controlled fixture correctness/F1; real unlabelled coverage</td>
+</tr>
+<tr>
+<td>Natural timed-slide alignment</td>
+<td>Not independently evaluated</td>
+</tr>
+<tr>
+<td>Event / decision semantic quality</td>
+<td>Candidate outputs and regression checks; no human-scored dataset result</td>
+</tr>
+<tr>
+<td>Influence ranking agreement</td>
+<td>No independent human ranking study</td>
+</tr>
+<tr>
+<td>Natural Hindi/Hinglish</td>
+<td>Language/rule implementation; no measured end-to-end accuracy</td>
+</tr>
+<tr>
+<td>Physical-phone / cloud performance</td>
+<td>No corresponding real-device/deployed benchmark</td>
+</tr>
+</tbody>
+</table>
+<p>An adequate next study would annotate genuine paired audio/decks/display times, use at least two raters for event/decision/influence judgement, report agreement, keep meetings/participants or design series disjoint across tuning/test, and evaluate all methods on the same inputs/hardware. Counterfactual causality should not be inferred from heuristic weights.</p>
+<h2 id="section-15">14. Software validation, resources and risk management</h2>
+<p>The project runs in an isolated Python 3.11.17 environment with CPU PyTorch 2.5.1, faster-whisper 1.2.1, sherpa-onnx 1.13.8 and sentence-transformers 3.4.1. Direct dependency specifications and a lock snapshot are retained under <code>environment/</code>. Model/license notices and explicit provisioning scripts support reproducibility.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Evidence and interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python regression suite</td>
+<td>507 tests passed; seven existing upstream deprecation warnings. Rechecked for final report preparation.</td>
+</tr>
+<tr>
+<td>Three-way comparison script</td>
+<td>Executed local models and existing aligner; self-checks validate case IDs, blank vectors and missing-time fallback</td>
+</tr>
+<tr>
+<td>Website</td>
+<td>Existing lint/build and browser checks at widths 360/390/960, with speaker edits/history/evidence/export workflows</td>
+</tr>
+<tr>
+<td>API startup</td>
+<td>Actual relocated launcher/API health checked with isolated state; server stopped after validation</td>
+</tr>
+<tr>
+<td>Android</td>
+<td>Existing JVM, build and emulator validation; not a physical-phone certification</td>
+</tr>
+<tr>
+<td>Preservation</td>
+<td>Older archive hashes, submitted-report content and existing account/history rows verified during reorganization</td>
+</tr>
+</tbody>
+</table>
+<p>Software tests establish implementation behavior. They are not statistical research accuracy. Browser fixture responses are intercepted and do not evaluate recognition.</p>
+<table>
+<thead>
+<tr>
+<th>Risk carried forward from Report 2</th>
+<th>Implemented mitigation</th>
+<th>Remaining boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Computation / long files</td>
+<td>CPU int8, recoverable ASR chunks, one worker, cached artifacts</td>
+<td>Speaker clustering reads whole audio; native speaker limit differs from recording limit</td>
+</tr>
+<tr>
+<td>Speech noise / overlap</td>
+<td>VAD/diarization and conservative attribution</td>
+<td>Incorrect text/speaker labels still propagate</td>
+</tr>
+<tr>
+<td>Format compatibility</td>
+<td>Local audio decoding and legacy PPT conversion tools</td>
+<td>Scanned/visual-only slides are not semantically understood</td>
+</tr>
+<tr>
+<td>Cross-modal mismatch</td>
+<td>Separate time/content scores, thresholded matches</td>
+<td>Hard timing filter and false slide links need evaluation</td>
+</tr>
+<tr>
+<td>Misinterpreted analysis</td>
+<td>Source references, review warnings and editable speaker metadata</td>
+<td>Candidate roles/influence/status remain heuristic</td>
+</tr>
+<tr>
+<td>Connectivity</td>
+<td>Provisioned local inference and native offline app</td>
+<td>Optional server requires connectivity and deployment preparation</td>
+</tr>
+<tr>
+<td>Data persistence</td>
+<td>Private ownership checks, history, resume state and backups</td>
+<td>Release/backup/access policy must be defined for a real deployment</td>
+</tr>
+<tr>
+<td>Research validity</td>
+<td>Scoped metrics, input hashes, explicit unavailable labels</td>
+<td>Independent meeting-level semantic/influence evaluation is missing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-16">15. Project evolution and cumulative deliverables</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Original aim</th>
+<th>Final delivered status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CA1</td>
+<td>Literature, problem, architecture and evaluation plan</td>
+<td>Problem and modular design retained; implementation scope clarified</td>
+</tr>
+<tr>
+<td>CA2</td>
+<td>AMI, modalities, resources, risks and EDA</td>
+<td>Inputs/provisioning established; current dialogue-act counts corrected</td>
+</tr>
+<tr>
+<td>CA3</td>
+<td>First decisions/actions/influence output</td>
+<td>Historical artifacts retained and independently inspected for false-positive risks</td>
+</tr>
+<tr>
+<td>Laptop integration</td>
+<td>Usable local application</td>
+<td>Recording/upload, private history, editable speaker labels/roles, NLP views and exports</td>
+</tr>
+<tr>
+<td>Speaker / native extension</td>
+<td>Real participant analysis and PPT support</td>
+<td>Local speaker backend and Android speakers/influence/native-text fusion</td>
+</tr>
+<tr>
+<td>Reliability / structure</td>
+<td>Recoverable and understandable project</td>
+<td>Organized folders, categorized handbook, corrected evaluator, batching and stage timings</td>
+</tr>
+<tr>
+<td>CA4</td>
+<td>Results and three-technique comparison</td>
+<td>Authored-case experiment and real unlabelled coverage, plus scoped speech/performance evidence</td>
+</tr>
+</tbody>
+</table>
+<p>The older supplied source already contained temporal/semantic alignment, event/evidence rules, candidate decision lineage and weighted influence. These modules are not all new contributions of the laptop migration. The older snapshot lacked a complete live GPU-workstation environment, model weights and dataset, so exact parity cannot be independently established.</p>
+<p>The initial source audit compared 147 first-party files (49 identical, 32 modified and 66 current-only), with 561 common report files identical. These are dated snapshot counts. Subsequent application/Android/reporting changes are described here. The redundant older working copy was removed only after verifying a 662-file source/report archive and confirming the old Git commit remained in current ancestry. Existing users/history and the original submitted report were retained.</p>
+<p>The cumulative deliverables include the web/API prototype, native Android debug APK, local perception weights, source-linked NLP/report modules, comparison/evaluation/training tools, measured output artifacts, categorized developer/research documentation and this final group report. Debug APK availability is not a signed production/store release.</p>
+<h2 id="section-17">16. Limitations, future work and conclusion</h2>
+<h3>16.1 Limits of the completed project</h3>
+<p>The prototype processes recordings, attributes speakers, extracts native slide text, compares alignment configurations and produces inspectable candidate meeting analysis. Its limits are concrete: no learned visual encoder/OCR; no early/intermediate trained fusion network; no natural code-switching benchmark; no independently scored genuine timed-slide dataset; no human-validated influence model; and no physical-phone/cloud deployment benchmark. Global clustering still loads an entire waveform. Keyword event/decision/action extraction can misclassify conversational fragments.</p>
+<p>The controlled fixture is deliberately small and illustrative. Its best-performing method should not be promoted as a general winner. The real untimed deck cannot demonstrate temporal fusion accuracy. Single AMI windows do not establish cross-language or cross-meeting generalization. Historical event-duration participation fields cannot be treated as ground-truth airtime, and inferred decision status cannot be treated as a verified meeting outcome.</p>
+<h3>16.2 Prioritized next work</h3>
+<ol>
+<li>Collect genuine paired recordings/decks/display times and independent relevant-slide/no-slide labels.</li>
+<li>Test a relevance gate and offscreen-candidate retention, then rerun the same held-out cases without tuning on test labels.</li>
+<li>Add human-labelled natural Hindi/English/Hinglish meetings and report language-specific WER/CER/DER and semantic extraction metrics.</li>
+<li>Annotate decision contributions with independent raters, use tie-aware ranking evaluation and fit weights only on disjoint training meetings.</li>
+<li>Validate ARM64 phones for thermal/battery/codec/interruption and long-recording behavior.</li>
+<li>Evaluate a provisioned workstation with network/queue/cold/warm latency separated, if remote deployment is selected.</li>
+</ol>
+<h3>16.3 Conclusion</h3>
+<p>The project progressed from an architecture and literature proposal to a working local meeting-analysis system with two application paths and reproducible evidence. Audio-derived transcripts and presentation text are linked by temporal/content scoring, then carried into structured event, decision and participant-contribution output. The final three-way comparison shows that each alignment signal has a distinct role: semantic matching handles content and untimed/offscreen slides, temporal matching resolves displayed context, and their present combination trades greater coverage for false-positive and filtering risks.</p>
+<p>The main completed contribution is a source-linked offline integration and usable review workflow. The strongest current research finding is the measured behavior of the three alignment configurations under explicit inputs and limitations. General alignment superiority and valid human influence inference remain hypotheses requiring independently labelled real meetings. The final report records that boundary while preserving the full CA1–CA4 project history.</p>
+<h2 id="section-18">References</h2>
+<p>[1] AMI Consortium, <strong>AMI Meeting Corpus</strong> and public annotation documentation. Official corpus source: https://groups.inf.ed.ac.uk/ami/corpus/ ; annotation release used locally: <code>ami_public_manual_1.6.2</code>. Accessed 10 October 2026.</p>
+<p>[2] T. Baltrušaitis, C. Ahuja and L.-P. Morency, <strong>Multimodal Machine Learning: A Survey and Taxonomy</strong>, <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>, 2019; author preprint arXiv:1705.09406. https://arxiv.org/abs/1705.09406 . Used for fusion terminology, not project result values.</p>
+<p>[3] N. Reimers and I. Gurevych, <strong>Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</strong>, EMNLP-IJCNLP 2019, pp. 3982–3992. https://aclanthology.org/D19-1410/ . Used for sentence-representation background.</p>
+<p>[4] K. Anderer, A. Reich and M. Wölfel, <strong>MaViLS, a Benchmark Dataset for Video-to-Slide Alignment, Assessing Baseline Accuracy with a Multimodal Alignment Algorithm Leveraging Speech, OCR, and Visual Features</strong>, INTERSPEECH 2024, pp. 1375–1379, DOI: 10.21437/Interspeech.2024-978. https://www.isca-archive.org/interspeech_2024/anderer24_interspeech.html . Prior work; its accuracy is not claimed for InfluenceIQ.</p>
+<p>[5] SYSTRAN contributors, <strong>faster-whisper: Whisper inference with CTranslate2</strong>. https://github.com/SYSTRAN/faster-whisper . Project version 1.2.1; official inference/provisioning documentation.</p>
+<p>[6] Sentence Transformers contributors, <strong>all-MiniLM-L6-v2 model card</strong> and encoding documentation. https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2 ; https://sbert.net/docs/package_reference/sentence_transformer/model.html . Project library version 3.4.1.</p>
+<p>[7] sherpa-onnx contributors, <strong>Offline speaker diarization</strong>. https://k2-fsa.github.io/sherpa/onnx/speaker-diarization/index.html . Project version 1.13.8; segmentation, embedding and clustering components.</p>
+<p>[8] ggml-org contributors, <strong>whisper.cpp</strong>. https://github.com/ggml-org/whisper.cpp . Project native speech runtime 1.7.6; Android uses local GGML model inference.</p>
+<p>[9] Group 12, <strong>Offline Multimodal Meeting Intelligence for Decision and Participant Influence Analysis — Report 1</strong>, original submitted PDF, 29 pages, AY 2026–27.</p>
+<p>[10] Group 12, <strong>Multimodal AI Report 2</strong>, original submitted PDF, 11 pages; resources, risk, AMI/modalities and EDA.</p>
+<p>[11] Group 12, <strong>Multimodal AI Report CA3</strong>, original submitted PDF, 10 pages; methodology and first application outputs.</p>
+<p>[12] A. Racha, PRN 24070126501, <strong>Literature Review — Offline Multimodal Meeting-Intelligence System</strong>, original individual review PDF, 24 pages. Its proposals are distinguished from implemented components in this final report.</p>
+<p>[13] Group 12 repository, <strong>final evaluation artifacts and developer/research handbook</strong>, local source/evaluation evidence enumerated in Appendix B; report snapshot 10 October 2026.</p>
+<h2 id="section-19">Appendix A. Controlled case manifest</h2>
+<p>The fixture is fully inspectable in <code>final_report_assets/evidence/controlled_cases.json</code>. It contains six slide texts, 24 passage texts, intended relevant slide/no-slide labels, designated displayed slide IDs and a timing-availability flag. The texts are constructed examples, not extracts from private user recordings.</p>
+<table>
+<thead>
+<tr>
+<th>Case IDs</th>
+<th>Case family</th>
+<th>Intended label policy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01–04</td>
+<td>Exact content</td>
+<td>Same slide as passage content and displayed context</td>
+</tr>
+<tr>
+<td>05–08</td>
+<td>Paraphrase</td>
+<td>Meaning matches a relevant slide; display agrees</td>
+</tr>
+<tr>
+<td>09–12</td>
+<td>Offscreen reference</td>
+<td>Content refers to an earlier/different slide than the displayed one</td>
+</tr>
+<tr>
+<td>13–16</td>
+<td>Missing display times</td>
+<td>Content label exists; no temporal evidence supplied</td>
+</tr>
+<tr>
+<td>17–20</td>
+<td>Context-dependent</td>
+<td>Author intent targets the displayed slide; generic text is insufficient alone</td>
+</tr>
+<tr>
+<td>21–24</td>
+<td>Unrelated or blank</td>
+<td>Correct output is <code>NO_CONFIDENT_SLIDE</code></td>
+</tr>
+</tbody>
+</table>
+<p>Method outputs, counts, model/threshold settings and fixture hash are in <code>controlled_comparison.json</code> and the per-method alignment JSONs. A row in this manifest is not an independently human-annotated natural meeting. Dataset construction is part of the reproducible diagnostic definition.</p>
+<h2 id="section-20">Appendix B. Result provenance and reproducibility</h2>
+<table>
+<thead>
+<tr>
+<th>Evidence artifact, project-relative</th>
+<th>What it establishes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>outputs/evaluation/final_ca4/controlled_cases.json</code></td>
+<td>Constructed inputs and authored relevant-slide labels</td>
+</tr>
+<tr>
+<td><code>outputs/evaluation/final_ca4/controlled_comparison.json</code></td>
+<td>Three-method controlled metrics and per-group outputs</td>
+</tr>
+<tr>
+<td><code>outputs/evaluation/final_ca4/real_unlabelled_comparison.json</code></td>
+<td>Saved real-input hashes, coverage, timing availability and fallback agreement</td>
+</tr>
+<tr>
+<td><code>outputs/evaluation/final_ca4/eda_inventory.json</code></td>
+<td>Direct dialogue-act XML counts and local file inventory</td>
+</tr>
+<tr>
+<td><code>outputs/evaluation/benchmark_*_benchmark.json</code></td>
+<td>Historical annotated laptop ASR measurements and scope</td>
+</tr>
+<tr>
+<td><code>outputs/evaluation/android06_ami90_annotated.json</code></td>
+<td>Annotated Android-path WER/DER, source/report hashes and references</td>
+</tr>
+<tr>
+<td><code>outputs/evaluation/maintenance_alignment_batch.json</code></td>
+<td>Scalar/batched semantic-stage timing and score agreement</td>
+</tr>
+<tr>
+<td><code>outputs/evaluation/maintenance_pipeline_timing.json</code></td>
+<td>Fresh/cache processing stage durations</td>
+</tr>
+<tr>
+<td><code>outputs/reports/meeting_288ab746_report.json</code></td>
+<td>Historical CA3 output fields, not human-verified labels</td>
+</tr>
+<tr>
+<td><code>logs/final_report_20261010/python_tests.log</code></td>
+<td>Current regression run</td>
+</tr>
+<tr>
+<td><code>docs/README.md</code></td>
+<td>Master setup/developer/research index</td>
+</tr>
+</tbody>
+</table>
+<p>The report assets carry compact copies of relevant JSON evidence, figures and a manifest. Full speech-reference JSONs and recordings remain in the local project; their aggregate numbers are reproduced here. Original submitted PDF content is preserved. The optional complete-record PDF appends those historical submissions and the individual review without editing them; earlier defaults/assertions in those appendices are superseded by the main report’s explicit findings.</p>
+<pre><code class="language-bash">cd '/home/amitkumar/Music/MAI Project'
+OMP_NUM_THREADS=4 .venv/bin/python scripts/compare_fusion_ca4.py
+OMP_NUM_THREADS=4 bash scripts/check.sh -q
+.venv/bin/python scripts/build_final_report.py
+
+# To run the application:
+bash scripts/start_app.sh
+</code></pre>
+<p>Comparison reruns use installed local models and saved inputs; they do not train models or require a hosted LLM. Numerical selection timings vary with machine load. Re-running the report builder reads the current Markdown and evidence files and recreates figures/PDFs; it does not silently regenerate research results. Re-running an experiment first can change results and must be accompanied by an updated report narrative.</p>
+<h2 id="section-21">Appendix C. Developer handover</h2>
+<pre><code class="language-text">backend/       FastAPI, local accounts, ownership, uploads and job queue
+src/audio/     decode/preprocess, ASR, speaker analysis and attribution
+src/ppt/       native presentation extraction and text embeddings
+src/fusion/    lexical/semantic/temporal alignment and source-linked records
+src/meeting/   events, evidence, decisions, interactions and influence
+src/report/    report assembly and analytical/transcript exports
+src/evaluation/  metrics, baseline definitions and weight sensitivities
+frontend/      React/Vite source and generated website
+android/       native Java/C++ app, models/notices, tests and debug APK
+environment/   Python requirements and lock snapshot
+config/        YAML settings, env template/private env and pytest config
+scripts/       setup, startup, checks, provisioning, comparison and PDF build
+data/          recordings, annotations, stage artifacts and SQLite state
+outputs/       reports, evaluations and research/training artifacts
+docs/          categorized guides, research, validation and submissions
+archive/       verified older-source/history snapshot
+.runtime/      private job state, signing secret and validation tooling
+</code></pre>
+<p>Use the project Python 3.11 venv and locked environment. Provision speech, slide and speaker weights explicitly once, then run locally. Configuration is <code>config/config.yaml</code>; history is <code>data/state/nexus_v2.db</code>; private runtime secrets and uploads should be retained for continuity. Do not publish recordings, account state, credentials or archived desktop configuration with a paper. Advanced YAML changes require a restart. The final report is an evidence-based assessment of a research prototype, not a deployment approval or independently validated journal claim.</p>
+</body></html>

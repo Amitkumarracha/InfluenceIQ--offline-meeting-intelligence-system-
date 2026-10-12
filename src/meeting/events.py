@@ -255,6 +255,7 @@ _BILINGUAL_PATTERNS["disagreement"] += [r"\b(main|mein|mai) .{0,20}(agree|sehmat
 _BILINGUAL_PATTERNS["action_item"] += [
     r"\b(main|mein|mai) .{1,80}(kar|bhej|send|complete|prepare|review).{0,30}(dunga|dungi|karunga|karungi|lunga|lungi)\b",
     r"\b(aap|tum) .{1,60}(bhej|send|check|review|update).{0,25}(dena|dijiye|do)\b",
+    r"\b(?:kal|aaj|friday|monday) tak\b.{1,80}\b(?:complete|prepare|update|check|review|migration|deployment)\b.{0,25}\bkar (?:dena|dijiye|do)\b",
     r"(आप|तुम) .{1,60}(भेज|तैयार|जाँच|अपडेट).{0,25}(देना|दीजिए|दें)"]
 _BLOCKERS = {key: [re.compile(pattern, re.I) for pattern in bank] for key, bank in BLOCKERS.items()}
 _BILINGUAL_PATTERNS = {key: [re.compile(p, re.I) for p in patterns] for key, patterns in _BILINGUAL_PATTERNS.items()}

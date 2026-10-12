@@ -34,4 +34,5 @@ if [ ! -f models/ggml-base.bin ]; then
   curl -fL --retry 2 -o models/ggml-base.bin.partial https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin
   mv models/ggml-base.bin.partial models/ggml-base.bin
 fi
+.venv/bin/python scripts/setup_android_speakers.py
 echo 'Install an Android SDK platform/build-tools and a JDK, then run bash android/build.sh.'

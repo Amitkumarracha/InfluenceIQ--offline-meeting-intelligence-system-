@@ -34,6 +34,7 @@ from src.fusion.semantic_alignment import (
     SemanticScore,
     compute_semantic_scores,
     load_embedding_model,
+    iter_semantic_scores,
 )
 from src.ppt.io import load_presentation_json
 from src.ppt.embeddings import load_embeddings
@@ -152,7 +153,7 @@ def align_segment(
     temporal_weight: float,
     semantic_weight: float,
     threshold: float,
-    lexical_scores: dict[str, float] | None = None,
+    precomputed_scores: dict[str, float] | None = None,
 ) -> AlignmentResult:
     """
     Align one transcript segment to the best matching slide(s).
@@ -194,8 +195,8 @@ def align_segment(
     # Indices into the full slide list for the candidates
     slide_id_to_idx = {sid: i for i, sid in enumerate(slide_ids)}
     candidate_indices = [slide_id_to_idx[sid] for sid in candidate_ids]
-    if lexical_scores is not None:
-        semantic_scores = lexical_scores
+    if precomputed_scores is not None:
+        semantic_scores = precomputed_scores
     else:
         candidate_embeddings = slide_embeddings[candidate_indices]
         sem_results = compute_semantic_scores(segment.text, candidate_ids, candidate_embeddings, embedding_model)
@@ -205,7 +206,7 @@ def align_segment(
     candidates: list[SlideCandidate] = []
     for sid in candidate_ids:
         t_score = temporal_scores.get(sid)
-        s_score = semantic_scores.get(sid, 0.0)
+        s_score = float(semantic_scores.get(sid, 0.0))
         c_score = combine_scores(t_score, s_score, temporal_weight, semantic_weight)
         candidates.append(SlideCandidate(
             slide_id=sid,
@@ -344,6 +345,8 @@ def run_alignment(
 
     slide_ids = [s.slide_id for s in pdata.slides]
 
+    batched_scores = iter_semantic_scores([seg.text for seg in transcript.segments], slide_embeddings, embedding_model) if method == "embeddings" else None
+
     # ---- Align each segment ----
     alignment_results: list[AlignmentResult] = []
     for seg in transcript.segments:
@@ -357,7 +360,7 @@ def run_alignment(
             temporal_weight=temporal_weight,
             semantic_weight=semantic_weight,
             threshold=threshold,
-            lexical_scores=dict(zip(slide_ids, lexical.scores(seg.text))) if lexical is not None else None,
+            precomputed_scores=dict(zip(slide_ids, lexical.scores(seg.text) if lexical is not None else next(batched_scores))),
         )
         alignment_results.append(result)
 

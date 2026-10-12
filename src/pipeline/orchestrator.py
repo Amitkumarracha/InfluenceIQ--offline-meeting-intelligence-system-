@@ -1,6 +1,7 @@
 """Complete local audio-to-report workflow shared by API and CLI."""
 import json
 import re
+import time
 from pathlib import Path
 from src.utils.cache import atomic_json
 from src.utils.config import PROJECT_ROOT, get
@@ -28,15 +29,27 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
     root = PROJECT_ROOT / 'data' / 'processed'
     warnings = []
     options = options or {}
-    stage = 'preprocessing'
+    stage = None
+    started = stage_started = time.perf_counter()
+    stage_timings = {}
+    asr_progress = {}
     preview_path = root / 'audio' / f'{meeting_id}_preview.json'
 
     def update(name):
-        nonlocal stage
+        nonlocal stage, stage_started
+        now = time.perf_counter()
+        if stage is not None:
+            stage_timings[stage] = round(now - stage_started, 6)
+        stage_started = now
         stage = name
         save_resume_state(meeting_id, name)
         if progress:
             progress(name)
+
+    def transcription_progress(details):
+        asr_progress.update(details)
+        if progress:
+            progress('transcription', details)
 
     def preview(segments, details):
         recent = [asdict(segment) for segment in segments[-50:]]
@@ -54,8 +67,8 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
         speaker_identified = False
         if diarization != 'off':
             try:
-                _, diar_path = run_diarization(processed, meeting_id=meeting_id, num_speakers=options.get('num_speakers'))
-                speaker_identified = True
+                diar_result, diar_path = run_diarization(processed, meeting_id=meeting_id, num_speakers=options.get('num_speakers'))
+                speaker_identified = bool(diar_result.segments)
             except Exception as exc:
                 if diarization == 'required':
                     raise
@@ -69,7 +82,7 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
         mark_stage_complete(meeting_id, stage, diar_path)
         update('transcription')
         transcript, transcript_path, _ = run_asr(processed, diar_path, meeting_id, options=options,
-            progress=(lambda details: progress('transcription', details)) if progress else None, on_chunk=preview)
+            progress=transcription_progress, on_chunk=preview)
         mark_stage_complete(meeting_id, stage, transcript_path)
         source = transcript_path
         if ppt_path:
@@ -88,6 +101,7 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
                     raise RuntimeError('Slide embedding model missing. Provision it manually or select alignment.method: tfidf.')
                 emb_path = root / 'slides' / f'{meeting_id}_embeddings.npy'
                 save_embeddings(embeddings, emb_path)
+            update('alignment')
             _, _, _, source = run_alignment(transcript_path, slides_path, emb_path,
                                              meeting_id, root / 'alignment')
         update('events')
@@ -113,15 +127,28 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
             warnings.append('More than 1% of audio samples are near full scale. Check microphone gain and review potentially clipped speech.')
         report.processing = {
             'warnings': warnings, 'speaker_separation': speaker_identified,
+            'speaker_backend': get('diarization.backend'), 'generative_ai': False,
             'language': transcript.language, 'recording_quality': transcript.recording_quality, 'asr_model': options.get('model_size') or get('asr.model_size'),
             'options': options, 'alignment_method': get('alignment.method', 'embeddings') if ppt_path else None,
             'analysis_method': 'English/Hindi/Hinglish keyword heuristics; review against source audio',
             'accuracy_measured': False,
+            'stage_timings_seconds': stage_timings,
+            'asr_requested_device': get('asr.device', 'cpu'),
+            'asr_requested_compute_type': get('asr.compute_type', 'int8'),
+            'cpu_threads': int(get('asr.cpu_threads', 4)),
+            'asr_last_chunk_cached': asr_progress.get('cached'),
         }
         export_all(report, PROJECT_ROOT / 'outputs' / 'reports', formats=['json', 'markdown', 'html', 'csv'])
         report_path = PROJECT_ROOT / 'outputs' / 'reports' / f'{meeting_id}_report.json'
         payload = json.loads(report_path.read_text())
         payload['transcript_segments'] = [vars(s) for s in transcript.segments]
+        from src.meeting.vocabulary import suggest_vocabulary
+        payload['vocabulary_suggestions'] = suggest_vocabulary(payload['transcript_segments'])
+        payload['vocabulary'] = options.get('vocabulary', '')
+        stage_timings['report'] = round(time.perf_counter() - stage_started, 6)
+        payload['processing']['stage_timings_seconds'] = stage_timings
+        payload['processing']['elapsed_seconds'] = round(time.perf_counter() - started, 6)
+        payload['processing']['timing_scope'] = 'Processing stages through report preparation; excludes module imports, upload/decode, queue wait and final JSON/checkpoint writes'
         atomic_json(report_path, payload)
         mark_stage_complete(meeting_id, 'report', report_path, extra={'status': 'completed'})
         return report_path

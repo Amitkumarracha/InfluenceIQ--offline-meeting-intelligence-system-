@@ -69,6 +69,7 @@ extern "C" JNIEXPORT jbyteArray JNICALL Java_org_meetiq_offline_NativeWhisper_tr
     params.no_context = true;
     params.print_progress = params.print_realtime = params.print_timestamps = params.print_special = false;
     params.suppress_nst = true;
+    params.token_timestamps = true;
     const int result = whisper_full(ctx, params, samples, size);
     env->ReleaseFloatArrayElements(audio, samples, JNI_ABORT);
     if (result != 0) { fail(env, "Local transcription failed"); return nullptr; }
@@ -79,7 +80,26 @@ extern "C" JNIEXPORT jbyteArray JNICALL Java_org_meetiq_offline_NativeWhisper_tr
         if (i) json << ',';
         json << "{\"start\":" << whisper_full_get_segment_t0(ctx, i) / 100.0
              << ",\"end\":" << whisper_full_get_segment_t1(ctx, i) / 100.0
-             << ",\"text\":" << quote(whisper_full_get_segment_text(ctx, i)) << '}';
+             << ",\"text\":" << quote(whisper_full_get_segment_text(ctx, i))
+             << ",\"detected_language\":" << quote(selected.c_str()) << ",\"words\":[";
+        std::string word; double start=-1,end=-1; bool first=true;
+        auto emit=[&]() {
+            if(word.empty()) return;
+            if(!first) json<<','; first=false;
+            json<<"{\"text\":"<<quote(word.c_str())<<",\"start\":"<<start<<",\"end\":"<<end<<'}';
+            word.clear(); start=end=-1;
+        };
+        for(int t=0;t<whisper_full_n_tokens(ctx,i);++t) {
+            auto data=whisper_full_get_token_data(ctx,i,t);
+            if(data.id>=whisper_token_eot(ctx)) continue;
+            std::string token=whisper_full_get_token_text(ctx,i,t);
+            // Join BPE pieces before UTF-8 serialization (especially Hindi).
+            if(!token.empty() && token[0]==' ' && !word.empty()) emit();
+            if(start<0 && data.t0>=0) start=data.t0/100.0;
+            if(data.t1>=0) end=data.t1/100.0;
+            word+=token;
+        }
+        emit(); json<<"]}";
     }
     json << ']';
     std::string output = json.str();

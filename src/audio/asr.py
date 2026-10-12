@@ -9,6 +9,7 @@ Phase 5 of the Multimodal Meeting Intelligence Pipeline.
 import json
 from bisect import bisect_left, bisect_right
 from itertools import accumulate
+from functools import lru_cache
 import math
 import os
 import soundfile as sf
@@ -53,6 +54,7 @@ class TranscriptResult:
     speakers: list[str]
     segments: list[TranscriptSegment] = field(default_factory=list)
     recording_quality: dict = field(default_factory=dict)
+    detected_languages: list[str] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------------------
@@ -89,12 +91,20 @@ def _load_whisper_model(model_size=None):
     working libcublas runtime for faster-whisper. In that case, fall back to the
     CPU path instead of crashing during the ASR stage.
     """
-    _preload_cuda_libraries()
-    from faster_whisper import WhisperModel  # type: ignore[import-untyped]
+    return _cached_whisper_model(
+        model_size or get("asr.model_size", "base"),
+        str(get("asr.device", "cpu")).lower(),
+        str(get("asr.compute_type", "int8")).lower(),
+        int(get("asr.cpu_threads", 4)),
+        os.environ.get("HF_HUB_OFFLINE", "1") == "1",
+    )
 
-    model_size = model_size or get("asr.model_size", "base")
-    requested_device: str = str(get("asr.device", "cpu")).lower()
-    requested_compute: str = str(get("asr.compute_type", "int8")).lower()
+
+@lru_cache(maxsize=1)
+def _cached_whisper_model(model_size, requested_device, requested_compute, cpu_threads, offline):
+    """Keep one configured ASR model warm in the single meeting worker."""
+    _preload_cuda_libraries()
+    from faster_whisper import WhisperModel
 
     attempts: list[tuple[str, str]] = [(requested_device, requested_compute)]
     if requested_device == "cuda":
@@ -110,8 +120,7 @@ def _load_whisper_model(model_size=None):
         )
         try:
             return WhisperModel(model_size, device=device, compute_type=compute_type,
-                cpu_threads=int(get("asr.cpu_threads", 4)),
-                local_files_only=os.environ.get("HF_HUB_OFFLINE", "1") == "1")
+                cpu_threads=cpu_threads, local_files_only=offline)
         except Exception as exc:  # pragma: no cover - exercised in integration envs
             msg = str(exc)
             if "libcublas" in msg.lower() or "cuda" in msg.lower() and "not found" in msg.lower():
@@ -257,7 +266,8 @@ def run_asr(
         raise ValueError("asr.chunk_seconds must be at least 10")
 
     settings = dict(get("asr", {}))
-    settings.update(model_size=model_size, language=language, vocabulary=vocabulary, chunk_seconds=chunk_seconds, pipeline_version=5)
+    settings.update({key: get("asr." + key) for key in ("model_size", "device", "compute_type", "chunk_seconds")})
+    settings.update(model_size=model_size, language=language, vocabulary=vocabulary, chunk_seconds=chunk_seconds, pipeline_version=6)
     key = fingerprint([audio_path, diarization_path], settings)
     cached = read_cache(json_path, key)
     if cached is not None:
@@ -275,6 +285,7 @@ def run_asr(
     transcript_segments = []
     quality_parts = []
     detected_language = language
+    detected_languages = set()
     model = None
     with sf.SoundFile(audio_path) as audio:
         sr = audio.samplerate
@@ -290,6 +301,8 @@ def run_asr(
                 transcript_segments.extend(TranscriptSegment(**item) for item in cached_chunk["segments"])
                 quality_parts.append(cached_chunk.get("quality", {}))
                 detected_language = detected_language or cached_chunk.get("language")
+                if cached_chunk.get("language"):
+                    detected_languages.add(cached_chunk["language"])
                 if on_chunk:
                     on_chunk(transcript_segments[-50:], {"completed_seconds": min(duration, first / sr + chunk_seconds),
                         "total_seconds": duration, "total_segments": len(transcript_segments), "cached": True})
@@ -333,6 +346,8 @@ def run_asr(
                     segments_iter, info = model.transcribe(samples, **{**kwargs, "language": selected_language})
                     chunk_language = selected_language
             detected_language = detected_language or chunk_language
+            if chunk_language:
+                detected_languages.add(chunk_language)
             chunk_segments = []
             for seg in segments_iter:
                 words = getattr(seg, "words", None)
@@ -389,6 +404,7 @@ def run_asr(
         num_speakers=len(transcript_speakers),
         speakers=transcript_speakers,
         segments=transcript_segments,
+        detected_languages=sorted(detected_languages),
         recording_quality={
             "digital_silence_ratio": round(sum(p.get("zeros", 0) for p in quality_parts) / max(1, sum(p.get("samples", 0) for p in quality_parts)), 6),
             "clipped_sample_ratio": round(sum(p.get("clipped", 0) for p in quality_parts) / max(1, sum(p.get("samples", 0) for p in quality_parts)), 6),
@@ -420,6 +436,7 @@ def _save_json(result: TranscriptResult, path: Path, cache_key=None) -> None:
         "speakers": result.speakers,
         "segments": [asdict(s) for s in result.segments],
         "recording_quality": result.recording_quality,
+        "detected_languages": result.detected_languages,
     }
     payload["cache_key"] = cache_key
     atomic_json(path, payload)
@@ -475,4 +492,5 @@ def _deserialise_result(data: dict[str, Any]) -> TranscriptResult:
         speakers=data.get("speakers", []),
         segments=segments,
         recording_quality=data.get("recording_quality", {}),
+        detected_languages=data.get("detected_languages", [data["language"]] if data.get("language") else []),
     )

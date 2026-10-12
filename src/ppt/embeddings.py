@@ -103,7 +103,8 @@ def generate_embeddings(
     t0 = time.time()
 
     try:
-        model = SentenceTransformer(resolved_model)
+        from src.fusion.semantic_alignment import load_embedding_model
+        model = load_embedding_model(resolved_model)
     except Exception as exc:
         logger.error("Failed to load model '%s': %s", resolved_model, exc)
         return None
@@ -113,7 +114,11 @@ def generate_embeddings(
         texts,
         show_progress_bar=False,
         convert_to_numpy=True,
-    )
+    ) if texts else np.zeros((0, model.get_sentence_embedding_dimension()), dtype=np.float32)
+
+    if empty:
+        embeddings = np.asarray(embeddings, dtype=np.float32)
+        embeddings[np.array(empty) - 1] = 0
 
     logger.info(
         "Embeddings generated in %.2fs | shape=%s",

@@ -216,6 +216,12 @@ class TestDiarizationHelpers:
 
 class TestRunDiarization:
 
+    @pytest.fixture(autouse=True)
+    def pyannote_backend(self, monkeypatch):
+        # These tests exercise the retained pyannote adapter, not the configured default.
+        from src.audio.diarization import get
+        monkeypatch.setattr('src.audio.diarization.get', lambda key, default=None: 'pyannote' if key == 'diarization.backend' else get(key, default))
+
     def test_invalid_path_raises(self, tmp_path):
         with pytest.raises(FileNotFoundError):
             run_diarization(tmp_path / "missing.wav")

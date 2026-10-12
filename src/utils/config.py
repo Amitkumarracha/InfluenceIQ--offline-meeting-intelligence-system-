@@ -7,8 +7,8 @@ from typing import Any
 import yaml
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
-_DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config.yaml"
-_DEFAULT_ENV_PATH = PROJECT_ROOT / ".env"
+_DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "config.yaml"
+_DEFAULT_ENV_PATH = PROJECT_ROOT / "config" / ".env"
 _config: dict[str, Any] | None = None
 
 
@@ -52,7 +52,7 @@ def load_config(path: Path | None = None) -> dict[str, Any]:
 
 def get(key_path: str, default: Any = None) -> Any:
     """Retrieve a nested config value using dot notation e.g. 'audio.sample_rate'."""
-    overrides = {"asr.model_size": "MAI_ASR_MODEL", "asr.language": "MAI_ASR_LANGUAGE", "asr.chunk_seconds": "MAI_ASR_CHUNK_SECONDS"}
+    overrides = {"asr.model_size": "MAI_ASR_MODEL", "asr.language": "MAI_ASR_LANGUAGE", "asr.chunk_seconds": "MAI_ASR_CHUNK_SECONDS", "asr.device": "MAI_ASR_DEVICE", "asr.compute_type": "MAI_ASR_COMPUTE_TYPE"}
     if key_path in overrides and os.environ.get(overrides[key_path]):
         return os.environ[overrides[key_path]]
     cfg = load_config()

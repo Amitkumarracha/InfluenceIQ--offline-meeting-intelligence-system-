@@ -15,6 +15,7 @@ and never fabricates similarity scores.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from functools import lru_cache
 
 import numpy as np
 
@@ -140,6 +141,34 @@ def compute_semantic_scores(
 # Model loader (shared across alignment calls)
 # ---------------------------------------------------------------------------
 
+def iter_semantic_scores(texts, slide_embeddings, model, batch_size=32):
+    """Encode bounded text batches and reuse normalized slide vectors.
+
+    The output cosine definition matches the scalar path, including zero
+    vectors for empty passages. Only batch_size × slides scores live at once.
+    """
+    if batch_size < 1:
+        raise ValueError("batch_size must be positive")
+    keys = np.asarray(slide_embeddings, dtype=np.float32)
+    if keys.ndim != 2:
+        raise ValueError("Slide embeddings must be a two-dimensional matrix")
+    keys = _l2_normalise(keys)
+    for first in range(0, len(texts), batch_size):
+        batch = [text.strip() for text in texts[first:first + batch_size]]
+        queries = np.asarray(model.encode(batch, batch_size=batch_size,
+            show_progress_bar=False, convert_to_numpy=True), dtype=np.float32)
+        if queries.shape != (len(batch), keys.shape[1]):
+            raise ValueError("Transcript and slide embedding dimensions differ")
+        queries = queries.copy()
+        for index, text in enumerate(batch):
+            if not text:
+                queries[index] = 0
+        scores = _l2_normalise(queries) @ keys.T
+        for row in scores:
+            yield np.round(row, 6)
+
+
+@lru_cache(maxsize=1)
 def load_embedding_model(model_name: str) -> object:
     """
     Load a sentence-transformers model by name.
@@ -156,7 +185,7 @@ def load_embedding_model(model_name: str) -> object:
         ) from exc
 
     try:
-        return SentenceTransformer(model_name)
+        return SentenceTransformer(model_name, device="cpu", local_files_only=True)
     except Exception as exc:
         raise RuntimeError(
             f"Failed to load embedding model '{model_name}': {exc}"

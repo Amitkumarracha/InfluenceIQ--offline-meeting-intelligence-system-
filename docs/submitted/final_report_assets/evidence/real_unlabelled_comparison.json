@@ -1,0 +1,72 @@
+{
+  "meeting_id": "meeting_8e464f9471b34c46ad9f4ab3a547c923",
+  "passages": 1008,
+  "slides": 34,
+  "slides_with_valid_times": 0,
+  "encoding_seconds": 4.65305612299926,
+  "ground_truth_status": "independent slide-relevance labels unavailable; coverage is not accuracy",
+  "input_sha256": {
+    "data/processed/audio/meeting_8e464f9471b34c46ad9f4ab3a547c923_transcript.json": "d0cd462e0a84f9f72b17c28b2fbaaf50d35fab1f0e142cdc4aef0b01a0a098e5",
+    "data/processed/slides/meeting_8e464f9471b34c46ad9f4ab3a547c923_slides.json": "3c3ee719bd7206b212e4c96c74c7432e0a1ff052df07c1a3c056e0f5d959e3a2",
+    "data/processed/slides/meeting_8e464f9471b34c46ad9f4ab3a547c923_embeddings.npy": "76bde0313ef9fa9d8e17aecaef11104ddb1c1de0c5849aa1f66818c68ec0a8ec"
+  },
+  "methods": {
+    "temporal_only": {
+      "linked_passages": 0,
+      "coverage": 0.0,
+      "selection_seconds": 0.03205588000128046,
+      "top1_accuracy": null,
+      "f1": null,
+      "predicted_slide_counts": {
+        "NO_CONFIDENT_SLIDE": 1008
+      }
+    },
+    "semantic_only": {
+      "linked_passages": 39,
+      "coverage": 0.03869047619047619,
+      "selection_seconds": 0.044191372999193845,
+      "top1_accuracy": null,
+      "f1": null,
+      "predicted_slide_counts": {
+        "NO_CONFIDENT_SLIDE": 969,
+        "slide_20": 4,
+        "slide_05": 1,
+        "slide_28": 6,
+        "slide_27": 12,
+        "slide_31": 3,
+        "slide_09": 2,
+        "slide_16": 1,
+        "slide_12": 5,
+        "slide_06": 1,
+        "slide_07": 1,
+        "slide_26": 1,
+        "slide_32": 1,
+        "slide_22": 1
+      }
+    },
+    "temporal_semantic_hybrid": {
+      "linked_passages": 39,
+      "coverage": 0.03869047619047619,
+      "selection_seconds": 0.03601409499970032,
+      "top1_accuracy": null,
+      "f1": null,
+      "predicted_slide_counts": {
+        "NO_CONFIDENT_SLIDE": 969,
+        "slide_20": 4,
+        "slide_05": 1,
+        "slide_28": 6,
+        "slide_27": 12,
+        "slide_31": 3,
+        "slide_09": 2,
+        "slide_16": 1,
+        "slide_12": 5,
+        "slide_06": 1,
+        "slide_07": 1,
+        "slide_26": 1,
+        "slide_32": 1,
+        "slide_22": 1
+      }
+    }
+  },
+  "semantic_hybrid_agreement": 1.0
+}

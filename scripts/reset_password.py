@@ -3,7 +3,7 @@ import getpass
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from api import SessionLocal, User, UserCreate
+from backend.api import SessionLocal, User, UserCreate
 import bcrypt
 
 if __name__ == '__main__':

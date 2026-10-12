@@ -70,3 +70,12 @@ data/checkpoints/
 # Native build dependencies and private debug signing key
 android/vendor/
 android/build/
+android/app/src/main/assets/speaker-models/
+
+# Archived baseline and copied workstation state are private local artifacts.
+/archive/
+android/app/build/
+android/app/.cxx/
+.pytest_cache/
+data/state/
+data/custom_test/*.decode.json

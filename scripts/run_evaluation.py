@@ -37,11 +37,13 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from src.utils.config import PROJECT_ROOT
 from src.utils.logging import get_logger
 
 logger = get_logger("evaluation")
@@ -89,11 +91,11 @@ def parse_args() -> argparse.Namespace:
 
 def _resolve_paths(meeting_id: str) -> dict[str, Path]:
     return {
-        "events":       Path(f"data/processed/events/{meeting_id}_events.json"),
-        "evidence":     Path(f"data/processed/events/{meeting_id}_evidence.json"),
-        "decisions":    Path(f"data/processed/decisions/{meeting_id}_decisions.json"),
-        "interactions": Path(f"data/processed/interactions/{meeting_id}_interactions.json"),
-        "influence":    Path(f"data/processed/influence/{meeting_id}_influence.json"),
+        "events":       PROJECT_ROOT / Path(f"data/processed/events/{meeting_id}_events.json"),
+        "evidence":     PROJECT_ROOT / Path(f"data/processed/events/{meeting_id}_evidence.json"),
+        "decisions":    PROJECT_ROOT / Path(f"data/processed/decisions/{meeting_id}_decisions.json"),
+        "interactions": PROJECT_ROOT / Path(f"data/processed/interactions/{meeting_id}_interactions.json"),
+        "influence":    PROJECT_ROOT / Path(f"data/processed/influence/{meeting_id}_influence.json"),
     }
 
 
@@ -106,8 +108,7 @@ def _load_annotations(path: str | None) -> dict:
         return {}
     ann_path = Path(path)
     if not ann_path.exists():
-        logger.warning("Annotation file not found: %s — evaluation without ground truth", ann_path)
-        return {}
+        raise FileNotFoundError(f"Annotation file not found: {ann_path}")
     with open(ann_path, encoding="utf-8") as f:
         return json.load(f)
 
@@ -119,6 +120,8 @@ def _load_annotations(path: str | None) -> dict:
 def main() -> None:
     args = parse_args()
     meeting_id = args.meeting_id
+    if not re.fullmatch(r"[A-Za-z0-9_-]{1,100}", meeting_id):
+        raise ValueError("Invalid meeting identifier")
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -172,30 +175,29 @@ def main() -> None:
         "metadata": build_eval_metadata(
             meeting_id,
             dataset=annotations.get("dataset"),
-            config={"source": "config.yaml"},
+            config={"source": "config/config.yaml"},
         ),
     }
 
-    # ASR
-    hyp_transcript = None
-    if event_result:
-        hyp_transcript = " ".join(e.text for e in event_result.events)
-    metrics_out["wer"] = calculate_wer(gt_transcript, hyp_transcript)
-
-    # DER
-    hyp_diarization = None
-    metrics_out["der"] = calculate_der(gt_diarization, hyp_diarization)
-
-    # Alignment
-    pred_alignment = None
-    if event_result:
-        pred_alignment = [
-            {"segment_id": e.source_segment_id, "slide_id": e.slide_id}
-            for e in event_result.events
-        ]
+    # Evaluate the full transcript and diarization, not only NLP event snippets.
+    audio_dir = PROJECT_ROOT / 'data/processed/audio'
+    transcript_path = audio_dir / f'{meeting_id}_transcript.json'
+    transcript = json.loads(transcript_path.read_text()) if transcript_path.exists() else {}
+    metrics_out['wer'] = ({'status': 'error', 'reason': 'Predicted transcript file unavailable'}
+        if gt_transcript and not transcript_path.exists() else calculate_wer(gt_transcript,
+        ' '.join(segment['text'] for segment in transcript.get('segments', []))))
+    diarization_path = audio_dir / f'{meeting_id}_diarization.json'
+    diarization = json.loads(diarization_path.read_text()) if diarization_path.exists() else {}
+    metrics_out['der'] = ({'status': 'error', 'reason': 'Predicted diarization file unavailable'}
+        if gt_diarization and not diarization_path.exists() else calculate_der(gt_diarization, diarization.get('segments', [])))
+    alignment_path = PROJECT_ROOT / 'data/processed/alignment' / f'{meeting_id}_alignment.json'
+    alignment = json.loads(alignment_path.read_text()) if alignment_path.exists() else {}
+    pred_alignment = [{'segment_id': row['segment_id'], 'slide_id': row['selected_slide']}
+        for row in alignment.get('segments', [])]
     from src.utils.config import get as cfg_get
     tol = float(cfg_get("evaluation.alignment.timestamp_tolerance", 5.0))
-    metrics_out["alignment"] = evaluate_alignment(pred_alignment, gt_alignment, tol)
+    metrics_out['alignment'] = ({'status': 'error', 'reason': 'Predicted alignment file unavailable'}
+        if gt_alignment and not alignment_path.exists() else evaluate_alignment(pred_alignment, gt_alignment, tol))
 
     # Events
     pred_events = None
@@ -209,14 +211,18 @@ def main() -> None:
 
     # Decisions
     pred_decisions = None
+    event_index = {e.event_id: e for e in event_result.events} if event_result else {}
     if decision_result:
         pred_decisions = [
             {"decision_id": d.decision_id, "topic": d.topic or "",
-             "status": d.status, "timestamp": d.proposal["start"]
-             if d.proposal and event_result else 0.0}
+             "status": d.status, "timestamp": event_index[d.proposal["event_id"]].start
+             if d.proposal and d.proposal.get("event_id") in event_index else None}
             for d in decision_result.decisions
         ]
-    metrics_out["decisions"] = evaluate_decisions(pred_decisions, gt_decisions)
+    if gt_decisions and any(d['timestamp'] is None for d in (pred_decisions or [])):
+        metrics_out['decisions'] = {'status': 'error', 'reason': 'Predicted decision source timestamp unavailable'}
+    else:
+        metrics_out["decisions"] = evaluate_decisions(pred_decisions, gt_decisions)
 
     # Lineage
     pred_lineage = None
@@ -243,13 +249,15 @@ def main() -> None:
     metrics_out["influence"] = evaluate_influence_ranking(sys_ranking, human_ranking)
 
     # Efficiency
-    stage_timings: dict[str, float] = {}
+    report_path = PROJECT_ROOT / 'outputs/reports' / f'{meeting_id}_report.json'
+    report = json.loads(report_path.read_text()) if report_path.exists() else {}
+    stage_timings = report.get('processing', {}).get('stage_timings_seconds', {})
     if args.stage_timings:
         try:
             stage_timings = json.loads(args.stage_timings)
         except json.JSONDecodeError:
             logger.warning("Could not parse --stage-timings JSON")
-    metrics_out["efficiency"] = calculate_efficiency(stage_timings, args.audio_duration)
+    metrics_out["efficiency"] = calculate_efficiency(stage_timings, args.audio_duration or transcript.get("duration"))
 
     # ---- Save metrics ----
     metrics_path = out_dir / f"{meeting_id}_metrics.json"
@@ -288,7 +296,7 @@ def main() -> None:
     logger.info("Baselines saved: %s", baselines_path)
 
     # ---- CSV comparison table ----
-    csv_path = out_dir / "comparison.csv"
+    csv_path = out_dir / f"{meeting_id}_comparison.csv"
     rows = comparison.get("comparison_table", [])
     if rows:
         with open(csv_path, "w", newline="", encoding="utf-8") as f:

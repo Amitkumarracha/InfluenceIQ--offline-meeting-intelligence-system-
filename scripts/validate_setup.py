@@ -12,7 +12,7 @@ from src.utils.config import PROJECT_ROOT, get
 def main():
     packages = {}
     for name in ['torch', 'torchaudio', 'faster-whisper', 'pyannote.audio', 'silero-vad',
-                 'sentence-transformers', 'fastapi', 'uvicorn', 'SQLAlchemy', 'python-multipart']:
+                 'sentence-transformers', 'sherpa-onnx', 'fastapi', 'uvicorn', 'SQLAlchemy', 'python-multipart']:
         try:
             packages[name] = importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:
@@ -22,8 +22,7 @@ def main():
         from huggingface_hub import snapshot_download
         from faster_whisper.utils import _MODELS
         models = {'asr': _MODELS.get(get('asr.model_size'), get('asr.model_size')),
-                  'slides': 'sentence-transformers/' + get('ppt.embeddings.model'),
-                  'diarization': get('diarization.model')}
+                  'slides': 'sentence-transformers/' + get('ppt.embeddings.model')}
         for purpose, model in models.items():
             try:
                 path = Path(snapshot_download(model, local_files_only=True))
@@ -33,7 +32,10 @@ def main():
                 ready[purpose] = False
     except ImportError:
         ready['asr'] = False
-    result = {'python': sys.version.split()[0], 'environment': sys.prefix,
+    from src.audio.diarization import diarization_status
+    speakers = diarization_status()
+    ready['diarization'] = speakers['ready']
+    result = {'diarization': speakers, 'generative_ai': False, 'python': sys.version.split()[0], 'environment': sys.prefix,
               'cpu_threads_available': os.cpu_count(),
               'free_disk_gb': round(shutil.disk_usage(PROJECT_ROOT).free / 1024**3, 1),
               'ffmpeg': bool(shutil.which('ffmpeg')), 'ffprobe': bool(shutil.which('ffprobe')),
@@ -41,7 +43,7 @@ def main():
               'allowed_languages': get('asr.allowed_languages'),
               'frontend_built': (PROJECT_ROOT / 'frontend/dist/index.html').exists(),
               'android_apk_built': (PROJECT_ROOT / 'android/build/meet-iq-debug.apk').exists(),
-              'notes': ['Diarization readiness also requires its nested segmentation/embedding weights.',
+              'notes': ['Speaker inference needs the installed backend and verified local segmentation/embedding weights.',
                         'Missing diarization does not prevent UNKNOWN-speaker transcription.',
                         'Model presence is not an accuracy measurement.']}
     print(json.dumps(result, indent=2))

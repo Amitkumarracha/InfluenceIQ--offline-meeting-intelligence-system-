@@ -13,6 +13,28 @@ from src.utils.paths import get_processed_audio_dir
 logger = get_logger(__name__)
 
 
+def diarization_status():
+    """Cheap setup check; no model loading, token disclosure or network request."""
+    import importlib.util
+    backend = get('diarization.backend', 'pyannote')
+    try:
+        if backend == 'sherpa-onnx':
+            from src.audio.onnx_diarization import model_paths
+            model_paths()
+            if importlib.util.find_spec('sherpa_onnx') is None:
+                raise RuntimeError('Install the project requirements to enable speaker analysis.')
+        elif backend == 'pyannote':
+            from huggingface_hub import snapshot_download
+            for name in (get('diarization.model'), 'pyannote/segmentation-3.0'):
+                snapshot_download(name, local_files_only=True)
+        else:
+            raise RuntimeError('Unsupported speaker backend.')
+        return {'backend': backend, 'ready': True, 'message': 'Local speaker models are ready.'}
+    except Exception:
+        return {'backend': backend, 'ready': False,
+                'message': 'Speaker setup is incomplete. Run the speaker-model provisioning command in the README.'}
+
+
 @dataclass
 class DiarizationSegment:
     segment_id: int

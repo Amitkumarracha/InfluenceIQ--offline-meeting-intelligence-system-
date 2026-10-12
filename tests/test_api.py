@@ -16,14 +16,14 @@ def api_client(tmp_path, monkeypatch):
     monkeypatch.setenv('MAI_RUNTIME_DIR', str(tmp_path / 'runtime'))
     monkeypatch.setenv('MAI_DB_PATH', str(tmp_path / 'test.db'))
     monkeypatch.setenv('MAI_DATA_DIR', str(tmp_path / 'audio'))
-    sys.modules.pop('api', None)
-    api = importlib.import_module('api')
+    sys.modules.pop('backend.api', None)
+    api = importlib.import_module('backend.api')
     with TestClient(api.app) as client:
         # Keep jobs queued; integration tests run the real worker separately.
         monkeypatch.setattr(api.app.state.executor, 'submit', lambda *args: Future())
         yield api, client
     api.engine.dispose()
-    sys.modules.pop('api', None)
+    sys.modules.pop('backend.api', None)
 
 
 def register(client, email):

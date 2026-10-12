@@ -149,6 +149,7 @@
     "\\bmain .+ (bhej|complete|prepare|kar).*(dunga|dungi|karunga|karungi)\\b",
     "\\b(main|mein|mai) .{1,80}(kar|bhej|send|complete|prepare|review).{0,30}(dunga|dungi|karunga|karungi|lunga|lungi)\\b",
     "\\b(aap|tum) .{1,60}(bhej|send|check|review|update).{0,25}(dena|dijiye|do)\\b",
+    "\\b(?:kal|aaj|friday|monday) tak\\b.{1,80}\\b(?:complete|prepare|update|check|review|migration|deployment)\\b.{0,25}\\bkar (?:dena|dijiye|do)\\b",
     "(आप|तुम) .{1,60}(भेज|तैयार|जाँच|अपडेट).{0,25}(देना|दीजिए|दें)"
   ]
 }

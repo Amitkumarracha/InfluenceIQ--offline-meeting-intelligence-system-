@@ -1,0 +1,252 @@
+{
+  "slides": {
+    "slide_01": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+    "slide_02": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+    "slide_03": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+    "slide_04": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+    "slide_05": "Risks and mitigation: overlapping speech, noisy microphones, ambiguous speaker identities. Manual review and a known speaker count reduce errors.",
+    "slide_06": "Meeting responsibilities: project manager coordinates work. Industrial designer selects hardware. Marketing expert studies customers. UI designer creates the interface."
+  },
+  "cases": [
+    {
+      "id": "case_01",
+      "group": "exact_content",
+      "text": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+      "gold": "slide_01",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_02",
+      "group": "exact_content",
+      "text": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+      "gold": "slide_02",
+      "shown": "slide_02",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_03",
+      "group": "exact_content",
+      "text": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+      "gold": "slide_03",
+      "shown": "slide_03",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_04",
+      "group": "exact_content",
+      "text": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+      "gold": "slide_04",
+      "shown": "slide_04",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_05",
+      "group": "paraphrase",
+      "text": "We have allocated two hundred and fifty thousand rupees for this project.",
+      "gold": "slide_01",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_06",
+      "group": "paraphrase",
+      "text": "Our system should reply in under a tenth of a second.",
+      "gold": "slide_02",
+      "shown": "slide_02",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_07",
+      "group": "paraphrase",
+      "text": "The first working version is due in mid October, with tests five days later.",
+      "gold": "slide_03",
+      "shown": "slide_03",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_08",
+      "group": "paraphrase",
+      "text": "Once the weights are installed, we can analyse recordings without a network connection.",
+      "gold": "slide_04",
+      "shown": "slide_04",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_09",
+      "group": "offscreen_reference",
+      "text": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+      "gold": "slide_01",
+      "shown": "slide_02",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_10",
+      "group": "offscreen_reference",
+      "text": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+      "gold": "slide_02",
+      "shown": "slide_03",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_11",
+      "group": "offscreen_reference",
+      "text": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+      "gold": "slide_03",
+      "shown": "slide_04",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_12",
+      "group": "offscreen_reference",
+      "text": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+      "gold": "slide_04",
+      "shown": "slide_05",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_13",
+      "group": "missing_slide_times",
+      "text": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+      "gold": "slide_01",
+      "shown": "slide_01",
+      "timed": false,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_14",
+      "group": "missing_slide_times",
+      "text": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+      "gold": "slide_02",
+      "shown": "slide_02",
+      "timed": false,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_15",
+      "group": "missing_slide_times",
+      "text": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+      "gold": "slide_03",
+      "shown": "slide_03",
+      "timed": false,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_16",
+      "group": "missing_slide_times",
+      "text": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+      "gold": "slide_04",
+      "shown": "slide_04",
+      "timed": false,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_17",
+      "group": "context_dependent",
+      "text": "That is the agreed target for this part.",
+      "gold": "slide_01",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_18",
+      "group": "context_dependent",
+      "text": "That is the agreed target for this part.",
+      "gold": "slide_02",
+      "shown": "slide_02",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_19",
+      "group": "context_dependent",
+      "text": "That is the agreed target for this part.",
+      "gold": "slide_03",
+      "shown": "slide_03",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_20",
+      "group": "context_dependent",
+      "text": "That is the agreed target for this part.",
+      "gold": "slide_04",
+      "shown": "slide_04",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_21",
+      "group": "unrelated_or_blank",
+      "text": "I enjoyed the beach on my holiday.",
+      "gold": "NO_CONFIDENT_SLIDE",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_22",
+      "group": "unrelated_or_blank",
+      "text": "The football match was exciting yesterday.",
+      "gold": "NO_CONFIDENT_SLIDE",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_23",
+      "group": "unrelated_or_blank",
+      "text": "My favourite meal is pasta with tomato sauce.",
+      "gold": "NO_CONFIDENT_SLIDE",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_24",
+      "group": "unrelated_or_blank",
+      "text": "",
+      "gold": "NO_CONFIDENT_SLIDE",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    }
+  ]
+}

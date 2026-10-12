@@ -1,0 +1,20 @@
+[
+  {
+    "threads": 4,
+    "elapsed_s": 20.4257,
+    "turns": 12,
+    "der": 0.134815
+  },
+  {
+    "threads": 1,
+    "elapsed_s": 35.2162,
+    "turns": 12,
+    "der": 0.134815
+  },
+  {
+    "threads": 2,
+    "elapsed_s": 26.6317,
+    "turns": 12,
+    "der": 0.134815
+  }
+]

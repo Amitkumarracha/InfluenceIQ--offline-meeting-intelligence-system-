@@ -2,13 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { flushSync } from 'react-dom';
 import { saveChunk, clearRecording, recordingExists, restoreRecording } from './recordingStore';
-import MeetingNotes from './MeetingNotes';
-import {
-  FileAudio, FileVideo, Users, CheckCircle, ChevronRight,
-  BarChart3, History, RefreshCw, X, Lock, Mail, MessageSquare,
-  Search, Download, Kanban, Edit2, Check,
-  Printer, AlignLeft, User, PlayCircle, Mic2
-} from 'lucide-react';
+import { FileAudio, ChevronRight, Mic2 } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -47,13 +41,8 @@ function App() {
   const [vocabulary, setVocabulary] = useState('');
   const [diarization, setDiarization] = useState('auto');
   const [numSpeakers, setNumSpeakers] = useState('');
-  const [summaryModels, setSummaryModels] = useState([]);
-  const [summaryStatus, setSummaryStatus] = useState(null);
-  const [summaryProgress, setSummaryProgress] = useState(null);
-  const [summaryError, setSummaryError] = useState(null);
   const [jobProgress, setJobProgress] = useState(null);
-  const [exportFormat, setExportFormat] = useState('json');
-  const [libraryHits, setLibraryHits] = useState(null);
+  const [exportFormat, setExportFormat] = useState('md');
   const [transcriptPage, setTranscriptPage] = useState(0);
   const [printing, setPrinting] = useState(false);
   const audioRef = React.useRef(null);
@@ -62,8 +51,14 @@ function App() {
   const [reportData, setReportData] = useState(null);
   const [meetingStatus, setMeetingStatus] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
-  const [reportViewTab, setReportViewTab] = useState('highlights'); // 'highlights' or 'transcript'
+  const [reportViewTab, setReportViewTab] = useState('overview');
 
+  const [screen, setScreen] = useState('home');
+  const [notice, setNotice] = useState('');
+  const [profile, setProfile] = useState({ name: '', role: '', organization: '' });
+  const [meetingVocabulary, setMeetingVocabulary] = useState('');
+  const [speakerRoles, setSpeakerRoles] = useState({});
+  const [editRoleValue, setEditRoleValue] = useState('');
   const [speakerNames, setSpeakerNames] = useState({});
   const [editingSpeaker, setEditingSpeaker] = useState(null);
   const [editNameValue, setEditNameValue] = useState('');
@@ -82,6 +77,9 @@ function App() {
   const [hasDraft, setHasDraft] = useState(null);
   const [processingStage, setProcessingStage] = useState(null);
   const [modelReady, setModelReady] = useState(null);
+  const [speakerSetup, setSpeakerSetup] = useState(null);
+  const [canAnalyzeSpeakers, setCanAnalyzeSpeakers] = useState(false);
+  const [analyzingSpeakers, setAnalyzingSpeakers] = useState(false);
   const timerRef = React.useRef(null);
 
   // --- Authentication Handlers ---
@@ -121,9 +119,9 @@ function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('userEmail');
     setToken(null);
-    setEmail('');
+    setEmail(''); setScreen('home'); setProfile({}); setNotice('');
     selectedRef.current = null;
-    setSelectedMeetingId(null); setReportData(null); setMeetingStatus(null); setSummaryStatus(null); setMeetings([]); setLibraryHits(null);
+    setSelectedMeetingId(null); setReportData(null); setMeetingStatus(null); setMeetings([]);
   };
 
   // --- Data Fetching ---
@@ -146,7 +144,7 @@ function App() {
 
   useEffect(() => {
     let interval = null;
-    if (selectedMeetingId && (['queued', 'processing'].includes(meetingStatus) || ['queued', 'processing'].includes(summaryStatus))) {
+    if (selectedMeetingId && ['queued', 'processing'].includes(meetingStatus)) {
       interval = setInterval(async () => {
         try {
           const res = await axios.get(`${API_URL}/meetings/${selectedMeetingId}`);
@@ -154,11 +152,12 @@ function App() {
           setMeetingStatus(res.data.status);
           setProcessingStage(res.data.stage);
           setJobProgress(res.data.progress); setPreview(res.data.preview);
-          setSummaryStatus(res.data.summary_status); setSummaryProgress(res.data.summary_progress); setSummaryError(res.data.summary_error);
+          setCanAnalyzeSpeakers(res.data.can_analyze_speakers);
           if (res.data.status === 'completed') {
             setReportData(res.data.data);
+            if (meetingStatus !== 'completed') setMeetingVocabulary(res.data.data?.vocabulary || '');
             setAudioUrl(res.data.audio_url);
-            if (!['queued', 'processing'].includes(res.data.summary_status)) clearInterval(interval);
+            clearInterval(interval);
             fetchMeetings();
           } else if (res.data.status === 'failed') {
             clearInterval(interval);
@@ -168,19 +167,34 @@ function App() {
       }, 3000);
     }
     return () => clearInterval(interval);
-  }, [selectedMeetingId, meetingStatus, summaryStatus]);
+  }, [selectedMeetingId, meetingStatus]);
+
+  useEffect(() => {
+    if (!token || !email) return;
+    let active = true;
+    Promise.resolve().then(() => {
+      if (!active) return;
+      try {
+        const stored = JSON.parse(localStorage.getItem(`preferences:${email}`) || '{}');
+        setLanguage(stored.language || 'auto'); setDiarization(stored.diarization || 'auto');
+        if (stored.speechModel) setSpeechModel(stored.speechModel);
+      } catch { /* Use defaults if saved preferences cannot be read. */ }
+    });
+    axios.get(`${API_URL}/profile`).then(res => { if (active) setProfile(res.data); }).catch(() => {});
+    return () => { active = false; };
+  }, [token, email]);
 
   // --- App Actions ---
   const loadMeeting = async (id) => {
     selectedRef.current = id;
     setSelectedMeetingId(id);
-    setError('');
+    setError(''); setNotice(''); setSpeakerRoles({}); setEditingSpeaker(null);
     setReportData(null);
     setPreview(null);
     setAudioUrl(null);
-    setReportViewTab('highlights');
+    setReportViewTab('overview');
     setTranscriptSearch('');
-    setTranscriptPage(0); setSummaryStatus(null); setSummaryError(null); setSummaryProgress(null); setJobProgress(null);
+    setTranscriptPage(0); setJobProgress(null);
     try { setSpeakerNames(JSON.parse(localStorage.getItem(`speakerNames:${email}:${id}`) || '{}')); } catch { setSpeakerNames({}); }
     try {
       const res = await axios.get(`${API_URL}/meetings/${id}`);
@@ -188,7 +202,9 @@ function App() {
       setMeetingStatus(res.data.status);
       setProcessingStage(res.data.stage);
       setMeetingTitle(res.data.title); setJobProgress(res.data.progress); setPreview(res.data.preview);
-      setSummaryStatus(res.data.summary_status); setSummaryProgress(res.data.summary_progress); setSummaryError(res.data.summary_error);
+      setCanAnalyzeSpeakers(res.data.can_analyze_speakers);
+      setSpeakerRoles(res.data.data?.speaker_roles || {});
+      setMeetingVocabulary(res.data.data?.vocabulary || '');
       if (res.data.data?.speaker_names) setSpeakerNames(res.data.data.speaker_names);
       if (res.data.status === "failed") setError(res.data.error || "Processing failed");
       setAudioUrl(res.data.audio_url);
@@ -215,7 +231,7 @@ function App() {
 
   useEffect(() => {
     recordingExists().then(count => setHasDraft(count > 0)).catch(() => setError('Recording storage is unavailable. You can still upload audio.'));
-    axios.get(`${API_URL}/health`).then(res => { setModelReady(res.data.asr_ready); setSpeechModels(res.data.asr_models || []); setSpeechModel(res.data.asr_model || ''); setSummaryModels(res.data.summary_models || []); }).catch(() => setModelReady(false));
+    axios.get(`${API_URL}/health`).then(res => { setModelReady(res.data.asr_ready); setSpeechModels(res.data.asr_models || []); let stored = {}; try { stored = JSON.parse(localStorage.getItem(`preferences:${localStorage.getItem('userEmail')}`) || '{}'); } catch {} setSpeechModel(res.data.asr_models?.includes(stored.speechModel) ? stored.speechModel : res.data.asr_model || ''); setSpeakerSetup(res.data.diarization); }).catch(() => setModelReady(false));
     navigator.mediaDevices?.enumerateDevices().then(list => setDevices(list.filter(d => d.kind === 'audioinput'))).catch(() => {});
     return () => {
       clearInterval(timerRef.current);
@@ -336,7 +352,8 @@ function App() {
   const saveSpeakerName = async (speakerId) => {
     const meetingId = selectedMeetingId;
     const updated = { ...speakerNames, [speakerId]: editNameValue };
-    try { await axios.post(`${API_URL}/meetings/${meetingId}/edit`, { speaker_names: updated }); if (selectedRef.current === meetingId) { setSpeakerNames(updated); setEditingSpeaker(null); } }
+    const roles = { ...speakerRoles, [speakerId]: editRoleValue };
+    try { await axios.post(`${API_URL}/meetings/${meetingId}/edit`, { speaker_names: updated, speaker_roles: roles }); if (selectedRef.current === meetingId) { setSpeakerNames(updated); setSpeakerRoles(roles); setEditingSpeaker(null); } }
     catch { setError('Could not save the speaker name.'); }
   };
 
@@ -352,517 +369,152 @@ function App() {
     } catch { setError('Report export failed.'); }
   };
 
-  const findContext = (textOrTimestamp) => {
-    if (!reportData || !reportData.transcript_segments || reportData.transcript_segments.length === 0) return null;
-
-    let index = -1;
-    if (typeof textOrTimestamp === 'string' && textOrTimestamp) {
-      const target = textOrTimestamp.trim().toLowerCase();
-      // Try exact match first, then substring match
-      index = reportData.transcript_segments.findIndex(s => s.text.toLowerCase() === target);
-      if (index === -1) {
-        index = reportData.transcript_segments.findIndex(s => s.text.toLowerCase().includes(target) || target.includes(s.text.toLowerCase()));
+  const newMeeting = () => {
+    selectedRef.current = null; setSelectedMeetingId(null); setReportData(null); setMeetingStatus(null);
+    setAudioUrl(null); setMeetingTitle(''); setError(''); setNotice(''); setScreen('home');
+  };
+  const savePreferences = (key, value) => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(`preferences:${email}`) || '{}');
+      localStorage.setItem(`preferences:${email}`, JSON.stringify({ ...stored, [key]: value }));
+    } catch { setError('Could not save this preference.'); }
+  };
+  const saveVocabulary = async () => {
+    const id = selectedMeetingId;
+    try {
+      await axios.post(`${API_URL}/meetings/${id}/edit`, { vocabulary: meetingVocabulary });
+      if (selectedRef.current === id) {
+        setReportData(data => ({ ...data, vocabulary: meetingVocabulary })); setNotice('Vocabulary saved with this meeting.');
       }
-    } else if (typeof textOrTimestamp === 'number') {
-      let minDiff = Infinity;
-      reportData.transcript_segments.forEach((s, i) => {
-        const diff = Math.abs(s.start - textOrTimestamp);
-        if (diff < minDiff) { minDiff = diff; index = i; }
-      });
-    }
+    } catch { setError('Could not save vocabulary.'); }
+  };
+  const stageLabels = { decoding: 'Preparing audio', preprocessing: 'Preparing audio', diarization: 'Finding speakers', transcription: 'Writing the transcript', slides: 'Reading your presentation', alignment: 'Matching discussion to slides', events: 'Finding important items', decisions: 'Organising decisions', interactions: 'Reviewing discussion', influence: 'Analysing contributions', report: 'Saving your results' };
+  const filteredMeetings = meetings.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  const segments = reportData?.transcript_segments || [];
+  const visibleSegments = segments.filter(s => printing || s.text.toLowerCase().includes(transcriptSearch.toLowerCase()) || (speakerNames[s.speaker] || s.speaker).toLowerCase().includes(transcriptSearch.toLowerCase()));
+  const decisions = reportData?.decisions || [];
+  const actions = (reportData?.action_items || []).map(item => ({ ...item, timestamp: item.timestamp_s ?? (typeof item.timestamp === 'number' ? item.timestamp : /^\d+:\d+:\d+$/.test(item.timestamp || '') ? item.timestamp.split(':').reduce((total, part) => total * 60 + Number(part), 0) : null) }));
+  const participants = reportData?.participants || [];
+  const influence = (reportData?.influence || []).map(person => ({ ...person, speaker_id: person.participant || person.speaker_id, score: person.influence_score ?? person.score }));
+  const eventTimeline = reportData?.event_timeline || [];
+  const panelVisible = name => printing || reportViewTab === name;
+  const speakerLabel = speaker => speakerNames[speaker] || (speaker === 'UNKNOWN' || !speaker ? 'Speaker not identified' : speaker.replace('SPEAKER_', 'Speaker '));
 
-    if (index === -1) return null;
-
-    const startIdx = Math.max(0, index - 1);
-    const endIdx = Math.min(reportData.transcript_segments.length - 1, index + 1);
-
-    return reportData.transcript_segments.slice(startIdx, endIdx + 1).map(s => ({
-      ...s,
-      isTarget: s === reportData.transcript_segments[index]
-    }));
+  const languageLabel = code => ({ en: 'English', hi: 'Hindi', auto: 'Automatic' }[code] || code || 'Language unavailable');
+  const speakerRole = speaker => speakerRoles[speaker] || participants.find(p => p.speaker_id === speaker)?.roles?.join(', ').replaceAll('_', ' ') || '';
+  const featureKeys = [['proposal_contribution', 'proposal', 'Proposals'], ['evidence_contribution', 'evidence', 'Evidence'], ['objection_contribution', 'objection', 'Challenges'], ['revision_contribution', 'revision', 'Revisions'], ['decision_contribution', 'decision', 'Decisions'], ['interaction_contribution', 'interaction', 'Interactions'], ['slide_grounded_contribution', 'slide_grounding', 'Slide grounding']];
+  const decisionEvidence = decision => {
+    const ids = new Set([decision.proposal_event_id, decision.final_decision_event_id, ...[...(decision.evidence_items || []), ...(decision.revisions || []), ...(decision.agreements || []), ...(decision.objections || [])].map(item => item.event_id)]);
+    return eventTimeline.filter(event => ids.has(event.event_id)).sort((a, b) => a.start - b.start);
+  };
+  const analyzeSpeakers = async () => {
+    const id = selectedMeetingId; setAnalyzingSpeakers(true);
+    try {
+      await axios.post(`${API_URL}/meetings/${id}/analyze-speakers`);
+      if (selectedRef.current === id) { setMeetingStatus('queued'); setReportData(null); setJobProgress(null); setPreview(null); setNotice('Speaker analysis queued. Your recording and meeting title are saved.'); }
+    } catch (err) { setError(err.response?.data?.detail || 'Could not start speaker analysis.'); }
+    finally { setAnalyzingSpeakers(false); }
   };
 
-  // --- Render Auth Screens ---
-  if (!token) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center font-sans p-4">
-        {/* ... Auth code unchanged ... */}
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
-          <div className="bg-slate-900 p-10 text-center">
-            <Mic2 className="w-14 h-14 text-indigo-400 mx-auto mb-4" />
-            <h1 className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 tracking-tight">Meet IQ</h1>
-            <p className="text-slate-400 mt-2 text-sm font-medium">Offline Meeting Intelligence</p>
-          </div>
-          <div className="p-8">
-            {authError && <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm font-medium rounded-lg border border-red-200">{authError}</div>}
-            {authSuccess && <div className="mb-4 p-3 bg-emerald-50 text-emerald-600 text-sm font-medium rounded-lg border border-emerald-200">{authSuccess}</div>}
 
-            <form onSubmit={handleAuthSubmit} className="space-y-5">
-              {(
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1">Work Email</label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
-                    <input type="email" required value={authEmail} onChange={e=>setAuthEmail(e.target.value)} className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="you@company.com" />
-                  </div>
-                </div>
-              )}
-              {(authView === 'login' || authView === 'register') && (
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1">Password</label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
-                    <input type="password" required minLength={8} maxLength={64} value={authPassword} onChange={e=>setAuthPassword(e.target.value)} className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="•••••••• (Min 8 chars)" />
-                  </div>
-                  {authView === 'login' && (
-                    <div className="flex justify-end mt-1">
-                      <button type="button" onClick={() => setAuthSuccess('Account recovery is available from the laptop terminal. See the README under Local account recovery.')} className="text-xs text-indigo-600 hover:underline">Forgot password?</button>
-                    </div>
-                  )}
-                </div>
-              )}
-              <button type="submit" className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3 rounded-lg transition shadow-md flex justify-center items-center">
-                {authView === 'login' && 'Sign In to Meet IQ'}
-                {authView === 'register' && 'Create Account'}
-              </button>
-              <div className="text-center text-sm text-slate-500 mt-4">
-                {authView === 'login' && <p>Don't have an account? <button type="button" onClick={() => setAuthView('register')} className="text-indigo-600 font-bold hover:underline">Register</button></p>}
-                {authView === 'register' && <p>Already have an account? <button type="button" onClick={() => setAuthView('login')} className="text-indigo-600 font-bold hover:underline">Sign in</button></p>}
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  if (!token) return <div className="auth-shell"><section className="auth-card">
+    <div className="brand"><Mic2 aria-hidden="true" /> InfluenceIQ</div>
+    <h1>{authView === 'register' ? 'Create your local account' : 'Welcome back'}</h1>
+    <p className="muted">Your meetings stay on this laptop.</p>
+    {authError && <p role="alert" className="notice error">{authError}</p>}
+    {authSuccess && <p role="status" className="notice">{authSuccess}</p>}
+    <form onSubmit={handleAuthSubmit} className="stack">
+      <label>Email<input type="email" autoComplete="username" required value={authEmail} onChange={e => setAuthEmail(e.target.value)} placeholder="you@example.com" /></label>
+      <label>Password<input type="password" autoComplete={authView === 'register' ? 'new-password' : 'current-password'} required minLength={authView === 'register' ? 8 : 1} maxLength={64} value={authPassword} onChange={e => setAuthPassword(e.target.value)} /></label>
+      <button className="primary" type="submit">{authView === 'register' ? 'Create Account' : 'Sign in'}</button>
+    </form>
+    <button className="text-button" onClick={() => { setAuthView(authView === 'login' ? 'register' : 'login'); setAuthError(''); }}>{authView === 'login' ? 'Register' : 'I already have an account'}</button>
+    {authView === 'login' && <details className="muted small"><summary>Account recovery</summary><p>On this laptop, run the password-recovery command in the README. No email is sent.</p></details>}
+  </section></div>;
 
-  // --- Main App ---
-  const filteredMeetings = meetings.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase()) || m.id.includes(searchQuery));
-
-  return (
-    <div className="flex h-screen bg-slate-50 text-slate-900 font-sans overflow-hidden print:h-auto print:block print:bg-white">
-      {/* Dark Premium Sidebar - HIDDEN ON PRINT */}
-      <aside className="w-80 bg-slate-900 border-r border-slate-800 flex flex-col h-full shadow-2xl z-10 flex-shrink-0 text-slate-300 print:hidden">
-        <div className="p-6 border-b border-slate-800 flex items-center space-x-3">
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-xl shadow-lg">
-            <Mic2 className="text-white w-6 h-6" />
-          </div>
-          <h1 className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300 tracking-tight">Meet IQ</h1>
-        </div>
-
-        <div className="p-4 flex-1 flex flex-col overflow-hidden">
-          <button
-            onClick={() => { selectedRef.current = null; setSelectedMeetingId(null); setReportData(null); setMeetingStatus(null); setSummaryStatus(null); setAudioUrl(null); setMeetingTitle(''); setError(''); }}
-            className="w-full mb-6 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center transition shadow-lg"
-          >
-            + Analyze New Meeting
-          </button>
-
-          <div className="relative mb-6">
-            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
-            <input type="text" placeholder="Search history..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-9 pr-3 py-2 bg-slate-800 border-none rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-200 placeholder-slate-500" />
-          </div>
-          <button className="text-xs underline mb-3" onClick={async () => {
-            try { const res = await axios.get(`${API_URL}/search`, { params: { q: searchQuery } }); setLibraryHits(res.data.results); }
-            catch { setError('Enter a phrase to search saved transcripts.'); }
-          }} disabled={!searchQuery.trim()}>Search words across transcripts</button>
-          {libraryHits && <div className="overflow-y-auto max-h-48 text-sm mb-3">
-            <button onClick={() => setLibraryHits(null)} className="underline">Close results</button>
-            {!libraryHits.length && <p>No matching transcript passages.</p>}
-            {libraryHits.map(hit => <button key={`${hit.meeting_id}:${hit.segment_id}`} onClick={() => loadMeeting(hit.meeting_id)} className="block text-left p-2 border-b border-slate-700 w-full"><strong>{hit.title}</strong><p className="text-xs">{formatTime(hit.start)} · {hit.text}</p></button>)}
-          </div>}
-
-          <div className="flex items-center space-x-2 mb-3 text-slate-500 px-1">
-            <History className="w-4 h-4" />
-            <h2 className="text-xs font-bold uppercase tracking-widest">Meeting Library</h2>
-          </div>
-
-          <div className="space-y-2 overflow-y-auto flex-1 pr-1 custom-scrollbar">
-            {filteredMeetings.map(m => (
-              <div key={m.id} onClick={() => loadMeeting(m.id)} className={`p-3 rounded-xl cursor-pointer border transition ${selectedMeetingId === m.id ? 'bg-indigo-900/50 border-indigo-500/50 shadow-inner' : 'bg-slate-800/30 border-transparent hover:bg-slate-800'}`}>
-                <div className="flex justify-between items-center mb-1">
-                  <span className="font-semibold text-sm truncate pr-2 text-slate-200">{m.title}</span>
-                  {m.status === 'completed' && <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />}
-                  {['queued', 'processing'].includes(m.status) && <RefreshCw className="w-4 h-4 text-indigo-400 animate-spin flex-shrink-0" />}
-                  {m.status === 'failed' && <X className="w-4 h-4 text-red-400 flex-shrink-0" />}
-                </div>
-                <div className="text-xs text-slate-500 font-mono truncate">{m.id}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer Logout */}
-        <div className="p-4 border-t border-slate-800 bg-slate-900/50 flex flex-col space-y-3">
-          <div className="flex items-center justify-between px-2 pt-2">
-            <div className="flex items-center space-x-3 truncate">
-              <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-indigo-400 font-bold flex-shrink-0 border border-slate-700">
-                {email.charAt(0).toUpperCase()}
-              </div>
-              <p className="font-medium text-xs text-slate-300 truncate">{email}</p>
-            </div>
-            <button onClick={handleLogout} className="text-xs font-bold text-slate-500 hover:text-red-400 transition">Logout</button>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content Area */}
-      <main className="flex-1 h-full overflow-y-auto p-10 relative bg-slate-50 print:p-0 print:overflow-visible print:bg-white print:block">
-        {error && selectedMeetingId && <p role="alert" className="p-4 bg-red-50 text-red-700">{error}</p>}
-        {modelReady === false && <p role="status" className="p-4 bg-amber-50 text-amber-900">Speech model is unavailable. Complete model setup on the laptop before analysis.</p>}
-        {hasDraft && !isRecording && <div className="p-4 bg-blue-50 flex flex-wrap gap-3 items-center"><span>Recording saved on this device.</span><button onClick={recoverDraft} className="underline">Recover recording</button><button onClick={async () => { if (!window.confirm('Discard the saved recording on this device?')) return; await clearRecording(); setHasDraft(false); setAudioFiles(null); }} className="underline">Discard recording</button></div>}
-        {['queued', 'processing'].includes(meetingStatus) && <p role="status" className="p-4 bg-indigo-50">Processing stage: {processingStage || meetingStatus}. You can return to this meeting later.</p>}
-        {meetingStatus === 'failed' && <button className="m-4 underline" onClick={async () => { try { await axios.post(`${API_URL}/meetings/${selectedMeetingId}/retry`); setMeetingStatus('queued'); setError(''); } catch (err) { setError(err.response?.data?.detail || 'Retry failed'); } }}>Retry processing</button>}
-        {reportData?.processing?.warnings?.map((warning, i) => <p key={i} className="p-4 bg-amber-50 text-amber-900">{warning}</p>)}
-
-
-        {/* Upload State */}
-        {!selectedMeetingId && (
-          <div className="max-w-2xl mx-auto bg-white p-10 rounded-2xl shadow-xl border border-slate-100 animate-fade-in mt-10 print:hidden">
-            <h2 className="text-3xl font-extrabold mb-2 text-slate-900">Your next meeting</h2>
-            <p className="text-slate-500 mb-8 font-medium">Record on your device or upload meeting audio for local analysis.</p>
-
-            <div className="space-y-6">
-              <label className="block text-sm font-semibold">Meeting title<input maxLength={200} value={meetingTitle} onChange={e => setMeetingTitle(e.target.value)} placeholder="Weekly planning, client review…" className="mt-2 w-full border rounded-lg p-3" /></label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <label className="text-sm">Capture source<select disabled={isRecording} value={captureSource} onChange={e => setCaptureSource(e.target.value)} className="block mt-1 w-full border rounded-lg p-2"><option value="mic">Room microphone</option><option value="tab">Microphone + shared tab audio</option></select></label>
-                <label className="text-sm">Microphone<select disabled={isRecording} value={deviceId} onChange={e => setDeviceId(e.target.value)} className="block mt-1 w-full border rounded-lg p-2"><option value="">System default</option>{devices.map((d, i) => d.deviceId && <option key={d.deviceId} value={d.deviceId}>{d.label || `Microphone ${i + 1}`}</option>)}</select></label>
-              </div>
-              <p className="text-xs text-slate-500">For a large room, use a conference microphone close to participants. Tab audio needs a supported browser and “Share tab audio”. Recording stays on this device until you submit it.</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Live Record Card */}
-                <div className={`border-2 ${isRecording ? 'border-red-400 bg-red-50' : 'border-slate-300 bg-slate-50 hover:border-indigo-300 hover:bg-indigo-50'} rounded-xl p-8 flex flex-col items-center justify-center transition relative`}>
-                  {isRecording ? (
-                    <>
-                      <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
-                        <div className="w-6 h-6 bg-red-500 rounded-full animate-ping absolute"></div>
-                        <div className="w-6 h-6 bg-red-600 rounded-full relative z-10"></div>
-                      </div>
-                      <span className="text-xl font-black text-red-600 mb-2">{formatTime(recordingTime)}</span>
-                      <span className="text-xs">{isPaused ? 'Paused · elapsed time' : audioLevel < 2 ? 'Very quiet — check microphone placement' : 'Microphone active'}</span>
-                      <meter min="0" max="100" value={audioLevel} aria-label="Audio input level" className="w-full mt-2" />
-                      <button className="underline mt-2" onClick={() => { const recorder = mediaRecorderRef.current; if (recorder?.state === 'recording') { recorder.pause(); setIsPaused(true); } else if (recorder?.state === 'paused') { recorder.resume(); setIsPaused(false); } }}>{isPaused ? 'Resume recording' : 'Pause recording'}</button>
-                      <button onClick={stopRecording} className="mt-2 px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold shadow-md transition w-full">Stop & Save</button>
-                    </>
-                  ) : (
-                    <>
-                      <Mic2 className="w-12 h-12 text-indigo-400 mb-4" />
-                      <span className="text-lg font-bold text-slate-700 text-center">Record Live</span>
-                      <span className="text-xs text-slate-400 mt-1 text-center font-medium">Capture directly from browser</span>
-                      <button onClick={startRecording} className="mt-4 px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-bold shadow-md transition w-full">Start Recording</button>
-                    </>
-                  )}
-                </div>
-
-                {/* File Upload Card */}
-                <div className={`border-2 border-dashed ${isRecording ? 'opacity-50 pointer-events-none' : ''} border-slate-300 rounded-xl p-8 flex flex-col items-center justify-center bg-slate-50 hover:bg-indigo-50 hover:border-indigo-300 transition relative group`}>
-                  <FileAudio className="w-12 h-12 text-indigo-400 mb-4 group-hover:scale-110 transition duration-300" />
-                  <span className="text-lg font-bold text-slate-700 text-center">Upload Audio</span>
-                  <span className="text-xs text-slate-400 mt-1 text-center font-medium">Drop .wav, .mp3, .m4a</span>
-                  <input type="file" multiple accept="audio/*" onChange={(e) => setAudioFiles(e.target.files)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-                  {audioFiles && audioFiles.length > 0 && !isRecording && <div className="mt-4 px-4 py-1.5 bg-indigo-600 text-white rounded-full text-xs font-bold shadow-md text-center">{audioFiles.length} file(s) ready</div>}
-                </div>
-              </div>
-
-              {/* PPT Upload - Optional */}
-              <div className={`border-2 border-dashed border-slate-300 rounded-xl p-6 flex flex-col items-center justify-center bg-slate-50 hover:bg-indigo-50 hover:border-indigo-300 transition relative group ${isRecording ? 'opacity-50 pointer-events-none' : ''}`}>
-                <FileVideo className="w-8 h-8 text-indigo-300 mb-2 group-hover:scale-110 transition duration-300" />
-                <span className="text-sm font-bold text-slate-600">Add Boardroom Presentation (.pptx) (Optional)</span>
-                <input aria-label="Optional presentation" type="file" accept=".pptx" onChange={(e) => setPptFiles(e.target.files)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-                {pptFiles && pptFiles.length > 0 && <p className="mt-2 text-xs text-indigo-600 font-bold bg-indigo-100 px-3 py-1 rounded-full">{pptFiles.length} file(s) selected</p>}
-              </div>
-              {audioFiles?.length > 0 && <ol className="text-sm space-y-2">{Array.from(audioFiles).map((file, i) => <li key={`${file.name}:${i}`} className="flex items-center gap-2"><span className="flex-1 min-w-0 break-words">Part {i + 1}: {file.name} ({(file.size / 1024 / 1024).toFixed(1)} MB)</span><button disabled={i === 0 || uploading} onClick={() => { const parts = Array.from(audioFiles); [parts[i - 1], parts[i]] = [parts[i], parts[i - 1]]; setAudioFiles(parts); }} className="underline">Move up</button><button disabled={uploading} onClick={() => setAudioFiles(Array.from(audioFiles).filter((_, j) => j !== i))} className="underline">Remove</button></li>)}</ol>}
-              <details className="border rounded-lg p-4"><summary className="cursor-pointer font-semibold">Transcription settings</summary>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-sm">
-                  <label>Speech model<select aria-label="Speech model" value={speechModel} onChange={e => setSpeechModel(e.target.value)} className="block w-full border rounded p-2">{!speechModels.length && <option value={speechModel}>{speechModel || 'No installed model'}</option>}{speechModels.map(m => <option key={m} value={m}>{m}</option>)}</select></label>
-                  <label>Language<select aria-label="Language" value={language} onChange={e => setLanguage(e.target.value)} className="block w-full border rounded p-2"><option value="auto">Hindi / English automatic</option><option value="en">English</option><option value="hi">Hindi</option></select></label>
-                  <label>Speaker separation<select aria-label="Speaker separation" value={diarization} onChange={e => setDiarization(e.target.value)} className="block w-full border rounded p-2"><option value="auto">Try available local model</option><option value="required">Require speaker model</option><option value="off">Off</option></select></label>
-                  <label>Expected speakers (optional)<input type="number" min={1} max={50} value={numSpeakers} disabled={diarization === 'off'} onChange={e => setNumSpeakers(e.target.value)} className="block w-full border rounded p-2" /></label>
-                </div>
-                <label className="block text-sm mt-3">Names and technical vocabulary<textarea maxLength={1000} value={vocabulary} onChange={e => setVocabulary(e.target.value)} placeholder="Names, acronyms and unusual spellings heard in this meeting" className="block w-full border rounded p-2 mt-1" /></label>
-                <p className="text-xs text-slate-500 mt-2">Larger models need more time and memory. Vocabulary provides spelling hints; it does not guarantee recognition. Sequential audio parts are joined in the displayed order.</p>
-              </details>
-            </div>
-
-            {error && <p className="text-red-500 text-sm mt-6 text-center font-bold bg-red-50 py-2 rounded-lg">{error}</p>}
-
-            {!isRecording && (
-              <button onClick={() => handleAnalyze(null)} disabled={uploading || (!audioFiles || audioFiles.length === 0)} className="w-full mt-8 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center transition shadow-lg text-lg">
-                {uploading ? 'Saving meeting…' : 'Transcribe & analyse locally'} <ChevronRight className="w-6 h-6 ml-2" />
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* Processing State */}
-        {selectedMeetingId && ['queued', 'processing'].includes(meetingStatus) && (
-          <div className="flex flex-col items-center justify-center h-full space-y-8 animate-fade-in pb-20 print:hidden">
-            <div className="relative">
-              <div className="absolute inset-0 border-4 border-indigo-200 rounded-full animate-ping opacity-30"></div>
-              <div className="animate-spin rounded-full h-24 w-24 border-t-4 border-b-4 border-indigo-600 relative z-10"></div>
-              <Mic2 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-indigo-600 w-8 h-8 z-20" />
-            </div>
-            <div className="text-center">
-              <h3 className="text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">Processing your meeting…</h3>
-              <p className="text-slate-500 max-w-md mx-auto text-lg leading-relaxed">Your recording is processed on this laptop. Completed transcription parts are saved automatically.</p>
-              {jobProgress?.total_seconds > 0 && <div className="mt-4"><progress className="w-full" max={jobProgress.total_seconds} value={jobProgress.completed_seconds || 0} /><p>{formatTime(jobProgress.completed_seconds || 0)} / {formatTime(jobProgress.total_seconds)} transcribed</p></div>}
-            </div>
-            {!!preview?.transcript_segments?.length && <div className="w-full max-w-3xl rounded-xl border border-slate-200 bg-white p-5 max-h-96 overflow-y-auto">
-              <h4 className="font-bold">Latest saved transcript — draft</h4>
-              <p className="text-sm text-slate-500 mb-3">{preview.total_segments} passages saved. Review recognition against the recording; the final report will follow.</p>
-              {preview.transcript_segments.map(segment => <p key={segment.segment_id} className="mb-2 break-words"><span className="text-slate-500 mr-2">{formatTime(segment.start)}</span>{segment.text}</p>)}
-              {!!preview.events?.length && <p className="text-sm text-indigo-700 mt-3">{preview.events.length} event candidates in these passages.</p>}
+  return <div className="meeting-app">
+    <header className="app-header print:hidden">
+      <button className="brand text-button" onClick={newMeeting} disabled={isRecording}><Mic2 aria-hidden="true" /> InfluenceIQ</button>
+      <nav aria-label="Main navigation">
+        <button aria-current={screen === 'home' && !selectedMeetingId ? 'page' : undefined} disabled={isRecording} onClick={newMeeting}>Home</button>
+        <button aria-current={screen === 'history' ? 'page' : undefined} disabled={isRecording} onClick={() => { setScreen('history'); fetchMeetings(); }}>History</button>
+        <button aria-current={screen === 'settings' ? 'page' : undefined} disabled={isRecording} onClick={() => setScreen('settings')}>Settings</button>
+      </nav>
+    </header>
+    <main className="app-content">
+      {error && <div role="alert" className="notice error"><span>{error}</span><button className="text-button" onClick={() => setError('')}>Dismiss</button></div>}
+      {notice && <div role="status" className="notice"><span>{notice}</span><button className="text-button" onClick={() => setNotice('')}>Dismiss</button></div>}
+      {screen === 'settings' ? <div className="stack settings-page print:hidden">
+        <div><h1>Settings</h1><p className="muted">Set up once. Start meetings with fewer steps.</p></div>
+        <section className="panel stack"><h2>Your profile</h2><p className="muted small">Saved locally for your account. {email}</p>
+          <label>Name<input maxLength={100} value={profile.name || ''} onChange={e => setProfile({ ...profile, name: e.target.value })} /></label>
+          <label>Your role<input maxLength={100} value={profile.role || ''} onChange={e => setProfile({ ...profile, role: e.target.value })} /></label>
+          <label>Organisation<input maxLength={200} value={profile.organization || ''} onChange={e => setProfile({ ...profile, organization: e.target.value })} /></label>
+          <button className="primary" onClick={async () => { try { await axios.post(`${API_URL}/profile`, profile); setNotice('Profile saved.'); } catch { setError('Could not save your profile.'); } }}>Save profile</button>
+        </section>
+        <section className="panel stack"><h2>Language</h2>
+          <label>Transcription language<select aria-label="Language" value={language} onChange={e => { setLanguage(e.target.value); savePreferences('language', e.target.value); }}><option value="auto">Automatic · Hindi / English</option><option value="en">English</option><option value="hi">Hindi</option></select></label>
+          <p className="muted small">Automatic is recommended. Choose a language if detection needs help.</p>
+        </section>
+        <section className="panel stack"><h2>Speaker analysis</h2><p>{speakerSetup?.message || 'Checking local speaker setup…'}</p><p className="muted small">Automatic speaker clusters can split or merge people incorrectly. Use the expected speaker count when known, then review the transcript. Human names are not recognised automatically.</p></section>
+        <details className="panel stack"><summary>Advanced audio settings</summary><div className="stack">
+          <label>Speech model<select aria-label="Speech model" value={speechModel} onChange={e => { setSpeechModel(e.target.value); savePreferences('speechModel', e.target.value); }}>{!speechModels.length && <option value={speechModel}>{speechModel || 'No model installed'}</option>}{speechModels.map(m => <option key={m}>{m}</option>)}</select></label>
+          <p className="muted small">Larger models may improve recognition and take more time. {modelReady === false ? 'Complete local model setup before analysing.' : 'Speech models are ready for local analysis.'}</p>
+          <label>Speaker separation<select aria-label="Speaker separation" value={diarization} onChange={e => { setDiarization(e.target.value); savePreferences('diarization', e.target.value); }}><option value="auto">Automatic, when available</option><option value="required">Require speaker separation</option><option value="off">Off</option></select></label>
+          <label>Expected speakers (optional)<input type="number" min={1} max={50} disabled={diarization === 'off'} value={numSpeakers} onChange={e => setNumSpeakers(e.target.value)} /></label>
+          <label>Capture source<select value={captureSource} onChange={e => setCaptureSource(e.target.value)}><option value="mic">Microphone</option><option value="tab">Microphone + shared tab audio</option></select></label>
+          <label>Microphone<select value={deviceId} onChange={e => setDeviceId(e.target.value)}><option value="">System default</option>{devices.filter(d => d.deviceId).map((d, i) => <option key={d.deviceId} value={d.deviceId}>{d.label || `Microphone ${i + 1}`}</option>)}</select></label>
+        </div></details>
+        <p className="muted small">Meeting audio and analysis stay on this laptop. Review important results against the recording.</p>
+        <button onClick={handleLogout}>Sign out</button>
+      </div> : screen === 'history' ? <div className="stack print:hidden">
+        <div className="section-heading"><div><h1>History</h1><p className="muted">Recordings, results and your edits, saved together.</p></div><button className="primary" onClick={newMeeting}>New meeting</button></div>
+        <label className="sr-only" htmlFor="history-search">Search meetings</label><input id="history-search" placeholder="Search meetings…" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+        {filteredMeetings.length ? <div className="stack">{filteredMeetings.map(m => <button className="history-row" key={m.id} onClick={() => { setScreen('home'); loadMeeting(m.id); }}><strong>{m.title}</strong><span>{m.created_at ? new Date(m.created_at).toLocaleDateString() + ' · ' : ''}{m.status === 'completed' ? 'Ready to review' : m.status === 'processing' ? 'Analysing' : m.status}</span><ChevronRight aria-hidden="true" /></button>)}</div> : <section className="panel"><h2>{meetings.length ? 'No matching meetings' : 'Your first meeting starts here'}</h2><p className="muted">Record or upload audio from Home.</p></section>}
+      </div> : <>
+        {!selectedMeetingId && <div className="stack new-meeting print:hidden">
+          <div><p className="eyebrow">Private · on this laptop</p><h1>Capture the conversation.</h1><p className="muted">We’ll organise the transcript, actions and decisions.</p></div>
+          {hasDraft && !isRecording && <div className="notice"><span>Recording saved on this device.</span><button onClick={recoverDraft}>Recover recording</button><button className="text-button" onClick={async () => { if (!window.confirm('Discard the saved recording?')) return; await clearRecording(); setHasDraft(false); setAudioFiles(null); }}>Discard</button></div>}
+          <section className="panel stack">
+            {isRecording ? <div className="recording-state"><span className="eyebrow">{isPaused ? 'Paused' : 'Recording'}</span><strong className="recording-time">{formatTime(recordingTime)}</strong><meter min="0" max="100" value={audioLevel} aria-label="Audio input level" /><p className="muted small">{audioLevel < 2 && !isPaused ? 'Move closer to the microphone if the room is quiet.' : 'Keep this tab open while recording.'}</p><div className="button-row"><button onClick={() => { const recorder = mediaRecorderRef.current; if (recorder?.state === 'recording') { recorder.pause(); setIsPaused(true); } else if (recorder?.state === 'paused') { recorder.resume(); setIsPaused(false); } }}>{isPaused ? 'Resume recording' : 'Pause recording'}</button><button className="primary" onClick={stopRecording}>Stop & Save</button></div></div> : <div className="capture-actions">
+              <button className="capture primary" onClick={startRecording} disabled={uploading || hasDraft === null || hasDraft}><Mic2 aria-hidden="true" /><strong>Record meeting</strong><span>Use your microphone</span></button>
+              <label className="capture upload"><FileAudio aria-hidden="true" /><strong>Upload audio</strong><span>WAV, MP3, M4A and more</span><input aria-label="Upload audio" type="file" multiple accept="audio/*,.mp4,.webm,.m4a,.flac,.aac,.ogg" disabled={uploading} onChange={e => setAudioFiles(Array.from(e.target.files))} /></label>
             </div>}
-          </div>
-        )}
-
-        {/* Dashboard State */}
-        {selectedMeetingId && meetingStatus === 'completed' && reportData && (
-          <div className="space-y-8 animate-fade-in max-w-5xl mx-auto pb-20 pt-2 print:space-y-6 print:pb-0 print:pt-0 print:max-w-none" id="printable-report">
-
-            {/* Header */}
-            <div className="flex items-end justify-between border-b border-slate-200 pb-6 print:border-b-2 print:border-black print:pb-4">
-              <div>
-                <h2 className="text-4xl font-black text-slate-900 tracking-tight print:text-black">{meetingTitle}</h2>
-                <button className="text-sm underline print:hidden" onClick={async () => { const title = window.prompt('Meeting title', meetingTitle); if (!title?.trim()) return; try { await axios.post(`${API_URL}/meetings/${selectedMeetingId}/edit`, { title }); setMeetingTitle(title.trim()); fetchMeetings(); } catch { setError('Could not save the meeting title.'); } }}>Rename meeting</button>
-                <p className="text-slate-500 font-mono text-sm mt-2 font-medium bg-slate-200 inline-block px-2 py-0.5 rounded text-slate-700 print:bg-transparent print:p-0 print:text-black">ID: {selectedMeetingId}</p>
-              </div>
-              <div className="flex space-x-3 print:hidden">
-                <button onClick={() => window.print()} className="flex items-center space-x-2 px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-700 rounded-lg font-bold transition shadow-sm border border-slate-200">
-                  <Printer className="w-4 h-4" /><span>Print PDF</span>
-                </button>
-                <select aria-label="Export format" value={exportFormat} onChange={e => setExportFormat(e.target.value)} className="border rounded-lg p-2">{['json', 'md', 'txt', 'srt', 'vtt', 'csv'].map(f => <option key={f} value={f}>{f.toUpperCase()}</option>)}</select>
-                <button onClick={exportReport} className="flex items-center space-x-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold transition shadow-md">
-                  <Download className="w-4 h-4" /><span>Export</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Audio Player (If Available) - HIDDEN ON PRINT */}
-            {audioUrl && (
-              <div className="bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-5 flex items-center space-x-6 print:hidden">
-                <div className="bg-indigo-500/20 p-3 rounded-xl border border-indigo-500/30">
-                  <PlayCircle className="text-indigo-400 w-8 h-8" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-indigo-300 text-xs font-bold uppercase tracking-widest mb-2">Master Recording</p>
-                  <audio ref={audioRef} controls src={audioUrl} className="w-full h-10 outline-none rounded-lg" style={{ filter: 'invert(100%) hue-rotate(180deg) brightness(1.2)' }} />
-                </div>
-              </div>
-            )}
-
-            <MeetingNotes key={selectedMeetingId} api={API_URL} id={selectedMeetingId} data={reportData} models={summaryModels} status={summaryStatus} progress={summaryProgress} error={summaryError} onQueued={() => { setSummaryStatus('queued'); setSummaryError(null); }} seek={seek} />
-
-            {/* Metrics Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 print:grid-cols-3 print:gap-2">
-               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-5 print:shadow-none print:border print:border-slate-300">
-                 <div className="bg-indigo-50 p-4 rounded-2xl print:hidden"><Users className="text-indigo-600 w-6 h-6" /></div>
-                 <div><p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1 print:text-black">Participants</p><p className="text-3xl font-black text-slate-800 print:text-black">{reportData.processing?.speaker_separation === false ? "Unknown" : reportData.participants?.length || 0}</p></div>
-               </div>
-               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-5 print:shadow-none print:border print:border-slate-300">
-                 <div className="bg-emerald-50 p-4 rounded-2xl print:hidden"><CheckCircle className="text-emerald-600 w-6 h-6" /></div>
-                 <div><p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1 print:text-black">Decisions</p><p className="text-3xl font-black text-slate-800 print:text-black">{reportData.executive_summary?.num_confirmed_decisions || 0}</p></div>
-               </div>
-               <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-5 print:shadow-none print:border print:border-slate-300">
-                 <div className="bg-amber-50 p-4 rounded-2xl print:hidden"><Kanban className="text-amber-600 w-6 h-6" /></div>
-                 <div><p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1 print:text-black">Action Items</p><p className="text-3xl font-black text-slate-800 print:text-black">{reportData.action_items?.length || 0}</p></div>
-               </div>
-            </div>
-
-            {/* Influence Roster Editor */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print:shadow-none print:border print:border-slate-300 print:rounded-none">
-              <div className="px-8 py-5 border-b border-slate-200 bg-slate-50 flex items-center justify-between print:bg-white print:border-b-2 print:border-black">
-                <div className="flex items-center space-x-3"><BarChart3 className="w-5 h-5 text-indigo-600 print:hidden" /><h3 className="font-bold text-slate-800 text-lg print:text-black">Speaker roster · estimates</h3></div>
-              </div>
-              <div className="p-0 overflow-y-auto max-h-72 print:max-h-none print:overflow-visible">
-                <table className="w-full text-left border-collapse">
-                  <thead className="bg-white sticky top-0 border-b border-slate-200 shadow-sm text-slate-500 text-xs uppercase tracking-wider font-bold print:text-black print:border-b-2 print:shadow-none print:static">
-                    <tr><th className="px-8 py-4">Speaker Identity</th><th className="px-8 py-4">Inferred Roles</th><th className="px-8 py-4">Influence estimate</th></tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 print:divide-slate-300">
-                    {reportData.participants && [...reportData.participants].sort((a, b) => (b.influence_score || 0) - (a.influence_score || 0)).map((data) => {
-                      const speaker = data.speaker_id;
-                      const displayName = speakerNames[speaker] || speaker;
-                      return (
-                      <tr key={speaker} className="hover:bg-slate-50 transition group print:hover:bg-white">
-                        <td className="px-8 py-5 font-bold text-indigo-600 text-base print:text-black">
-                          {editingSpeaker === speaker ? (
-                            <div className="flex items-center space-x-2 print:hidden">
-                              <input autoFocus type="text" className="border-2 border-indigo-400 rounded-lg px-3 py-1.5 text-sm w-40 outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" value={editNameValue} onChange={(e) => setEditNameValue(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && saveSpeakerName(speaker)}/>
-                              <button onClick={() => saveSpeakerName(speaker)} className="text-white bg-emerald-500 p-1.5 hover:bg-emerald-600 rounded-lg shadow-sm"><Check className="w-4 h-4"/></button>
-                            </div>
-                          ) : (
-                            <div className="flex items-center space-x-3 cursor-pointer print:cursor-auto" onClick={() => { setEditingSpeaker(speaker); setEditNameValue(displayName); }}>
-                              <div className="bg-indigo-100 p-1.5 rounded-md print:hidden"><User className="w-4 h-4 text-indigo-600" /></div>
-                              <span>{displayName}</span>
-                              <Edit2 className="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition print:hidden" />
-                            </div>
-                          )}
-                        </td>
-                        <td className="px-8 py-5 text-slate-500 font-medium print:text-black">{data.roles && data.roles.length > 0 ? data.roles.join(', ') : 'Participant'}</td>
-                        <td className="px-8 py-5 text-slate-800 font-mono font-bold text-lg print:text-black">{Math.round((data.influence_score || 0) * 100)}</td>
-                      </tr>
-                    )})}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* Tabbed View: Highlights vs Transcript - HIDDEN ON PRINT */}
-            <div className="mt-10 border-b border-slate-200 print:hidden">
-              <nav className="flex space-x-10">
-                <button onClick={() => setReportViewTab('highlights')} className={`pb-4 px-2 font-bold text-sm transition border-b-4 ${reportViewTab === 'highlights' ? 'border-indigo-600 text-indigo-700' : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300'}`}>
-                  Meeting Highlights
-                </button>
-                <button onClick={() => setReportViewTab('transcript')} className={`pb-4 px-2 font-bold text-sm transition border-b-4 flex items-center space-x-2 ${reportViewTab === 'transcript' ? 'border-indigo-600 text-indigo-700' : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300'}`}>
-                  <AlignLeft className="w-4 h-4" /> <span>Full Transcript</span>
-                </button>
-              </nav>
-            </div>
-
-            {/* Highlights Content - ALWAYS BLOCK ON PRINT */}
-            <div className={`bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-fade-in print:shadow-none print:border-none print:rounded-none print:block print:mt-10 ${reportViewTab === 'highlights' ? 'block' : 'hidden'}`}>
-                <div className="px-8 py-5 border-b border-slate-200 bg-slate-50 flex items-center space-x-3 print:bg-white print:border-b-2 print:border-black print:px-0">
-                  <MessageSquare className="w-5 h-5 text-indigo-600 print:hidden" />
-                  <h3 className="font-bold text-slate-800 text-2xl print:text-black">Decision Candidates</h3>
-                </div>
-                <div className="p-8 space-y-6 print:px-0">
-                  {reportData.executive_summary?.confirmed_decisions && reportData.executive_summary.confirmed_decisions.length > 0 ? (
-                    <div className="space-y-5">
-                      {reportData.executive_summary.confirmed_decisions.map((dec, i) => {
-                        const context = findContext(dec.final_decision);
-                        return (
-                        <div key={i} className="p-6 bg-emerald-50 border border-emerald-100 rounded-2xl relative overflow-hidden shadow-sm hover:shadow transition print:border print:border-slate-400 print:bg-white print:shadow-none print:rounded-none">
-                          <div className="absolute top-0 left-0 w-1.5 bottom-0 bg-emerald-500 print:hidden"></div>
-                          <h4 className="font-black text-emerald-800 mb-2 text-xs uppercase tracking-widest print:text-black">Decision {i+1}</h4>
-                          <p className="text-emerald-950 font-medium text-lg leading-relaxed print:text-black">"{dec.final_decision}"</p>
-
-                          {context && (
-                            <div className="mt-4 pt-4 border-t border-emerald-200/50">
-                              <p className="text-xs font-bold uppercase tracking-widest text-emerald-700/70 mb-2 print:text-slate-500">Transcript Context</p>
-                              <div className="space-y-2 bg-emerald-500/5 p-4 rounded-xl border border-emerald-500/10 print:bg-white print:border-slate-200">
-                                {context.map((seg, idx) => {
-                                   const speakerName = speakerNames[seg.speaker] || seg.speaker;
-                                   return (
-                                     <div key={idx} className={`text-sm leading-relaxed ${seg.isTarget ? 'font-black text-emerald-900 print:text-black' : 'text-emerald-700/70 font-medium print:text-slate-600'}`}>
-                                       <span className="font-semibold uppercase tracking-wide mr-2 text-xs opacity-70">{speakerName}:</span>
-                                       {seg.text}
-                                     </div>
-                                   )
-                                })}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )})}
-                    </div>
-                  ) : (
-                    <div className="p-8 bg-slate-50 rounded-2xl text-slate-500 text-sm text-center border-2 border-dashed border-slate-200 font-medium print:bg-white print:text-black print:border-solid">No decision candidates extracted.</div>
-                  )}
-                </div>
-            </div>
-
-            {/* Action Items Content - ALWAYS BLOCK ON PRINT */}
-            <div className={`bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-fade-in print:shadow-none print:border-none print:rounded-none print:block print:mt-10 ${reportViewTab === 'highlights' ? 'block mt-8' : 'hidden'}`}>
-                <div className="px-8 py-5 border-b border-slate-200 bg-slate-50 flex items-center space-x-3 print:bg-white print:border-b-2 print:border-black print:px-0">
-                  <Kanban className="w-5 h-5 text-amber-600 print:hidden" />
-                  <h3 className="font-bold text-slate-800 text-2xl print:text-black">Action Items</h3>
-                </div>
-                <div className="p-8 space-y-6 print:px-0">
-                  {reportData.action_items && reportData.action_items.length > 0 ? (
-                    <div className="space-y-5">
-                      {reportData.action_items.map((task, i) => {
-                         const assigneeName = task.speaker ? (speakerNames[task.speaker] || task.speaker) : 'Unassigned';
-                         return (
-                          <div key={i} className="p-6 bg-amber-50 border border-amber-100 rounded-2xl relative overflow-hidden shadow-sm hover:shadow transition print:border print:border-slate-400 print:bg-white print:shadow-none print:rounded-none">
-                            <div className="absolute top-0 left-0 w-1.5 bottom-0 bg-amber-500 print:hidden"></div>
-                            <div className="flex items-center space-x-2 mb-2">
-                              <h4 className="font-black text-amber-800 text-xs uppercase tracking-widest print:text-black">Task {i+1}</h4>
-                              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 border border-amber-300 print:bg-transparent print:border-black print:text-black">Spoken by: {assigneeName}</span>
-                            </div>
-                            <p className="text-amber-950 font-medium text-lg leading-relaxed print:text-black">{task.text}</p>
-
-                            {(() => {
-                              const context = findContext(task.text);
-                              if (!context) return null;
-                              return (
-                                <div className="mt-4 pt-4 border-t border-amber-200/50">
-                                  <p className="text-xs font-bold uppercase tracking-widest text-amber-700/70 mb-2 print:text-slate-500">Transcript Context</p>
-                                  <div className="space-y-2 bg-amber-500/5 p-4 rounded-xl border border-amber-500/10 print:bg-white print:border-slate-200">
-                                    {context.map((seg, idx) => {
-                                       const speakerName = speakerNames[seg.speaker] || seg.speaker;
-                                       return (
-                                         <div key={idx} className={`text-sm leading-relaxed ${seg.isTarget ? 'font-black text-amber-900 print:text-black' : 'text-amber-700/70 font-medium print:text-slate-600'}`}>
-                                           <span className="font-semibold uppercase tracking-wide mr-2 text-xs opacity-70">{speakerName}:</span>
-                                           {seg.text}
-                                         </div>
-                                       )
-                                    })}
-                                  </div>
-                                </div>
-                              );
-                            })()}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <div className="p-8 bg-slate-50 rounded-2xl text-slate-500 text-sm text-center border-2 border-dashed border-slate-200 font-medium print:bg-white print:text-black print:border-solid">No action items extracted.</div>
-                  )}
-                </div>
-            </div>
-
-            {/* Transcript Content - ALWAYS BLOCK ON PRINT */}
-            <div className={`bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden animate-fade-in flex flex-col print:shadow-none print:border-none print:rounded-none print:block print:mt-10 print:h-auto ${reportViewTab === 'transcript' ? 'block max-h-[700px]' : 'hidden'}`}>
-                <div className="px-8 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between print:bg-white print:border-b-2 print:border-black print:px-0">
-                  <div className="flex items-center space-x-3">
-                    <AlignLeft className="w-5 h-5 text-indigo-600 print:hidden" />
-                    <h3 className="font-bold text-slate-800 text-2xl print:text-black">Full Meeting Transcript</h3>
-                  </div>
-                  <div className="relative print:hidden">
-                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2" />
-                    <input type="text" placeholder="Search transcript..." value={transcriptSearch} onChange={(e) => { setTranscriptSearch(e.target.value); setTranscriptPage(0); }} className="pl-9 pr-3 py-1.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none" />
-                  </div>
-                </div>
-
-                <div className="p-8 overflow-y-auto space-y-5 flex-1 custom-scrollbar print:p-0 print:overflow-visible print:max-h-none print:mt-6">
-                  {reportData.transcript_segments && reportData.transcript_segments.length > 0 ? (
-                    reportData.transcript_segments.filter(s => printing || s.text.toLowerCase().includes(transcriptSearch.toLowerCase()) || (speakerNames[s.speaker] || s.speaker).toLowerCase().includes(transcriptSearch.toLowerCase())).slice(printing ? 0 : transcriptPage * 100, printing ? undefined : (transcriptPage + 1) * 100).map((segment, i) => {
-                      const speakerName = speakerNames[segment.speaker] || segment.speaker;
-                      const hash = segment.speaker.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
-                      const colors = ['bg-blue-50 text-blue-900 border-blue-100', 'bg-indigo-50 text-indigo-900 border-indigo-100', 'bg-purple-50 text-purple-900 border-purple-100', 'bg-emerald-50 text-emerald-900 border-emerald-100'];
-                      const colorClass = colors[Math.abs(hash) % colors.length];
-
-                      return (
-                        <div key={i} className="flex flex-col mb-4 print:break-inside-avoid">
-                          <span className="text-xs font-black text-slate-400 uppercase tracking-wider mb-1.5 px-1 flex items-center print:text-black">
-                            {speakerName} {typeof segment.confidence === 'number' && segment.confidence < .5 && <button onClick={() => seek(segment.start)} title="Low model score; this is not a calibrated accuracy probability" className="ml-2 normal-case underline text-amber-700">Review audio</button>} <span className="font-mono lowercase text-slate-400 ml-3 font-medium print:text-slate-600"><button onClick={() => seek(segment.start)} className="underline" aria-label="Play this transcript passage">{formatTime(segment.start)}</button></span>
-                          </span>
-                          <div className={`p-4 rounded-2xl rounded-tl-sm border inline-block max-w-[90%] shadow-sm ${colorClass} text-base leading-relaxed print:bg-transparent print:border-none print:p-0 print:shadow-none print:text-black print:max-w-full`}>
-                            {segment.text}
-                          </div>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <div className="p-16 flex flex-col items-center justify-center text-slate-500 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 print:bg-white print:border-solid">
-                      <MessageSquare className="w-12 h-12 text-slate-300 mb-4 print:hidden" />
-                      <p className="font-medium text-lg print:text-black">No raw transcript available for this meeting.</p>
-                    </div>
-                  )}
-                </div>
-                <div className="flex gap-3 items-center p-3 border-t print:hidden">
-                  <button disabled={transcriptPage === 0} onClick={() => setTranscriptPage(p => p - 1)} className="underline disabled:text-slate-400">Previous</button>
-                  <span>Transcript page {transcriptPage + 1} · 100 passages per page</span>
-                  <button disabled={(transcriptPage + 1) * 100 >= (reportData.transcript_segments || []).filter(s => s.text.toLowerCase().includes(transcriptSearch.toLowerCase()) || (speakerNames[s.speaker] || s.speaker).toLowerCase().includes(transcriptSearch.toLowerCase())).length} onClick={() => setTranscriptPage(p => p + 1)} className="underline disabled:text-slate-400">Next</button>
-                </div>
-            </div>
-
-          </div>
-        )}
-      </main>
-    </div>
-  );
+            {audioFiles?.length > 0 && !isRecording && <div><p className="small muted">{audioFiles.length} file(s) ready · parts play in the order below</p><ol className="stack">{Array.from(audioFiles).map((file, i) => <li key={`${file.name}:${i}`} className="file-row"><span>{file.name}</span><button aria-label={`Move ${file.name} up`} disabled={i === 0 || uploading} onClick={() => { const parts = Array.from(audioFiles); [parts[i - 1], parts[i]] = [parts[i], parts[i - 1]]; setAudioFiles(parts); }}>↑</button><button aria-label={`Remove ${file.name}`} disabled={uploading} onClick={() => setAudioFiles(Array.from(audioFiles).filter((_, j) => j !== i))}>Remove</button></li>)}</ol></div>}
+            <label>Meeting title (optional)<input value={meetingTitle} maxLength={200} disabled={uploading} onChange={e => setMeetingTitle(e.target.value)} placeholder="Weekly planning…" /></label>
+            <label className="attachment">Upload PPT <span className="muted small">Optional · PPTX</span><input aria-label="Upload PPT" type="file" accept=".pptx" disabled={uploading || isRecording} onChange={e => setPptFiles(Array.from(e.target.files))} />{pptFiles?.[0] && <span className="small">{pptFiles[0].name}</span>}</label>
+            <details><summary>Vocabulary hints <span className="muted small">optional</span></summary><label className="stack small">Names and technical terms<textarea aria-label="Vocabulary hints" maxLength={1000} value={vocabulary} onChange={e => setVocabulary(e.target.value)} placeholder="Names, acronyms, unusual spellings…" /><span className="muted">You can leave this empty. Editable suggestions appear after analysis.</span></label></details>
+            {!isRecording && <button className="primary" onClick={() => handleAnalyze()} disabled={uploading || !audioFiles?.length || modelReady === false}>{uploading ? 'Saving meeting…' : 'Analyse meeting'}</button>}
+            {modelReady === false && <p className="small muted">Analysis needs a local speech model. <button className="text-button" onClick={() => setScreen('settings')}>Open Settings</button></p>}
+          </section>
+          <p className="muted small">Language is automatic by default. Completed meetings are saved to History.</p>
+          {!!meetings.length && <section><div className="section-heading"><h2>Recent meetings</h2><button className="text-button" onClick={() => setScreen('history')}>View history</button></div>{meetings.slice(0, 3).map(m => <button className="history-row" key={m.id} onClick={() => loadMeeting(m.id)}><strong>{m.title}</strong><span>{m.status === 'completed' ? 'Ready to review' : m.status}</span><ChevronRight aria-hidden="true" /></button>)}</section>}
+        </div>}
+        {selectedMeetingId && <div className="stack report-page">
+          <div className="section-heading"><div><button className="text-button print:hidden" onClick={newMeeting}>← Home</button><h1>{meetingTitle || 'Your meeting'}</h1><p className="muted small">Saved in History</p></div><details className="meeting-menu print:hidden"><summary>Meeting options</summary><div className="stack"><button onClick={async () => { const title = window.prompt('Meeting title', meetingTitle); if (!title?.trim()) return; try { await axios.post(`${API_URL}/meetings/${selectedMeetingId}/edit`, { title }); setMeetingTitle(title.trim()); fetchMeetings(); } catch { setError('Could not save the title.'); } }}>Rename meeting</button><button disabled={meetingStatus !== 'completed'} onClick={() => window.print()}>Print / save PDF</button><label>Export format<select aria-label="Export format" value={exportFormat} onChange={e => setExportFormat(e.target.value)}>{[['md', 'Meeting report'], ['txt', 'Plain text'], ['srt', 'Subtitles (SRT)'], ['vtt', 'Subtitles (VTT)'], ['csv', 'Transcript table'], ['json', 'Data (JSON)']].map(([value, text]) => <option key={value} value={value}>{text}</option>)}</select></label><button disabled={meetingStatus !== 'completed'} onClick={exportReport}>Export</button></div></details></div>
+          {['queued', 'processing'].includes(meetingStatus) && <section className="panel stack"><h2>{stageLabels[processingStage] || 'Preparing your meeting'}</h2><p className="muted">You can leave this screen. Your progress is saved.</p>{jobProgress?.stage_elapsed_seconds != null && <p className="small muted">Time in this step: {formatTime(jobProgress.stage_elapsed_seconds)}</p>}{jobProgress?.total_seconds > 0 && <><progress max={jobProgress.total_seconds} value={jobProgress.completed_seconds || 0} /><p className="small">{formatTime(jobProgress.completed_seconds || 0)} / {formatTime(jobProgress.total_seconds)} transcribed</p></>}{!!preview?.transcript_segments?.length && <details open><summary>Latest saved transcript — draft</summary>{preview.transcript_segments.map(s => <p key={s.segment_id} className="preview-text">{s.text}</p>)}</details>}</section>}
+          {meetingStatus === 'failed' && <section className="panel"><h2>Your recording is saved</h2><p className="muted">Analysis stopped. Retry to continue from saved progress.</p><button className="primary" onClick={async () => { try { await axios.post(`${API_URL}/meetings/${selectedMeetingId}/retry`); setMeetingStatus('queued'); setError(''); } catch { setError('Could not restart analysis.'); } }}>Retry analysis</button></section>}
+          {meetingStatus === 'completed' && reportData && <>
+            <nav className="result-tabs print:hidden" aria-label="Meeting results">{[['overview', 'Overview'], ['transcript', 'Transcript'], ['participants', 'Participants'], ['actions', 'Action items'], ['decisions', 'Decisions'], ['influence', 'Influence'], ['events', 'Events'], ['presentation', 'Presentation']].map(([key, label]) => <button key={key} aria-current={reportViewTab === key ? 'page' : undefined} onClick={() => { setReportViewTab(key); setNotice(''); }}>{label}</button>)}</nav>
+            {audioUrl && <audio aria-label="Original meeting recording" ref={audioRef} controls src={audioUrl} className="meeting-audio print:hidden" />}
+            {panelVisible('overview') && <>
+              <section className="panel stack"><h2>At a glance</h2><div className="summary-stats"><div><strong>{formatTime(reportData.meeting_overview?.duration_s || 0)}</strong><span>Duration</span></div><div><strong>{participants.length}</strong><span>Speaker clusters</span></div><div><strong>{decisions.length}</strong><span>Decision candidates</span></div></div><p>{reportData.language_analysis?.label || languageLabel(reportData.processing?.language)}</p><p className="muted small">Structured NLP analysis. Review candidates and speaker assignments against the recording.</p></section>
+              {!!reportData.processing?.warnings?.length && <section className="notice stack">{reportData.processing.warnings.map((warning, i) => <p key={i}>{warning}</p>)}</section>}
+              {!participants.length && <section className="panel stack"><h2>Participant analysis needs speaker attribution</h2><p className="muted">This transcript has no identified speaker clusters. Names, roles and influence cannot be calculated until its speech is attributed.</p><button className="primary" disabled={!canAnalyzeSpeakers || !speakerSetup?.ready || analyzingSpeakers} onClick={analyzeSpeakers}>{analyzingSpeakers ? 'Starting speaker analysis…' : 'Analyse speakers from saved audio'}</button><p className="small muted">{!canAnalyzeSpeakers ? 'Saved source audio is unavailable. Upload the original recording again.' : !speakerSetup?.ready ? 'Complete local speaker setup in Settings first.' : 'This uses local speaker models, then rebuilds the transcript and NLP analysis.'}</p></section>}
+              <section className="panel stack"><h2>Vocabulary</h2><p className="muted small">Optional hints, suggested from observed transcript words. Editing these does not change the saved transcript.</p>{!!reportData.vocabulary_suggestions?.length && <div className="term-list">{reportData.vocabulary_suggestions.map(term => <button key={term} onClick={() => setMeetingVocabulary(previous => Array.from(new Set([...previous.split(',').map(x => x.trim()).filter(Boolean), term])).join(', ').slice(0, 1000))}>{term}</button>)}</div>}<label>Meeting vocabulary<textarea aria-label="Meeting vocabulary" maxLength={1000} value={meetingVocabulary} onChange={e => setMeetingVocabulary(e.target.value)} placeholder="Add names or useful terms…" /></label><div className="button-row"><button onClick={saveVocabulary}>Save vocabulary</button><button onClick={() => { setVocabulary(meetingVocabulary); newMeeting(); setNotice('Vocabulary added to your next meeting hints.'); }}>Use for next meeting</button></div></section>
+              <details className="panel stack"><summary>Language and evaluation</summary><div className="stack"><p>{reportData.language_analysis?.method || 'Automatic ASR language detection, scoped to Hindi / English.'}</p><p className="small muted">ASR language observations: {(reportData.language_analysis?.asr_languages || [reportData.processing?.language]).filter(Boolean).map(languageLabel).join(', ') || 'Not available'}</p><p className="small muted">{reportData.language_analysis?.limitations || 'A dominant language is not a measurement of code-switching accuracy.'}</p><strong>Accuracy has not been measured for this meeting.</strong><p className="muted small">WER needs a checked transcript; DER needs checked speaker times. Event/decision F1 and influence rankings need human annotations. Influence estimates are not accuracy scores.</p></div></details>
+            </>}
+            {panelVisible('transcript') && <section className="panel stack"><div className="section-heading"><h2>Transcript</h2><input aria-label="Search transcript" className="print:hidden" placeholder="Find in this meeting…" value={transcriptSearch} onChange={e => { setTranscriptSearch(e.target.value); setTranscriptPage(0); }} /></div>{!visibleSegments.length && <p className="muted">{segments.length ? 'No matching passages.' : 'No speech was transcribed. Check the recording.'}</p>}{visibleSegments.slice(printing ? 0 : transcriptPage * 100, printing ? undefined : (transcriptPage + 1) * 100).map(s => <article className="passage" key={s.segment_id}><div className="passage-heading"><div><strong>{speakerLabel(s.speaker)}</strong>{speakerRole(s.speaker) && <div className="muted small">{speakerRole(s.speaker)}</div>}</div><button aria-label="Play this transcript passage" className="text-button print:hidden" onClick={() => seek(s.start)}>{formatTime(s.start)}</button></div><p>{s.text}</p>{typeof s.confidence === 'number' && s.confidence < .5 && <button className="text-button small print:hidden" onClick={() => seek(s.start)}>Review audio</button>}</article>)}{visibleSegments.length > 100 && <div className="pager print:hidden"><button disabled={transcriptPage === 0} onClick={() => setTranscriptPage(p => p - 1)}>Previous</button><span>Page {transcriptPage + 1} of {Math.ceil(visibleSegments.length / 100)}</span><button disabled={(transcriptPage + 1) * 100 >= visibleSegments.length} onClick={() => setTranscriptPage(p => p + 1)}>Next</button></div>}</section>}
+            {panelVisible('participants') && <section className="panel stack"><h2>Participants</h2><p className="muted small">Speaker clusters come from audio. Names are yours to enter. Estimated roles describe observed contributions, not job titles.</p>{!participants.length && <p>Speaker attribution is unavailable. Return to Overview to analyse the saved audio.</p>}{participants.map(person => <article className="passage stack" key={person.speaker_id}><div className="section-heading"><strong>{speakerLabel(person.speaker_id)}</strong><span>{typeof person.speaking_duration_s === 'number' ? `${formatTime(person.speaking_duration_s)} spoken` : 'Speaking time unavailable'}</span></div>{editingSpeaker === person.speaker_id ? <><label>Speaker name<input aria-label="Speaker name" maxLength={100} value={editNameValue} onChange={e => setEditNameValue(e.target.value)} /></label><label>Meeting role<input aria-label="Meeting role" maxLength={100} value={editRoleValue} onChange={e => setEditRoleValue(e.target.value)} placeholder="Your description of their contribution" /></label><div className="button-row"><button onClick={() => saveSpeakerName(person.speaker_id)}>Save speaker</button><button onClick={() => setEditingSpeaker(null)}>Cancel</button></div></> : <><p className="muted small">{speakerRoles[person.speaker_id] ? `Your role label: ${speakerRoles[person.speaker_id]}` : `Estimated roles: ${speakerRole(person.speaker_id) || 'Not determined'}`}</p><p className="small muted">{person.num_turns ?? '—'} transcript passages · {person.decision_linked_events ?? '—'} decision-linked events</p><button className="text-button print:hidden" onClick={() => { setEditingSpeaker(person.speaker_id); setEditNameValue(speakerNames[person.speaker_id] || ''); setEditRoleValue(speakerRoles[person.speaker_id] || ''); }}>Edit name & role</button></>}</article>)}</section>}
+            {panelVisible('actions') && <section className="panel stack"><h2>Action items</h2><p className="muted small">Extracted commitments and task candidates. The person who speaks a task is not automatically its owner.</p>{actions.length ? actions.map((task, i) => <article className="passage" key={task.event_id || i}><p>{task.text}</p><div className="passage-heading"><span className="muted small">{speakerLabel(task.speaker)}{speakerRole(task.speaker) && ` · ${speakerRole(task.speaker)}`}</span>{typeof task.timestamp === 'number' && <button className="text-button" onClick={() => seek(task.timestamp)}>Listen at {formatTime(task.timestamp)}</button>}</div></article>) : <p className="muted">No action candidates found.</p>}</section>}
+            {panelVisible('decisions') && <section className="panel stack"><h2>Decision table</h2><p className="muted small">Rule-based reconstruction. Open a decision to review the proposal, discussion and source evidence.</p>{decisions.length ? <div className="table-scroll"><table><thead><tr><th>Decision / proposal</th><th>Participants</th><th>Status & lineage</th></tr></thead><tbody>{decisions.map((d, i) => <tr key={d.decision_id || i}><td>{d.final_decision_text || d.proposal_text || d.topic || 'Unresolved discussion'}{d.proposal_speaker && <p className="small muted">Proposed by {speakerLabel(d.proposal_speaker)}{speakerRole(d.proposal_speaker) && ` · ${speakerRole(d.proposal_speaker)}`}</p>}</td><td>{d.participants?.map(speaker => <p className="small" key={speaker}>{speakerLabel(speaker)}{speakerRole(speaker) && <span className="muted"> · {speakerRole(speaker)}</span>}</p>) || 'Unavailable'}</td><td>{d.status === 'confirmed' ? 'Decision candidate' : d.status}<details><summary>Source & lineage</summary>{decisionEvidence(d).map(event => <article className="evidence-row" key={event.event_id}><strong className="small">{event.event_type.replaceAll('_', ' ')} · {speakerLabel(event.speaker)}</strong><p className="small">{event.text}</p><button className="text-button" onClick={() => seek(event.start)}>Listen at {formatTime(event.start)}</button></article>)}{!decisionEvidence(d).length && <p className="small muted">No source events available in this saved report.</p>}{d.supporting_segments?.length > 0 && <button className="text-button" onClick={() => { const segment = segments.find(s => d.supporting_segments.includes(s.segment_id)); if (segment) seek(segment.start); }}>Listen to source</button>}</details></td></tr>)}</tbody></table></div> : <p className="muted">No decision candidates found.</p>}</section>}
+            {panelVisible('influence') && <section className="panel stack"><h2>Influence & evidence</h2><p className="muted">Decision-linked contribution estimates. Speaking time is shown separately and does not define influence.</p>{!influence.length && <p>No influence records are available. Identified speakers and processed NLP events are required.</p>}{influence.map(person => <article className="passage stack" key={person.speaker_id}><div className="section-heading"><div><strong>{speakerLabel(person.speaker_id)}</strong><p className="muted small">{speakerRole(person.speaker_id) || 'Role not determined'}</p></div><strong>{typeof person.score === 'number' ? `${person.score.toFixed(2)} / 1` : 'Unavailable'}</strong></div>{person.explanation?.map((text, i) => <p className="small" key={i}>{text}</p>)}<details><summary>Score breakdown & evidence</summary><div className="stack"><div className="table-scroll"><table><thead><tr><th>Contribution</th><th>Raw</th><th>Normalised</th><th>Weight</th></tr></thead><tbody>{featureKeys.map(([key, weightKey, label]) => <tr key={key}><td>{label}</td><td>{person.raw_features?.[key] ?? '—'}</td><td>{typeof person.features?.[key] === 'number' ? person.features[key].toFixed(2) : '—'}</td><td>{reportData.influence_method?.weights?.[weightKey] ?? '—'}</td></tr>)}</tbody></table></div>{(person.supporting_events || []).map(id => eventTimeline.find(event => event.event_id === id)).filter(Boolean).map(event => <article className="evidence-row" key={event.event_id}><p>{event.text}</p><span className="small muted">{speakerLabel(event.speaker)} · {event.event_type.replaceAll('_', ' ')}{event.slide_id && ` · ${event.slide_id}`}</span><button className="text-button" onClick={() => seek(event.start)}>Listen at {formatTime(event.start)}</button></article>)}{!person.supporting_events?.length && <p className="small muted">No decision-linked source events found for this participant.</p>}</div></details></article>)}<p className="muted small">{reportData.influence_method?.disclaimer || 'Prototype weights and max normalisation. Human ratings are needed to validate these estimates; scores do not establish causal influence.'}</p></section>}
+            {panelVisible('events') && <section className="panel stack"><h2>Events & interactions</h2><p className="muted small">Observed proposals, objections, evidence, corrections, agreements and other event candidates.</p>{!eventTimeline.length && <p>No saved event timeline is available.</p>}{eventTimeline.map(event => <article className="passage" key={event.event_id}><div className="passage-heading"><strong>{event.event_type.replaceAll('_', ' ')}</strong><button className="text-button" onClick={() => seek(event.start)}>{formatTime(event.start)}</button></div><p>{event.text}</p><p className="muted small">{speakerLabel(event.speaker)}{speakerRole(event.speaker) && ` · ${speakerRole(event.speaker)}`}{event.slide_id && ` · ${event.slide_id}`}</p></article>)}{!!reportData.interactions?.relationships?.length && <details><summary>Interaction relationships</summary>{reportData.interactions.relationships.map((edge, i) => <p className="small" key={i}>{speakerLabel(edge.source_speaker)} → {speakerLabel(edge.target_speaker)} · {edge.interaction_type?.replaceAll('_', ' ') || 'interaction'}</p>)}</details>}</section>}
+            {panelVisible('presentation') && <section className="panel stack"><h2>Presentation & alignment</h2><p className="muted small">Native slide text, tables and existing audio–PPT similarity links. A related slide is not proof that a spoken claim is true.</p>{!reportData.slides?.length && <p>No analysed presentation is available. Add a PPTX when uploading your next meeting.</p>}{reportData.slides?.map(slide => <article className="passage stack" key={slide.slide_id}><h3>Slide {slide.slide_number} · {slide.title || slide.slide_id}</h3>{slide.text?.map((text, i) => <p key={i}>{text}</p>)}{slide.tables?.map((table, i) => <div className="table-scroll" key={i}><table><tbody>{table.rows.map((row, j) => <tr key={j}>{row.map((value, k) => <td key={k}>{value}</td>)}</tr>)}</tbody></table></div>)}<details><summary>Linked discussion</summary>{reportData.aligned_segments?.filter(segment => segment.slide_id === slide.slide_id).map(segment => <article className="evidence-row" key={segment.segment_id}><p>{segment.text}</p><p className="small muted">{speakerLabel(segment.speaker)}{speakerRole(segment.speaker) && ` · ${speakerRole(segment.speaker)}`}{typeof segment.alignment_score === 'number' && ` · similarity ${segment.alignment_score.toFixed(2)}`}</p><button className="text-button" onClick={() => seek(segment.start)}>Listen at {formatTime(segment.start)}</button></article>)}</details></article>)}{!!reportData.consistency_checks?.flags?.length && <section className="notice stack"><h3>Possible quantity mismatches · review required</h3>{reportData.consistency_checks.flags.map((flag, i) => <div key={i}><p>{flag.statement}</p><p className="small">{flag.slide_id}: {flag.slide_text}</p><p className="small">Spoken {flag.spoken_value} vs slide {flag.slide_value} {flag.unit}</p><button className="text-button" onClick={() => seek(flag.start)}>Listen to claim</button></div>)}</section>}<p className="small muted">{reportData.consistency_checks?.limitations || 'Slide inconsistencies have not been evaluated for this saved report. Image semantics/OCR are not available.'}</p></section>}
+          </>}
+        </div>}
+      </>}
+    </main>
+  </div>;
 }
-
 export default App;

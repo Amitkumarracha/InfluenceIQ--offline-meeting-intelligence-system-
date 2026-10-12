@@ -1,0 +1,107 @@
+[
+  {
+    "id": "section-1",
+    "title": "Abstract",
+    "page": 3
+  },
+  {
+    "id": "section-2",
+    "title": "1. Assessment coverage and evidence policy",
+    "page": 4
+  },
+  {
+    "id": "section-3",
+    "title": "2. Introduction, problem and objectives",
+    "page": 5
+  },
+  {
+    "id": "section-4",
+    "title": "3. Literature review and research positioning",
+    "page": 6
+  },
+  {
+    "id": "section-5",
+    "title": "4. Dataset, modalities and corrected EDA",
+    "page": 7
+  },
+  {
+    "id": "section-6",
+    "title": "5. Final architecture and implementation",
+    "page": 9
+  },
+  {
+    "id": "section-7",
+    "title": "6. Fusion terminology, representation and formulas",
+    "page": 11
+  },
+  {
+    "id": "section-8",
+    "title": "7. Experimental design and metrics",
+    "page": 14
+  },
+  {
+    "id": "section-9",
+    "title": "8. Results: comparison of all three alignment techniques",
+    "page": 15
+  },
+  {
+    "id": "section-10",
+    "title": "9. Speech-recognition and speaker results",
+    "page": 17
+  },
+  {
+    "id": "section-11",
+    "title": "10. Historical CA3 outputs and error analysis",
+    "page": 19
+  },
+  {
+    "id": "section-12",
+    "title": "11. Android, offline execution and optional workstation deployment",
+    "page": 21
+  },
+  {
+    "id": "section-13",
+    "title": "12. Processing efficiency and reliability",
+    "page": 23
+  },
+  {
+    "id": "section-14",
+    "title": "13. Training, baselines and evaluation status",
+    "page": 25
+  },
+  {
+    "id": "section-15",
+    "title": "14. Software validation, resources and risk management",
+    "page": 26
+  },
+  {
+    "id": "section-16",
+    "title": "15. Project evolution and cumulative deliverables",
+    "page": 28
+  },
+  {
+    "id": "section-17",
+    "title": "16. Limitations, future work and conclusion",
+    "page": 29
+  },
+  {
+    "id": "section-18",
+    "title": "References",
+    "page": 31
+  },
+  {
+    "id": "section-19",
+    "title": "Appendix A. Controlled case manifest",
+    "page": 32
+  },
+  {
+    "id": "section-20",
+    "title": "Appendix B. Result provenance and reproducibility",
+    "page": 33
+  },
+  {
+    "id": "section-21",
+    "title": "Appendix C. Developer handover",
+    "page": 34
+  }
+]

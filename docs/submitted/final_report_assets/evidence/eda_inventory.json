@@ -1,0 +1,26 @@
+{
+  "annotation_release": "ami_public_manual_1.6.2",
+  "dialogue_act_files": 556,
+  "dialogue_act_total": 117887,
+  "dialogue_act_counts": {
+    "Inform": 33484,
+    "Assess": 21391,
+    "Fragment": 16796,
+    "Backchannel": 12573,
+    "Suggest": 9391,
+    "Stall": 8459,
+    "Elicit-Inform": 4240,
+    "Comment-About-Understanding": 2367,
+    "Elicit-Assessment": 2265,
+    "Be-Positive": 2210,
+    "Other": 2204,
+    "Offer": 1530,
+    "Elicit-Offer-Or-Suggestion": 686,
+    "Elicit-Comment-Understanding": 193,
+    "Be-Negative": 98
+  },
+  "ami_wave_files": 2039,
+  "ami_wave_bytes": 138034517656,
+  "normalized_raw_audio_files": 171,
+  "presentation_pptx_files": 987
+}

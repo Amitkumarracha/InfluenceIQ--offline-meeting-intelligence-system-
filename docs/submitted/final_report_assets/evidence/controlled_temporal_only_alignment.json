@@ -1,0 +1,466 @@
+[
+  {
+    "segment_id": 1,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_01"
+  },
+  {
+    "segment_id": 2,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_02",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_02"
+  },
+  {
+    "segment_id": 3,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_03",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_03"
+  },
+  {
+    "segment_id": 4,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_04",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_04"
+  },
+  {
+    "segment_id": 5,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "We have allocated two hundred and fifty thousand rupees for this project.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_01"
+  },
+  {
+    "segment_id": 6,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Our system should reply in under a tenth of a second.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_02",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_02"
+  },
+  {
+    "segment_id": 7,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "The first working version is due in mid October, with tests five days later.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_03",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_03"
+  },
+  {
+    "segment_id": 8,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Once the weights are installed, we can analyse recordings without a network connection.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_04",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_04"
+  },
+  {
+    "segment_id": 9,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_02",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_02"
+  },
+  {
+    "segment_id": 10,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_03",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_03"
+  },
+  {
+    "segment_id": 11,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_04",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_04"
+  },
+  {
+    "segment_id": 12,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_05",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_05"
+  },
+  {
+    "segment_id": 13,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      },
+      {
+        "slide_id": "slide_02",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      },
+      {
+        "slide_id": "slide_03",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      }
+    ],
+    "selected_slide": "NO_CONFIDENT_SLIDE"
+  },
+  {
+    "segment_id": 14,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      },
+      {
+        "slide_id": "slide_02",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      },
+      {
+        "slide_id": "slide_03",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      }
+    ],
+    "selected_slide": "NO_CONFIDENT_SLIDE"
+  },
+  {
+    "segment_id": 15,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      },
+      {
+        "slide_id": "slide_02",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      },
+      {
+        "slide_id": "slide_03",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      }
+    ],
+    "selected_slide": "NO_CONFIDENT_SLIDE"
+  },
+  {
+    "segment_id": 16,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      },
+      {
+        "slide_id": "slide_02",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      },
+      {
+        "slide_id": "slide_03",
+        "temporal_score": null,
+        "semantic_score": 0.0,
+        "combined_score": 0.0,
+        "confidence": "low"
+      }
+    ],
+    "selected_slide": "NO_CONFIDENT_SLIDE"
+  },
+  {
+    "segment_id": 17,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "That is the agreed target for this part.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_01"
+  },
+  {
+    "segment_id": 18,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "That is the agreed target for this part.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_02",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_02"
+  },
+  {
+    "segment_id": 19,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "That is the agreed target for this part.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_03",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_03"
+  },
+  {
+    "segment_id": 20,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "That is the agreed target for this part.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_04",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_04"
+  },
+  {
+    "segment_id": 21,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "I enjoyed the beach on my holiday.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_01"
+  },
+  {
+    "segment_id": 22,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "The football match was exciting yesterday.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_01"
+  },
+  {
+    "segment_id": 23,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "My favourite meal is pasta with tomato sauce.",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_01"
+  },
+  {
+    "segment_id": 24,
+    "speaker": "SPEAKER_TEST",
+    "start": 5.0,
+    "end": 10.0,
+    "text": "",
+    "slide_candidates": [
+      {
+        "slide_id": "slide_01",
+        "temporal_score": 1.0,
+        "semantic_score": 0.0,
+        "combined_score": 1.0,
+        "confidence": "high"
+      }
+    ],
+    "selected_slide": "slide_01"
+  }
+]

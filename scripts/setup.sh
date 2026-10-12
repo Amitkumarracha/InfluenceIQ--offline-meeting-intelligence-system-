@@ -12,6 +12,6 @@ fi
 .bootstrap/bin/uv python install 3.11
 if [ ! -x .venv/bin/python ]; then .bootstrap/bin/uv venv --python 3.11 .venv; fi
 .bootstrap/bin/uv pip install --python .venv/bin/python torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu
-.bootstrap/bin/uv pip install --python .venv/bin/python -r requirements-lock.txt
+.bootstrap/bin/uv pip install --python .venv/bin/python -r environment/requirements-lock.txt
 (cd frontend && npm ci --no-audit --no-fund && npm run build)
-echo 'Environment ready. Provision models with .venv/bin/python scripts/download_models.py --slides --diarization'
+echo 'Environment ready. Provision ASR/slides with .venv/bin/python scripts/download_models.py --slides and speakers with .venv/bin/python scripts/download_speaker_models.py'

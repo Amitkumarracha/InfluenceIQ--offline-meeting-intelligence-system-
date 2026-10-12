@@ -1,0 +1,14 @@
+{
+  "meeting_id": "meeting_8e464f9471b34c46ad9f4ab3a547c923",
+  "passages": 256,
+  "slides": 34,
+  "threads": 4,
+  "model": "all-MiniLM-L6-v2",
+  "model_load_seconds": 1.0908140570027172,
+  "scalar_seconds": 1.6661004510024213,
+  "batched_seconds": 1.1672287289984524,
+  "speedup": 1.4273984263838577,
+  "max_absolute_score_difference": 1.0073852539094208e-06,
+  "semantic_only_selection_agreement": 1.0,
+  "scope": "Warm-model semantic scoring only; scalar first then batch, one local run. Not end-to-end speed or alignment accuracy."
+}

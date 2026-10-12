@@ -1,0 +1,557 @@
+{
+  "experiment": "CA4 controlled alignment diagnostic",
+  "scope": "24 author-designed cases, six constructed slides; frozen pretrained encoder; no training/test split, no real-meeting accuracy claim",
+  "model": "all-MiniLM-L6-v2",
+  "threshold": 0.3,
+  "threads": 4,
+  "model_load_seconds": 1.4648287210002309,
+  "shared_encoding_seconds": 0.2558765809990291,
+  "methods": {
+    "temporal_only": {
+      "metrics": {
+        "correct": 12,
+        "total": 24,
+        "top1_accuracy": 0.5,
+        "macro_f1_including_no_slide": 0.41666666666666663,
+        "grounded_precision": 0.6,
+        "grounded_recall": 0.6,
+        "grounded_f1": 0.6,
+        "coverage": 0.8333333333333334
+      },
+      "selection_seconds": 0.00040794600135996006,
+      "predictions": [
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_05",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "slide_01",
+        "slide_01",
+        "slide_01"
+      ],
+      "by_group": {
+        "context_dependent": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "exact_content": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "missing_slide_times": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.0
+        },
+        "offscreen_reference": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 1.0
+        },
+        "paraphrase": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "unrelated_or_blank": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 1.0
+        }
+      }
+    },
+    "semantic_only": {
+      "metrics": {
+        "correct": 20,
+        "total": 24,
+        "top1_accuracy": 0.8333333333333334,
+        "macro_f1_including_no_slide": 0.8444444444444444,
+        "grounded_precision": 1.0,
+        "grounded_recall": 0.8,
+        "grounded_f1": 0.8888888888888888,
+        "coverage": 0.6666666666666666
+      },
+      "selection_seconds": 0.00034312000207137316,
+      "predictions": [
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE"
+      ],
+      "by_group": {
+        "context_dependent": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.0
+        },
+        "exact_content": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "missing_slide_times": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "offscreen_reference": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "paraphrase": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "unrelated_or_blank": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.0
+        }
+      }
+    },
+    "temporal_semantic_hybrid": {
+      "metrics": {
+        "correct": 16,
+        "total": 24,
+        "top1_accuracy": 0.6666666666666666,
+        "macro_f1_including_no_slide": 0.5025641025641026,
+        "grounded_precision": 0.6666666666666666,
+        "grounded_recall": 0.8,
+        "grounded_f1": 0.7272727272727273,
+        "coverage": 1.0
+      },
+      "selection_seconds": 0.00036494500091066584,
+      "predictions": [
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_05",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "slide_01",
+        "slide_01",
+        "slide_01"
+      ],
+      "by_group": {
+        "context_dependent": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "exact_content": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "missing_slide_times": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "offscreen_reference": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 1.0
+        },
+        "paraphrase": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "unrelated_or_blank": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 1.0
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "case_01",
+      "group": "exact_content",
+      "text": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+      "gold": "slide_01",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_02",
+      "group": "exact_content",
+      "text": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+      "gold": "slide_02",
+      "shown": "slide_02",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_03",
+      "group": "exact_content",
+      "text": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+      "gold": "slide_03",
+      "shown": "slide_03",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_04",
+      "group": "exact_content",
+      "text": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+      "gold": "slide_04",
+      "shown": "slide_04",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_05",
+      "group": "paraphrase",
+      "text": "We have allocated two hundred and fifty thousand rupees for this project.",
+      "gold": "slide_01",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_06",
+      "group": "paraphrase",
+      "text": "Our system should reply in under a tenth of a second.",
+      "gold": "slide_02",
+      "shown": "slide_02",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_07",
+      "group": "paraphrase",
+      "text": "The first working version is due in mid October, with tests five days later.",
+      "gold": "slide_03",
+      "shown": "slide_03",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_08",
+      "group": "paraphrase",
+      "text": "Once the weights are installed, we can analyse recordings without a network connection.",
+      "gold": "slide_04",
+      "shown": "slide_04",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_09",
+      "group": "offscreen_reference",
+      "text": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+      "gold": "slide_01",
+      "shown": "slide_02",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_10",
+      "group": "offscreen_reference",
+      "text": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+      "gold": "slide_02",
+      "shown": "slide_03",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_11",
+      "group": "offscreen_reference",
+      "text": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+      "gold": "slide_03",
+      "shown": "slide_04",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_12",
+      "group": "offscreen_reference",
+      "text": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+      "gold": "slide_04",
+      "shown": "slide_05",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_13",
+      "group": "missing_slide_times",
+      "text": "Budget and costs: total project budget 250000 rupees. Hardware cost 150000 rupees. Software cost 100000 rupees.",
+      "gold": "slide_01",
+      "shown": "slide_01",
+      "timed": false,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_14",
+      "group": "missing_slide_times",
+      "text": "Performance target: response time below 100 milliseconds. Transcription accuracy and speaker diarization are evaluated separately.",
+      "gold": "slide_02",
+      "shown": "slide_02",
+      "timed": false,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_15",
+      "group": "missing_slide_times",
+      "text": "Project schedule: prototype delivery on 15 October. User testing on 20 October. Final submission on 30 October.",
+      "gold": "slide_03",
+      "shown": "slide_03",
+      "timed": false,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_16",
+      "group": "missing_slide_times",
+      "text": "Offline deployment: meeting audio stays on the local laptop. Cloud processing is optional. Internet is not required after model installation.",
+      "gold": "slide_04",
+      "shown": "slide_04",
+      "timed": false,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_17",
+      "group": "context_dependent",
+      "text": "That is the agreed target for this part.",
+      "gold": "slide_01",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_18",
+      "group": "context_dependent",
+      "text": "That is the agreed target for this part.",
+      "gold": "slide_02",
+      "shown": "slide_02",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_19",
+      "group": "context_dependent",
+      "text": "That is the agreed target for this part.",
+      "gold": "slide_03",
+      "shown": "slide_03",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_20",
+      "group": "context_dependent",
+      "text": "That is the agreed target for this part.",
+      "gold": "slide_04",
+      "shown": "slide_04",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_21",
+      "group": "unrelated_or_blank",
+      "text": "I enjoyed the beach on my holiday.",
+      "gold": "NO_CONFIDENT_SLIDE",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_22",
+      "group": "unrelated_or_blank",
+      "text": "The football match was exciting yesterday.",
+      "gold": "NO_CONFIDENT_SLIDE",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_23",
+      "group": "unrelated_or_blank",
+      "text": "My favourite meal is pasta with tomato sauce.",
+      "gold": "NO_CONFIDENT_SLIDE",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    },
+    {
+      "id": "case_24",
+      "group": "unrelated_or_blank",
+      "text": "",
+      "gold": "NO_CONFIDENT_SLIDE",
+      "shown": "slide_01",
+      "timed": true,
+      "start": 5.0,
+      "end": 10.0
+    }
+  ],
+  "fixture_sha256": "c685f1305b453cd2f9d26d773573db4556fa5bd29e32b496e82052fbd897859c"
+}

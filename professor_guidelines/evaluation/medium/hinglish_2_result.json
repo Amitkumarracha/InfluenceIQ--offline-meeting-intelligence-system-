@@ -1,0 +1,33 @@
+{
+  "language": "hinglish",
+  "sample": 2,
+  "id": "103085_w5Jyq3XMbb3WwiKQ_0002",
+  "reference": "यहाँ हम अपने ऑपरेटिंग सिस्टम के रूप में gnu linux और लिबरऑफिस वर्जन 334 का उपयोग कर रहे हैं",
+  "hypothesis": "यहां हम अपने operating system के रूप में jnu linux और libreoffice version 3 3 4 का उप्योक कर रहे हैं",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.526316,
+    "substitutions": 8,
+    "deletions": 0,
+    "insertions": 2,
+    "reference_length": 19,
+    "hypothesis_length": 21
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.506849,
+    "substitutions": 30,
+    "deletions": 0,
+    "insertions": 7,
+    "reference_length": 73,
+    "hypothesis_length": 80
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 8.55,
+  "elapsed_seconds": 27.450266414001817,
+  "rtf": 3.2105574753218495
+}

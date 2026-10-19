@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.meetiq.offline" android:versionCode="6" android:versionName="0.6.0-prototype">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.meetiq.offline" android:versionCode="9" android:versionName="0.7.1-prototype">
     <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -6,8 +6,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- Deliberately no INTERNET permission: recording and inference stay on device. -->
-    <application android:label="InfluenceIQ" android:icon="@drawable/ic_launcher" android:allowBackup="false" android:theme="@style/Theme.InfluenceIQ" android:extractNativeLibs="true" android:supportsRtl="true">
+    <!-- Optional account sync; local recording and inference do not use the network. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application android:networkSecurityConfig="@xml/network_security_config" android:label="InfluenceIQ" android:icon="@drawable/ic_launcher" android:allowBackup="false" android:theme="@style/Theme.InfluenceIQ" android:extractNativeLibs="true" android:supportsRtl="true">
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

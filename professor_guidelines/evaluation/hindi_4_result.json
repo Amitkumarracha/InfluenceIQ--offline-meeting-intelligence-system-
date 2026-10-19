@@ -1,0 +1,33 @@
+{
+  "language": "hindi",
+  "sample": 4,
+  "id": "1828",
+  "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+  "hypothesis": "इंटरनेट पर ये खोज सत्रुता पुर्न पर्यावरं पाटक्रम के लिया अकसर आप को एक इस्ठान ने कमपनी का पता प्रदान करेगी",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.666667,
+    "substitutions": 9,
+    "deletions": 0,
+    "insertions": 3,
+    "reference_length": 18,
+    "hypothesis_length": 21
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.183908,
+    "substitutions": 11,
+    "deletions": 3,
+    "insertions": 2,
+    "reference_length": 87,
+    "hypothesis_length": 86
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 13.2,
+  "elapsed_seconds": 10.270269143002224,
+  "rtf": 0.7780506926516837
+}

@@ -1,0 +1,33 @@
+{
+  "language": "hindi",
+  "sample": 4,
+  "id": "1828",
+  "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+  "hypothesis": "इंटर्नेट पर ये खोज सत्रुता पुर्न पर्यावरंग पाथिकरम के लिए अक्सर आपको एक इस्थान में कंपनी का पता प्रदान करेगी",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.444444,
+    "substitutions": 6,
+    "deletions": 0,
+    "insertions": 2,
+    "reference_length": 18,
+    "hypothesis_length": 20
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.172414,
+    "substitutions": 9,
+    "deletions": 2,
+    "insertions": 4,
+    "reference_length": 87,
+    "hypothesis_length": 89
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 13.2,
+  "elapsed_seconds": 33.41616010300277,
+  "rtf": 2.5315272805305127
+}

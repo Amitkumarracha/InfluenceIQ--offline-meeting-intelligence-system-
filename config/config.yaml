@@ -29,7 +29,7 @@ diarization:
   onnx:
     segmentation_model: models/diarization/segmentation.onnx
     embedding_model: models/diarization/embedding.onnx
-    cluster_threshold: 0.5  # Prototype; tune with labelled speakers.
+    cluster_threshold: 0.9  # AMI development pilot; see professor_guidelines/evaluation/audio_summary.json.
   model: pyannote/speaker-diarization-3.1
   device: cpu
   min_speakers: null
@@ -41,7 +41,9 @@ ppt:
   extract_tables: true
   extract_notes: true
   extract_visual_metadata: true
-  ocr_enabled: false
+  ocr_enabled: false  # Optional local OCR for embedded images; provision models first.
+  ocr_languages: eng+hin
+  ocr_model_dir: models/tesseract
   embeddings:
     # sentence-transformers model for slide-level semantic embeddings.
     # Requires: pip install sentence-transformers

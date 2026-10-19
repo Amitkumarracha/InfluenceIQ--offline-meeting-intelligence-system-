@@ -79,3 +79,9 @@ android/app/.cxx/
 .pytest_cache/
 data/state/
 data/custom_test/*.decode.json
+
+# Independent historical checkout; reviewed changes belong in the main project.
+/InfluenceIQ--offline-meeting-intelligence-system-/
+
+# Retired local copies may contain private history, credentials and caches.
+/waste/

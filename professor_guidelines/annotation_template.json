@@ -1,0 +1,10 @@
+{
+  "dataset": "REPLACE_WITH_CONSENTED_DATASET_AND_SPLIT",
+  "transcript_ground_truth": null,
+  "speaker_ground_truth": null,
+  "alignment_ground_truth": null,
+  "event_ground_truth": null,
+  "decision_ground_truth": null,
+  "lineage_ground_truth": null,
+  "influence_ranking": null
+}

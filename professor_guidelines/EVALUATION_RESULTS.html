@@ -1,0 +1,96 @@
+<html><head><meta charset="utf-8"><style>@page {size:A4;margin:2cm} body {font-family:"Liberation Serif";font-size:11pt} table {border-collapse:collapse;width:100%;font-size:9pt} td,th {border:1px solid #888;padding:4px} img {max-width:100%;width:650px} pre {white-space:pre-wrap;font-size:9pt} h1,h2,h3 {page-break-after:avoid}</style></head><body><h1>Evaluation results — 19 October 2026</h1>
+<p>These are measured pilot results, not full-corpus benchmarks or deployment certification.</p>
+<h2>Speaker calibration</h2>
+<p>Development: two 120-second AMI excerpts; held-out: two different meeting groups. Minimum pooled development DER selected threshold 0.9. Full protocol and individual results are in <code>evaluation/audio_protocol.json</code> and <code>evaluation/ami_*.json</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Meeting</th>
+<th>Threshold</th>
+<th>Groups</th>
+<th>Reference speakers</th>
+<th>DER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IS1001b</td>
+<td>0.5</td>
+<td>12</td>
+<td>4</td>
+<td>46.01%</td>
+</tr>
+<tr>
+<td>TS3007d</td>
+<td>0.5</td>
+<td>13</td>
+<td>4</td>
+<td>83.54%</td>
+</tr>
+<tr>
+<td>IS1001b</td>
+<td>0.9</td>
+<td>4</td>
+<td>4</td>
+<td>26.90%</td>
+</tr>
+<tr>
+<td>TS3007d</td>
+<td>0.9</td>
+<td>7</td>
+<td>4</td>
+<td>56.01%</td>
+</tr>
+</tbody>
+</table>
+<p>The 42-minute private recording fell from 139 groups to 37 in a separate diagnostic. Its true count remains unknown. This reduces fragmentation but does not establish correct attribution. Original saved meeting data was not overwritten. Diagnostic processing took 1047.6 seconds with other evaluation workloads active; peak process RSS was 1108.2 MiB.</p>
+<h2>Speech recognition</h2>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Corpus</th>
+<th>Samples</th>
+<th>WER</th>
+<th>CER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>small</td>
+<td>hindi</td>
+<td>8</td>
+<td>50.96%</td>
+<td>20.09%</td>
+</tr>
+<tr>
+<td>small</td>
+<td>hinglish</td>
+<td>8</td>
+<td>66.13%</td>
+<td>50.00%</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>hindi</td>
+<td>8</td>
+<td>37.02%</td>
+<td>14.98%</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>hinglish</td>
+<td>8</td>
+<td>57.26%</td>
+<td>52.25%</td>
+</tr>
+</tbody>
+</table>
+<p>English AMI held-out WER: IS1001b 41.59%; TS3007d 81.00%. Distant audio, overlap, spelling and reference conventions matter. Hindi/Hinglish measurements use eight samples each. Hinglish samples are consecutive technical-lecture segments; some hypotheses include neighbouring speech, so boundary/reference mismatch requires manual audit. Keep these strict scores; do not silently fix references after seeing predictions. Medium improves this small pilot but does not deliver reliable accuracy. The small default remains a latency trade-off.</p>
+<h2>Functional evidence</h2>
+<p>Final complete suite: 560 passed, seven dependency warnings. Earlier focused metric tests: 89 passed. Final regression log is <code>evaluation/final_pytest.log</code>. Browser test verifies synthetic microphone previews, recovery, pause/resume, uploads, search, edits, evidence and responsive layouts. Real local preview inference is recorded separately in <code>evaluation/live_preview_real_model.json</code>. Android Java tests and APK build completed; no physical-phone accuracy or thermal certification is implied.</p>
+<h2>Downstream evaluation</h2>
+<p>Eight ablation variants ran against the existing long meeting. Human influence rankings and event/decision/slide references are missing, so those accuracy metrics remain unavailable. The outputs under <code>evaluation/downstream/</code> include private source-derived content: review before sharing. Score differences are sensitivity analysis, not proof of improved influence accuracy.</p>
+<h2>Limits</h2>
+<p>No training/fine-tuning was performed. Public dataset provenance and SHA-256 values are in the two manifests. Neither benchmark contamination nor generalisation to Indian meetings has been ruled out. Timing with concurrent evaluation jobs is not a controlled latency comparison. Full recordings, additional languages, independent human labels, physical Android tests and confidence intervals remain future validation.</p>
+</body></html>

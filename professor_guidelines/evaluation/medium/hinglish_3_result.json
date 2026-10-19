@@ -1,0 +1,33 @@
+{
+  "language": "hinglish",
+  "sample": 3,
+  "id": "103085_w5Jyq3XMbb3WwiKQ_0003",
+  "reference": "चलिए अपनी प्रस्तुति प्रेजैटेशन sample impress open करते हैं जिसे पिछले tutorial में बनाया था",
+  "hypothesis": "चलिये अपनी प्रस्तुती सामपल इम्प्रस्ट अपन करते हैं जिसे पिछले टूटुरल में बनाये",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.6,
+    "substitutions": 7,
+    "deletions": 2,
+    "insertions": 0,
+    "reference_length": 15,
+    "hypothesis_length": 13
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.525641,
+    "substitutions": 26,
+    "deletions": 14,
+    "insertions": 1,
+    "reference_length": 78,
+    "hypothesis_length": 65
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 6.55,
+  "elapsed_seconds": 30.247589460999734,
+  "rtf": 4.617952589465609
+}

@@ -8,7 +8,10 @@ def stamp(seconds, separator='.'):
     return f'{ms // 3600000:02d}:{ms // 60000 % 60:02d}:{ms // 1000 % 60:02d}{separator}{ms % 1000:03d}'
 
 
-def render_export(data, title, format):
+def render_export(data, title, format, meeting_id=None):
+    from src.meeting.followups import action_candidates, active_review, calendar_export
+    if format == 'ics':
+        return calendar_export(data, title, meeting_id or data.get('meeting_id', 'meeting')), 'text/calendar'
     segments = data.get('transcript_segments', [])
     names = data.get('speaker_names', {})
     roles = data.get('speaker_roles', {})
@@ -50,8 +53,11 @@ def render_export(data, title, format):
     for decision in data.get('decisions', []):
         lines.append(f"- {decision.get('final_decision_text') or decision.get('proposal_text') or decision.get('topic', '')} ({decision.get('status', 'unknown')})")
     lines += ['', '## Action candidates', '']
-    for action in data.get('action_items', []):
+    for action in action_candidates(data).values():
         lines.append(f"- {label(action.get('speaker', 'UNKNOWN'))}: {action.get('text', '')}")
+        review = active_review(data, action)
+        if review:
+            lines.append(f"  User reviewed: {review['state']}; owner: {review['owner'] or 'Unassigned'}; due: {review['due_date'] or 'Not set'}")
     lines += ['', '## Participant influence estimates', '']
     for person in data.get('influence', []):
         lines.append(f"- {label(person.get('participant') or person.get('speaker_id'))}: {person.get('influence_score', person.get('score'))} / 1")

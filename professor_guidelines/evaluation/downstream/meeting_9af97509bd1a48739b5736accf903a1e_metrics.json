@@ -1,0 +1,70 @@
+{
+  "meeting_id": "meeting_9af97509bd1a48739b5736accf903a1e",
+  "metadata": {
+    "meeting_id": "meeting_9af97509bd1a48739b5736accf903a1e",
+    "dataset": "unknown",
+    "evaluation_timestamp": "2026-10-19T11:29:01.831583+00:00",
+    "config_snapshot": {
+      "source": "config/config.yaml"
+    },
+    "model_names": {},
+    "metric_definitions": {
+      "wer": "Word Error Rate = (S+D+I)/N",
+      "der": "Diarization Error Rate = (missed+false_alarm+speaker_error)/ref_duration",
+      "alignment": "Precision/Recall/F1 on (segment_id, slide_id) pairs",
+      "events": "Precision/Recall/F1 with timestamp tolerance matching",
+      "decisions": "Precision/Recall/F1 requiring all comparable topic/time fields; maximum one-to-one matching, v2",
+      "lineage": "Edge Precision/Recall/F1 on (source, relationship, target) tuples",
+      "influence": "Spearman / Kendall vs human-annotated ranking",
+      "efficiency": "Total time, stage timings, RTF = processing_time / audio_duration"
+    }
+  },
+  "wer": {
+    "status": "ground_truth_unavailable",
+    "metric": "wer"
+  },
+  "der": {
+    "status": "ground_truth_unavailable",
+    "metric": "der"
+  },
+  "alignment": {
+    "status": "ground_truth_unavailable",
+    "metric": "alignment"
+  },
+  "events": {
+    "status": "ground_truth_unavailable",
+    "metric": "event_extraction"
+  },
+  "decisions": {
+    "status": "ground_truth_unavailable",
+    "metric": "decision_extraction"
+  },
+  "lineage": {
+    "status": "ground_truth_unavailable",
+    "metric": "decision_lineage"
+  },
+  "influence": {
+    "status": "ground_truth_unavailable",
+    "metric": "influence_ranking"
+  },
+  "efficiency": {
+    "status": "ok",
+    "metric": "efficiency",
+    "total_processing_time_s": 1415.754,
+    "stage_timings_s": {
+      "preprocessing": 0.057,
+      "diarization": 788.3345,
+      "transcription": 615.157,
+      "slides": 5.5203,
+      "alignment": 6.4097,
+      "events": 0.1054,
+      "decisions": 0.0123,
+      "interactions": 0.0134,
+      "influence": 0.0412,
+      "report": 0.1033
+    },
+    "audio_duration_s": 2560.569,
+    "rtf": 0.552906,
+    "rtf_note": "RTF = processing_time / audio_duration = 1415.75s / 2560.57s = 0.5529. RTF < 1.0 means faster-than-real-time processing."
+  }
+}

@@ -146,6 +146,7 @@ def run_diarization(
     meeting_id: str | None = None,
     output_dir: Path | None = None,
     num_speakers: int | None = None,
+    progress=None,
 ) -> tuple[DiarizationResult, Path]:
     """
     Run speaker diarization on a preprocessed 16 kHz mono WAV file.
@@ -201,13 +202,15 @@ def run_diarization(
             speakers=cached.get("speakers", []),
             segments=cached_segments,
         )
+        if progress:
+            progress({"completed_seconds": 1, "total_seconds": 1, "cached": True})
         return cached_result, out_path
 
     merge_gap_s = float(get("diarization.merge_gap_s", 0.5))
     t_start = time.time()
     if backend == "sherpa-onnx":
         from src.audio.onnx_diarization import diarize
-        raw_segments = diarize(audio_path, num_speakers)
+        raw_segments = diarize(audio_path, num_speakers, progress=progress) if progress else diarize(audio_path, num_speakers)
         elapsed = time.time() - t_start
     else:
         # Ensure .env is loaded

@@ -1,0 +1,27 @@
+Dear Students,
+
+Write the paper in Springer MTAP format.  Home | Multimedia Tools and Applications | Springer Nature Link
+Do a literature review of around 10–15 relevant recent papers.
+Make one comparison table showing how previous works differ from Meet IQ (audio, diarization, multimodal, privacy, decision extraction, etc.).
+Clearly mention novelty.
+Add a small ablation study if possible.
+Avoid unsupported claims like "highly accurate” or “superior.”
+Citations should start from [1].
+No citation in abstract, conclusion and in result section if you are using any equations then citation should come otherwise no.
+Each figure and table should have in paper reference i.e. you should write something about each one like "Fig 1 depicts this".
+Keep captions small.
+Keep the paper focused on what was actually implemented and tested.
+
+Warm Regards,
+Dr. Nivedita Mishra,
+Industry Connect In-Charge,
+Assistant Professor,
+Department of Artificial Intelligence & Machine Learning,
+Symbiosis Institute of Technology (SIT)
+Gram: Lavale, Tal. Mulshi,
+Pune - 412115, India.
+
+https://link.springer.com/journal/11042
+
+
+Submit Final Project Reports in the format of Research Paper/IEEE Conference Paper (if told to your group) or Btech project report

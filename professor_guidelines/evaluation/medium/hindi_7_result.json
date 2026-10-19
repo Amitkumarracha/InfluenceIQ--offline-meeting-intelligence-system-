@@ -1,0 +1,33 @@
+{
+  "language": "hindi",
+  "sample": 7,
+  "id": "1792",
+  "reference": "इसे केमिकल का ph कहा जाता है आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं",
+  "hypothesis": "इसे कैमिकल का प्येज कहा जाता है आप लाल गोबी के जॉस को इस्तमाल करके एक संकेतक बना सकते हैं",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.3,
+    "substitutions": 6,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_length": 20,
+    "hypothesis_length": 20
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.147059,
+    "substitutions": 6,
+    "deletions": 1,
+    "insertions": 3,
+    "reference_length": 68,
+    "hypothesis_length": 70
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 8.22,
+  "elapsed_seconds": 29.171733350998693,
+  "rtf": 3.548872670437797
+}

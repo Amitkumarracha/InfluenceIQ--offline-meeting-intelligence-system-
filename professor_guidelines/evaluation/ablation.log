@@ -1,0 +1,51 @@
+2026-10-19 16:59:01 [INFO] evaluation: Metrics saved: professor_guidelines/evaluation/downstream/meeting_9af97509bd1a48739b5736accf903a1e_metrics.json
+2026-10-19 16:59:01 [INFO] evaluation: Baselines saved: professor_guidelines/evaluation/downstream/meeting_9af97509bd1a48739b5736accf903a1e_baselines.json
+2026-10-19 16:59:01 [INFO] evaluation: Comparison CSV saved: professor_guidelines/evaluation/downstream/meeting_9af97509bd1a48739b5736accf903a1e_comparison.csv
+2026-10-19 16:59:02 [INFO] fusion.alignment: Loading transcript: /home/amitkumar/Music/MAI Project/data/processed/audio/meeting_9af97509bd1a48739b5736accf903a1e_transcript.json
+2026-10-19 16:59:02 [INFO] fusion.alignment: Loading slides: /home/amitkumar/Music/MAI Project/data/processed/slides/meeting_9af97509bd1a48739b5736accf903a1e_slides.json
+2026-10-19 16:59:02 [INFO] fusion.alignment: Loading embeddings: /home/amitkumar/Music/MAI Project/data/processed/slides/meeting_9af97509bd1a48739b5736accf903a1e_embeddings.npy
+2026-10-19 16:59:02 [INFO] fusion.alignment: Aligning 1013 transcript segments against 34 slides
+2026-10-19 16:59:02 [INFO] fusion.alignment: Slide timing available: False
+2026-10-19 16:59:02 [INFO] fusion.alignment: Config: top_k=3 temporal_w=0.50 semantic_w=0.50 threshold=0.30 model=all-MiniLM-L6-v2
+2026-10-19 16:59:02 [INFO] fusion.alignment: Loading embedding model: all-MiniLM-L6-v2
+2026-10-19 16:59:36 [INFO] fusion.alignment: Alignment complete in 34.31s | aligned=35 | no_confident_slide=978
+2026-10-19 16:59:36 [INFO] fusion.alignment: Alignment JSON  : professor_guidelines/evaluation/downstream/variants/A1/meeting_9af97509bd1a48739b5736accf903a1e_alignment.json
+2026-10-19 16:59:36 [INFO] fusion.alignment: Multimodal JSON : professor_guidelines/evaluation/downstream/variants/A1/meeting_9af97509bd1a48739b5736accf903a1e_multimodal.json
+2026-10-19 16:59:36 [INFO] fusion.alignment: Loading transcript: /home/amitkumar/Music/MAI Project/data/processed/audio/meeting_9af97509bd1a48739b5736accf903a1e_transcript.json
+2026-10-19 16:59:36 [INFO] fusion.alignment: Loading slides: /home/amitkumar/Music/MAI Project/data/processed/slides/meeting_9af97509bd1a48739b5736accf903a1e_slides.json
+2026-10-19 16:59:36 [INFO] fusion.alignment: Loading embeddings: /home/amitkumar/Music/MAI Project/data/processed/slides/meeting_9af97509bd1a48739b5736accf903a1e_embeddings.npy
+2026-10-19 16:59:36 [INFO] fusion.alignment: Aligning 1013 transcript segments against 34 slides
+2026-10-19 16:59:36 [INFO] fusion.alignment: Slide timing available: False
+2026-10-19 16:59:36 [INFO] fusion.alignment: Config: top_k=3 temporal_w=0.00 semantic_w=1.00 threshold=0.30 model=all-MiniLM-L6-v2
+2026-10-19 16:59:36 [INFO] fusion.alignment: Loading embedding model: all-MiniLM-L6-v2
+2026-10-19 17:00:07 [INFO] fusion.alignment: Alignment complete in 31.30s | aligned=35 | no_confident_slide=978
+2026-10-19 17:00:07 [INFO] fusion.alignment: Alignment JSON  : professor_guidelines/evaluation/downstream/variants/A3/meeting_9af97509bd1a48739b5736accf903a1e_alignment.json
+2026-10-19 17:00:07 [INFO] fusion.alignment: Multimodal JSON : professor_guidelines/evaluation/downstream/variants/A3/meeting_9af97509bd1a48739b5736accf903a1e_multimodal.json
+2026-10-19 17:00:07 [INFO] fusion.alignment: Loading transcript: /home/amitkumar/Music/MAI Project/data/processed/audio/meeting_9af97509bd1a48739b5736accf903a1e_transcript.json
+2026-10-19 17:00:07 [INFO] fusion.alignment: Loading slides: /home/amitkumar/Music/MAI Project/data/processed/slides/meeting_9af97509bd1a48739b5736accf903a1e_slides.json
+2026-10-19 17:00:07 [INFO] fusion.alignment: Loading embeddings: /home/amitkumar/Music/MAI Project/data/processed/slides/meeting_9af97509bd1a48739b5736accf903a1e_embeddings.npy
+2026-10-19 17:00:07 [INFO] fusion.alignment: Aligning 1013 transcript segments against 34 slides
+2026-10-19 17:00:07 [INFO] fusion.alignment: Slide timing available: False
+2026-10-19 17:00:07 [INFO] fusion.alignment: Config: top_k=3 temporal_w=1.00 semantic_w=0.00 threshold=0.30 model=all-MiniLM-L6-v2
+2026-10-19 17:00:07 [INFO] fusion.alignment: Loading embedding model: all-MiniLM-L6-v2
+2026-10-19 17:00:08 [INFO] fusion.alignment: Alignment complete in 0.12s | aligned=0 | no_confident_slide=1013
+2026-10-19 17:00:08 [INFO] fusion.alignment: Alignment JSON  : professor_guidelines/evaluation/downstream/variants/A4/meeting_9af97509bd1a48739b5736accf903a1e_alignment.json
+2026-10-19 17:00:08 [INFO] fusion.alignment: Multimodal JSON : professor_guidelines/evaluation/downstream/variants/A4/meeting_9af97509bd1a48739b5736accf903a1e_multimodal.json
+2026-10-19 17:00:09 [INFO] evaluation: Ablation results saved: professor_guidelines/evaluation/downstream/meeting_9af97509bd1a48739b5736accf903a1e_ablation.json
+
+[Evaluation Summary — meeting_9af97509bd1a48739b5736accf903a1e]
+  wer         : ground_truth_unavailable
+  der         : ground_truth_unavailable
+  alignment   : ground_truth_unavailable
+  events      : ground_truth_unavailable
+  decisions   : ground_truth_unavailable
+  lineage     : ground_truth_unavailable
+  influence   : ground_truth_unavailable
+
+  Metrics JSON   : professor_guidelines/evaluation/downstream/meeting_9af97509bd1a48739b5736accf903a1e_metrics.json
+  Baselines JSON : professor_guidelines/evaluation/downstream/meeting_9af97509bd1a48739b5736accf903a1e_baselines.json
+
+NOTE: ground_truth_unavailable means no annotation was supplied.
+Do NOT interpret unit-test results as real dataset performance.
+
+Done.

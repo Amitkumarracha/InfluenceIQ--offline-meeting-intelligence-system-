@@ -18,6 +18,7 @@ import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
+from types import SimpleNamespace
 
 from src.utils.config import get
 from src.utils.logging import get_logger
@@ -281,6 +282,12 @@ def run_asr(
             _save_txt(result, txt_path)
         return result, json_path, txt_path
 
+    # Speech observations do not depend on speaker clustering. Re-attribution
+    # reuses the exact original words/times instead of running Whisper again.
+    speech_settings = {k: v for k, v in settings.items() if k != "min_overlap_ratio"}
+    speech_settings.update(cache_kind="word_observations", word_cache_version=1)
+    speech_key = fingerprint([audio_path], speech_settings)
+    speech_dir = out_dir / f"{meeting_id}_asr_words" / speech_key
     chunk_dir = out_dir / f"{meeting_id}_asr_chunks" / key
     transcript_segments = []
     quality_parts = []
@@ -319,7 +326,13 @@ def run_asr(
                        "clipped": int(np.count_nonzero(np.abs(central) >= .999)),
                        "peak": float(np.max(np.abs(central))) if len(central) else 0.0}
             quality_parts.append(quality)
-            if get("asr.skip_digital_silence", True) and not np.any(samples):
+            word_path = speech_dir / f"{index:06d}.json"
+            observations = read_cache(word_path, speech_key)
+            if observations is not None:
+                chunk_language = observations.get("language")
+                segments_iter = [SimpleNamespace(**{**item, "words": [SimpleNamespace(**word) for word in item["words"]]})
+                                 for item in observations["segments"]]
+            elif get("asr.skip_digital_silence", True) and not np.any(samples):
                 # Exact silence only. Quiet speech/noise still receives normal VAD/ASR.
                 segments_iter, chunk_language = iter([]), None
             else:
@@ -345,6 +358,18 @@ def run_asr(
                     logger.warning("Detected %s outside configured languages %s; decoding with %s", chunk_language, allowed, selected_language)
                     segments_iter, info = model.transcribe(samples, **{**kwargs, "language": selected_language})
                     chunk_language = selected_language
+            if observations is None:
+                raw_segments = []
+                for segment in segments_iter:
+                    word_items = getattr(segment, "words", None)
+                    if not isinstance(word_items, (list, tuple)) or not word_items:
+                        word_items = [SimpleNamespace(start=segment.start, end=segment.end, word=segment.text)]
+                    raw_segments.append(dict(start=segment.start, end=segment.end, text=segment.text,
+                        avg_logprob=getattr(segment, "avg_logprob", None),
+                        words=[dict(start=word.start, end=word.end, word=word.word) for word in word_items]))
+                atomic_json(word_path, {"cache_key": speech_key, "language": chunk_language, "segments": raw_segments})
+                segments_iter = [SimpleNamespace(**{**item, "words": [SimpleNamespace(**word) for word in item["words"]]})
+                                 for item in raw_segments]
             detected_language = detected_language or chunk_language
             if chunk_language:
                 detected_languages.add(chunk_language)
@@ -385,9 +410,9 @@ def run_asr(
             transcript_segments.extend(chunk_segments)
             if on_chunk:
                 on_chunk(transcript_segments[-50:], {"completed_seconds": min(duration, first / sr + chunk_seconds),
-                    "total_seconds": duration, "total_segments": len(transcript_segments), "cached": False})
+                    "total_seconds": duration, "total_segments": len(transcript_segments), "cached": observations is not None})
             if progress:
-                progress({"completed_seconds": min(duration, first / sr + chunk_seconds), "total_seconds": duration, "cached": False})
+                progress({"completed_seconds": min(duration, first / sr + chunk_seconds), "total_seconds": duration, "cached": observations is not None})
             logger.info("ASR checkpoint %d: %.1f / %.1f seconds", index + 1,
                         min(duration, first / sr + chunk_seconds), duration)
     for index, segment in enumerate(transcript_segments, 1):

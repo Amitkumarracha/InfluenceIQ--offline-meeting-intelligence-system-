@@ -1,0 +1,68 @@
+{
+  "meeting": "ES2003a",
+  "split": "development",
+  "start": 60,
+  "duration": 120,
+  "channel": "Array1-01",
+  "threshold": 0.7,
+  "clusters": 3,
+  "reference_speakers": 3,
+  "der": {
+    "status": "ok",
+    "metric": "der",
+    "der": 0.16887,
+    "missed_speech_rate": 0.14443,
+    "false_alarm_rate": 0.003243,
+    "speaker_error_rate": 0.021197,
+    "total_reference_duration": 83.04999999999995,
+    "collar_s": 0.25,
+    "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+  },
+  "diarization_seconds": 26.65807461899749,
+  "rtf": 0.22215062182497908,
+  "peak_process_rss_mb": 507.84375,
+  "reference_protocol": "AMI manual speech segments, 0.25s collar, overlap included, optimal speaker mapping, excerpt UEM",
+  "hypothesis": [
+    {
+      "start": 2.0728437900543213,
+      "end": 40.26097106933594,
+      "speaker": "0"
+    },
+    {
+      "start": 45.71159362792969,
+      "end": 54.5372200012207,
+      "speaker": "0"
+    },
+    {
+      "start": 59.05971908569336,
+      "end": 74.09534454345703,
+      "speaker": "0"
+    },
+    {
+      "start": 78.1115951538086,
+      "end": 84.49034881591797,
+      "speaker": "0"
+    },
+    {
+      "start": 88.05097198486328,
+      "end": 88.5740966796875,
+      "speaker": "5"
+    },
+    {
+      "start": 95.56034851074219,
+      "end": 96.47159576416016,
+      "speaker": "5"
+    },
+    {
+      "start": 96.47159576416016,
+      "end": 99.01972198486328,
+      "speaker": "6"
+    },
+    {
+      "start": 102.20909881591797,
+      "end": 102.69847106933594,
+      "speaker": "6"
+    }
+  ],
+  "evaluation_duration_seconds": 120
+}

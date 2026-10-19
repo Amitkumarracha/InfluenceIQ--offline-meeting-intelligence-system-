@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Read-only UI smoke check on an explicitly selected Android emulator.
 
-Requires an installed debug APK, adb and an unlocked emulator. Does not seed,
-delete or export meetings, install dependencies, or change device settings.
+Requires an installed debug APK, adb and an unlocked emulator. The default
+check does not modify meetings; --check-cached-update explicitly updates a
+completed meeting three times to verify that quick jobs release UI controls.
 """
 import argparse
 from pathlib import Path
@@ -17,10 +18,13 @@ def main():
     parser.add_argument("--serial", required=True)
     parser.add_argument("--adb", default="adb")
     parser.add_argument("--meeting-title", help="Existing meeting to inspect")
+    parser.add_argument("--check-cached-update", action="store_true", help="Exercise Update analysis on an already completed matching checkpoint")
     parser.add_argument("--output", type=Path, default=Path("outputs/android-design"))
     args = parser.parse_args()
     if not args.serial.startswith("emulator-"):
         parser.error("Use an emulator; physical-device testing is manual.")
+    if args.check_cached_update and not args.meeting_title:
+        parser.error("--check-cached-update requires --meeting-title")
     args.output.mkdir(parents=True, exist_ok=True)
 
     def adb(*command):
@@ -89,6 +93,17 @@ def main():
             left, top, right, bottom = map(int, re.findall(r"\d+", view.get("bounds")))
             adb("shell", "input", "swipe", str((left + right)//2), str(bottom-80), str((left + right)//2), str(top+180), "300")
         tap(label)
+        if args.check_cached_update:
+            for _ in range(3):
+                reveal("Update analysis")
+                tap("Update analysis")
+                for attempt in range(12):
+                    time.sleep(.5)
+                    found=control("Update analysis")
+                    if found and found[0].get("enabled")=="true":
+                        break
+                else:
+                    raise AssertionError("Cached update left the controls locked")
         for section in ("Overview", "Transcript", "Action items", "Decisions", "Analysis"):
             reveal(section, horizontal=True)
             tap(section)

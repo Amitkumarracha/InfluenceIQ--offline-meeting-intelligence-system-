@@ -1,0 +1,33 @@
+{
+  "language": "hinglish",
+  "sample": 4,
+  "id": "103085_w5Jyq3XMbb3WwiKQ_0004",
+  "reference": "चलिए देखते हैं कि screen पर क्या क्या है",
+  "hypothesis": "तूर में बनाया था ज़े देते हैं कि स्क्वीन पर क्या क्या है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.777778,
+    "substitutions": 3,
+    "deletions": 0,
+    "insertions": 4,
+    "reference_length": 9,
+    "hypothesis_length": 13
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.75,
+    "substitutions": 12,
+    "deletions": 0,
+    "insertions": 12,
+    "reference_length": 32,
+    "hypothesis_length": 44
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 4.55,
+  "elapsed_seconds": 12.623718856000778,
+  "rtf": 2.774443704615556
+}

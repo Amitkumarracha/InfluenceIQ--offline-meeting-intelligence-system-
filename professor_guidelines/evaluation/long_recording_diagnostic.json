@@ -1,0 +1,9 @@
+{
+  "scope": "Private long recording diagnostic; no reference speaker count or DER; original meeting unchanged",
+  "duration_seconds": 2560.569,
+  "threshold": 0.9,
+  "baseline_groups": 139,
+  "groups": 37,
+  "elapsed_seconds": 1047.64016327,
+  "peak_process_rss_mb": 1108.25
+}

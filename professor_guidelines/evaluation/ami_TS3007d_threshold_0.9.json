@@ -1,0 +1,123 @@
+{
+  "meeting": "TS3007d",
+  "split": "test",
+  "start": 60,
+  "duration": 120,
+  "channel": "Array1-01",
+  "threshold": 0.9,
+  "clusters": 7,
+  "reference_speakers": 4,
+  "der": {
+    "status": "ok",
+    "metric": "der",
+    "der": 0.560056,
+    "missed_speech_rate": 0.146816,
+    "false_alarm_rate": 0.38767,
+    "speaker_error_rate": 0.02557,
+    "total_reference_duration": 86.64200000000004,
+    "collar_s": 0.25,
+    "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+  },
+  "diarization_seconds": 33.16834126699905,
+  "rtf": 0.27640284389165876,
+  "peak_process_rss_mb": 532.3359375,
+  "reference_protocol": "AMI manual speech segments, 0.25s collar, overlap included, optimal speaker mapping, excerpt UEM",
+  "hypothesis": [
+    {
+      "start": 0.03096874989569187,
+      "end": 4.806593894958496,
+      "speaker": "0"
+    },
+    {
+      "start": 4.384718894958496,
+      "end": 9.210968971252441,
+      "speaker": "1"
+    },
+    {
+      "start": 15.707844734191895,
+      "end": 16.737220764160156,
+      "speaker": "3"
+    },
+    {
+      "start": 18.306594848632812,
+      "end": 19.572219848632812,
+      "speaker": "1"
+    },
+    {
+      "start": 19.065969467163086,
+      "end": 23.689720153808594,
+      "speaker": "0"
+    },
+    {
+      "start": 25.157846450805664,
+      "end": 28.04347038269043,
+      "speaker": "0"
+    },
+    {
+      "start": 26.2040958404541,
+      "end": 54.45284652709961,
+      "speaker": "1"
+    },
+    {
+      "start": 55.0434684753418,
+      "end": 55.617218017578125,
+      "speaker": "1"
+    },
+    {
+      "start": 55.617218017578125,
+      "end": 57.254093170166016,
+      "speaker": "5"
+    },
+    {
+      "start": 56.32596969604492,
+      "end": 76.66034698486328,
+      "speaker": "1"
+    },
+    {
+      "start": 61.20284652709961,
+      "end": 63.46409606933594,
+      "speaker": "5"
+    },
+    {
+      "start": 69.84284210205078,
+      "end": 70.16346740722656,
+      "speaker": "6"
+    },
+    {
+      "start": 77.1834716796875,
+      "end": 112.97534942626953,
+      "speaker": "1"
+    },
+    {
+      "start": 88.81034851074219,
+      "end": 90.02534484863281,
+      "speaker": "0"
+    },
+    {
+      "start": 90.02534484863281,
+      "end": 92.40472412109375,
+      "speaker": "2"
+    },
+    {
+      "start": 93.94034576416016,
+      "end": 94.93597412109375,
+      "speaker": "2"
+    },
+    {
+      "start": 101.44972229003906,
+      "end": 102.09097290039062,
+      "speaker": "0"
+    },
+    {
+      "start": 102.31034851074219,
+      "end": 102.61409759521484,
+      "speaker": "4"
+    },
+    {
+      "start": 113.98784637451172,
+      "end": 119.97846984863281,
+      "speaker": "1"
+    }
+  ],
+  "evaluation_duration_seconds": 120
+}

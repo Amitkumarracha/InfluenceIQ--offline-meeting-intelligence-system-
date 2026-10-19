@@ -15,6 +15,7 @@ import java.util.*;
 public class MeetingService extends Service {
     static volatile String status = "Ready. Audio and reports stay on this phone.";
     static volatile boolean busy = false;
+    static volatile long generation;
     static volatile MeetingProgress progress = new MeetingProgress("idle", null, "ready", 0, 0, 0, null);
     private void publish(String stage, String id, long completed, long total, float level, String error) {
         progress = new MeetingProgress(progress.operation, id, stage, completed, total, level, error);
@@ -45,6 +46,7 @@ public class MeetingService extends Service {
         final boolean record = "record".equals(intent.getAction());
         busy = true; stopping = false;
         progress = new MeetingProgress(record ? "record" : "analyse", intent.getStringExtra("meeting"), "starting", 0, 0, 0, null);
+        generation++;
         Intent stop = new Intent(this, MeetingService.class).setAction("stop");
         PendingIntent stopIntent = PendingIntent.getService(this, 1, stop, PendingIntent.FLAG_IMMUTABLE);
         Notification notification = new Notification.Builder(this, "meeting")
@@ -198,12 +200,15 @@ public class MeetingService extends Service {
         int expected=getSharedPreferences("transcription",MODE_PRIVATE).getInt("speakers",0);
         if(expected<0||expected>20) expected=0;
         publish("speakers",id,(long)duration,(long)duration,0,null); status="Identifying speakers locally…";
-        if(duration>3600) problem="On-device speaker analysis supports up to one hour. The full transcript remains available.";
-        else try {
+        ActivityManager.MemoryInfo memory=new ActivityManager.MemoryInfo();
+        getSystemService(ActivityManager.class).getMemoryInfo(memory);
+        long speakerLimit=SpeakerBudget.seconds(memory.availMem,memory.lowMemory);
+        try {
             File segmentation=NativeSpeakers.model(this,"segmentation.onnx"), embedding=NativeSpeakers.model(this,"embedding.onnx");
             String identity="sherpa-1.13.8:"+sha256(new File(directory,"audio.wav"))+":"+sha256(segmentation)+":"+sha256(embedding)+":"+expected+":0.5";
             File cache=new File(directory,"speaker-turns.json"); JSONObject saved=cache.isFile()?MeetingRepository.read(cache):new JSONObject();
             if(identity.equals(saved.optString("identity"))) turns=saved.getJSONArray("turns");
+            else if(duration>speakerLimit) problem="Speaker analysis exceeds the current memory budget ("+(speakerLimit/60)+" minutes). The full transcript remains available.";
             else { turns=new JSONArray(NativeSpeakers.run(new File(directory,"audio.wav"),segmentation,embedding,expected)); atomic(cache,new JSONObject().put("identity",identity).put("turns",turns)); }
         } catch(Exception|LinkageError error) { problem="Speaker analysis unavailable: "+error.getMessage(); }
         // Upstream inference cannot cancel mid-stage; its completed cache is retained.
@@ -213,7 +218,7 @@ public class MeetingService extends Service {
         publish("fusion",id,(long)duration,(long)duration,0,null); status="Matching slide text and analysing contributions…";
         JSONObject report=baseReport(attributed,duration,true,language);
         report.put("diarization",new JSONObject().put("backend","sherpa-onnx-1.13.8").put("expected_speakers",expected).put("threshold",.5)
-            .put("turns",turns).put("error",problem==null?JSONObject.NULL:problem).put("accuracy_measured",false));
+            .put("turns",turns).put("memory_budget_seconds",speakerLimit).put("error",problem==null?JSONObject.NULL:problem).put("accuracy_measured",false));
         JSONArray slides=new JSONArray(); File source=new File(directory,"presentation.json"); if(source.isFile()) slides=MeetingRepository.read(source).getJSONArray("slides");
         MeetingAnalysis.analyse(report,events(attributed),slides);
         atomic(new File(directory,"report.json"),report);
@@ -231,7 +236,7 @@ public class MeetingService extends Service {
             .put("duration", duration).put("completed", complete).put("language",detected.size()==1?detected.iterator().next():language)
             .put("requested_language",language).put("detected_languages",new JSONArray(detected))
             .put("processing",new JSONObject().put("offline",true).put("generative_notes_chat",false).put("asr_backend","whisper.cpp-1.7.6")
-                .put("asr_model_sha256",speechModelHash).put("checkpoint_version",4).put("device","cpu"))
+                .put("asr_model_sha256",speechModelHash).put("checkpoint_version",4).put("asr_decoder","greedy").put("device","cpu"))
             .put("analysis_method", "Keyword candidates; full speaker and fusion analysis follows transcription.")
             .put("events", events(segments)).put("accuracy_measured", false)
             .put("vocabulary_suggestions",new JSONArray(Vocabulary.suggest(texts)));

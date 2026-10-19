@@ -422,7 +422,7 @@ def reconstruct_decisions(
         elif ev.event_type == "agreement" and not require_final_decision:
             # Only count agreement as anchor if there is a preceding proposal
             has_proposal = any(
-                p.event_type == "proposal" and p.start <= ev.start
+                p.event_type == "proposal" and p.start <= ev.start and ev.start-p.end <= temporal_window
                 for p in events
             )
             if has_proposal:
@@ -438,7 +438,7 @@ def reconstruct_decisions(
             last_anchor_end = anchor.end
 
     # If no anchors found and proposals exist, treat each proposal as unresolved
-    if not deduplicated:
+    if not deduplicated and not require_final_decision:
         proposals = [e for e in events if e.event_type == "proposal"]
         deduplicated = proposals[:] if proposals else []
 
@@ -447,6 +447,8 @@ def reconstruct_decisions(
     decision_counter = 0
 
     for anchor in deduplicated:
+        if anchor.event_id in used_event_ids:
+            continue
         # ---- Step 2: build cluster ----
         cluster = _events_in_window(anchor, events, temporal_window)
         if not cluster:

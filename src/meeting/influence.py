@@ -468,6 +468,37 @@ def extract_features(
 # Baseline extraction
 # ---------------------------------------------------------------------------
 
+def speech_statistics(segments: list[dict]) -> tuple[dict[str, float], dict[str, int]]:
+    """Union each speaker's intervals; a new turn follows a speaker change or >0.5s gap."""
+    intervals: dict[str, list[tuple[float, float]]] = {}
+    turns: dict[str, int] = {}
+    previous, previous_end = None, 0.0
+    for row in sorted(segments, key=lambda item: item.get("start", 0)):
+        speaker = row.get("speaker", "UNKNOWN")
+        if not speaker or speaker == "UNKNOWN":
+            previous = None
+            continue
+        start, end = float(row["start"]), float(row["end"])
+        import math
+        if not math.isfinite(start) or not math.isfinite(end) or start < 0 or end < start:
+            raise ValueError("Invalid transcript interval")
+        if end == start:
+            continue
+        intervals.setdefault(speaker, []).append((start, end))
+        if speaker != previous or start > previous_end + .5:
+            turns[speaker] = turns.get(speaker, 0) + 1
+        previous_end = max(previous_end, end) if speaker == previous else end
+        previous = speaker
+    seconds = {}
+    for speaker, rows in intervals.items():
+        total, finish = 0.0, 0.0
+        for start, end in rows:
+            total += max(0, end - max(start, finish))
+            finish = max(finish, end)
+        seconds[speaker] = total
+    return seconds, turns
+
+
 def extract_baselines(
     event_result: EventExtractionResult,
     evidence_result: EvidenceExtractionResult,
@@ -477,28 +508,25 @@ def extract_baselines(
     """
     Compute baseline scores for all participants.
 
-    B1: speaking time (sum of event durations as proxy)
+    B1: union of full-transcript speaker intervals (event proxy only without a transcript)
     B2: speaking time + number of speaking turns (normalised sum / 2)
     B3: decision-linked event count
     B4: decision-linked evidence relation count
 
-    NOTE: These use events as a proxy for speaking time.
-    For a more accurate speaking-time baseline the raw transcript segments
-    (Phase 5 output) should be used.  This is documented as a limitation.
+    Full transcript inputs include non-event speech and merge adjacent turns.
+    Legacy callers without transcript inputs retain an explicitly labelled event proxy.
     """
     events = event_result.events
-    from types import SimpleNamespace
-    speech = [SimpleNamespace(**segment) for segment in transcript_segments] if transcript_segments is not None else events
-    all_speakers = sorted({e.speaker for e in speech if e.speaker != "UNKNOWN"})
-
-    # B1: speaking time (sum of event durations per speaker)
-    speaking_time: dict[str, float] = {sp: 0.0 for sp in all_speakers}
-    turn_count: dict[str, int] = {sp: 0 for sp in all_speakers}
-    for ev in speech:
-        sp = ev.speaker
-        if sp in speaking_time:
-            speaking_time[sp] += ev.end - ev.start
-            turn_count[sp] += 1
+    if transcript_segments is not None:
+        speaking_time, turn_count = speech_statistics(transcript_segments)
+    else:
+        # Compatibility for callers without a saved transcript; explicitly an event proxy.
+        speaking_time, turn_count = {}, {}
+        for event in events:
+            if event.speaker != "UNKNOWN":
+                speaking_time[event.speaker] = speaking_time.get(event.speaker, 0) + max(0, event.end-event.start)
+                turn_count[event.speaker] = turn_count.get(event.speaker, 0) + 1
+    all_speakers = sorted(speaking_time)
 
     # B3: decision-linked event count
     event_to_decision: dict[str, str] = {}

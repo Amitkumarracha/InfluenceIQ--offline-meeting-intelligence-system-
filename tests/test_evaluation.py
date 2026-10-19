@@ -329,7 +329,7 @@ class TestDecisionEvaluation:
 
     def test_topic_jaccard_matching(self):
         gt   = [{"topic": "we should use model b", "timestamp": 0.0}]
-        pred = [{"topic": "use model b", "timestamp": 100.0}]  # time far but topic overlaps
+        pred = [{"topic": "use model b"}]  # topic-only annotation comparison
         r = evaluate_decisions(pred, gt, timestamp_tolerance=10.0)
         # Topic Jaccard >= 0.3 → should match
         assert r["tp"] >= 1

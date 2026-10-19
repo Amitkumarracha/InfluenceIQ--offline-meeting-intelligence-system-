@@ -143,6 +143,7 @@ def calculate_der(
     reference: list[dict[str, Any]] | None,
     hypothesis: list[dict[str, Any]] | None,
     collar: float = 0.25,
+    duration: float | None = None,
 ) -> dict[str, Any]:
     """
     Compute Diarization Error Rate.
@@ -183,7 +184,9 @@ def calculate_der(
     if collar < 0:
         raise ValueError("DER collar must be non-negative")
     ref, hyp = annotation(reference), annotation(hypothesis)
-    end = max((item['end'] for item in reference + hypothesis), default=0)
+    if duration is not None and (not math.isfinite(duration) or duration <= 0):
+        raise ValueError('Evaluation duration must be positive and finite')
+    end = duration if duration is not None else max((item['end'] for item in reference + hypothesis), default=0)
     if end <= 0:
         return _no_gt("der")
     # Optimal speaker permutation, overlap and the requested collar are handled
@@ -290,6 +293,36 @@ def evaluate_alignment(
 # 5. Event extraction evaluation
 # ---------------------------------------------------------------------------
 
+def _maximum_matches(predictions, ground_truth, matches):
+    """Maximum one-to-one matching, independent of prediction/annotation order."""
+    from collections import deque
+    neighbors = [[g for g, truth in enumerate(ground_truth) if matches(prediction, truth)] for prediction in predictions]
+    by_prediction, by_truth = {}, {}
+    for initial in range(len(predictions)):
+        pending, visited, via = deque([initial]), {initial}, {}
+        found = False
+        while pending and not found:
+            prediction = pending.popleft()
+            for truth in neighbors[prediction]:
+                if truth in via:
+                    continue
+                via[truth] = prediction
+                if truth not in by_truth:
+                    while True:
+                        owner = via[truth]
+                        old = by_prediction.get(owner)
+                        by_prediction[owner], by_truth[truth] = truth, owner
+                        if old is None:
+                            break
+                        truth = old
+                    found = True
+                    break
+                owner = by_truth[truth]
+                if owner not in visited:
+                    visited.add(owner); pending.append(owner)
+    return len(by_prediction)
+
+
 def evaluate_events(
     predictions: list[dict[str, Any]] | None,
     ground_truth: list[dict[str, Any]] | None,
@@ -326,10 +359,12 @@ def evaluate_events(
     def _match(pred: dict, gt: dict, tol: float) -> bool:
         if pred.get("event_type") != gt.get("event_type"):
             return False
+        if pred.get("speaker") and gt.get("speaker") and pred["speaker"] != gt["speaker"]:
+            return False
         # Temporal proximity check
-        p_start = float(pred.get("start", 0.0))
-        g_start = float(gt.get("start", 0.0))
-        return abs(p_start - g_start) <= tol
+        if pred.get("start") is None or gt.get("start") is None:
+            return False
+        return abs(float(pred["start"]) - float(gt["start"])) <= tol
 
     per_type: dict[str, Any] = {}
     overall_tp = overall_fp = overall_fn = 0
@@ -338,14 +373,7 @@ def evaluate_events(
         preds_t = [p for p in predictions if p.get("event_type") == etype]
         gts_t   = [g for g in ground_truth if g.get("event_type") == etype]
 
-        matched_gt = set()
-        tp = 0
-        for pred in preds_t:
-            for gi, gt in enumerate(gts_t):
-                if gi not in matched_gt and _match(pred, gt, timestamp_tolerance):
-                    tp += 1
-                    matched_gt.add(gi)
-                    break
+        tp = _maximum_matches(preds_t, gts_t, lambda pred, truth: _match(pred, truth, timestamp_tolerance))
 
         fp = len(preds_t) - tp
         fn = len(gts_t) - tp
@@ -387,7 +415,7 @@ def evaluate_decisions(
     -------
     dict with precision, recall, f1, or ground_truth_unavailable.
 
-    Matching: topic similarity OR timestamp proximity within tolerance.
+    Matching: require every supplied comparable field (topic and/or timestamp).
     Topic similarity uses word-overlap (Jaccard on token sets).
     """
     if ground_truth is None or len(ground_truth) == 0:
@@ -395,33 +423,18 @@ def evaluate_decisions(
     if predictions is None:
         predictions = []
 
-    def _jaccard(a: str, b: str) -> float:
-        ta = set(str(a).lower().split())
-        tb = set(str(b).lower().split())
-        if not ta and not tb:
-            return 1.0
-        return len(ta & tb) / len(ta | tb)
-
-    def _matches(pred: dict, gt: dict, tol: float) -> bool:
-        # Temporal proximity
-        pt = float(pred.get("timestamp", pred.get("start", 0.0)))
-        gt_t = float(gt.get("timestamp", gt.get("start", 0.0)))
-        time_match = abs(pt - gt_t) <= tol
-        # Topic overlap
-        topic_match = _jaccard(
-            pred.get("topic", pred.get("text", "")),
-            gt.get("topic", gt.get("text", "")),
-        ) >= 0.3
-        return time_match or topic_match
-
-    matched_gt: set[int] = set()
-    tp = 0
-    for pred in predictions:
-        for gi, gt in enumerate(ground_truth):
-            if gi not in matched_gt and _matches(pred, gt, timestamp_tolerance):
-                tp += 1
-                matched_gt.add(gi)
-                break
+    from src.utils.text import words
+    def _matches(pred, gt):
+        checks = []
+        pt, gt_t = pred.get("timestamp", pred.get("start")), gt.get("timestamp", gt.get("start"))
+        if pt is not None and gt_t is not None:
+            checks.append(abs(float(pt)-float(gt_t)) <= timestamp_tolerance)
+        a = set(words(pred.get("topic") or pred.get("text") or ""))
+        b = set(words(gt.get("topic") or gt.get("text") or ""))
+        if a and b:
+            checks.append(len(a & b)/len(a | b) >= .3)
+        return bool(checks) and all(checks)
+    tp = _maximum_matches(predictions, ground_truth, _matches)
 
     fp = len(predictions) - tp
     fn = len(ground_truth) - tp
@@ -429,6 +442,7 @@ def evaluate_decisions(
     metrics.update({
         "status": STATUS_OK,
         "metric": "decision_extraction",
+        "matching_policy": "all_comparable_fields_one_to_one_v2",
         "timestamp_tolerance_s": timestamp_tolerance,
     })
     return metrics
@@ -522,8 +536,10 @@ def _spearman(x: list[float], y: list[float]) -> float:
 
     rx = _rank(x)
     ry = _rank(y)
-    d2 = sum((a - b) ** 2 for a, b in zip(rx, ry))
-    return 1.0 - (6.0 * d2) / (n * (n * n - 1))
+    mx, my = sum(rx)/n, sum(ry)/n
+    covariance = sum((a-mx)*(b-my) for a, b in zip(rx, ry))
+    denominator = math.sqrt(sum((a-mx)**2 for a in rx)*sum((b-my)**2 for b in ry))
+    return covariance/denominator if denominator else float("nan")
 
 
 def _kendall_tau(x: list[float], y: list[float]) -> float:
@@ -542,9 +558,9 @@ def _kendall_tau(x: list[float], y: list[float]) -> float:
             elif prod < 0:
                 discordant += 1
             else:
-                if dx == 0:
+                if dx == 0 and dy != 0:
                     ties_x += 1
-                if dy == 0:
+                if dy == 0 and dx != 0:
                     ties_y += 1
     denom = math.sqrt(
         (concordant + discordant + ties_x) * (concordant + discordant + ties_y)
@@ -553,8 +569,8 @@ def _kendall_tau(x: list[float], y: list[float]) -> float:
 
 
 def evaluate_influence_ranking(
-    system_ranking: list[str] | None,
-    human_ranking: list[str] | None,
+    system_ranking: list[str] | dict[str, float] | None,
+    human_ranking: list[str] | dict[str, float] | None,
 ) -> dict[str, Any]:
     """
     Compare system influence ranking to human-annotated ranking.
@@ -582,15 +598,24 @@ def evaluate_influence_ranking(
             "error": "system_ranking is empty",
         }
 
-    # Build rank-score vectors (higher rank = lower position index)
-    all_speakers = list(dict.fromkeys(human_ranking + system_ranking))
-
-    def _rank_scores(ranking: list[str], speakers: list[str]) -> list[float]:
-        pos = {sp: i for i, sp in enumerate(ranking)}
-        return [float(pos.get(sp, len(ranking))) for sp in speakers]
-
-    sys_scores = _rank_scores(system_ranking, all_speakers)
-    hum_scores = _rank_scores(human_ranking, all_speakers)
+    # Score maps preserve tied participants; ordered lists retain legacy support.
+    all_speakers = list(dict.fromkeys([*human_ranking, *system_ranking]))
+    def _rank_scores(ranking):
+        if isinstance(ranking, dict):
+            values = {speaker: -float(score) for speaker, score in ranking.items()}
+            if not all(math.isfinite(value) for value in values.values()):
+                raise ValueError("Rank scores must be finite")
+        else:
+            if len(set(ranking)) != len(ranking):
+                raise ValueError("Participant rankings must not contain duplicates")
+            values = {speaker: float(index) for index, speaker in enumerate(ranking)}
+        missing = max(values.values(), default=0) + 1
+        return [values.get(speaker, missing) for speaker in all_speakers]
+    sys_scores, hum_scores = _rank_scores(system_ranking), _rank_scores(human_ranking)
+    if len(all_speakers) < 2 or len(set(sys_scores)) < 2 or len(set(hum_scores)) < 2:
+        return {"status": STATUS_ERROR, "metric": "influence_ranking",
+                "reason": "Correlation is undefined with fewer than two participants or constant ranks",
+                "spearman_correlation": None, "kendall_tau": None, "n_participants": len(all_speakers)}
 
     # Prefer scipy if available
     try:
@@ -608,10 +633,13 @@ def evaluate_influence_ranking(
         "status": STATUS_OK,
         "metric": "influence_ranking",
         "spearman_correlation": round(float(sp_corr), 6) if not math.isnan(float(sp_corr)) else None,
-        "spearman_p_value": round(sp_pval, 6) if sp_pval is not None else None,
+        "spearman_p_value": round(sp_pval, 6) if sp_pval is not None and math.isfinite(sp_pval) else None,
         "kendall_tau": round(float(kt_corr), 6) if not math.isnan(float(kt_corr)) else None,
-        "kendall_p_value": round(kt_pval, 6) if kt_pval is not None else None,
+        "kendall_p_value": round(kt_pval, 6) if kt_pval is not None and math.isfinite(kt_pval) else None,
         "n_participants": len(all_speakers),
+        "tie_policy": "Equal scores retain tied ranks; absent participants rank last",
+        "missing_system_participants": sorted(set(human_ranking)-set(system_ranking)),
+        "missing_human_participants": sorted(set(system_ranking)-set(human_ranking)),
         "note": (
             "Scores are only meaningful when human_ranking comes from "
             "actual human evaluation, not fabricated annotations."
@@ -707,7 +735,7 @@ def build_eval_metadata(
             "der":       "Diarization Error Rate = (missed+false_alarm+speaker_error)/ref_duration",
             "alignment": "Precision/Recall/F1 on (segment_id, slide_id) pairs",
             "events":    "Precision/Recall/F1 with timestamp tolerance matching",
-            "decisions": "Precision/Recall/F1 with topic-Jaccard or temporal matching",
+            "decisions": "Precision/Recall/F1 requiring all comparable topic/time fields; maximum one-to-one matching, v2",
             "lineage":   "Edge Precision/Recall/F1 on (source, relationship, target) tuples",
             "influence": "Spearman / Kendall vs human-annotated ranking",
             "efficiency": "Total time, stage timings, RTF = processing_time / audio_duration",

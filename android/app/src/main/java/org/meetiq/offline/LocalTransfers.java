@@ -48,9 +48,7 @@ final class LocalTransfers {
                         MeetingService.atomic(new File(target.getParentFile(),export==null?"draft-presentation.json":"presentation.json"),text);
                         message="Presentation saved with "+slides.size()+" slides. Run analysis to update speech matches.";
                     } else if (model) {
-                        try (RandomAccessFile file=new RandomAccessFile(temporary,"r")) {
-                            if (Integer.reverseBytes(file.readInt())!=0x67676d6c) throw new IOException("Select a GGML Whisper .bin model");
-                        }
+                        ModelFile.validate(temporary);
                         if (!temporary.renameTo(new File(app.getFilesDir(),"model.bin"))) throw new IOException("Could not replace speech model");
                         StringBuilder hash=new StringBuilder(); for(byte value:digest.digest()) hash.append(String.format("%02x",value));
                         Files.write(new File(app.getFilesDir(),"model.sha256").toPath(),hash.toString().getBytes(StandardCharsets.UTF_8));

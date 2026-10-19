@@ -1,0 +1,8 @@
+method,description,spearman,kendall,status
+B1_speaking_time,"Speaker interval duration, max-normalized; source: full_transcript",,,ground_truth_unavailable
+B2_speaking_time_turns,"Speaking duration plus turns, max-normalized; source: full_transcript",,,ground_truth_unavailable
+B3_decision_event_count,"Count of events belonging to a decision cluster, normalised by max.",,,ground_truth_unavailable
+B5_transcript_only,Decision-linked event count after evidence/decision rerun with all slide links removed.,,,ground_truth_unavailable
+B4_decision_evidence_count,Count of evidence relations whose source is a participant event and target is in a decision cluster. Normalised by max.,,,ground_truth_unavailable
+B6_audio_ppt_no_decision,Multimodal baseline: average of normalised speaking time and normalised slide-grounded event count. No decision-linked impact features.,,,ground_truth_unavailable
+Proposed_decision_linked,Full proposed system: Audio + PPT + Events + Evidence + Decision lineage + Interaction + Decision-linked contribution,,,ground_truth_unavailable

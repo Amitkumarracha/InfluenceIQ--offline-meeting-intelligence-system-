@@ -1,0 +1,33 @@
+{
+  "language": "hinglish",
+  "sample": 6,
+  "id": "103085_w5Jyq3XMbb3WwiKQ_0006",
+  "reference": "जैसे कि आप देख सकते हैं workspace में 5 tabs हैं जिन्हें view buttons कहते हैं",
+  "hypothesis": "ज़िसे की आप देख सुकते हैं वर्क स्पेस में पाश टैब्स हैं हैं यने वर्क",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.75,
+    "substitutions": 9,
+    "deletions": 2,
+    "insertions": 1,
+    "reference_length": 16,
+    "hypothesis_length": 15
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.666667,
+    "substitutions": 28,
+    "deletions": 12,
+    "insertions": 2,
+    "reference_length": 63,
+    "hypothesis_length": 53
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 5.55,
+  "elapsed_seconds": 41.914570236000145,
+  "rtf": 7.552174817297324
+}

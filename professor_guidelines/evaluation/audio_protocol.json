@@ -1,0 +1,22 @@
+{
+  "splits": {
+    "development": [
+      "ES2002a",
+      "ES2003a"
+    ],
+    "test": [
+      "IS1001b",
+      "TS3007d"
+    ]
+  },
+  "threshold_grid": [
+    0.5,
+    0.7,
+    0.9,
+    1.1
+  ],
+  "start": 60,
+  "seconds": 120,
+  "selection": "Minimum development pooled DER; ties choose lower threshold; tests not used for selection",
+  "scope": "Small English AMI pilot; segments can include internal silence; not an official full-corpus benchmark"
+}

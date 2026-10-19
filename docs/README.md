@@ -1,10 +1,14 @@
 # InfluenceIQ / Meet IQ — master developer and research documentation
 
-Updated **8 October 2026**. Begin here for the current project. Older chapters retain dated experiments and comparisons; [the latest structure/performance audit](validation/22_STRUCTURE_PERFORMANCE_AND_GAPS.md) explains changes since those snapshots.
+Updated **19 October 2026**. Start with the [main/nested project reconciliation](validation/25_NESTED_PROJECT_RECONCILIATION_2026_10_19.md), [current readiness delivery](validation/23_READINESS_2026_10_18.md) and [plain terminal startup/device commands](guides/RUN_CURRENT.md). The current Android APK is **0.7.1-prototype**, with [shared web/Android accounts and explicit meeting sync](guides/ACCOUNT_SYNC.md). See [account sync validation](validation/24_ACCOUNT_SYNC_2026_10_18.md). Older chapters retain dated experiments and comparisons; [the latest structure/performance audit](validation/22_STRUCTURE_PERFORMANCE_AND_GAPS.md) explains changes since those snapshots.
 
 The [cumulative final CA4 report](submitted/Group12_Multimodal_AI_Final_Report_CA4.pdf) and its [editable Markdown](submitted/Multimodal%20AI%20Mini%20Project%20Continuous%20Assessment%204.md) were prepared on **10 October 2026**. It includes the three alignment comparisons, corrected EDA and scoped results. The [complete supporting record](submitted/Group12_Complete_CA1_to_CA4_Record.pdf) also preserves earlier submitted PDFs.
 
 This project analyses meetings locally: audio becomes a speaker-attributed transcript; optional PPT content is matched to passages; NLP rules extract candidate actions, decisions, evidence, interactions and influence. Users can correct speaker names/roles and revisit results in history. There is no generative notes/chat feature. Influence scores and inferred roles are analytical estimates requiring review against the recording.
+
+The canonical workspace is `/home/amitkumar/Music/MAI Project`. The old nested repository has been retired to `waste/InfluenceIQ--offline-meeting-intelligence-system-/`; useful missing historical records were preserved separately. See the [complete inventory and cleanup record](validation/26_LEGACY_CLEANUP_2026_10_19.md). Launch the application from the canonical workspace.
+
+The [Read.ai comparison and repository review](validation/27_READ_AI_COMPARISON_AND_FOLLOWUPS_2026_10_19.md) records current feature gaps and candidate model tradeoffs. [Reviewed task owners, deadlines, completion status and offline calendar export](guides/FOLLOW_UPS.md) now work on web and Android without new models.
 
 ## Start on this machine
 
@@ -12,10 +16,12 @@ Run commands from the project directory:
 
 ```bash
 cd '/home/amitkumar/Music/MAI Project'
-bash scripts/start_app.sh
+export MAI_HOST=127.0.0.1
+export MAI_PORT=8001
+.venv/bin/python -m backend.api
 ```
 
-Open **http://127.0.0.1:8000**. Stop the foreground server with Ctrl+C. The launcher rebuilds changed frontend inputs and reuses an existing current build. The API has one meeting worker; a second meeting waits for the first. Use `python -m backend.api` through the project venv for direct API startup.
+Open **http://127.0.0.1:8001**. Stop the foreground server with Ctrl+C. The current frontend build is already prepared; use the [separate frontend/backend guide](guides/RUN_CURRENT.md) for development. The backend port is configurable to avoid other local applications. The API has one meeting worker; a second meeting waits for the first. Use `python -m backend.api` through the project venv for direct API startup.
 
 For a new installation:
 
@@ -60,7 +66,8 @@ MAI Project/
 ├── logs/             diagnostics and validation logs
 ├── tests/            Python regression suite
 ├── notebooks/        notebook workspace
-├── archive/          verified older source archive, legacy tools/state and private remnants
+├── archive/          verified older source archive, private legacy recovery records and tools
+├── waste/            inactive nested checkout; reversible, private and excluded from Git/tests
 ├── .bootstrap/       uv bootstrap environment
 ├── .venv/            project Python environment
 ├── .runtime/         durable job state, secrets and local validation tools
@@ -128,13 +135,16 @@ For existing meeting artifacts:
 
 Supply real annotations to measure research metrics. The evaluator reads full saved transcript/speaker/alignment outputs and leaves annotation-dependent metrics unavailable when no ground truth exists. `--stage-timings` overrides saved stage timings; comparison CSVs use the meeting ID to avoid overwriting other runs.
 
-For remote processing, read [offline/workstation operation](operations/21_OFFLINE_AND_WORKSTATION_DEPLOYMENT.md). Android remains independently offline; its cloud option opens an HTTPS browser site with separate server history. A GPU requires compatible runtime provisioning. No public deployment or native cloud-upload synchronization has been completed.
+For remote processing, read [offline/workstation operation](operations/21_OFFLINE_AND_WORKSTATION_DEPLOYMENT.md). Android remains independently offline; its optional Account & sync screen shares identity and explicitly publishes/downloads completed meetings with the configured server. Its separate browser link opens the website. A GPU requires compatible runtime provisioning. No public deployment has been completed.
 
 ## Documentation index
 
 The sections above give the recommended reading order. This inventory preserves the full documentation without merging dated evidence into unsupported current claims.
 
 ### Guides
+
+- [Review follow-ups and export calendar deadlines](guides/FOLLOW_UPS.md)
+- [Current plain terminal commands and Samsung phone setup](guides/RUN_CURRENT.md)
 
 - [Meet IQ — Offline Meeting Intelligence](guides/QUICK_START.md)
 - [Manual startup — updated 7 October 2026](guides/RUN_MANUALLY.md)
@@ -162,6 +172,13 @@ The sections above give the recommended reading order. This inventory preserves 
 - [Training, annotation and multimodal research](research/20_TRAINING_DATA_AND_MULTIMODAL_RESEARCH.md)
 
 ### Validation
+
+- [Website progress, participant review and validation — 19 October 2026](validation/28_WEBSITE_PROCESSING_2026_10_19.md)
+- [Read.ai comparison, repository research and follow-up delivery — 19 October 2026](validation/27_READ_AI_COMPARISON_AND_FOLLOWUPS_2026_10_19.md)
+- [Complete legacy-folder inventory and reversible cleanup — 19 October 2026](validation/26_LEGACY_CLEANUP_2026_10_19.md)
+- [Main/nested checkout reconciliation and authorized history import — 19 October 2026](validation/25_NESTED_PROJECT_RECONCILIATION_2026_10_19.md)
+- [Shared web/Android accounts and sync verification — 18–19 October 2026](validation/24_ACCOUNT_SYNC_2026_10_18.md)
+- [Readiness fixes, OCR, evaluation and Android memory hardening — 18 October 2026](validation/23_READINESS_2026_10_18.md)
 
 - [Structure, processing performance and remaining gaps — 8 October 2026](validation/22_STRUCTURE_PERFORMANCE_AND_GAPS.md)
 - [Data, output artifacts, and measured results](validation/09_DATA_OUTPUTS_AND_RESULTS.md)

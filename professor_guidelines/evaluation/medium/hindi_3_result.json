@@ -1,0 +1,33 @@
+{
+  "language": "hindi",
+  "sample": 3,
+  "id": "1778",
+  "reference": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है",
+  "hypothesis": "तेलेविजन रिपोटों में प्लांट से निकलने वाला सफे दूआ दिखाया गया है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.333333,
+    "substitutions": 4,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_length": 12,
+    "hypothesis_length": 12
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.122807,
+    "substitutions": 3,
+    "deletions": 4,
+    "insertions": 0,
+    "reference_length": 57,
+    "hypothesis_length": 53
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 5.1,
+  "elapsed_seconds": 30.231860973999574,
+  "rtf": 5.927815877254819
+}

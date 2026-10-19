@@ -825,7 +825,7 @@ class TestUncertaintyHandling:
         ev = EvidenceExtractionResult(meeting_id="m")
         result = reconstruct_decisions(er, ev, temporal_window=120.0, require_final_decision=True)
         # No "decision"-type event → no decisions produced
-        assert all(d.status != "confirmed" for d in result.decisions)
+        assert result.decisions == []
 
     def test_no_events_no_decisions(self):
         er = EventExtractionResult(meeting_id="m", events=[])

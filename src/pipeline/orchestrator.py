@@ -49,7 +49,7 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
     def transcription_progress(details):
         asr_progress.update(details)
         if progress:
-            progress('transcription', details)
+            progress(stage, details)
 
     def preview(segments, details):
         recent = [asdict(segment) for segment in segments[-50:]]
@@ -62,28 +62,39 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
         update('preprocessing')
         processed, metadata = preprocess_audio(audio_path, root / 'audio' / f'{meeting_id}_processed.wav', reuse_normalized=True)
         mark_stage_complete(meeting_id, stage, processed)
-        update('diarization')
         diar_path = root / 'audio' / f'{meeting_id}_diarization.json'
+        unknown_path = root / 'audio' / f'{meeting_id}_unknown_diarization.json'
+        atomic_json(unknown_path, {'meeting_id': meeting_id, 'segments': []})
+        # Draft text is available before global speaker clustering. Existing
+        # attributed checkpoints remain reusable on unchanged/restarted jobs.
+        initial_diar = diar_path if diarization != 'off' and diar_path.exists() else unknown_path
+        update('transcription')
+        transcript, transcript_path, _ = run_asr(processed, initial_diar, meeting_id, options=options,
+            progress=transcription_progress, on_chunk=preview)
+        mark_stage_complete(meeting_id, stage, transcript_path)
         speaker_identified = False
         if diarization != 'off':
+            update('diarization')
             try:
-                diar_result, diar_path = run_diarization(processed, meeting_id=meeting_id, num_speakers=options.get('num_speakers'))
+                diar_result, diar_path = run_diarization(processed, meeting_id=meeting_id,
+                    num_speakers=options.get('num_speakers'),
+                    progress=lambda details: progress('diarization', details) if progress else None)
                 speaker_identified = bool(diar_result.segments)
-            except Exception as exc:
+                if len(diar_result.speakers) > 20 and not options.get('num_speakers'):
+                    warnings.append(f'Automatic clustering found {len(diar_result.speakers)} speaker groups. This may split people incorrectly. Set the actual speaker count and rerun speaker analysis; review influence only after correcting attribution.')
+            except Exception:
                 if diarization == 'required':
                     raise
                 warnings.append('Speaker separation unavailable. All speech is labelled UNKNOWN; participant influence is unavailable.')
-        if not speaker_identified:
-            if diarization == 'off':
-                warnings.append('Speaker separation disabled. All speech is labelled UNKNOWN.')
-            # No invented speaker identity; ASR works independently of diarization.
-            diar_path = root / 'audio' / f'{meeting_id}_unknown_diarization.json'
-            atomic_json(diar_path, {'meeting_id': meeting_id, 'segments': []})
-        mark_stage_complete(meeting_id, stage, diar_path)
-        update('transcription')
-        transcript, transcript_path, _ = run_asr(processed, diar_path, meeting_id, options=options,
-            progress=transcription_progress, on_chunk=preview)
-        mark_stage_complete(meeting_id, stage, transcript_path)
+            if not speaker_identified:
+                diar_path = unknown_path
+            mark_stage_complete(meeting_id, stage, diar_path)
+            update('attribution')
+            transcript, transcript_path, _ = run_asr(processed, diar_path, meeting_id, options=options,
+                progress=transcription_progress, on_chunk=preview)
+            mark_stage_complete(meeting_id, stage, transcript_path)
+        else:
+            warnings.append('Speaker separation disabled. All speech is labelled UNKNOWN.')
         source = transcript_path
         if ppt_path:
             update('slides')
@@ -127,9 +138,11 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
             warnings.append('More than 1% of audio samples are near full scale. Check microphone gain and review potentially clipped speech.')
         report.processing = {
             'warnings': warnings, 'speaker_separation': speaker_identified,
+            'speaker_cluster_threshold': get('diarization.onnx.cluster_threshold'),
             'speaker_backend': get('diarization.backend'), 'generative_ai': False,
             'language': transcript.language, 'recording_quality': transcript.recording_quality, 'asr_model': options.get('model_size') or get('asr.model_size'),
             'options': options, 'alignment_method': get('alignment.method', 'embeddings') if ppt_path else None,
+            'slide_ocr_enabled': bool(ppt_path and get('ppt.ocr_enabled', False)),
             'analysis_method': 'English/Hindi/Hinglish keyword heuristics; review against source audio',
             'accuracy_measured': False,
             'stage_timings_seconds': stage_timings,
@@ -142,8 +155,12 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
         report_path = PROJECT_ROOT / 'outputs' / 'reports' / f'{meeting_id}_report.json'
         payload = json.loads(report_path.read_text())
         payload['transcript_segments'] = [vars(s) for s in transcript.segments]
-        from src.meeting.vocabulary import suggest_vocabulary
-        payload['vocabulary_suggestions'] = suggest_vocabulary(payload['transcript_segments'])
+        from src.meeting.participants import self_introductions
+        payload['speaker_name_sources'] = self_introductions(payload['transcript_segments'])
+        payload['speaker_names'] = {speaker: source['name'] for speaker, source in payload['speaker_name_sources'].items()}
+        from src.meeting.vocabulary import suggest_vocabulary, VOCABULARY_VERSION
+        payload['vocabulary_suggestions'] = suggest_vocabulary(payload['transcript_segments'], slide_text=[text for slide in payload.get('slides', []) for text in slide.get('text', [])])
+        payload['vocabulary_suggestions_version'] = VOCABULARY_VERSION
         payload['vocabulary'] = options.get('vocabulary', '')
         stage_timings['report'] = round(time.perf_counter() - stage_started, 6)
         payload['processing']['stage_timings_seconds'] = stage_timings

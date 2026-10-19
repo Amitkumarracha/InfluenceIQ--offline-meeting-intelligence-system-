@@ -11,7 +11,7 @@ import java.util.*;
 final class MeetingRepository {
     static final class Meeting {
         final String id, title, language, problem;
-        final boolean audioExists, reportExists, completed;
+        final boolean audioExists, reportExists, completed, transcriptMissing;
         final double duration;
         final int passageCount, eventCount;
         final long audioBytes, reportBytes, reportModified, metadataBytes, metadataModified;
@@ -21,6 +21,7 @@ final class MeetingRepository {
             metadataBytes=metadata.length(); metadataModified=metadata.lastModified();
             audioExists=audio.isFile() && audioBytes > 44; reportExists=data != null;
             completed=data != null && data.optBoolean("completed");
+            transcriptMissing=data!=null && data.optJSONObject("processing")!=null && data.optJSONObject("processing").optBoolean("legacy_transcript_missing");
             duration=data == null ? Math.max(0, (audioBytes-44)/32000.0) : data.optDouble("duration", 0);
             language=data == null ? "auto" : data.optString("language", "auto");
             passageCount=data == null ? 0 : data.optJSONArray("transcript_segments") == null ? 0 : data.optJSONArray("transcript_segments").length();
@@ -29,6 +30,7 @@ final class MeetingRepository {
         String date() { return new SimpleDateFormat("MMM d, yyyy · h:mm a", Locale.getDefault()).format(new Date(Long.parseLong(id))); }
         String status() {
             if (MeetingService.busy && id.equals(MeetingService.progress.meetingId)) return MeetingService.progress.recording() ? "Recording" : "Analysing";
+            if(transcriptMissing) return "Historical report";
             return completed ? (passageCount==0?"No speech found":"Transcript ready") : reportExists ? "Partial" : "Recorded";
         }
     }
@@ -77,6 +79,12 @@ final class MeetingRepository {
         if (!id.equals(loadedId) || loadedModified!=source.lastModified() || loadedBytes!=source.length() || loadedReport==null) {
             loadedReport=read(source); loadedId=id; loadedModified=source.lastModified(); loadedBytes=source.length();
         }
+        JSONObject local=metadata(id).optJSONObject("action_reviews");
+        if(local!=null) {
+            JSONObject combined=loadedReport.optJSONObject("action_reviews"); if(combined==null) combined=new JSONObject();
+            Iterator<String> keys=local.keys(); while(keys.hasNext()) { String key=keys.next(); combined.put(key,local.get(key)); }
+            loadedReport.put("action_reviews",combined);
+        }
         return loadedReport;
     }
     void rename(String id,String title) throws Exception {
@@ -100,6 +108,21 @@ final class MeetingRepository {
         if(names==null) names=new JSONObject(); if(roles==null) roles=new JSONObject();
         names.put(speaker,name.trim().replaceAll("[\\r\\n]"," ")); roles.put(speaker,role.trim().replaceAll("[\\r\\n]"," "));
         MeetingService.atomic(file(id,"metadata.json"),meta.put("speaker_names",names).put("speaker_roles",roles)); summaries.remove(id);
+    }
+    void reviewAction(String id,JSONObject original,String owner,String due,String state) throws Exception {
+        JSONObject action=ActionReviews.candidates(report(id)).get(original.optString("event_id"));
+        if(action==null||!action.optString("text").equals(original.optString("text"))||!Objects.equals(ActionReviews.start(action),ActionReviews.start(original)))
+            throw new IOException("This report changed. Reopen the task before saving.");
+        JSONObject value=ActionReviews.make(action,owner,due,state),meta=metadata(id),reviews=meta.optJSONObject("action_reviews");
+        if(reviews==null) reviews=new JSONObject();
+        if(!reviews.has(action.getString("event_id"))&&reviews.length()>=5000) throw new IOException("This meeting has reached the follow-up review limit");
+        reviews.put(action.getString("event_id"),value); MeetingService.atomic(file(id,"metadata.json"),meta.put("action_reviews",reviews));
+        summaries.remove(id);
+    }
+    File calendar(String id,String title) throws Exception {
+        File destination=file(id,"task-calendar.ics");
+        String value=ActionReviews.calendar(report(id),title,metadata(id).optString("remote_id",id));
+        Files.write(destination.toPath(),value.getBytes(StandardCharsets.UTF_8)); return destination;
     }
     static String speakerLabel(JSONObject metadata,String speaker) {
         JSONObject names=metadata.optJSONObject("speaker_names"); String name=names==null?"":names.optString(speaker).trim();
@@ -131,6 +154,12 @@ final class MeetingRepository {
             JSONObject item=events.getJSONObject(i);
             text.append("- ").append(item.optString("event_type")).append(" [").append(stamp(item.optDouble("start")))
                 .append("] ").append(speakerLabel(meta,item.optString("speaker","UNKNOWN"))).append(": ").append(item.optString("text")).append("\n");
+        }
+        text.append("\n## Reviewed follow-ups\n\n");
+        for(JSONObject action:ActionReviews.candidates(report).values()) {
+            JSONObject review=ActionReviews.active(report,action); if(review==null) continue;
+            text.append("- ").append(action.optString("text")).append("; status: ").append(review.optString("state"))
+                .append("; owner: ").append(review.optString("owner")).append("; due: ").append(review.optString("due_date")).append("\n");
         }
         text.append("\n## Participants and influence\n\nScores are unvalidated weighted candidate contributions, not accuracy or causal influence.\n\n");
         JSONArray scores=report.optJSONArray("influence");

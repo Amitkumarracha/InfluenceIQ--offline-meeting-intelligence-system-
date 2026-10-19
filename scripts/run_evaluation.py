@@ -242,10 +242,7 @@ def main() -> None:
     metrics_out["lineage"] = evaluate_decision_lineage(pred_lineage, gt_lineage)
 
     # Influence ranking
-    sys_ranking = None
-    if influence_result:
-        ranked = influence_result.by_rank()
-        sys_ranking = [p.participant for p in ranked]
+    sys_ranking = {p.participant: p.influence_score for p in influence_result.participants} if influence_result else None
     metrics_out["influence"] = evaluate_influence_ranking(sys_ranking, human_ranking)
 
     # Efficiency
@@ -268,16 +265,16 @@ def main() -> None:
     # ---- Baselines ----
     baselines_out: list[dict] = []
     if event_result:
-        baselines_out.append(baseline_speaking_time(event_result))
-        baselines_out.append(baseline_speaking_time_turns(event_result))
+        baselines_out.append(baseline_speaking_time(event_result, transcript.get("segments") if transcript_path.exists() else None))
+        baselines_out.append(baseline_speaking_time_turns(event_result, transcript.get("segments") if transcript_path.exists() else None))
         if decision_result:
-            baselines_out.append(baseline_decision_event_count(event_result, decision_result))
-            baselines_out.append(baseline_transcript_only(event_result, decision_result))
+            baselines_out.append(baseline_decision_event_count(event_result, decision_result, transcript.get("segments") if transcript_path.exists() else None))
+            baselines_out.append(baseline_transcript_only(event_result, decision_result, transcript.get("segments") if transcript_path.exists() else None))
         if evidence_result and decision_result:
             baselines_out.append(baseline_decision_evidence_count(
-                event_result, evidence_result, decision_result))
+                event_result, evidence_result, decision_result, transcript.get("segments") if transcript_path.exists() else None))
         if evidence_result:
-            baselines_out.append(baseline_audio_ppt_no_decision(event_result, evidence_result))
+            baselines_out.append(baseline_audio_ppt_no_decision(event_result, evidence_result, transcript.get("segments") if transcript_path.exists() else None))
 
     proposed_scores = None
     if influence_result:
@@ -313,9 +310,28 @@ def main() -> None:
             event_result, evidence_result, decision_result, interaction_result
         ]):
             from src.evaluation.ablation import run_all_ablations, ablation_results_to_dict
+            variants = {}
+            slides_path = PROJECT_ROOT / "data/processed/slides" / f"{meeting_id}_slides.json"
+            has_presentation = bool(report.get("slides")) if report_path.exists() else slides_path.exists()
+            if transcript_path.exists() and slides_path.exists() and has_presentation:
+                from src.fusion.multimodal_representation import run_alignment
+                for experiment, temporal, semantic in [("A1", None, None), ("A3", 0, 1), ("A4", 1, 0)]:
+                    try:
+                        _, _, _, variant_path = run_alignment(transcript_path, slides_path, meeting_id=meeting_id,
+                            output_dir=out_dir/"variants"/experiment, temporal_weight=temporal, semantic_weight=semantic,
+                            method=report.get("processing", {}).get("alignment_method"))
+                        variants[experiment] = json.loads(variant_path.read_text(encoding="utf-8"))["segments"]
+                    except (FileNotFoundError, RuntimeError, ImportError) as exc:
+                        logger.warning("%s unavailable: %s", experiment, exc)
+            elif transcript_path.exists() and not has_presentation:
+                variants["A1"] = [dict(row, slide_id=None, alignment={}) for row in transcript.get("segments", [])]
+            if has_presentation and "A1" not in variants:
+                raise RuntimeError("Cannot construct a matched full-system control; ablation results were not written")
             ablation_results = run_all_ablations(
                 event_result, evidence_result, decision_result, interaction_result,
                 human_ranking=human_ranking,
+                transcript_segments=transcript.get("segments") if transcript_path.exists() else None,
+                alignment_variants=variants,
             )
             ablation_payload = ablation_results_to_dict(ablation_results, meeting_id)
             abl_path = out_dir / f"{meeting_id}_ablation.json"

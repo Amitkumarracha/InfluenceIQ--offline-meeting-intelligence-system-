@@ -1,0 +1,566 @@
+{
+  "summary": {
+    "hindi": {
+      "n": 8,
+      "seconds": 92.16,
+      "wer": 0.5096153846153846,
+      "wer_errors": 106,
+      "wer_reference_length": 208,
+      "cer": 0.20092915214866433,
+      "cer_errors": 173,
+      "cer_reference_length": 861
+    },
+    "hinglish": {
+      "n": 8,
+      "seconds": 56.12499999999999,
+      "wer": 0.6612903225806451,
+      "wer_errors": 82,
+      "wer_reference_length": 124,
+      "cer": 0.5,
+      "cer_errors": 267,
+      "cer_reference_length": 534
+    }
+  },
+  "rows": [
+    {
+      "language": "hindi",
+      "sample": 0,
+      "id": "1766",
+      "reference": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है",
+      "hypothesis": "कुछ अडवो में आजस्तर केंड़ग होता है जिस का मतलब यहां की उन में खोडे या बिना किसी जटके से तुटनें की प्रवत्ती होती है",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.541667,
+        "substitutions": 12,
+        "deletions": 0,
+        "insertions": 1,
+        "reference_length": 24,
+        "hypothesis_length": 25
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.247312,
+        "substitutions": 16,
+        "deletions": 5,
+        "insertions": 2,
+        "reference_length": 93,
+        "hypothesis_length": 90
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 9.12,
+      "elapsed_seconds": 14.490609095002583,
+      "rtf": 1.5888825762064236
+    },
+    {
+      "language": "hindi",
+      "sample": 1,
+      "id": "1784",
+      "reference": "ग्रीनलैंड को बहुत कम जगह बसाया गया था नॉर्स सगास में वे कहते हैं कि एरिक रेड हत्या के लिए आइसलैंड से निर्वासित किया गया था और आगे पश्चिम की यात्रा करते समय ग्रीनलैंड मिला जिसे ग्रीनलैंड नाम दिया गया",
+      "hypothesis": "ग्रीन लेंड को बहुत कम जगर बसाया गया ता नोर्श सगास में वे कहते हैं कि एरेक रेड रेड हत्या के लिए अएस लेंच से निर्वासित किया गया ता और आगे पश्चम की यात्र करते समय ग्रीन लेंड मिला जिसे ग्रीन लेंड नाम दिया गया",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.4,
+        "substitutions": 11,
+        "deletions": 0,
+        "insertions": 5,
+        "reference_length": 40,
+        "hypothesis_length": 45
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.113208,
+        "substitutions": 13,
+        "deletions": 2,
+        "insertions": 3,
+        "reference_length": 159,
+        "hypothesis_length": 160
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 13.8,
+      "elapsed_seconds": 15.462652458998491,
+      "rtf": 1.1204820622462675
+    },
+    {
+      "language": "hindi",
+      "sample": 2,
+      "id": "1718",
+      "reference": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित सामान एंटीक होते हैं कुछ कर एजेंसियां 100 साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं",
+      "hypothesis": "अईसी कोई वैस्पिक परिवाशा नहीं जिसके लिए निर्मित समान अन्टिक होते हैं पुचकर अजन्शिया शव साल से पुराने समान को अन्टिक के तोर पर परिवाशित करती है",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.517241,
+        "substitutions": 13,
+        "deletions": 2,
+        "insertions": 0,
+        "reference_length": 29,
+        "hypothesis_length": 27
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.266667,
+        "substitutions": 22,
+        "deletions": 7,
+        "insertions": 3,
+        "reference_length": 120,
+        "hypothesis_length": 116
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 15.0,
+      "elapsed_seconds": 11.696251052999287,
+      "rtf": 0.7797500701999525
+    },
+    {
+      "language": "hindi",
+      "sample": 3,
+      "id": "1778",
+      "reference": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है",
+      "hypothesis": "तेलीविशन लिपोटो में प्लांट से निकलनेंवाला सबे दुवा दिखाया गया है",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.5,
+        "substitutions": 5,
+        "deletions": 1,
+        "insertions": 0,
+        "reference_length": 12,
+        "hypothesis_length": 11
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.192982,
+        "substitutions": 6,
+        "deletions": 4,
+        "insertions": 1,
+        "reference_length": 57,
+        "hypothesis_length": 54
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 5.1,
+      "elapsed_seconds": 8.434037291001005,
+      "rtf": 1.6537328021570599
+    },
+    {
+      "language": "hindi",
+      "sample": 4,
+      "id": "1828",
+      "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+      "hypothesis": "इंटरनेट पर ये खोज सत्रुता पुर्न पर्यावरं पाटक्रम के लिया अकसर आप को एक इस्ठान ने कमपनी का पता प्रदान करेगी",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.666667,
+        "substitutions": 9,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_length": 18,
+        "hypothesis_length": 21
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.183908,
+        "substitutions": 11,
+        "deletions": 3,
+        "insertions": 2,
+        "reference_length": 87,
+        "hypothesis_length": 86
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 13.2,
+      "elapsed_seconds": 10.270269143002224,
+      "rtf": 0.7780506926516837
+    },
+    {
+      "language": "hindi",
+      "sample": 5,
+      "id": "1666",
+      "reference": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सलाह ले सकते हैं हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती हैं",
+      "hypothesis": "अपनी सर्कार के लावाः अन्यदेशो की सर्कारो की सला लेए सकते है हलाकी उनकी सला उनके नागरिको को द्यान में रक्कल दी जाती है",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.576923,
+        "substitutions": 13,
+        "deletions": 2,
+        "insertions": 0,
+        "reference_length": 26,
+        "hypothesis_length": 24
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.19802,
+        "substitutions": 5,
+        "deletions": 11,
+        "insertions": 4,
+        "reference_length": 101,
+        "hypothesis_length": 94
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 10.62,
+      "elapsed_seconds": 9.174124749999464,
+      "rtf": 0.8638535546138856
+    },
+    {
+      "language": "hindi",
+      "sample": 6,
+      "id": "1836",
+      "reference": "प्राचीनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है और इन्हें प्राथमिक उपकरणों के ज़रिए ढूंढना अपेक्षाकृत आसान है",
+      "hypothesis": "प्राछीन काल से ही लोग सोने चादी और तामभे जैसे रासायनिक तपो के बारे में ही जानकाडी रकते हैं कि इने प्रक्रिती में मूल स्वरिएप में दूना चासकता हैं और इने प्रात्मिक उपकरनो के जर यह दूना अपेख्षाक्रित आसान है",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.564103,
+        "substitutions": 19,
+        "deletions": 1,
+        "insertions": 2,
+        "reference_length": 39,
+        "hypothesis_length": 40
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.261364,
+        "substitutions": 19,
+        "deletions": 20,
+        "insertions": 7,
+        "reference_length": 176,
+        "hypothesis_length": 163
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 17.1,
+      "elapsed_seconds": 27.163024304001738,
+      "rtf": 1.5884809534503939
+    },
+    {
+      "language": "hindi",
+      "sample": 7,
+      "id": "1792",
+      "reference": "इसे केमिकल का ph कहा जाता है आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं",
+      "hypothesis": "इसे केमिकल का पीज कहा जाता है आप लाल गोवी के जूस को इस्तमाल कर के एक संकेत बना सकते हैं",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.35,
+        "substitutions": 6,
+        "deletions": 0,
+        "insertions": 1,
+        "reference_length": 20,
+        "hypothesis_length": 21
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.102941,
+        "substitutions": 4,
+        "deletions": 2,
+        "insertions": 1,
+        "reference_length": 68,
+        "hypothesis_length": 67
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 8.22,
+      "elapsed_seconds": 42.87765325700093,
+      "rtf": 5.216259520316414
+    },
+    {
+      "language": "hinglish",
+      "sample": 0,
+      "id": "103085_w5Jyq3XMbb3WwiKQ_0000",
+      "reference": "लिबर ऑफिस impress में एक प्रस्तुति document बनाना और बुनियादी formatting के इस spoken tutorial में आपका स्वागत है",
+      "hypothesis": "लिबर अफिस इंप्रस में एक प्रस्थोटी डोक्यमें बनाना और बून्यादी फोर्मेटिं के इस श्पोख अंटी तुर्ल में अपका स्वागात है",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.578947,
+        "substitutions": 10,
+        "deletions": 0,
+        "insertions": 1,
+        "reference_length": 19,
+        "hypothesis_length": 20
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.505263,
+        "substitutions": 45,
+        "deletions": 2,
+        "insertions": 1,
+        "reference_length": 95,
+        "hypothesis_length": 94
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 8.275,
+      "elapsed_seconds": 22.412404221999168,
+      "rtf": 2.7084476401207453
+    },
+    {
+      "language": "hinglish",
+      "sample": 1,
+      "id": "103085_w5Jyq3XMbb3WwiKQ_0001",
+      "reference": "इस tutorial में हम impress window के भागों के बारे में सीखेंगे और कैसे स्लाइड इन्सर्ट करें और कॉपी करें फॉन्ट तथा फॉन्ट को फॉर्मेट करना सीखेंगे",
+      "hypothesis": "इस चीटूरल में हम इंप्रस विन्डो के बागो के बारे में सीखेंगे और कैसे स्लाइट इंसर्ट करें और कोपी करें फोंट तद फोंट को फोरमैट करना सीखेंगे",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.407407,
+        "substitutions": 11,
+        "deletions": 0,
+        "insertions": 0,
+        "reference_length": 27,
+        "hypothesis_length": 27
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.324786,
+        "substitutions": 29,
+        "deletions": 9,
+        "insertions": 0,
+        "reference_length": 117,
+        "hypothesis_length": 108
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 13.55,
+      "elapsed_seconds": 19.207790044998546,
+      "rtf": 1.4175490808117008
+    },
+    {
+      "language": "hinglish",
+      "sample": 2,
+      "id": "103085_w5Jyq3XMbb3WwiKQ_0002",
+      "reference": "यहाँ हम अपने ऑपरेटिंग सिस्टम के रूप में gnu linux और लिबरऑफिस वर्जन 334 का उपयोग कर रहे हैं",
+      "hypothesis": "यहां हम अपने अप्रेटिं सिस्टम के रूप में जेनू लिनक्स और लिबर अपिस वर्जन 3 3 4 का अप्योग कर रहे है",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.578947,
+        "substitutions": 8,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_length": 19,
+        "hypothesis_length": 22
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.260274,
+        "substitutions": 13,
+        "deletions": 2,
+        "insertions": 4,
+        "reference_length": 73,
+        "hypothesis_length": 75
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 8.55,
+      "elapsed_seconds": 13.002203818999988,
+      "rtf": 1.5207255928654955
+    },
+    {
+      "language": "hinglish",
+      "sample": 3,
+      "id": "103085_w5Jyq3XMbb3WwiKQ_0003",
+      "reference": "चलिए अपनी प्रस्तुति प्रेजैटेशन sample impress open करते हैं जिसे पिछले tutorial में बनाया था",
+      "hypothesis": "ज़े अपनी प्रस्तुती साम्पल इंप्रस अपन करते हैं जिसे पिष्ले टिटूर में बनाई",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.666667,
+        "substitutions": 8,
+        "deletions": 2,
+        "insertions": 0,
+        "reference_length": 15,
+        "hypothesis_length": 13
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.589744,
+        "substitutions": 26,
+        "deletions": 19,
+        "insertions": 1,
+        "reference_length": 78,
+        "hypothesis_length": 60
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 6.55,
+      "elapsed_seconds": 14.411373474998982,
+      "rtf": 2.2002096908395394
+    },
+    {
+      "language": "hinglish",
+      "sample": 4,
+      "id": "103085_w5Jyq3XMbb3WwiKQ_0004",
+      "reference": "चलिए देखते हैं कि screen पर क्या क्या है",
+      "hypothesis": "तूर में बनाया था ज़े देते हैं कि स्क्वीन पर क्या क्या है",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.777778,
+        "substitutions": 3,
+        "deletions": 0,
+        "insertions": 4,
+        "reference_length": 9,
+        "hypothesis_length": 13
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.75,
+        "substitutions": 12,
+        "deletions": 0,
+        "insertions": 12,
+        "reference_length": 32,
+        "hypothesis_length": 44
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 4.55,
+      "elapsed_seconds": 12.623718856000778,
+      "rtf": 2.774443704615556
+    },
+    {
+      "language": "hinglish",
+      "sample": 5,
+      "id": "103085_w5Jyq3XMbb3WwiKQ_0005",
+      "reference": "मध्य में हम खाली जगह देखते है जोकि workspace है जहाँ हम काम करेंगे",
+      "hypothesis": "मद्धे में हम खाली जगा देखते हैं जो की वरक स्पेस है जहां हम खाम के",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.714286,
+        "substitutions": 8,
+        "deletions": 0,
+        "insertions": 2,
+        "reference_length": 14,
+        "hypothesis_length": 16
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.396226,
+        "substitutions": 14,
+        "deletions": 5,
+        "insertions": 2,
+        "reference_length": 53,
+        "hypothesis_length": 50
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 5.55,
+      "elapsed_seconds": 14.838699854000879,
+      "rtf": 2.6736396133334916
+    },
+    {
+      "language": "hinglish",
+      "sample": 6,
+      "id": "103085_w5Jyq3XMbb3WwiKQ_0006",
+      "reference": "जैसे कि आप देख सकते हैं workspace में 5 tabs हैं जिन्हें view buttons कहते हैं",
+      "hypothesis": "ज़िसे की आप देख सुकते हैं वर्क स्पेस में पाश टैब्स हैं हैं यने वर्क",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.75,
+        "substitutions": 9,
+        "deletions": 2,
+        "insertions": 1,
+        "reference_length": 16,
+        "hypothesis_length": 15
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.666667,
+        "substitutions": 28,
+        "deletions": 12,
+        "insertions": 2,
+        "reference_length": 63,
+        "hypothesis_length": 53
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 5.55,
+      "elapsed_seconds": 41.914570236000145,
+      "rtf": 7.552174817297324
+    },
+    {
+      "language": "hinglish",
+      "sample": 7,
+      "id": "103085_w5Jyq3XMbb3WwiKQ_0007",
+      "reference": "फिलहाल normal टैब चुनित हैं",
+      "hypothesis": "ये ने व्यू बटेंस कहते हैं पिल रहाल नोरमल टैप चुनित हैं",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 2.0,
+        "substitutions": 3,
+        "deletions": 0,
+        "insertions": 7,
+        "reference_length": 5,
+        "hypothesis_length": 12
+      },
+      "cer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 1.26087,
+        "substitutions": 7,
+        "deletions": 1,
+        "insertions": 21,
+        "reference_length": 23,
+        "hypothesis_length": 43
+      },
+      "detected_languages": [
+        "hi"
+      ],
+      "duration_seconds": 3.55,
+      "elapsed_seconds": 14.252987558000314,
+      "rtf": 4.014926072676145
+    }
+  ],
+  "model": "small",
+  "device": "cpu",
+  "compute_type": "int8",
+  "language_setting": "auto",
+  "normalization": "NFKC, casefold, Unicode letter/number/mark words; no transliteration or number expansion. CER excludes spaces.",
+  "limits": [
+    "Eight samples per corpus, selected before inference; exploratory pilot, not a full test-set benchmark.",
+    "Hinglish consecutive technical lecture segments are correlated; not multi-speaker meetings.",
+    "Script and spelling variation count as errors; no manual reference corrections.",
+    "Timing may include concurrent long-recording diarization; not an isolated speed benchmark.",
+    "No model training or fine-tuning performed; pretraining overlap is unknown."
+  ]
+}

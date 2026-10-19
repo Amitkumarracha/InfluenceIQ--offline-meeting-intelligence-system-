@@ -2,6 +2,8 @@
 
 Layout update, 8 October 2026: use the [master documentation](../README.md) and [structure/performance update](../validation/22_STRUCTURE_PERFORMANCE_AND_GAPS.md). Historical comparisons and measurements below describe their stated audit date. The older working tree is now archived; current paths and runtime are described in the update.
 
+**18 October update:** [Current readiness work](../validation/23_READINESS_2026_10_18.md) fixes strict-final/duplicate decision behavior, semantic candidate filtering, full-transcript/tied-rank baselines, structural ablations, order-independent metric matching, the OCR stub and Android import/memory limits. Both Gradle and direct-build version metadata were updated to 0.6.1/code 7. Local generative notes were removed in the earlier scope update. The historical observations below are retained for provenance; use the new report for current remaining work and verification.
+
 [Handbook index](../handbook/README.md)
 
 ## First day

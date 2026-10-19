@@ -1,0 +1,33 @@
+{
+  "language": "hinglish",
+  "sample": 7,
+  "id": "103085_w5Jyq3XMbb3WwiKQ_0007",
+  "reference": "फिलहाल normal टैब चुनित हैं",
+  "hypothesis": "जिने व्यू बटन्स कहते हैं फिलहाल नॉर्मल टैब चुनित है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 1.4,
+    "substitutions": 2,
+    "deletions": 0,
+    "insertions": 5,
+    "reference_length": 5,
+    "hypothesis_length": 10
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 1.173913,
+    "substitutions": 6,
+    "deletions": 1,
+    "insertions": 20,
+    "reference_length": 23,
+    "hypothesis_length": 42
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 3.55,
+  "elapsed_seconds": 26.537950771002215,
+  "rtf": 7.47547909042316
+}

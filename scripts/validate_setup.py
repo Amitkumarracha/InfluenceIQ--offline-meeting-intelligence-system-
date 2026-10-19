@@ -35,7 +35,11 @@ def main():
     from src.audio.diarization import diarization_status
     speakers = diarization_status()
     ready['diarization'] = speakers['ready']
-    result = {'diarization': speakers, 'generative_ai': False, 'python': sys.version.split()[0], 'environment': sys.prefix,
+    from src.ppt.ocr import _settings
+    languages, ocr_directory = _settings()
+    ready['ocr'] = bool(shutil.which('tesseract') and all((ocr_directory/(lang+'.traineddata')).is_file() for lang in languages.split('+')))
+    result = {'diarization': speakers, 'ocr_enabled': bool(get('ppt.ocr_enabled', False)), 'ocr_languages': languages,
+              'generative_ai': False, 'python': sys.version.split()[0], 'environment': sys.prefix,
               'cpu_threads_available': os.cpu_count(),
               'free_disk_gb': round(shutil.disk_usage(PROJECT_ROOT).free / 1024**3, 1),
               'ffmpeg': bool(shutil.which('ffmpeg')), 'ffprobe': bool(shutil.which('ffprobe')),

@@ -1,0 +1,33 @@
+{
+  "language": "hindi",
+  "sample": 2,
+  "id": "1718",
+  "reference": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित सामान एंटीक होते हैं कुछ कर एजेंसियां 100 साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं",
+  "hypothesis": "अईसी कोई वैस्पिक परिवाशा नहीं जिसके लिए निर्मित समान अन्टिक होते हैं पुचकर अजन्शिया शव साल से पुराने समान को अन्टिक के तोर पर परिवाशित करती है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.517241,
+    "substitutions": 13,
+    "deletions": 2,
+    "insertions": 0,
+    "reference_length": 29,
+    "hypothesis_length": 27
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.266667,
+    "substitutions": 22,
+    "deletions": 7,
+    "insertions": 3,
+    "reference_length": 120,
+    "hypothesis_length": 116
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 15.0,
+  "elapsed_seconds": 11.696251052999287,
+  "rtf": 0.7797500701999525
+}

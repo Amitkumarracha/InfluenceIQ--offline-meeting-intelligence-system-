@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-19",
+  "python": "3.14.7",
+  "platform": "Linux-7.2.8-arch1-2-x86_64-with-glibc2.44",
+  "cpu": "12th Gen Intel(R) Core(TM) i5-1235U",
+  "git_head": "c3d93bb35d1af27facaa54343b384c9b2d7aeb08",
+  "working_tree": "Uncommitted changes; HEAD alone does not reproduce this experiment",
+  "sha256": {
+    "config/config.yaml": "441f5a2fc098ab5207a8ef4425f6dd6d555330d8f1e18f7e025a5fb58f4fba2c",
+    "backend/api.py": "fbcb3835c5b1e4725dcd8774a71e30962f32bc0dae71ced873a5b0374c00ab9a",
+    "src/audio/live.py": "80ce5a21a7166b44c8a27e776c38606bdb752f433f662a35ccded79dec42c168",
+    "src/audio/onnx_diarization.py": "63c06e276046669400b6aaaf28bdcf7b742456a49c97f7ea9e21ea61ad7884fc",
+    "scripts/evaluate_research_audio.py": "5282b65e28703a5b4525dbce8cc369bbf33d91a346aa22e5fa936f895e486588",
+    "scripts/evaluate_indic_pilot.py": "3245a2ec5d77bbbd4fb8ef43313f2d58f4173d332697fd2c7e6df1b44fcfa959"
+  }
+}

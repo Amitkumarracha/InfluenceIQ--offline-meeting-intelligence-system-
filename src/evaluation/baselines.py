@@ -70,67 +70,33 @@ def _decision_event_ids(d: Decision) -> set[str]:
 # B1 — Speaking time
 # ---------------------------------------------------------------------------
 
-def baseline_speaking_time(
-    event_result: EventExtractionResult,
-) -> dict[str, Any]:
-    """
-    B1: Influence proxy = total speaking duration per participant.
-
-    Uses event durations as a proxy for speaking time.
-    For a more accurate baseline the raw transcript segments should
-    be used; this limitation is documented here.
-
-    Returns {participant: normalised_score} plus raw seconds.
-    """
-    speakers = sorted({e.speaker for e in event_result.events})
-    raw: dict[str, float] = {sp: 0.0 for sp in speakers}
-    for e in event_result.events:
-        raw[e.speaker] += e.end - e.start
-
-    norm = _max_norm(raw)
-    return {
-        "baseline": "B1_speaking_time",
-        "description": (
-            "Total speaking duration per participant (event duration proxy). "
-            "Normalised by max."
-        ),
-        "scores": norm,
-        "raw_seconds": {sp: round(raw[sp], 4) for sp in speakers},
-    }
+def _speech_inputs(event_result, transcript_segments):
+    if transcript_segments is not None:
+        from src.meeting.influence import speech_statistics
+        return (*speech_statistics(transcript_segments), "full_transcript")
+    seconds, turns = {}, {}
+    for event in event_result.events:
+        if event.speaker == "UNKNOWN":
+            continue
+        seconds[event.speaker] = seconds.get(event.speaker, 0) + max(0, event.end-event.start)
+        turns[event.speaker] = turns.get(event.speaker, 0) + 1
+    return seconds, turns, "event_duration_proxy"
 
 
-# ---------------------------------------------------------------------------
-# B2 — Speaking time + turns
-# ---------------------------------------------------------------------------
+def baseline_speaking_time(event_result, transcript_segments=None) -> dict[str, Any]:
+    seconds, _, source = _speech_inputs(event_result, transcript_segments)
+    return {"baseline": "B1_speaking_time", "description": "Speaker interval duration, max-normalized; source: " + source,
+            "input_source": source, "scores": _max_norm(seconds),
+            "raw_seconds": {sp: round(value, 4) for sp, value in seconds.items()}}
 
-def baseline_speaking_time_turns(
-    event_result: EventExtractionResult,
-) -> dict[str, Any]:
-    """
-    B2: Influence proxy = (normalised speaking time + normalised turn count) / 2.
-    """
-    speakers = sorted({e.speaker for e in event_result.events})
-    raw_time: dict[str, float] = {sp: 0.0 for sp in speakers}
-    raw_turns: dict[str, int] = {sp: 0 for sp in speakers}
 
-    for e in event_result.events:
-        raw_time[e.speaker] += e.end - e.start
-        raw_turns[e.speaker] += 1
-
-    norm_time  = _max_norm(raw_time)
-    norm_turns = _max_norm({sp: float(raw_turns[sp]) for sp in speakers})
-    combined   = _max_norm({
-        sp: (norm_time[sp] + norm_turns[sp]) / 2.0
-        for sp in speakers
-    })
-
-    return {
-        "baseline": "B2_speaking_time_turns",
-        "description": "Average of normalised speaking time and normalised turn count.",
-        "scores": combined,
-        "raw_turns": raw_turns,
-        "raw_seconds": {sp: round(raw_time[sp], 4) for sp in speakers},
-    }
+def baseline_speaking_time_turns(event_result, transcript_segments=None) -> dict[str, Any]:
+    seconds, turns, source = _speech_inputs(event_result, transcript_segments)
+    nt, nc = _max_norm(seconds), _max_norm(turns)
+    return {"baseline": "B2_speaking_time_turns", "description": "Speaking duration plus turns, max-normalized; source: " + source,
+            "input_source": source, "turn_gap_seconds": .5 if transcript_segments is not None else None,
+            "scores": _max_norm({sp: (nt[sp]+nc[sp])/2 for sp in seconds}),
+            "raw_turns": turns, "raw_seconds": {sp: round(value, 4) for sp, value in seconds.items()}}
 
 
 # ---------------------------------------------------------------------------
@@ -140,11 +106,13 @@ def baseline_speaking_time_turns(
 def baseline_decision_event_count(
     event_result: EventExtractionResult,
     decision_result: DecisionResult,
+    transcript_segments: list[dict] | None = None,
 ) -> dict[str, Any]:
     """
     B3: Influence proxy = number of events inside a decision cluster.
     """
-    speakers = sorted({e.speaker for e in event_result.events})
+    speakers = sorted(({e.speaker for e in event_result.events} |
+                       {row.get("speaker", "UNKNOWN") for row in transcript_segments or []}) - {"UNKNOWN", None, ""})
     dec_event_ids: set[str] = set()
     for d in decision_result.decisions:
         dec_event_ids |= _decision_event_ids(d)
@@ -173,12 +141,14 @@ def baseline_decision_evidence_count(
     event_result: EventExtractionResult,
     evidence_result: EvidenceExtractionResult,
     decision_result: DecisionResult,
+    transcript_segments: list[dict] | None = None,
 ) -> dict[str, Any]:
     """
     B4: Influence proxy = number of evidence relations whose target is in
     a decision cluster and whose source is a participant event (not a slide).
     """
-    speakers = sorted({e.speaker for e in event_result.events})
+    speakers = sorted(({e.speaker for e in event_result.events} |
+                       {row.get("speaker", "UNKNOWN") for row in transcript_segments or []}) - {"UNKNOWN", None, ""})
     dec_event_ids: set[str] = set()
     for d in decision_result.decisions:
         dec_event_ids |= _decision_event_ids(d)
@@ -214,34 +184,23 @@ def baseline_decision_evidence_count(
 def baseline_transcript_only(
     event_result: EventExtractionResult,
     decision_result: DecisionResult,
+    transcript_segments: list[dict] | None = None,
 ) -> dict[str, Any]:
-    """
-    B5: Like B3 but explicitly excludes any slide-grounded contribution.
-    Uses only events that have no slide_id association.
-    """
-    speakers = sorted({e.speaker for e in event_result.events})
-    dec_event_ids: set[str] = set()
-    for d in decision_result.decisions:
-        dec_event_ids |= _decision_event_ids(d)
-
-    ev_index = {e.event_id: e for e in event_result.events}
-    counts: dict[str, int] = {sp: 0 for sp in speakers}
-
-    for eid in dec_event_ids:
-        ev = ev_index.get(eid)
-        if ev and ev.slide_id is None and ev.speaker in counts:
-            counts[ev.speaker] += 1
-
-    norm = _max_norm({sp: float(counts[sp]) for sp in speakers})
-    return {
-        "baseline": "B5_transcript_only",
-        "description": (
-            "Decision-linked events WITHOUT any PPT/slide grounding. "
-            "Represents transcript-only information."
-        ),
-        "scores": norm,
-        "raw_counts": counts,
-    }
+    """Reconstruct evidence/decisions after removing slide links, retaining all speech events."""
+    from dataclasses import replace
+    from src.meeting.evidence import extract_evidence
+    from src.meeting.decisions import reconstruct_decisions
+    from src.utils.config import get
+    ungrounded = EventExtractionResult(event_result.meeting_id,
+                                      [replace(event, slide_id=None) for event in event_result.events])
+    evidence = extract_evidence(ungrounded, window_s=float(get("meeting_analysis.evidence_window_s", 60)))
+    decisions = reconstruct_decisions(ungrounded, evidence,
+        temporal_window=float(get("decision_analysis.temporal_window", 120)),
+        require_final_decision=bool(get("decision_analysis.require_final_decision", False)))
+    result = baseline_decision_event_count(ungrounded, decisions, transcript_segments)
+    result.update(baseline="B5_transcript_only", description="Decision-linked event count after evidence/decision rerun with all slide links removed.",
+                  input_source="all_transcript_events_without_slide_links")
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -251,6 +210,7 @@ def baseline_transcript_only(
 def baseline_audio_ppt_no_decision(
     event_result: EventExtractionResult,
     evidence_result: EvidenceExtractionResult,
+    transcript_segments: list[dict] | None = None,
 ) -> dict[str, Any]:
     """
     B6: Multimodal (audio + PPT) features without decision-linked scoring.
@@ -258,14 +218,12 @@ def baseline_audio_ppt_no_decision(
     Uses: speaking time + slide-grounded events (any, not decision-limited).
     This separates cross-modal grounding from decision-impact analysis.
     """
-    speakers = sorted({e.speaker for e in event_result.events})
-    raw_time: dict[str, float] = {sp: 0.0 for sp in speakers}
-    slide_count: dict[str, int] = {sp: 0 for sp in speakers}
-
-    for e in event_result.events:
-        raw_time[e.speaker] += e.end - e.start
-        if e.slide_id is not None:
-            slide_count[e.speaker] += 1
+    raw_time, _, source = _speech_inputs(event_result, transcript_segments)
+    speakers = sorted(raw_time)
+    slide_count = {sp: 0 for sp in speakers}
+    for event in event_result.events:
+        if event.slide_id is not None and event.speaker in slide_count:
+            slide_count[event.speaker] += 1
 
     norm_time  = _max_norm(raw_time)
     norm_slide = _max_norm({sp: float(slide_count[sp]) for sp in speakers})
@@ -276,6 +234,7 @@ def baseline_audio_ppt_no_decision(
 
     return {
         "baseline": "B6_audio_ppt_no_decision",
+        "input_source": source,
         "description": (
             "Multimodal baseline: average of normalised speaking time and "
             "normalised slide-grounded event count. "
@@ -320,7 +279,7 @@ def build_comparison_table(
     for b in baselines:
         scores = b.get("scores", {})
         ranking = sorted(scores.keys(), key=lambda sp: scores[sp], reverse=True)
-        eval_result = evaluate_influence_ranking(ranking, human_ranking)
+        eval_result = evaluate_influence_ranking(scores, human_ranking)
         rows.append({
             "method": b["baseline"],
             "description": b.get("description", ""),
@@ -333,7 +292,7 @@ def build_comparison_table(
     if proposed_scores is not None:
         ranking = sorted(proposed_scores.keys(),
                          key=lambda sp: proposed_scores[sp], reverse=True)
-        eval_result = evaluate_influence_ranking(ranking, human_ranking)
+        eval_result = evaluate_influence_ranking(proposed_scores, human_ranking)
         rows.append({
             "method": "Proposed_decision_linked",
             "description": (

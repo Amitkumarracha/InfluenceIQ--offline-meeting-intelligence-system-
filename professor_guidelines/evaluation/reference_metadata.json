@@ -1,0 +1,267 @@
+[
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/bain23_interspeech.html",
+    "metadata": [
+      [
+        "citation_title",
+        "WhisperX: Time-Accurate Speech Transcription of Long-Form Audio"
+      ],
+      [
+        "citation_conference_title",
+        "Proc. Interspeech 2023"
+      ],
+      [
+        "citation_publication_date",
+        "2023"
+      ],
+      [
+        "citation_firstpage",
+        "4489"
+      ],
+      [
+        "citation_lastpage",
+        "4493"
+      ],
+      [
+        "citation_author",
+        "Bain, Max"
+      ],
+      [
+        "citation_author",
+        "Huh, Jaesung"
+      ],
+      [
+        "citation_author",
+        "Han, Tengda"
+      ],
+      [
+        "citation_author",
+        "Zisserman, Andrew"
+      ],
+      [
+        "citation_pdf_url",
+        "https://www.isca-archive.org/interspeech_2023/bain23_interspeech.pdf"
+      ],
+      [
+        "citation_doi",
+        "10.21437/Interspeech.2023-78"
+      ]
+    ]
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/bredin23_interspeech.html",
+    "metadata": [
+      [
+        "citation_title",
+        "pyannote.audio 2.1 speaker diarization pipeline: principle, benchmark, and recipe"
+      ],
+      [
+        "citation_conference_title",
+        "Proc. Interspeech 2023"
+      ],
+      [
+        "citation_publication_date",
+        "2023"
+      ],
+      [
+        "citation_firstpage",
+        "1983"
+      ],
+      [
+        "citation_lastpage",
+        "1987"
+      ],
+      [
+        "citation_author",
+        "Bredin, HervÃ©"
+      ],
+      [
+        "citation_pdf_url",
+        "https://www.isca-archive.org/interspeech_2023/bredin23_interspeech.pdf"
+      ],
+      [
+        "citation_doi",
+        "10.21437/Interspeech.2023-105"
+      ]
+    ]
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/plaquet23_interspeech.html",
+    "metadata": [
+      [
+        "citation_title",
+        "Powerset multi-class cross entropy loss for neural speaker diarization"
+      ],
+      [
+        "citation_conference_title",
+        "Proc. Interspeech 2023"
+      ],
+      [
+        "citation_publication_date",
+        "2023"
+      ],
+      [
+        "citation_firstpage",
+        "3222"
+      ],
+      [
+        "citation_lastpage",
+        "3226"
+      ],
+      [
+        "citation_author",
+        "Plaquet, Alexis"
+      ],
+      [
+        "citation_author",
+        "Bredin, HervÃ©"
+      ],
+      [
+        "citation_pdf_url",
+        "https://www.isca-archive.org/interspeech_2023/plaquet23_interspeech.pdf"
+      ],
+      [
+        "citation_doi",
+        "10.21437/Interspeech.2023-205"
+      ]
+    ]
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/baghel23_interspeech.html",
+    "metadata": [
+      [
+        "citation_title",
+        "The DISPLACE Challenge 2023 - DIarization of SPeaker and LAnguage in Conversational Environments"
+      ],
+      [
+        "citation_conference_title",
+        "Proc. Interspeech 2023"
+      ],
+      [
+        "citation_publication_date",
+        "2023"
+      ],
+      [
+        "citation_firstpage",
+        "3562"
+      ],
+      [
+        "citation_lastpage",
+        "3566"
+      ],
+      [
+        "citation_author",
+        "Baghel, Shikha"
+      ],
+      [
+        "citation_author",
+        "Ramoji, Shreyas"
+      ],
+      [
+        "citation_author",
+        "Sidharth, "
+      ],
+      [
+        "citation_author",
+        "H, Ranjana"
+      ],
+      [
+        "citation_author",
+        "Singh, Prachi"
+      ],
+      [
+        "citation_author",
+        "Jain, Somil"
+      ],
+      [
+        "citation_author",
+        "Roy Chowdhuri, Pratik"
+      ],
+      [
+        "citation_author",
+        "Kulkarni, Kaustubh"
+      ],
+      [
+        "citation_author",
+        "Padhi, Swapnil"
+      ],
+      [
+        "citation_author",
+        "Vijayasenan, Deepu"
+      ],
+      [
+        "citation_author",
+        "Ganapathy, Sriram"
+      ],
+      [
+        "citation_pdf_url",
+        "https://www.isca-archive.org/interspeech_2023/baghel23_interspeech.pdf"
+      ],
+      [
+        "citation_doi",
+        "10.21437/Interspeech.2023-2367"
+      ]
+    ]
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/bhogale23_interspeech.html",
+    "metadata": [
+      [
+        "citation_title",
+        "Vistaar: Diverse Benchmarks and Training Sets for Indian Language ASR"
+      ],
+      [
+        "citation_conference_title",
+        "Proc. Interspeech 2023"
+      ],
+      [
+        "citation_publication_date",
+        "2023"
+      ],
+      [
+        "citation_firstpage",
+        "4384"
+      ],
+      [
+        "citation_lastpage",
+        "4388"
+      ],
+      [
+        "citation_author",
+        "Bhogale, Kaushal"
+      ],
+      [
+        "citation_author",
+        "Sundaresan, Sai"
+      ],
+      [
+        "citation_author",
+        "Raman, Abhigyan"
+      ],
+      [
+        "citation_author",
+        "Javed, Tahir"
+      ],
+      [
+        "citation_author",
+        "Khapra, Mitesh M."
+      ],
+      [
+        "citation_author",
+        "Kumar, Pratyush"
+      ],
+      [
+        "citation_pdf_url",
+        "https://www.isca-archive.org/interspeech_2023/bhogale23_interspeech.pdf"
+      ],
+      [
+        "citation_doi",
+        "10.21437/Interspeech.2023-2589"
+      ]
+    ]
+  },
+  {
+    "url": "https://aclanthology.org/2023.acl-long.731/",
+    "metadata": []
+  }
+]

@@ -28,7 +28,9 @@ extern "C" JNIEXPORT jbyteArray JNICALL Java_org_meetiq_offline_NativeSpeakers_d
     auto length=wav.tellg();
     // Native PCM buffer avoids duplicate large Java arrays. All inputs have
     // the application's canonical 44-byte PCM16 WAV header.
-    if(!wav || length<=44 || length>44+32000LL*3600) { fail(env,"Speaker analysis supports recordings up to one hour on this device"); return nullptr; }
+    // Java applies a tighter live-memory budget; retain a native allocation ceiling.
+    constexpr long long maximumPcmBytes=512LL*1024*1024;
+    if(!wav || length<=44 || length>44+maximumPcmBytes/2) { fail(env,"Speaker analysis exceeds the native memory budget"); return nullptr; }
     size_t count=(static_cast<long long>(length)-44)/2;
     std::vector<float> samples(count); wav.seekg(44);
     unsigned char block[65536]; size_t offset=0;

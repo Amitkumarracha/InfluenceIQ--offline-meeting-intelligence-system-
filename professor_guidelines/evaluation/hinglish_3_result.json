@@ -1,0 +1,33 @@
+{
+  "language": "hinglish",
+  "sample": 3,
+  "id": "103085_w5Jyq3XMbb3WwiKQ_0003",
+  "reference": "चलिए अपनी प्रस्तुति प्रेजैटेशन sample impress open करते हैं जिसे पिछले tutorial में बनाया था",
+  "hypothesis": "ज़े अपनी प्रस्तुती साम्पल इंप्रस अपन करते हैं जिसे पिष्ले टिटूर में बनाई",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.666667,
+    "substitutions": 8,
+    "deletions": 2,
+    "insertions": 0,
+    "reference_length": 15,
+    "hypothesis_length": 13
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.589744,
+    "substitutions": 26,
+    "deletions": 19,
+    "insertions": 1,
+    "reference_length": 78,
+    "hypothesis_length": 60
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 6.55,
+  "elapsed_seconds": 14.411373474998982,
+  "rtf": 2.2002096908395394
+}

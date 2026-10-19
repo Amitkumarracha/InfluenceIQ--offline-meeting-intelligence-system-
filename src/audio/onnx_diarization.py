@@ -18,7 +18,7 @@ def model_paths():
     return paths
 
 
-def diarize(audio_path, num_speakers=None):
+def diarize(audio_path, num_speakers=None, progress=None):
     if num_speakers is None and (get('diarization.min_speakers') is not None or get('diarization.max_speakers') is not None):
         raise ValueError('ONNX supports an exact speaker count, not min/max bounds; unset those bounds first.')
     segmentation, embedding = model_paths()
@@ -32,7 +32,7 @@ def diarize(audio_path, num_speakers=None):
             num_threads=int(get("asr.cpu_threads", 4))),
         embedding=sherpa_onnx.SpeakerEmbeddingExtractorConfig(model=str(embedding), num_threads=int(get("asr.cpu_threads", 4))),
         clustering=sherpa_onnx.FastClusteringConfig(num_clusters=num_speakers or -1,
-            threshold=float(get('diarization.onnx.cluster_threshold', .5))),
+            threshold=float(get('diarization.onnx.cluster_threshold', .9))),
         min_duration_on=.3, min_duration_off=.5)
     if not config.validate():
         raise RuntimeError('Invalid local ONNX diarization configuration')
@@ -43,5 +43,16 @@ def diarize(audio_path, num_speakers=None):
         # The upstream API clusters the whole meeting. Chunking independently
         # would silently reset speaker identities. This is not streaming DER.
         samples = audio.read(dtype='float32')
-    result = engine.process(samples).sort_by_start_time()
+    def checkpoint(processed_chunks, num_chunks):
+        if progress:
+            # Feature extraction ends before whole-meeting clustering finishes.
+            progress({'completed_seconds': min(.98, processed_chunks / max(1, num_chunks)) * len(samples) / engine.sample_rate,
+                      'total_seconds': len(samples) / engine.sample_rate, 'cached': False,
+                      'phase': 'speaker_features' if processed_chunks < num_chunks else 'clustering'})
+        return 0
+
+    result = (engine.process(samples, callback=checkpoint) if progress else engine.process(samples)).sort_by_start_time()
+    if progress:
+        progress({'completed_seconds': len(samples) / engine.sample_rate,
+                  'total_seconds': len(samples) / engine.sample_rate, 'cached': False, 'phase': 'complete'})
     return [(float(turn.start), float(turn.end), str(turn.speaker)) for turn in result]

@@ -20,6 +20,9 @@ import java.util.concurrent.*;
 /** Native screen navigation. Storage, playback and long-running processing stay separate. */
 public class MainActivity extends Activity {
     private Ui ui;
+    private final AccountView accountView=new AccountView();
+    private String accountReturn="home";
+    private long accountRevision=AccountSync.revision;
     private LinearLayout root, body, passageList;
     private ScrollView scroll;
     private TextView timer, progressTitle, progressClock, progressNote, pageLabel, audioClock, audioNote;
@@ -40,21 +43,23 @@ public class MainActivity extends Activity {
     private boolean loading, resumed, pendingRecord, pendingStart, metadataLoaded;
     private String error, renderedKey;
     private MeetingProgress observed=MeetingService.progress;
+    private long observedGeneration=MeetingService.generation;
     private boolean observedBusy;
     private long transferRevision=LocalTransfers.revision, lastWaveSecond=-1;
     private final Runnable tick=new Runnable() {
         public void run() {
             if (!resumed) return;
             MeetingProgress current=MeetingService.progress;
+            long generation=MeetingService.generation;
             boolean busyChanged=observedBusy!=MeetingService.busy;
-            boolean milestone=!Objects.equals(current.meetingId,observed.meetingId) || !current.stage.equals(observed.stage)
+            boolean milestone=generation!=observedGeneration || !Objects.equals(current.meetingId,observed.meetingId) || !current.stage.equals(observed.stage)
                 || (!current.recording() && current.completedSeconds!=observed.completedSeconds);
             if (MeetingService.busy || milestone) pendingStart=false;
             if (current.error!=null && !Objects.equals(current.error,observed.error)) { error=current.error; renderedKey=null; }
             if (observedBusy && !MeetingService.busy && current.recording() && "saved".equals(current.stage)) {
                 selectedId=current.meetingId; selectedReport=null; selectedMetadata=new JSONObject(); metadataLoaded=false; screen="detail"; tab="Overview"; page=0; query="";
             }
-            observed=current; observedBusy=MeetingService.busy;
+            observed=current; observedBusy=MeetingService.busy; observedGeneration=generation;
             if (LocalTransfers.revision!=transferRevision) {
                 transferRevision=LocalTransfers.revision;
                 if (!LocalTransfers.busy) {
@@ -66,6 +71,16 @@ public class MainActivity extends Activity {
                 }
                 render();
             } else if (milestone || busyChanged) reload();
+            if(accountRevision!=AccountSync.revision) {
+                accountRevision=AccountSync.revision;
+                if(!AccountSync.busy) {
+                    if(AccountSync.message.startsWith("Could not")) error=AccountSync.message;
+                    else if(!screen.equals("account")) message(AccountSync.message);
+                    if(AccountSync.downloadedMeeting!=null) { openMeeting(AccountSync.downloadedMeeting); }
+                    else reload();
+                }
+                render();
+            }
             updateLive(); handler.postDelayed(this,500);
         }
     };
@@ -77,6 +92,7 @@ public class MainActivity extends Activity {
         if (saved!=null) {
             screen=saved.getString("screen","home"); selectedId=saved.getString("meeting"); tab=saved.getString("tab","Overview");
             query=saved.getString("query",""); page=saved.getInt("page"); exportName=saved.getString("export");
+            accountReturn=saved.getString("accountReturn","home");
             candidateFilter=saved.getString("filter","All"); settingsReturn=saved.getString("settingsReturn","home");
             pendingRecord=saved.getBoolean("pendingRecord"); error=saved.getString("error");
             transferRevision=saved.getLong("transferRevision",transferRevision);
@@ -113,7 +129,7 @@ public class MainActivity extends Activity {
     public void onPause() { resumed=false; handler.removeCallbacks(tick); playback.release(); super.onPause(); }
     public void onDestroy() { io.shutdownNow(); playback.release(); super.onDestroy(); }
     protected void onSaveInstanceState(Bundle out) {
-        out.putString("screen",screen); out.putString("meeting",selectedId); out.putString("tab",tab); out.putString("query",query);
+        out.putString("accountReturn",accountReturn); out.putString("screen",screen); out.putString("meeting",selectedId); out.putString("tab",tab); out.putString("query",query);
         out.putInt("page",page); out.putString("export",exportName); out.putString("filter",candidateFilter);
         out.putString("settingsReturn",settingsReturn); out.putBoolean("pendingRecord",pendingRecord);
         out.putString("error",error); out.putLong("transferRevision",transferRevision); super.onSaveInstanceState(out);
@@ -121,9 +137,9 @@ public class MainActivity extends Activity {
     public void onBackPressed() { back(); }
     private void back() {
         if (screen.equals("home")) { moveTaskToBack(true); return; }
-        screen=screen.equals("settings")?settingsReturn:"home"; render();
+        screen=screen.equals("account")?accountReturn:screen.equals("settings")?settingsReturn:"home"; render();
     }
-    private boolean locked() { return MeetingService.busy || LocalTransfers.busy || pendingStart; }
+    private boolean locked() { return AccountSync.busy || MeetingService.busy || LocalTransfers.busy || pendingStart; }
     private boolean modelReady() { File model=new File(getFilesDir(),"model.bin"); return model.isFile() && model.length()>4; }
     private SharedPreferences preferences() { return getSharedPreferences("transcription",MODE_PRIVATE); }
     private String languageCode() { return new String[]{"auto","en","hi"}[Math.max(0,Math.min(2,preferences().getInt("language",0)))]; }
@@ -151,6 +167,7 @@ public class MainActivity extends Activity {
         if (MeetingService.busy && MeetingService.progress.recording() && id.equals(MeetingService.progress.meetingId)) { screen="recording"; render(); return; }
         playback.release(); selectedId=id; selectedReport=null; selectedMetadata=new JSONObject(); metadataLoaded=false; screen="detail"; tab="Overview"; query=""; page=0; render(); reload();
     }
+    private void account() { accountReturn=screen; screen="account"; render(); }
     private void settings() { settingsReturn=screen; screen="settings"; render(); }
     private void render() {
         if (root==null || isDestroyed()) return;
@@ -166,7 +183,9 @@ public class MainActivity extends Activity {
             ui.add(note,ui.button("Dismiss message",false,() -> { error=null; render(); }),0); ui.add(body,note,12);
         }
         if (screen.equals("recording")) recording(); else if (screen.equals("detail")) detail();
+        else if (screen.equals("account")) accountView.render(this,ui,body,this::back,this::render);
         else if (screen.equals("settings")) modelSettings(); else if (screen.equals("library")) library(); else home();
+        if(AccountSync.busy&&!screen.equals("account")) ui.add(body,ui.notice("Account sync",AccountSync.message,false),12);
         if (LocalTransfers.busy) ui.add(body,ui.notice("Working locally",LocalTransfers.message,false),12);
         updateLive(); scroll.post(() -> scroll.scrollTo(0,position));
     }
@@ -179,6 +198,7 @@ public class MainActivity extends Activity {
     private void home() {
         LinearLayout header=ui.row(); TextView brand=ui.text("InfluenceIQ",26,ui.text,true);
         header.addView(brand,new LinearLayout.LayoutParams(0,-2,1)); header.addView(ui.iconButton("settings","Settings",this::settings)); ui.add(body,header,24);
+        ui.add(body,ui.action("document","Account & sync",AccountSession.signedIn(this)?AccountSession.preferences(this).getString("email",""):"Use the same account as the website",false,this::account),18);
         ui.add(body,ui.text("Capture the conversation.",25,ui.text,true),8);
         ui.add(body,ui.text("Your transcript, actions and decisions — saved together.",15,ui.muted,false),24);
         if(MeetingService.busy) ui.add(body,ui.action(MeetingService.progress.recording()?"mic":"wave",MeetingService.progress.recording()?"Return to recording":"View analysis", "Your progress is saved",false,() -> {
@@ -253,12 +273,13 @@ public class MainActivity extends Activity {
         else if(tab.equals("Analysis")) analysis(meeting); else if(tab.equals("Audio")) audio(meeting); else exports(meeting);
     }
     private void overview(MeetingRepository.Meeting meeting) {
+        if(meeting.transcriptMissing) ui.add(body,ui.notice("Historical report","This saved report did not include a full transcript. The original recording is available. Run local analysis to transcribe it; publishing changes to the account remains your choice.",true),16);
         if(!meeting.completed) {
             if(!MeetingService.busy||!meeting.id.equals(MeetingService.progress.meetingId)) {
                 Button analyse=ui.button(meeting.reportExists?"Resume analysis":"Analyse meeting",true,this::analyse);
                 ui.enabled(analyse,!locked()&&metadataLoaded&&modelReady()&&meeting.audioExists); ui.add(body,analyse,12);
                 if(!modelReady()) ui.add(body,ui.button("Set up local analysis",false,this::settings),12);
-                ui.add(body,ui.text(meeting.reportExists?"Your progress is saved. Continue from completed parts.":"Your recording is saved. Analyse it when you’re ready.",14,ui.muted,false),20);
+                ui.add(body,ui.text(meeting.reportExists?"Continue saved work. Changed settings or an app upgrade may require a fresh transcription.":"Your recording is saved. Analyse it when you’re ready.",14,ui.muted,false),20);
             }
         } else {
             LinearLayout card=ui.card(); ui.add(card,ui.text("At a glance",19,ui.text,true),16); LinearLayout stats=ui.row();
@@ -400,8 +421,8 @@ public class MainActivity extends Activity {
         });
     }
     private void meetingOptions() {
-        new AlertDialog.Builder(this).setTitle("Meeting options").setItems(new String[]{"Listen to recording","Export meeting","Rename meeting","Add or replace PPT"},(dialog,which) -> {
-            if(which==0) { tab="Audio"; render(); } else if(which==1) { tab="Export"; render(); } else if(which==2) rename(); else picker(13,"application/vnd.openxmlformats-officedocument.presentationml.presentation");
+        new AlertDialog.Builder(this).setTitle("Meeting options").setItems(new String[]{"Listen to recording","Export meeting","Rename meeting","Add or replace PPT","Publish to account"},(dialog,which) -> {
+            if(which==0) { tab="Audio"; render(); } else if(which==1) { tab="Export"; render(); } else if(which==2) rename(); else if(which==4) publishAccount(); else picker(13,"application/vnd.openxmlformats-officedocument.presentationml.presentation");
         }).show();
     }
     private void stat(LinearLayout row,String label,String value) {
@@ -437,6 +458,7 @@ public class MainActivity extends Activity {
     private void renderPassages() {
         if(passageList==null||selectedReport==null) return; passageList.removeAllViews();
         boolean candidates=!tab.equals("Transcript"); JSONArray source=selectedReport.optJSONArray(candidates?"events":"transcript_segments");
+        Map<String,JSONObject> tasks=ActionReviews.candidates(selectedReport);
         List<JSONObject> matches=new ArrayList<>(); String term=normalize(query);
         if(source!=null) for(int i=0;i<source.length();i++) {
             JSONObject item=source.optJSONObject(i); if(item==null||!normalize(item.optString("text")).contains(term)) continue;
@@ -446,7 +468,9 @@ public class MainActivity extends Activity {
         }
         maxPage=Math.max(0,(matches.size()-1)/20); page=Math.min(page,maxPage);
         if(!term.isEmpty()) ui.add(passageList,ui.text(matches.size()+" matches",13,ui.muted,false),12);
-        if(matches.isEmpty()) ui.add(passageList,ui.notice("No matches",term.isEmpty()?(candidates?"No candidate events were detected in the saved transcript.":"No speech was transcribed. Listen to the recording and check the language or model before trying again."):"Try a word or phrase used in this meeting.",false),12);
+        if(matches.isEmpty()&&selectedReport.optJSONObject("processing")!=null&&selectedReport.optJSONObject("processing").optBoolean("legacy_transcript_missing")) {
+            ui.add(passageList,ui.notice("Historical transcript unavailable","The imported report has no saved full transcript. Transcribe its original recording from Overview.",true),12);
+        } else if(matches.isEmpty()) ui.add(passageList,ui.notice("No matches",term.isEmpty()?(candidates?"No candidate events were detected in the saved transcript.":"No speech was transcribed. Listen to the recording and check the language or model before trying again."):"Try a word or phrase used in this meeting.",false),12);
         for(int i=page*20;i<Math.min(matches.size(),(page+1)*20);i++) {
             JSONObject item=matches.get(i); LinearLayout card=ui.card(), heading=ui.row(); double seconds=item.optDouble("start");
             View play=ui.iconButton("play","Play evidence at "+MeetingRepository.stamp(seconds),() -> play(seconds)); play.setBackground(ui.touch(ui.dark?0xFF194C71:0xFFE6F1FB,0,24)); ui.enabled(play,!locked());
@@ -458,6 +482,12 @@ public class MainActivity extends Activity {
             ui.add(card,ui.text(speakerLabel(speaker)+(role.isEmpty()?"":" · "+role),13,ui.muted,true),8);
             TextView content=ui.text(item.optString("text"),16,ui.text,false); content.setText(highlight(item.optString("text"),term)); content.setTextIsSelectable(true); ui.add(card,content,0);
             if(candidates) { Button evidence=ui.button("Play evidence",false,() -> play(seconds)); ui.enabled(evidence,!locked()); ui.space(card,12); ui.add(card,evidence,0); }
+            if(candidates&&item.optString("event_type").equals("action_item")&&tasks.containsKey(item.optString("event_id"))) {
+                JSONObject task=tasks.get(item.optString("event_id")),review=ActionReviews.active(selectedReport,task);
+                String status=review==null?"Unreviewed · owner and due date unassigned":"Reviewed · "+review.optString("state")+" · Owner: "+(review.optString("owner").isEmpty()?"Unassigned":review.optString("owner"))+" · Due: "+(review.optString("due_date").isEmpty()?"Not set":review.optString("due_date"));
+                ui.add(card,ui.text(status,13,ui.muted,false),12);
+                Button edit=ui.button(review==null?"Review follow-up":"Edit follow-up",false,() -> editAction(task)); ui.enabled(edit,!locked()&&metadataLoaded); ui.add(card,edit,0);
+            }
             ui.add(passageList,card,12);
         }
         if(matches.size()<=20) return;
@@ -465,6 +495,39 @@ public class MainActivity extends Activity {
         ui.enabled(previous,page>0); pager.addView(previous,new LinearLayout.LayoutParams(0,-2,1));
         pageLabel=ui.text("Page "+(page+1)+" of "+(maxPage+1),12,ui.muted,false); pageLabel.setGravity(Gravity.CENTER); pager.addView(pageLabel,new LinearLayout.LayoutParams(0,-2,1));
         Button next=ui.button("Next",false,() -> { if(page<maxPage) { page++; renderPassages(); } }); ui.enabled(next,page<maxPage); pager.addView(next,new LinearLayout.LayoutParams(0,-2,1)); ui.add(passageList,pager,12);
+    }
+    private void editAction(JSONObject action) {
+        if(locked()||!metadataLoaded) return; final String id=selectedId;
+        JSONObject review=ActionReviews.active(selectedReport,action);
+        LinearLayout holder=ui.column(); holder.setPadding(ui.dp(20),ui.dp(12),ui.dp(20),ui.dp(12));
+        ui.add(holder,ui.text("Confirm this task against the recording. The speaker is not automatically its owner.",14,ui.muted,false),12);
+        EditText owner=ui.input("Owner (optional)","Task owner",false),due=ui.input("YYYY-MM-DD (optional)","Task due date",false);
+        owner.setFilters(new InputFilter[]{new InputFilter.LengthFilter(100)}); owner.setText(review==null?"":review.optString("owner"));
+        due.setText(review==null?"":review.optString("due_date")); due.setFocusable(false);
+        due.setOnClickListener(view -> {
+            java.time.LocalDate current;
+            try { current=java.time.LocalDate.parse(due.getText().toString()); } catch(Exception ignored) { current=java.time.LocalDate.now(); }
+            new DatePickerDialog(this,(picker,year,month,day) -> due.setText(String.format(Locale.ROOT,"%04d-%02d-%02d",year,month+1,day)),current.getYear(),current.getMonthValue()-1,current.getDayOfMonth()).show();
+        });
+        ui.add(holder,ui.text("Task owner",13,ui.muted,true),4); ui.add(holder,owner,12);
+        ui.add(holder,ui.text("Due date",13,ui.muted,true),4); ui.add(holder,due,8); ui.add(holder,ui.button("Clear due date",false,() -> due.setText("")),12);
+        Spinner state=new Spinner(this); state.setContentDescription("Task status");
+        String[] values={"open","done","dismissed"}; state.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,new String[]{"Open","Done","Dismissed candidate"}));
+        state.setSelection(review==null?0:Math.max(0,Arrays.asList(values).indexOf(review.optString("state"))));
+        ui.add(holder,ui.text("Task status",13,ui.muted,true),4); ui.add(holder,state,12);
+        TextView issue=ui.text("",14,ui.warningText,false); ui.add(holder,issue,8);
+        ScrollView scroll=new ScrollView(this); scroll.addView(holder);
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle("Review follow-up").setView(scroll).setNegativeButton("Cancel",null).setPositiveButton("Save follow-up",null).create();
+        dialog.setOnShowListener(ignored -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
+            if(locked()) { issue.setText("Wait for the current operation to finish."); return; }
+            String name=owner.getText().toString(),date=due.getText().toString(),status=values[state.getSelectedItemPosition()];
+            try { ActionReviews.make(action,name,date,status); } catch(Exception failure) { issue.setText(failure.getMessage()); return; }
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            io.execute(() -> {
+                try { repository.reviewAction(id,action,name,date,status); runOnUiThread(() -> { dialog.dismiss(); message("Follow-up saved on this device"); reload(); }); }
+                catch(Exception failure) { runOnUiThread(() -> { issue.setText(failure.getMessage()); dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true); }); }
+            });
+        })); dialog.show();
     }
     private CharSequence highlight(String text,String term) {
         SpannableString result=new SpannableString(text); String normalized=normalize(text);
@@ -503,6 +566,7 @@ public class MainActivity extends Activity {
     private void exports(MeetingRepository.Meeting meeting) {
         ui.add(body,ui.text("Export meeting",20,ui.text,true),8); ui.add(body,ui.text("Choose where to save a copy. Your local originals remain on this device.",14,ui.muted,false),20);
         exportRow("document","Meeting report","Markdown · analysis and source transcript","meeting-report.md","text/markdown",meeting.reportExists);
+        exportRow("document","Reviewed task calendar","Open tasks with confirmed due dates · ICS","task-calendar.ics","text/calendar",meeting.completed);
         Button advanced=ui.button("Export structured data (JSON)",false,() -> export("report-export.json","application/json")); ui.enabled(advanced,meeting.reportExists&&!locked()); ui.add(body,advanced,12);
         if(repository.file(meeting.id,"presentation.pptx").isFile()) exportRow("document","Presentation","Attached PPTX","presentation.pptx","application/vnd.openxmlformats-officedocument.presentationml.presentation",true);
         exportRow("wave","Saved recording","WAV · saved recording","audio.wav","audio/wav",meeting.audioExists);
@@ -514,8 +578,15 @@ public class MainActivity extends Activity {
     }
     private void modelSettings() {
         toolbar("Settings",this::back,false);
-        ui.add(body,ui.text("Your profile",20,ui.text,true),12);
-        profileInput("Name","profile_name"); profileInput("Your role","profile_role"); profileInput("Organisation","profile_organization");
+        ui.add(body,ui.action("document","Account & sync","Shared sign-in, profile and meeting history",false,this::account),18);
+        if(AccountSession.signedIn(this)) {
+            ui.add(body,ui.text("Shared profile",20,ui.text,true),8);
+            ui.add(body,ui.text(AccountSession.preferences(this).getString("email","")+" · Edit or refresh your website profile in Account & sync.",14,ui.muted,false),16);
+        } else {
+            ui.add(body,ui.text("Device profile",20,ui.text,true),12);
+            ui.add(body,ui.text("Saved on this device. Sign in through Account & sync for a shared website profile.",13,ui.muted,false),12);
+            profileInput("Name","profile_name"); profileInput("Your role","profile_role"); profileInput("Organisation","profile_organization");
+        }
         ui.add(body,ui.text("Local analysis",20,ui.text,true),14);
         LinearLayout model=ui.card(); ui.add(model,ui.text(modelReady()?"Speech model installed":"Set up local analysis",17,ui.text,true),8);
         ui.add(model,ui.text(modelReady()?preferences().getString("model_name","Whisper GGML model")+" · "+modelSize():"Import your downloaded speech model once to analyse meetings offline.",14,ui.muted,false),16);
@@ -526,7 +597,7 @@ public class MainActivity extends Activity {
             public void onItemSelected(AdapterView<?> parent,View view,int position,long id) { preferences().edit().putInt("language",position).apply(); }
             public void onNothingSelected(AdapterView<?> parent) { }
         }); ui.add(body,language,18);
-        ui.add(body,ui.notice("Offline & private","No Internet permission. Meetings are stored in private application storage. Export happens only when you choose a destination.",false),14);
+        ui.add(body,ui.notice("Offline & private","Recording and analysis stay on this device. Account sync is optional and sends only meetings you explicitly publish to your configured server.",false),14);
         ui.add(body,ui.text("Number of participants (optional)",16,ui.text,true),8);
         String[] counts=new String[21]; counts[0]="Detect automatically"; for(int i=1;i<=20;i++) counts[i]=String.valueOf(i);
         Spinner speakers=spinner(counts,"Number of participants"); speakers.setSelection(Math.max(0,Math.min(20,preferences().getInt("speakers",0))));
@@ -535,16 +606,6 @@ public class MainActivity extends Activity {
             public void onNothingSelected(AdapterView<?> parent) { }
         }); ui.add(body,speakers,18);
         ui.add(body,ui.notice("About analysis","Speaker models are included. Check names after changing the participant count. Influence uses candidate evidence; PPT matching uses slide text. Recognition accuracy remains unmeasured.",false),14);
-        ui.add(body,ui.text("Optional cloud website",18,ui.text,true),8);
-        ui.add(body,ui.text("Open your configured server in a browser. Uploading there is your choice; this app continues processing locally and never sends your meetings automatically.",14,ui.muted,false),12);
-        EditText cloud=ui.input("https://your-meeting-server.example","Cloud website address",false); cloud.setInputType(android.text.InputType.TYPE_CLASS_TEXT|android.text.InputType.TYPE_TEXT_VARIATION_URI);
-        cloud.setText(preferences().getString("cloud_url","")); ui.add(body,cloud,12);
-        ui.add(body,ui.button("Open cloud website",false,() -> {
-            String address=cloud.getText().toString().trim(); Uri uri=Uri.parse(address);
-            if(!"https".equalsIgnoreCase(uri.getScheme())||uri.getHost()==null||uri.getUserInfo()!=null) { cloud.setError("Enter your server’s HTTPS address"); return; }
-            preferences().edit().putString("cloud_url",address).apply();
-            try { startActivity(new Intent(Intent.ACTION_VIEW,uri)); } catch(ActivityNotFoundException unavailable) { cloud.setError("Install a browser to open the website"); }
-        }),18);
         ui.add(body,ui.text("InfluenceIQ · Offline Meeting Intelligence",13,ui.muted,false),0);
     }
     private void profileInput(String label,String key) {
@@ -624,11 +685,20 @@ public class MainActivity extends Activity {
             dialog.dismiss(); io.execute(() -> { try { repository.rename(meeting.id,value); runOnUiThread(this::reload); } catch(Exception failure) { runOnUiThread(() -> { error=failure.getMessage(); render(); }); } });
         })); dialog.show();
     }
+    private void publishAccount() {
+        MeetingRepository.Meeting meeting=meeting(); if(meeting==null||locked()) return;
+        if(!AccountSession.signedIn(this)) { account(); return; }
+        if(!meeting.completed) { error="Complete local analysis before publishing to your account."; render(); return; }
+        String id=meeting.id;
+        new AlertDialog.Builder(this).setTitle("Publish to account?")
+            .setMessage("Send this completed report, participant labels, extracted slide text and original recording to "+AccountSession.preferences(this).getString("email","")+" at "+AccountSession.preferences(this).getString("server","")+"? Existing device files are retained.")
+            .setNegativeButton("Cancel",null).setPositiveButton("Publish",(dialog,which) -> { AccountSync.publish(this,id); render(); }).show();
+    }
     private void export(String name,String type) {
         if(locked()||selectedId==null) return; final String id=selectedId; final MeetingRepository.Meeting meeting=meeting();
         io.execute(() -> {
             try {
-                File source=name.equals("meeting-report.md")?repository.markdown(id,meeting.title):name.equals("report-export.json")?repository.jsonExport(id):repository.file(id,name);
+                File source=name.equals("meeting-report.md")?repository.markdown(id,meeting.title):name.equals("report-export.json")?repository.jsonExport(id):name.equals("task-calendar.ics")?repository.calendar(id,meeting.title):repository.file(id,name);
                 if(!source.isFile()) throw new IOException("This export is not available yet");
                 runOnUiThread(() -> { if(isDestroyed()) return; exportName=name;
                     startActivityForResult(new Intent(Intent.ACTION_CREATE_DOCUMENT).setType(type).addCategory(Intent.CATEGORY_OPENABLE).putExtra(Intent.EXTRA_TITLE,"InfluenceIQ_"+id+"_"+name),11);

@@ -1,0 +1,67 @@
+{
+  "dataset": "google/fleurs",
+  "revision": "b4a42ed06e12025c42f3b4eff6338ace2fe2447a",
+  "config": "hi_in",
+  "split": "test",
+  "selection": "First eight valid WAV members in official test tar archive, before inference",
+  "license": "CC-BY-4.0",
+  "url": "https://huggingface.co/datasets/google/fleurs/resolve/b4a42ed06e12025c42f3b4eff6338ace2fe2447a/data/hi_in/audio/test.tar.gz",
+  "samples": [
+    {
+      "path": ".runtime/research-evaluation/hindi/10011266027513218401.wav",
+      "reference": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है",
+      "id": "1766",
+      "file": "10011266027513218401.wav",
+      "sha256": "217f3abbd8e9cd3767d6e8b87d49fbf82421fc920a103de026b4586d7e644dc5"
+    },
+    {
+      "path": ".runtime/research-evaluation/hindi/10014385262415025488.wav",
+      "reference": "ग्रीनलैंड को बहुत कम जगह बसाया गया था नॉर्स सगास में वे कहते हैं कि एरिक रेड हत्या के लिए आइसलैंड से निर्वासित किया गया था और आगे पश्चिम की यात्रा करते समय ग्रीनलैंड मिला जिसे ग्रीनलैंड नाम दिया गया",
+      "id": "1784",
+      "file": "10014385262415025488.wav",
+      "sha256": "b63e6ae5a8a5b53fcd5b60c467790baca13ca0c8490d35418d692ef7751a5459"
+    },
+    {
+      "path": ".runtime/research-evaluation/hindi/10015817292782645020.wav",
+      "reference": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित सामान एंटीक होते हैं कुछ कर एजेंसियां 100 साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं",
+      "id": "1718",
+      "file": "10015817292782645020.wav",
+      "sha256": "6c1e02d23469dcb2717843a2f4db5f363841a4967376fb587a902fea992c8868"
+    },
+    {
+      "path": ".runtime/research-evaluation/hindi/10027305580492162464.wav",
+      "reference": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है",
+      "id": "1778",
+      "file": "10027305580492162464.wav",
+      "sha256": "e15385240ea707ea4edfce9db06808efc73658090d132015b8baee99514e2f30"
+    },
+    {
+      "path": ".runtime/research-evaluation/hindi/10069289676238419279.wav",
+      "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+      "id": "1828",
+      "file": "10069289676238419279.wav",
+      "sha256": "ebe88dec83ef1fc371bb3b5f6343cd8920d275a8a281b9976977d71a838bc2f4"
+    },
+    {
+      "path": ".runtime/research-evaluation/hindi/10107687492910459268.wav",
+      "reference": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सलाह ले सकते हैं हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती हैं",
+      "id": "1666",
+      "file": "10107687492910459268.wav",
+      "sha256": "b853e4f4cc9e2c0e312a8ae0ce59bc3637319866de1a674045e0de3f5d240693"
+    },
+    {
+      "path": ".runtime/research-evaluation/hindi/10128382631186456345.wav",
+      "reference": "प्राचीनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है और इन्हें प्राथमिक उपकरणों के ज़रिए ढूंढना अपेक्षाकृत आसान है",
+      "id": "1836",
+      "file": "10128382631186456345.wav",
+      "sha256": "c1c970d98d4ac10c9fe8e5eb7e22779945ff8fb75c71bf384ba2709261210c65"
+    },
+    {
+      "path": ".runtime/research-evaluation/hindi/10135688561274120767.wav",
+      "reference": "इसे केमिकल का ph कहा जाता है आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं",
+      "id": "1792",
+      "file": "10135688561274120767.wav",
+      "sha256": "1627aac0f973d5bf25cbfe47cd0185538858b76c88a944fe9e7d7d89e068b932"
+    }
+  ]
+}

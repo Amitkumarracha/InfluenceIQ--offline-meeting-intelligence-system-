@@ -152,6 +152,21 @@ class PPTXExtractor(BaseSlideExtractor):
             tables = self._get_tables(slide) if self.extract_tables else []
             notes = self._get_notes(slide) if self.extract_notes else None
             metadata = self._get_metadata(slide, prs)
+            from src.utils.config import get
+            if get("ppt.ocr_enabled", False):
+                from dataclasses import asdict
+                from src.ppt.ocr import extract_ocr_text
+                def images(shapes):
+                    for shape in shapes:
+                        if shape.shape_type == 6:  # grouped shapes
+                            yield from images(shape.shapes)
+                        elif shape.shape_type == 13:  # embedded picture
+                            yield shape.image.blob
+                image_bytes = list(images(slide.shapes))
+                if image_bytes:
+                    recognized = extract_ocr_text(slide_id, image_bytes)
+                    metadata["ocr"] = [asdict(result) for result in recognized]
+                    text_blocks.extend(result.text for result in recognized)
 
             if text_blocks or title:
                 total_text_slides += 1

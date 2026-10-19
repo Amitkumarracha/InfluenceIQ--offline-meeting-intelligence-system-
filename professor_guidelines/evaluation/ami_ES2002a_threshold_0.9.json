@@ -1,0 +1,103 @@
+{
+  "meeting": "ES2002a",
+  "split": "development",
+  "start": 60,
+  "duration": 120,
+  "channel": "Array1-01",
+  "threshold": 0.9,
+  "clusters": 4,
+  "reference_speakers": 4,
+  "der": {
+    "status": "ok",
+    "metric": "der",
+    "der": 0.175625,
+    "missed_speech_rate": 0.092444,
+    "false_alarm_rate": 0.002297,
+    "speaker_error_rate": 0.080884,
+    "total_reference_duration": 105.41400000000002,
+    "collar_s": 0.25,
+    "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+  },
+  "diarization_seconds": 33.24857846099985,
+  "rtf": 0.27707148717499874,
+  "peak_process_rss_mb": 507.84375,
+  "reference_protocol": "AMI manual speech segments, 0.25s collar, overlap included, optimal speaker mapping, excerpt UEM",
+  "hypothesis": [
+    {
+      "start": 0.03096874989569187,
+      "end": 17.49659538269043,
+      "speaker": "0"
+    },
+    {
+      "start": 17.378469467163086,
+      "end": 18.964719772338867,
+      "speaker": "2"
+    },
+    {
+      "start": 18.964719772338867,
+      "end": 20.702844619750977,
+      "speaker": "3"
+    },
+    {
+      "start": 20.75347137451172,
+      "end": 21.259719848632812,
+      "speaker": "0"
+    },
+    {
+      "start": 22.069721221923828,
+      "end": 24.61784553527832,
+      "speaker": "3"
+    },
+    {
+      "start": 26.03534507751465,
+      "end": 28.93784523010254,
+      "speaker": "3"
+    },
+    {
+      "start": 29.292221069335938,
+      "end": 41.678470611572266,
+      "speaker": "0"
+    },
+    {
+      "start": 44.88471984863281,
+      "end": 46.234718322753906,
+      "speaker": "0"
+    },
+    {
+      "start": 48.68159484863281,
+      "end": 72.053466796875,
+      "speaker": "0"
+    },
+    {
+      "start": 72.49221801757812,
+      "end": 80.57534790039062,
+      "speaker": "1"
+    },
+    {
+      "start": 75.04034423828125,
+      "end": 75.39472198486328,
+      "speaker": "0"
+    },
+    {
+      "start": 79.51222229003906,
+      "end": 92.62409973144531,
+      "speaker": "0"
+    },
+    {
+      "start": 94.4803466796875,
+      "end": 109.12784576416016,
+      "speaker": "0"
+    },
+    {
+      "start": 106.6303482055664,
+      "end": 108.5541000366211,
+      "speaker": "1"
+    },
+    {
+      "start": 114.19034576416016,
+      "end": 116.73847198486328,
+      "speaker": "1"
+    }
+  ],
+  "evaluation_duration_seconds": 120
+}

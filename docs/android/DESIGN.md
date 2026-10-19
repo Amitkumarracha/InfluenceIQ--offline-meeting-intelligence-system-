@@ -1,3 +1,7 @@
+**Current account update (18 October 2026):** Android 0.7 adds optional shared login/profile/history and explicit meeting transfers with INTERNET permission. The no-network APK measurements below describe the earlier UI delivery. See [account setup](../guides/ACCOUNT_SYNC.md) and [current validation](../validation/24_ACCOUNT_SYNC_2026_10_18.md).
+
+**19 October follow-up:** Current APK is **0.7.1-prototype / code 9**, adding reviewed task owners/dates/status and offline calendar export. See [follow-up usage](../guides/FOLLOW_UPS.md) and [current validation](../validation/27_READ_AI_COMPARISON_AND_FOLLOWUPS_2026_10_19.md). Older version/hash measurements below remain historical.
+
 # InfluenceIQ Android design and validation
 
 Historical October 6, 2026 design. The current simpler **0.5.0** screens and wider imports are described in [the October 7 update](../validation/17_MINIMAL_UI_IMPLEMENTATION_AND_VALIDATION.md).

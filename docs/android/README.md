@@ -1,6 +1,8 @@
 # InfluenceIQ Android prototype
 
-Version **0.6.0-prototype** records and processes meetings locally, including pretrained speaker separation, editable participant names/roles, candidate decision-linked influence and native PPT text fusion. The speech model is imported once; speaker weights are packaged in the APK. There is no INTERNET permission or automatic upload. An optional Settings link opens your configured HTTPS website in an external browser. App data stays private, backup is disabled, and export is explicit. See [the implementation/evaluation report](../validation/19_ANDROID_SPEAKERS_FUSION_AND_VALIDATION.md).
+**19 October follow-up:** Current APK is **0.7.1-prototype / code 9**, adding reviewed task owners/dates/status and offline calendar export. See [follow-up usage](../guides/FOLLOW_UPS.md) and [current validation](../validation/27_READ_AI_COMPARISON_AND_FOLLOWUPS_2026_10_19.md). Older version/hash measurements below remain historical.
+
+Version **0.7.0-prototype** records and processes meetings locally, including pretrained speaker separation, editable participant names/roles, candidate decision-linked influence and native PPT text fusion. The speech model is imported once; speaker weights are packaged in the APK. Optional Account & sync uses the same backend user/profile/history as the website and adds INTERNET permission. Publishing a completed meeting requires an explicit confirmation; sign-in never uploads recordings. Local inference remains independent of an account/network. See [account setup](../guides/ACCOUNT_SYNC.md) and [validation](../validation/24_ACCOUNT_SYNC_2026_10_18.md). App data stays private, backup is disabled, and export is explicit. See [the implementation/evaluation report](../validation/19_ANDROID_SPEAKERS_FUSION_AND_VALIDATION.md).
 
 ## Build
 
@@ -37,7 +39,7 @@ Open **Settings → Set up analysis** to import the model. Use a multilingual GG
 - System microphone permission and 16 kHz mono PCM WAV recording.
 - Foreground service, visible notification, stop control and wake lock.
 - Streaming writes with a recoverable WAV header; six-hour recording ceiling.
-- Offline native Whisper inference in 120-second chunks, with original timestamps and language selection restricted to Hindi/English.
+- Offline native Whisper greedy inference in 120-second chunks, with original timestamps and language selection restricted to Hindi/English.
 - Two seconds of context around chunk boundaries; midpoint ownership avoids deliberately emitting each boundary segment twice.
 - Optional English/Hindi language selection and vocabulary prompts, included in checkpoint identity.
 - Atomic completed-chunk checkpoints tied to audio/model content hashes.
@@ -60,13 +62,13 @@ Open **Settings → Set up analysis** to import the model. Use a multilingual GG
 - System light/dark themes, native vector icons, 48dp icon targets and larger-font layouts.
 - Settings with a saved local profile, automatic Hindi/English language default and model management; visible transfer errors and unavailable-action states.
 - Cached meeting summaries and background file transfers; idle screens do not repeatedly parse full reports.
-- No internet permission; speech-model transfer occurs before offline operation. The optional HTTPS browser shortcut performs no upload itself.
+- Optional shared sign-in, account profile/history, explicit report/recording publication and offline downloads; encrypted access-token storage and ownership/revision checks. Speech-model transfer occurs before offline operation; models/checkpoints are not uploaded.
 
 ## Current limits
 
 The native analysis is a lightweight baseline. It shares event rules and weight categories with the website, but its lexical candidate lineage is not the full Python evidence/decision graph. Scores are not validated causal influence, and roles describe contributions rather than job titles. PPT fusion uses native text, with no OCR, visual encoder or temporal slide windows.
 
-Speaker processing reads the recording into a native float buffer, with a one-hour limit (up to about 230 MB of PCM floats, plus models/intermediates). Longer recordings retain full chunked transcription but speaker analysis is marked unavailable. Low-memory phones and long/background runs still need physical-device tests. Pause waits for the current native stage to finish; upstream speaker inference cannot cancel mid-stage.
+Speaker processing uses a meeting-global native float buffer, capped at 512 MiB and at one quarter of current available system memory. Sufficient-memory devices can admit about 139 minutes; low-memory devices have a smaller allowance. Compatible cached turns remain reusable without a fresh waveform allocation. Longer recordings retain full chunked transcription with a visible speaker-analysis limitation. This buffer budget is not a guarantee of total peak RAM. Low-memory phones and long/background runs still need physical-device tests. Pause waits for the current native stage to finish; upstream speaker inference cannot cancel mid-stage.
 
 The emulator has verified installation, microphone foreground recording, native model loading/transcription and report creation. This does not establish physical-phone speed, battery/thermal behavior, background survival, or Hindi/English accuracy. No physical phone was connected during implementation.
 
@@ -77,3 +79,12 @@ Version **0.5.0-prototype** implements the simpler interface and wider audio imp
 `bash android/test.sh` checks WAV parsing/recovery/sample preservation, streaming stereo resampling, arbitrary frame splits, observed Unicode vocabulary, PPTX parsing/XML rejection, real PCM amplitude/progress, and the exported English/Hindi/Hinglish rule banks on the JVM. ARM64 is compiled and signed but has not been exercised on a physical phone. See [design and validation details](DESIGN.md) and [manual instructions](../guides/RUN_MANUALLY.md).
 
 Version **0.6** validation, current accuracy measurements, training guidance and cloud boundaries are in chapters [19](../validation/19_ANDROID_SPEAKERS_FUSION_AND_VALIDATION.md), [20](../research/20_TRAINING_DATA_AND_MULTIMODAL_RESEARCH.md) and [21](../operations/21_OFFLINE_AND_WORKSTATION_DEPLOYMENT.md). `bash android/test-device-analysis.sh` exercises Android’s real JSON/regex runtime and candidate fusion/scoring contracts on a connected emulator/device after a build.
+
+
+## 0.6.1 readiness update — 18 October 2026
+
+Model replacement now checks complete GGML headers/vocabulary/tensors before replacing the installed model; truncated files are rejected. Speaker inference uses a live system-memory budget with a native allocation ceiling instead of a fixed hour. Direct and Gradle version metadata match (code 7). JVM, Android-runtime fusion/export probes, real native speech/speaker/PPT processing and five review-screen checks passed on the x86_64 emulator. The user's 6 GB Samsung phone has not been connected, so physical performance/thermal/lifecycle behavior remains unverified. The laptop OCR engine is separate from Android's native-text PPT matching.
+
+See [current commands](../guides/RUN_CURRENT.md) and [the complete readiness record](../validation/23_READINESS_2026_10_18.md).
+
+Native 0.6.1 retains greedy decoding and compatible `v4:` checkpoints, and explicitly records the decoder in report metadata. Beam search (size 3) improved a matched 20-second English pilot (50.0% to 30.3% WER), but its 90-second WER was 45.7% versus the historical same-input greedy baseline of 37.7%. It was not adopted. These English excerpts do not establish Hindi/Hinglish accuracy. Fully cached updates are tested repeatedly for UI unlock/recovery.

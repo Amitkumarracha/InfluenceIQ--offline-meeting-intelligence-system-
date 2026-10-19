@@ -1,0 +1,33 @@
+{
+  "language": "hindi",
+  "sample": 0,
+  "id": "1766",
+  "reference": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है",
+  "hypothesis": "कुछ अडवो में आजस्तर केंड़ग होता है जिस का मतलब यहां की उन में खोडे या बिना किसी जटके से तुटनें की प्रवत्ती होती है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.541667,
+    "substitutions": 12,
+    "deletions": 0,
+    "insertions": 1,
+    "reference_length": 24,
+    "hypothesis_length": 25
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.247312,
+    "substitutions": 16,
+    "deletions": 5,
+    "insertions": 2,
+    "reference_length": 93,
+    "hypothesis_length": 90
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 9.12,
+  "elapsed_seconds": 14.490609095002583,
+  "rtf": 1.5888825762064236
+}

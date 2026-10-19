@@ -10,8 +10,8 @@ android {
         applicationId = "org.meetiq.offline"
         minSdk = 26
         targetSdk = 35
-        versionCode = 6
-        versionName = "0.6.0-prototype"
+        versionCode = 9
+        versionName = "0.7.1-prototype"
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         
         externalNativeBuild {

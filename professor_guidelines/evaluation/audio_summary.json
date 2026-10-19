@@ -1,0 +1,647 @@
+{
+  "selected_threshold": 0.9,
+  "development_pooled_der": {
+    "0.5": 0.2085539598225656,
+    "0.7": 0.1656448900373546,
+    "0.9": 0.1650375175099754,
+    "1.1": 0.18834495992868663
+  },
+  "test": [
+    {
+      "meeting": "IS1001b",
+      "split": "test",
+      "start": 60,
+      "duration": 120,
+      "channel": "Array1-01",
+      "threshold": 0.5,
+      "clusters": 12,
+      "reference_speakers": 4,
+      "der": {
+        "status": "ok",
+        "metric": "der",
+        "der": 0.460075,
+        "missed_speech_rate": 0.245055,
+        "false_alarm_rate": 6.4e-05,
+        "speaker_error_rate": 0.214956,
+        "total_reference_duration": 93.30199999999999,
+        "collar_s": 0.25,
+        "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+      },
+      "diarization_seconds": 27.153582806997292,
+      "rtf": 0.22627985672497744,
+      "peak_process_rss_mb": 532.3359375,
+      "reference_protocol": "AMI manual speech segments, 0.25s collar, overlap included, optimal speaker mapping, excerpt UEM",
+      "hypothesis": [
+        {
+          "start": 0.03096874989569187,
+          "end": 1.937843918800354,
+          "speaker": "0"
+        },
+        {
+          "start": 3.152843713760376,
+          "end": 16.517845153808594,
+          "speaker": "0"
+        },
+        {
+          "start": 18.306594848632812,
+          "end": 27.638471603393555,
+          "speaker": "0"
+        },
+        {
+          "start": 28.954721450805664,
+          "end": 34.995967864990234,
+          "speaker": "0"
+        },
+        {
+          "start": 36.734092712402344,
+          "end": 47.179718017578125,
+          "speaker": "0"
+        },
+        {
+          "start": 49.10346984863281,
+          "end": 50.976593017578125,
+          "speaker": "0"
+        },
+        {
+          "start": 50.976593017578125,
+          "end": 55.515968322753906,
+          "speaker": "1"
+        },
+        {
+          "start": 59.21159362792969,
+          "end": 60.93284606933594,
+          "speaker": "3"
+        },
+        {
+          "start": 61.979095458984375,
+          "end": 62.58659362792969,
+          "speaker": "1"
+        },
+        {
+          "start": 68.52659606933594,
+          "end": 73.01534271240234,
+          "speaker": "7"
+        },
+        {
+          "start": 73.94347381591797,
+          "end": 77.31847381591797,
+          "speaker": "7"
+        },
+        {
+          "start": 77.31847381591797,
+          "end": 79.24221801757812,
+          "speaker": "8"
+        },
+        {
+          "start": 87.3928451538086,
+          "end": 87.71347045898438,
+          "speaker": "10"
+        },
+        {
+          "start": 89.24909973144531,
+          "end": 90.1772232055664,
+          "speaker": "13"
+        },
+        {
+          "start": 92.47222137451172,
+          "end": 92.9447250366211,
+          "speaker": "12"
+        },
+        {
+          "start": 92.9447250366211,
+          "end": 95.4759750366211,
+          "speaker": "13"
+        },
+        {
+          "start": 97.80471801757812,
+          "end": 100.31909942626953,
+          "speaker": "14"
+        },
+        {
+          "start": 101.83784484863281,
+          "end": 102.69847106933594,
+          "speaker": "16"
+        },
+        {
+          "start": 102.86721801757812,
+          "end": 104.25096893310547,
+          "speaker": "15"
+        },
+        {
+          "start": 104.72347259521484,
+          "end": 109.0940933227539,
+          "speaker": "16"
+        },
+        {
+          "start": 109.78597259521484,
+          "end": 111.13597106933594,
+          "speaker": "17"
+        },
+        {
+          "start": 111.22034454345703,
+          "end": 111.72660064697266,
+          "speaker": "16"
+        },
+        {
+          "start": 112.1147232055664,
+          "end": 113.02597045898438,
+          "speaker": "17"
+        },
+        {
+          "start": 113.75159454345703,
+          "end": 114.37596893310547,
+          "speaker": "16"
+        },
+        {
+          "start": 116.5697250366211,
+          "end": 117.12659454345703,
+          "speaker": "16"
+        },
+        {
+          "start": 119.38784790039062,
+          "end": 119.97846984863281,
+          "speaker": "16"
+        }
+      ],
+      "evaluation_duration_seconds": 120
+    },
+    {
+      "meeting": "TS3007d",
+      "split": "test",
+      "start": 60,
+      "duration": 120,
+      "channel": "Array1-01",
+      "threshold": 0.5,
+      "clusters": 13,
+      "reference_speakers": 4,
+      "der": {
+        "status": "ok",
+        "metric": "der",
+        "der": 0.835409,
+        "missed_speech_rate": 0.143889,
+        "false_alarm_rate": 0.383775,
+        "speaker_error_rate": 0.307745,
+        "total_reference_duration": 86.64200000000004,
+        "collar_s": 0.25,
+        "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+      },
+      "diarization_seconds": 32.8528592900002,
+      "rtf": 0.2737738274166683,
+      "peak_process_rss_mb": 532.3359375,
+      "reference_protocol": "AMI manual speech segments, 0.25s collar, overlap included, optimal speaker mapping, excerpt UEM",
+      "hypothesis": [
+        {
+          "start": 0.03096874989569187,
+          "end": 4.806593894958496,
+          "speaker": "0"
+        },
+        {
+          "start": 4.384718894958496,
+          "end": 9.210968971252441,
+          "speaker": "1"
+        },
+        {
+          "start": 15.707844734191895,
+          "end": 16.737220764160156,
+          "speaker": "4"
+        },
+        {
+          "start": 18.323471069335938,
+          "end": 23.689720153808594,
+          "speaker": "7"
+        },
+        {
+          "start": 25.157846450805664,
+          "end": 28.04347038269043,
+          "speaker": "7"
+        },
+        {
+          "start": 26.2040958404541,
+          "end": 30.962846755981445,
+          "speaker": "8"
+        },
+        {
+          "start": 30.962846755981445,
+          "end": 48.96847152709961,
+          "speaker": "10"
+        },
+        {
+          "start": 48.96847152709961,
+          "end": 54.45284652709961,
+          "speaker": "12"
+        },
+        {
+          "start": 55.094093322753906,
+          "end": 55.68471908569336,
+          "speaker": "14"
+        },
+        {
+          "start": 55.144718170166016,
+          "end": 55.617218017578125,
+          "speaker": "12"
+        },
+        {
+          "start": 55.68471908569336,
+          "end": 57.254093170166016,
+          "speaker": "15"
+        },
+        {
+          "start": 56.3090934753418,
+          "end": 76.66034698486328,
+          "speaker": "12"
+        },
+        {
+          "start": 61.20284652709961,
+          "end": 61.96221923828125,
+          "speaker": "15"
+        },
+        {
+          "start": 61.96221923828125,
+          "end": 63.46409606933594,
+          "speaker": "13"
+        },
+        {
+          "start": 69.84284210205078,
+          "end": 70.16346740722656,
+          "speaker": "17"
+        },
+        {
+          "start": 77.1834716796875,
+          "end": 86.02597045898438,
+          "speaker": "12"
+        },
+        {
+          "start": 86.02597045898438,
+          "end": 100.21784973144531,
+          "speaker": "10"
+        },
+        {
+          "start": 88.81034851074219,
+          "end": 90.97034454345703,
+          "speaker": "12"
+        },
+        {
+          "start": 90.97034454345703,
+          "end": 92.40472412109375,
+          "speaker": "19"
+        },
+        {
+          "start": 93.94034576416016,
+          "end": 94.93597412109375,
+          "speaker": "19"
+        },
+        {
+          "start": 100.03221893310547,
+          "end": 109.97159576416016,
+          "speaker": "12"
+        },
+        {
+          "start": 101.44972229003906,
+          "end": 102.6478500366211,
+          "speaker": "10"
+        },
+        {
+          "start": 109.97159576416016,
+          "end": 112.7728500366211,
+          "speaker": "21"
+        },
+        {
+          "start": 113.98784637451172,
+          "end": 115.96221923828125,
+          "speaker": "21"
+        },
+        {
+          "start": 115.96221923828125,
+          "end": 119.97846984863281,
+          "speaker": "10"
+        }
+      ],
+      "evaluation_duration_seconds": 120
+    },
+    {
+      "meeting": "IS1001b",
+      "split": "test",
+      "start": 60,
+      "duration": 120,
+      "channel": "Array1-01",
+      "threshold": 0.9,
+      "clusters": 4,
+      "reference_speakers": 4,
+      "der": {
+        "status": "ok",
+        "metric": "der",
+        "der": 0.268951,
+        "missed_speech_rate": 0.245055,
+        "false_alarm_rate": 6.4e-05,
+        "speaker_error_rate": 0.023832,
+        "total_reference_duration": 93.30199999999999,
+        "collar_s": 0.25,
+        "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+      },
+      "diarization_seconds": 28.98885078600142,
+      "rtf": 0.24157375655001184,
+      "peak_process_rss_mb": 532.3359375,
+      "reference_protocol": "AMI manual speech segments, 0.25s collar, overlap included, optimal speaker mapping, excerpt UEM",
+      "hypothesis": [
+        {
+          "start": 0.03096874989569187,
+          "end": 1.937843918800354,
+          "speaker": "0"
+        },
+        {
+          "start": 3.152843713760376,
+          "end": 16.517845153808594,
+          "speaker": "0"
+        },
+        {
+          "start": 18.306594848632812,
+          "end": 27.638471603393555,
+          "speaker": "0"
+        },
+        {
+          "start": 28.954721450805664,
+          "end": 34.995967864990234,
+          "speaker": "0"
+        },
+        {
+          "start": 36.734092712402344,
+          "end": 47.179718017578125,
+          "speaker": "0"
+        },
+        {
+          "start": 49.10346984863281,
+          "end": 55.515968322753906,
+          "speaker": "0"
+        },
+        {
+          "start": 59.21159362792969,
+          "end": 60.93284606933594,
+          "speaker": "1"
+        },
+        {
+          "start": 61.979095458984375,
+          "end": 62.58659362792969,
+          "speaker": "0"
+        },
+        {
+          "start": 68.52659606933594,
+          "end": 73.01534271240234,
+          "speaker": "3"
+        },
+        {
+          "start": 73.94347381591797,
+          "end": 76.57597351074219,
+          "speaker": "3"
+        },
+        {
+          "start": 76.57597351074219,
+          "end": 79.24221801757812,
+          "speaker": "0"
+        },
+        {
+          "start": 87.3928451538086,
+          "end": 87.71347045898438,
+          "speaker": "2"
+        },
+        {
+          "start": 89.24909973144531,
+          "end": 90.1772232055664,
+          "speaker": "0"
+        },
+        {
+          "start": 92.47222137451172,
+          "end": 92.92784881591797,
+          "speaker": "2"
+        },
+        {
+          "start": 92.92784881591797,
+          "end": 95.4759750366211,
+          "speaker": "0"
+        },
+        {
+          "start": 97.80471801757812,
+          "end": 100.3865966796875,
+          "speaker": "3"
+        },
+        {
+          "start": 101.83784484863281,
+          "end": 102.69847106933594,
+          "speaker": "3"
+        },
+        {
+          "start": 102.86721801757812,
+          "end": 104.25096893310547,
+          "speaker": "0"
+        },
+        {
+          "start": 104.72347259521484,
+          "end": 109.0940933227539,
+          "speaker": "3"
+        },
+        {
+          "start": 109.78597259521484,
+          "end": 111.13597106933594,
+          "speaker": "1"
+        },
+        {
+          "start": 111.22034454345703,
+          "end": 111.72660064697266,
+          "speaker": "3"
+        },
+        {
+          "start": 112.1147232055664,
+          "end": 113.02597045898438,
+          "speaker": "1"
+        },
+        {
+          "start": 113.75159454345703,
+          "end": 114.37596893310547,
+          "speaker": "3"
+        },
+        {
+          "start": 116.5697250366211,
+          "end": 117.12659454345703,
+          "speaker": "3"
+        },
+        {
+          "start": 119.38784790039062,
+          "end": 119.97846984863281,
+          "speaker": "3"
+        }
+      ],
+      "evaluation_duration_seconds": 120
+    },
+    {
+      "meeting": "TS3007d",
+      "split": "test",
+      "start": 60,
+      "duration": 120,
+      "channel": "Array1-01",
+      "threshold": 0.9,
+      "clusters": 7,
+      "reference_speakers": 4,
+      "der": {
+        "status": "ok",
+        "metric": "der",
+        "der": 0.560056,
+        "missed_speech_rate": 0.146816,
+        "false_alarm_rate": 0.38767,
+        "speaker_error_rate": 0.02557,
+        "total_reference_duration": 86.64200000000004,
+        "collar_s": 0.25,
+        "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+      },
+      "diarization_seconds": 33.16834126699905,
+      "rtf": 0.27640284389165876,
+      "peak_process_rss_mb": 532.3359375,
+      "reference_protocol": "AMI manual speech segments, 0.25s collar, overlap included, optimal speaker mapping, excerpt UEM",
+      "hypothesis": [
+        {
+          "start": 0.03096874989569187,
+          "end": 4.806593894958496,
+          "speaker": "0"
+        },
+        {
+          "start": 4.384718894958496,
+          "end": 9.210968971252441,
+          "speaker": "1"
+        },
+        {
+          "start": 15.707844734191895,
+          "end": 16.737220764160156,
+          "speaker": "3"
+        },
+        {
+          "start": 18.306594848632812,
+          "end": 19.572219848632812,
+          "speaker": "1"
+        },
+        {
+          "start": 19.065969467163086,
+          "end": 23.689720153808594,
+          "speaker": "0"
+        },
+        {
+          "start": 25.157846450805664,
+          "end": 28.04347038269043,
+          "speaker": "0"
+        },
+        {
+          "start": 26.2040958404541,
+          "end": 54.45284652709961,
+          "speaker": "1"
+        },
+        {
+          "start": 55.0434684753418,
+          "end": 55.617218017578125,
+          "speaker": "1"
+        },
+        {
+          "start": 55.617218017578125,
+          "end": 57.254093170166016,
+          "speaker": "5"
+        },
+        {
+          "start": 56.32596969604492,
+          "end": 76.66034698486328,
+          "speaker": "1"
+        },
+        {
+          "start": 61.20284652709961,
+          "end": 63.46409606933594,
+          "speaker": "5"
+        },
+        {
+          "start": 69.84284210205078,
+          "end": 70.16346740722656,
+          "speaker": "6"
+        },
+        {
+          "start": 77.1834716796875,
+          "end": 112.97534942626953,
+          "speaker": "1"
+        },
+        {
+          "start": 88.81034851074219,
+          "end": 90.02534484863281,
+          "speaker": "0"
+        },
+        {
+          "start": 90.02534484863281,
+          "end": 92.40472412109375,
+          "speaker": "2"
+        },
+        {
+          "start": 93.94034576416016,
+          "end": 94.93597412109375,
+          "speaker": "2"
+        },
+        {
+          "start": 101.44972229003906,
+          "end": 102.09097290039062,
+          "speaker": "0"
+        },
+        {
+          "start": 102.31034851074219,
+          "end": 102.61409759521484,
+          "speaker": "4"
+        },
+        {
+          "start": 113.98784637451172,
+          "end": 119.97846984863281,
+          "speaker": "1"
+        }
+      ],
+      "evaluation_duration_seconds": 120
+    }
+  ],
+  "asr": [
+    {
+      "meeting": "IS1001b",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.415888,
+        "substitutions": 43,
+        "deletions": 41,
+        "insertions": 5,
+        "reference_length": 214,
+        "hypothesis_length": 178
+      },
+      "elapsed_seconds": 19.423547796999628,
+      "rtf": 0.16186289830833023,
+      "model": "small",
+      "device": "cpu",
+      "compute_type": "int8",
+      "reference": "look at it afterwards so then uh each of you will uh lead a presentation on the task that has been required last time so user requirement specification technical function design and working design then i will uh present you some new project requirements i received from uh the management board then we will take uh the decision on on the remote control uh needed functions and then i will assign you the task for the next part of the meeting of the of the process so uh who want to start the the presentation of what they did mm f do you want to start make a start yeah you can start so cable camera you have uh powerpoint should be in my in their folder no ah yeah maybe there up okay who are you um at three i think no mm ouch and okay we have a technical problem uh do we think w s in the in the wrong folder maybe it is possible you put no it on it was somewhere in something like this i don t remember the name actually must be something like messenger ami or something what do you have in short cut go up participant two yeah go up yeah again no go back",
+      "hypothesis": "to look at it afterwards so then each of you will lead a presentation on the task that has been required last time user requirements specification technical function design and working design then i will present you some new project requirements i received from the management board then we will take the decision on the remote control and the functions and then i will assign you the task for the next part of the meeting of the process so we want to start the presentation of what they do do you want to stop i can t start you can stop this will be in my folder no i am in the app who are you i m a 3 up technical problem no you think you said in the wrong folder it s possible you can t eat and there s something like this i don t know the name but it s something like this what do you have in shortcut that s good go up about this point too yeah go up yeah again bye"
+    },
+    {
+      "meeting": "TS3007d",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.809955,
+        "substitutions": 155,
+        "deletions": 21,
+        "insertions": 3,
+        "reference_length": 221,
+        "hypothesis_length": 203
+      },
+      "elapsed_seconds": 22.528922273002536,
+      "rtf": 0.1877410189416878,
+      "model": "small",
+      "device": "cpu",
+      "compute_type": "int8",
+      "reference": "wouldn t wanna be project manager uh what we going to do um once again i m uh gonna take minutes so um no presentation for me uh first we have a prototype presentation by g and g yo j afterwards and j some uh eval eval evalu evaluation evaluation evaluation evaluation criteria s sorry uh evaluation crit criteria uh in combination with the finance i um uh i received uh a an uh an excel uh file hmm which we have to fill in later on um you see uh and hmm interesting then we must see uh if we uh stay under the twelve ah and a okay half euro so that s uh oops cool mm hmm that s a that s big gonna l so be let s t uh wait problem it uh um some creative we have we uh have must uh we must have uh some time for that uh because it will be uh yeah quite a oh lot of mathematics yeah and after that uh uh an evaluation of uh the process how we uh how we have done it here with the smartboard with the with our laptops with the all uh all this and uh afterwards uh we closing once again forty minutes so uh ok let s start okay",
+      "hypothesis": "could you put it in the chat hall yeah oh we can begin move to the meeting room and bring your laptop thank you let s play it too welcome to the sorry yeah maybe good for a presentation but just i ll show the chat oh i see it s a lot of fun welcome to the fourth meeting the detailed design meeting where we have to read the decision on the details of the remote control presented by your what am i going to do once again i m going to take minutes no presentation for me first we have a prototype presentation by g g i have to work on evaluation evaluation criteria in combination with finance received an excel file which we have to fill in later on you see and then we must see if we stay under the 12 5 euro so that s we must have some time for that because it will be quite a lot of man to manics and after that the evaluation of the process we have done it here with the smart or with our laptops but all this and afterwards we re once again 40 minutes so let s start"
+    }
+  ],
+  "limits": [
+    "Two development and two different held-out meeting groups, 120s each; not a full-corpus claim.",
+    "Long uploaded recording has no verified reference.",
+    "ASR ordered overlapping reference words; not speaker-attributed WER.",
+    "Native model initialization included in timing; RSS is cumulative process peak."
+  ],
+  "uem_duration_seconds": 120
+}

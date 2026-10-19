@@ -1,0 +1,33 @@
+{
+  "language": "hindi",
+  "sample": 5,
+  "id": "1666",
+  "reference": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सलाह ले सकते हैं हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती हैं",
+  "hypothesis": "अपनी सर्कार के अलावा आप अन्य देशों की सर्कारों की सला ले सकते हैं हालाकि उनकी सला उनके नागरिकों को ध्यान में रककल दी जाती हैं",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.230769,
+    "substitutions": 6,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_length": 26,
+    "hypothesis_length": 26
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.069307,
+    "substitutions": 2,
+    "deletions": 3,
+    "insertions": 2,
+    "reference_length": 101,
+    "hypothesis_length": 100
+  },
+  "detected_languages": [
+    "hi"
+  ],
+  "duration_seconds": 10.62,
+  "elapsed_seconds": 32.85296458200173,
+  "rtf": 3.093499489830672
+}

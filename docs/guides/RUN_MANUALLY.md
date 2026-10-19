@@ -1,5 +1,7 @@
 # Manual startup — updated 7 October 2026
 
+For current separate-terminal commands and Android 0.6.1, use [RUN_CURRENT.md](RUN_CURRENT.md).
+
 All commands below run in your terminal. Keep long-running servers in separate visible terminals and stop them with Ctrl+C. No startup service is required.
 
 ## Laptop app

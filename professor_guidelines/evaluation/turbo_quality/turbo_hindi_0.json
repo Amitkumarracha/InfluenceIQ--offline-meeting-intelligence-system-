@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hindi",
+  "sample": "turbo_hindi_0",
+  "source_sha256": "217f3abbd8e9cd3767d6e8b87d49fbf82421fc920a103de026b4586d7e644dc5",
+  "reference": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है",
+  "hypothesis": "कुछ अणूओं में आस्तिर केंद्रक होता है जिसका मतलब यहां कि उन में थोड़े या बिना किसी जटके से तूटने की प्रवत्ती होती है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.375,
+    "substitutions": 9,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_length": 24,
+    "hypothesis_length": 24
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.096774,
+    "substitutions": 8,
+    "deletions": 1,
+    "insertions": 0,
+    "reference_length": 93,
+    "hypothesis_length": 92
+  },
+  "elapsed_seconds": 28.372193234004953,
+  "detected_languages": [
+    "hi"
+  ]
+}

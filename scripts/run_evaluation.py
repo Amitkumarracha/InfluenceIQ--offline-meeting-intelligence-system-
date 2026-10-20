@@ -190,6 +190,18 @@ def main() -> None:
     diarization = json.loads(diarization_path.read_text()) if diarization_path.exists() else {}
     metrics_out['der'] = ({'status': 'error', 'reason': 'Predicted diarization file unavailable'}
         if gt_diarization and not diarization_path.exists() else calculate_der(gt_diarization, diarization.get('segments', [])))
+    from src.evaluation.diagnostics import character_error_rate, diarization_diagnostics
+    metrics_out['cer'] = ({'status': 'error', 'reason': 'Predicted transcript file unavailable'}
+        if gt_transcript is not None and not transcript_path.exists() else character_error_rate(gt_transcript,
+        ' '.join(segment['text'] for segment in transcript.get('segments', []))))
+    duration = args.audio_duration or transcript.get('duration')
+    if gt_diarization and not diarization_path.exists():
+        metrics_out['audio_diagnostics'] = {'status': 'error', 'reason': 'Predicted diarization file unavailable'}
+    elif gt_diarization and not duration:
+        metrics_out['audio_diagnostics'] = {'status': 'input_unavailable', 'reason': 'Supply --audio-duration for an explicit evaluation interval'}
+    else:
+        metrics_out['audio_diagnostics'] = diarization_diagnostics(gt_diarization,
+            diarization.get('segments', []), duration or 1)
     alignment_path = PROJECT_ROOT / 'data/processed/alignment' / f'{meeting_id}_alignment.json'
     alignment = json.loads(alignment_path.read_text()) if alignment_path.exists() else {}
     pred_alignment = [{'segment_id': row['segment_id'], 'slide_id': row['selected_slide']}

@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "format": "IEEEtran conference A4",
+  "pages": 5,
+  "abstract_words": 185,
+  "tables_verified_against_artifacts": 4,
+  "figures": 2,
+  "references": 15,
+  "equations": 2,
+  "word_columns": [
+    1,
+    2
+  ],
+  "pdf_fonts_embedded": true,
+  "latex_bundle_complete": true,
+  "author_details": "Four students, affiliation, faculty guide and all five emails verified across source, Word and PDF",
+  "limits": [
+    "Venue requirements and IEEE PDF eXpress certification remain unchecked."
+  ]
+}

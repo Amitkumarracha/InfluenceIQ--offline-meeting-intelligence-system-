@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hindi",
+  "sample": "turbo_hindi_5",
+  "source_sha256": "b853e4f4cc9e2c0e312a8ae0ce59bc3637319866de1a674045e0de3f5d240693",
+  "reference": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सलाह ले सकते हैं हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती हैं",
+  "hypothesis": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सला ले सकते हैं हालाकि उनकी सला उनके नागरिकों को ध्यान में रखकर दी जाती है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.153846,
+    "substitutions": 4,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_length": 26,
+    "hypothesis_length": 26
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.039604,
+    "substitutions": 0,
+    "deletions": 4,
+    "insertions": 0,
+    "reference_length": 101,
+    "hypothesis_length": 97
+  },
+  "elapsed_seconds": 27.928963607002515,
+  "detected_languages": [
+    "hi"
+  ]
+}

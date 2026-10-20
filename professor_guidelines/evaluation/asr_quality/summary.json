@@ -1,0 +1,32 @@
+{
+  "models": [
+    {
+      "model": "small",
+      "wer": {
+        "rate": 0.29981718464351004,
+        "errors": 164,
+        "reference_length": 547
+      },
+      "cer": {
+        "rate": 0.20316132031613204,
+        "errors": 437,
+        "reference_length": 2151
+      }
+    },
+    {
+      "model": "medium",
+      "wer": {
+        "rate": 0.31444241316270566,
+        "errors": 172,
+        "reference_length": 547
+      },
+      "cer": {
+        "rate": 0.21803812180381218,
+        "errors": 469,
+        "reference_length": 2151
+      }
+    }
+  ],
+  "selected_model": "small",
+  "status": "Exploratory English development ASR comparison; recognition models not fine-tuned"
+}

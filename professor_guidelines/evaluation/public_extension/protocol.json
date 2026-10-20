@@ -1,0 +1,16 @@
+{
+  "dataset": "dianavdavidson/MUCS-Hinglish",
+  "indices": [
+    100,
+    400,
+    800,
+    1200
+  ],
+  "split": "test",
+  "model": "small",
+  "selection": "Fixed spaced row indices before inference; not random or full-corpus evaluation",
+  "original_license": "CC-BY-SA-4.0",
+  "mirror_declared_license": "CC-BY-4.0",
+  "source": "https://www.openslr.org/104/",
+  "note": "Original source license governs; do not rely on conflicting mirror metadata."
+}

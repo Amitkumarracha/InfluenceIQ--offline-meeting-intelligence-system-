@@ -1,0 +1,29 @@
+{
+  "model": "large-v3-turbo",
+  "model_revision": "0a363e9161cbc7ed1431c9597a8ceaf0c4f78fcf",
+  "weights_sha256": "e76620f83d5f5b69efd3d87e3dc180c1bd21df9fbebacfd4335e5e1efcc018da",
+  "language": "auto",
+  "cpu_compute_type": "int8",
+  "beam_size": 5,
+  "english_dev": [
+    "ES2002a",
+    "ES2003a"
+  ],
+  "english_historical": [
+    "IS1001b",
+    "TS3007d"
+  ],
+  "indic": "Exactly the existing eight Hindi and eight Hinglish manifest samples",
+  "selection": "English default eligible only if dev WER and CER do not regress vs small; report all corpora",
+  "sources": [
+    "https://huggingface.co/openai/whisper-large-v3-turbo",
+    "https://huggingface.co/dropbox-dash/faster-whisper-large-v3-turbo"
+  ],
+  "script_sha256": "95fec735599c30f0fe4c36b17fe333370017df753ef1a5c46f1cd5b1ec4a002b",
+  "limits": [
+    "Exploratory reused cohorts; no fresh final test.",
+    "Timing may include concurrent model training and initialization; no speed superiority claim.",
+    "Indic samples are tiny/correlated; reference script/boundaries remain unchanged.",
+    "TS3007d incomplete reference prefix remains included; no post-hoc trimming."
+  ]
+}

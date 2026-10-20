@@ -1,0 +1,18 @@
+{
+  "recorded_before_historical_evaluation": true,
+  "candidate": "Only the model selected on development; no historical-best replacement",
+  "dev_gate": [
+    "accuracy",
+    "precision",
+    "recall",
+    "f1",
+    "average_precision"
+  ],
+  "historical_regression_gate": [
+    "f1",
+    "balanced_accuracy",
+    "average_precision"
+  ],
+  "rule": "Install the selected candidate only if it passes development gate and no historical regression on these metrics; otherwise preserve installed model.",
+  "scope": "Engineering regression check on reused historical data, not independent scientific confirmation."
+}

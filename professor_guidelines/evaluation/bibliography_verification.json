@@ -1,0 +1,517 @@
+[
+  {
+    "url": "https://doi.org/10.1109/TASL.2009.2038810",
+    "status": 202,
+    "metadata": {}
+  },
+  {
+    "url": "https://proceedings.mlr.press/v202/radford23a.html",
+    "status": 200,
+    "metadata": {
+      "citation_publisher": [
+        "PMLR"
+      ],
+      "citation_title": [
+        "Robust Speech Recognition via Large-Scale Weak Supervision"
+      ],
+      "citation_language": [
+        "en"
+      ],
+      "citation_abstract_html_url": [
+        "https://proceedings.mlr.press/v202/radford23a.html"
+      ],
+      "citation_pdf_url": [
+        "https://proceedings.mlr.press/v202/radford23a/radford23a.pdf"
+      ],
+      "citation_firstpage": [
+        "28492"
+      ],
+      "citation_lastpage": [
+        "28518"
+      ],
+      "citation_author": [
+        "Alec Radford",
+        "Jong Wook Kim",
+        "Tao Xu",
+        "Greg Brockman",
+        "Christine Mcleavey",
+        "Ilya Sutskever"
+      ],
+      "citation_publication_date": [
+        "2023/07/03"
+      ],
+      "citation_inbook_title": [
+        "International Conference on Machine Learning"
+      ],
+      "citation_conference_title": [
+        "International Conference on Machine Learning"
+      ],
+      "citation_issn": [
+        "2640-3498"
+      ]
+    }
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/bain23_interspeech.html",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "WhisperX: Time-Accurate Speech Transcription of Long-Form Audio"
+      ],
+      "citation_conference_title": [
+        "Proc. Interspeech 2023"
+      ],
+      "citation_publication_date": [
+        "2023"
+      ],
+      "citation_firstpage": [
+        "4489"
+      ],
+      "citation_lastpage": [
+        "4493"
+      ],
+      "citation_author": [
+        "Bain, Max",
+        "Huh, Jaesung",
+        "Han, Tengda",
+        "Zisserman, Andrew"
+      ],
+      "citation_pdf_url": [
+        "https://www.isca-archive.org/interspeech_2023/bain23_interspeech.pdf"
+      ],
+      "citation_doi": [
+        "10.21437/Interspeech.2023-78"
+      ]
+    }
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/bredin23_interspeech.html",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "pyannote.audio 2.1 speaker diarization pipeline: principle, benchmark, and recipe"
+      ],
+      "citation_conference_title": [
+        "Proc. Interspeech 2023"
+      ],
+      "citation_publication_date": [
+        "2023"
+      ],
+      "citation_firstpage": [
+        "1983"
+      ],
+      "citation_lastpage": [
+        "1987"
+      ],
+      "citation_author": [
+        "Bredin, Hervé"
+      ],
+      "citation_pdf_url": [
+        "https://www.isca-archive.org/interspeech_2023/bredin23_interspeech.pdf"
+      ],
+      "citation_doi": [
+        "10.21437/Interspeech.2023-105"
+      ]
+    }
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/plaquet23_interspeech.html",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "Powerset multi-class cross entropy loss for neural speaker diarization"
+      ],
+      "citation_conference_title": [
+        "Proc. Interspeech 2023"
+      ],
+      "citation_publication_date": [
+        "2023"
+      ],
+      "citation_firstpage": [
+        "3222"
+      ],
+      "citation_lastpage": [
+        "3226"
+      ],
+      "citation_author": [
+        "Plaquet, Alexis",
+        "Bredin, Hervé"
+      ],
+      "citation_pdf_url": [
+        "https://www.isca-archive.org/interspeech_2023/plaquet23_interspeech.pdf"
+      ],
+      "citation_doi": [
+        "10.21437/Interspeech.2023-205"
+      ]
+    }
+  },
+  {
+    "url": "https://aclanthology.org/2023.ijcnlp-demo.3/",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "Turning Whisper into Real-Time Transcription System"
+      ],
+      "citation_author": [
+        "Dominik Macháček",
+        "Raj Dabre",
+        "Ondřej Bojar"
+      ],
+      "citation_conference_title": [
+        "Proceedings of the 13th International Joint Conference on Natural Language Processing and the 3rd Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics: System Demonstrations"
+      ],
+      "citation_publication_date": [
+        "2023/11"
+      ],
+      "citation_pdf_url": [
+        "https://aclanthology.org/2023.ijcnlp-demo.3.pdf"
+      ],
+      "citation_firstpage": [
+        "17"
+      ],
+      "citation_lastpage": [
+        "24"
+      ],
+      "citation_doi": [
+        "10.18653/v1/2023.ijcnlp-demo.3"
+      ]
+    }
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2024/wang24ea_interspeech.html",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "Simul-Whisper: Attention-Guided Streaming Whisper with Truncation Detection"
+      ],
+      "citation_conference_title": [
+        "Proc. Interspeech 2024"
+      ],
+      "citation_publication_date": [
+        "2024"
+      ],
+      "citation_firstpage": [
+        "4483"
+      ],
+      "citation_lastpage": [
+        "4487"
+      ],
+      "citation_author": [
+        "Wang, Haoyu",
+        "Hu, Guoqiang",
+        "Lin, Guodong",
+        "Zhang, Wei-Qiang",
+        "Li, Jian"
+      ],
+      "citation_pdf_url": [
+        "https://www.isca-archive.org/interspeech_2024/wang24ea_interspeech.pdf"
+      ],
+      "citation_doi": [
+        "10.21437/Interspeech.2024-1814"
+      ]
+    }
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/baghel23_interspeech.html",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "The DISPLACE Challenge 2023 - DIarization of SPeaker and LAnguage in Conversational Environments"
+      ],
+      "citation_conference_title": [
+        "Proc. Interspeech 2023"
+      ],
+      "citation_publication_date": [
+        "2023"
+      ],
+      "citation_firstpage": [
+        "3562"
+      ],
+      "citation_lastpage": [
+        "3566"
+      ],
+      "citation_author": [
+        "Baghel, Shikha",
+        "Ramoji, Shreyas",
+        "Sidharth, ",
+        "H, Ranjana",
+        "Singh, Prachi",
+        "Jain, Somil",
+        "Roy Chowdhuri, Pratik",
+        "Kulkarni, Kaustubh",
+        "Padhi, Swapnil",
+        "Vijayasenan, Deepu",
+        "Ganapathy, Sriram"
+      ],
+      "citation_pdf_url": [
+        "https://www.isca-archive.org/interspeech_2023/baghel23_interspeech.pdf"
+      ],
+      "citation_doi": [
+        "10.21437/Interspeech.2023-2367"
+      ]
+    }
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2024/kalluri24_interspeech.html",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "The Second DISPLACE Challenge: DIarization of SPeaker and LAnguage in Conversational Environments"
+      ],
+      "citation_conference_title": [
+        "Proc. Interspeech 2024"
+      ],
+      "citation_publication_date": [
+        "2024"
+      ],
+      "citation_firstpage": [
+        "1630"
+      ],
+      "citation_lastpage": [
+        "1634"
+      ],
+      "citation_author": [
+        "Kalluri, Shareef Babu",
+        "Singh, Prachi",
+        "Roy Chowdhuri, Pratik",
+        "Kulkarni, Apoorva",
+        "Baghel, Shikha",
+        "Hegde, Pradyoth",
+        "Sontakke, Swapnil",
+        "K T, Deepak",
+        "Prasanna, S.R. Mahadeva",
+        "Vijayasenan, Deepu",
+        "Ganapathy, Sriram"
+      ],
+      "citation_pdf_url": [
+        "https://www.isca-archive.org/interspeech_2024/kalluri24_interspeech.pdf"
+      ],
+      "citation_doi": [
+        "10.21437/Interspeech.2024-1833"
+      ]
+    }
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2023/bhogale23_interspeech.html",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "Vistaar: Diverse Benchmarks and Training Sets for Indian Language ASR"
+      ],
+      "citation_conference_title": [
+        "Proc. Interspeech 2023"
+      ],
+      "citation_publication_date": [
+        "2023"
+      ],
+      "citation_firstpage": [
+        "4384"
+      ],
+      "citation_lastpage": [
+        "4388"
+      ],
+      "citation_author": [
+        "Bhogale, Kaushal",
+        "Sundaresan, Sai",
+        "Raman, Abhigyan",
+        "Javed, Tahir",
+        "Khapra, Mitesh M.",
+        "Kumar, Pratyush"
+      ],
+      "citation_pdf_url": [
+        "https://www.isca-archive.org/interspeech_2023/bhogale23_interspeech.pdf"
+      ],
+      "citation_doi": [
+        "10.21437/Interspeech.2023-2589"
+      ]
+    }
+  },
+  {
+    "url": "https://aclanthology.org/2023.acl-long.906/",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "MeetingBank: A Benchmark Dataset for Meeting Summarization"
+      ],
+      "citation_author": [
+        "Yebowen Hu",
+        "Timothy Ganter",
+        "Hanieh Deilamsalehy",
+        "Franck Dernoncourt",
+        "Hassan Foroosh",
+        "Fei Liu"
+      ],
+      "citation_conference_title": [
+        "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)"
+      ],
+      "citation_publication_date": [
+        "2023/7"
+      ],
+      "citation_pdf_url": [
+        "https://aclanthology.org/2023.acl-long.906.pdf"
+      ],
+      "citation_firstpage": [
+        "16409"
+      ],
+      "citation_lastpage": [
+        "16423"
+      ],
+      "citation_doi": [
+        "10.18653/v1/2023.acl-long.906"
+      ]
+    }
+  },
+  {
+    "url": "https://aclanthology.org/2023.acl-long.731/",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "ExplainMeetSum: A Dataset for Explainable Meeting Summarization Aligned with Human Intent"
+      ],
+      "citation_author": [
+        "Hyun Kim",
+        "Minsoo Cho",
+        "Seung-Hoon Na"
+      ],
+      "citation_conference_title": [
+        "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)"
+      ],
+      "citation_publication_date": [
+        "2023/7"
+      ],
+      "citation_pdf_url": [
+        "https://aclanthology.org/2023.acl-long.731.pdf"
+      ],
+      "citation_firstpage": [
+        "13079"
+      ],
+      "citation_lastpage": [
+        "13098"
+      ],
+      "citation_doi": [
+        "10.18653/v1/2023.acl-long.731"
+      ]
+    }
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2025/medennikov25_interspeech.html",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "Streaming Sortformer: Speaker Cache-Based Online Speaker Diarization with Arrival-Time Ordering"
+      ],
+      "citation_conference_title": [
+        "Proc. Interspeech 2025"
+      ],
+      "citation_publication_date": [
+        "2025"
+      ],
+      "citation_firstpage": [
+        "5238"
+      ],
+      "citation_lastpage": [
+        "5242"
+      ],
+      "citation_author": [
+        "Medennikov, Ivan",
+        "Park, Taejin",
+        "Wang, Weiqing",
+        "Huang, He",
+        "Dhawan, Kunal",
+        "Wang, Jinhan",
+        "Balam, Jagadeesh",
+        "Ginsburg, Boris"
+      ],
+      "citation_pdf_url": [
+        "https://www.isca-archive.org/interspeech_2025/medennikov25_interspeech.pdf"
+      ],
+      "citation_doi": [
+        "10.21437/Interspeech.2025-2244"
+      ]
+    }
+  },
+  {
+    "url": "https://arxiv.org/abs/2205.12446",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "FLEURS: Few-shot Learning Evaluation of Universal Representations of Speech"
+      ],
+      "citation_author": [
+        "Conneau, Alexis",
+        "Ma, Min",
+        "Khanuja, Simran",
+        "Zhang, Yu",
+        "Axelrod, Vera",
+        "Dalmia, Siddharth",
+        "Riesa, Jason",
+        "Rivera, Clara",
+        "Bapna, Ankur"
+      ],
+      "citation_date": [
+        "2022/05/25"
+      ],
+      "citation_online_date": [
+        "2022/05/25"
+      ],
+      "citation_pdf_url": [
+        "https://arxiv.org/pdf/2205.12446"
+      ],
+      "citation_arxiv_id": [
+        "2205.12446"
+      ],
+      "citation_abstract": [
+        "We introduce FLEURS, the Few-shot Learning Evaluation of Universal Representations of Speech benchmark. FLEURS is an n-way parallel speech dataset in 102 languages built on top of the machine translation FLoRes-101 benchmark, with approximately 12 hours of speech supervision per language. FLEURS can be used for a variety of speech tasks, including Automatic Speech Recognition (ASR), Speech Language Identification (Speech LangID), Translation and Retrieval. In this paper, we provide baselines for the tasks based on multilingual pre-trained models like mSLAM. The goal of FLEURS is to enable speech technology in more languages and catalyze research in low-resource speech understanding."
+      ]
+    }
+  },
+  {
+    "url": "https://www.isca-archive.org/interspeech_2021/diwan21_interspeech.html",
+    "status": 200,
+    "metadata": {
+      "citation_title": [
+        "MUCS 2021: Multilingual and Code-Switching ASR Challenges for Low Resource Indian Languages"
+      ],
+      "citation_conference_title": [
+        "Proc. Interspeech 2021"
+      ],
+      "citation_publication_date": [
+        "2021"
+      ],
+      "citation_firstpage": [
+        "2446"
+      ],
+      "citation_lastpage": [
+        "2450"
+      ],
+      "citation_author": [
+        "Diwan, Anuj",
+        "Vaideeswaran, Rakesh",
+        "Shah, Sanket",
+        "Singh, Ankita",
+        "Raghavan, Srinivasa",
+        "Khare, Shreya",
+        "Unni, Vinit",
+        "Vyas, Saurabh",
+        "Rajpuria, Akash",
+        "Yarra, Chiranjeevi",
+        "Mittal, Ashish",
+        "Ghosh, Prasanta Kumar",
+        "Jyothi, Preethi",
+        "Bali, Kalika",
+        "Seshadri, Vivek",
+        "Sitaram, Sunayana",
+        "Bharadwaj, Samarth",
+        "Nanavati, Jai",
+        "Nanavati, Raoul",
+        "Sankaranarayanan, Karthik"
+      ],
+      "citation_pdf_url": [
+        "https://www.isca-archive.org/interspeech_2021/diwan21_interspeech.pdf"
+      ],
+      "citation_doi": [
+        "10.21437/Interspeech.2021-1339"
+      ]
+    }
+  }
+]

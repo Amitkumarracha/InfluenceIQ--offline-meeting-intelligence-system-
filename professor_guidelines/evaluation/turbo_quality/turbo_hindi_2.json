@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hindi",
+  "sample": "turbo_hindi_2",
+  "source_sha256": "6c1e02d23469dcb2717843a2f4db5f363841a4967376fb587a902fea992c8868",
+  "reference": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित सामान एंटीक होते हैं कुछ कर एजेंसियां 100 साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं",
+  "hypothesis": "आईसी कोई वैस्पिक परिवाशा नहीं है जिसके लिए निर्मित समान एंटिक होते हैं कुछ कर एजेंशिया शव साल से पुराने समान को एंटिक के तौर पर परिवाशित करती है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.37931,
+    "substitutions": 11,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_length": 29,
+    "hypothesis_length": 29
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.15,
+    "substitutions": 12,
+    "deletions": 5,
+    "insertions": 1,
+    "reference_length": 120,
+    "hypothesis_length": 116
+  },
+  "elapsed_seconds": 29.10221504799847,
+  "detected_languages": [
+    "hi"
+  ]
+}

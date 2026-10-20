@@ -1,0 +1,116 @@
+<html><head><meta charset="utf-8"><style>@page {size:A4;margin:2cm} body {font-family:"Liberation Serif";font-size:11pt} table {border-collapse:collapse;width:100%;font-size:9pt} td,th {border:1px solid #888;padding:4px} img {max-width:100%;width:650px} pre {white-space:pre-wrap;font-size:9pt} h1,h2,h3 {page-break-after:avoid}</style></head><body><h1>Pipeline improvement: learned discussion review</h1>
+<p>The app now includes a local learned discussion-review stage in addition to its event and final-decision rules. This closes the previous gap between the research classifiers and the running pipeline. The learned stage suggests source passages to inspect; it does not convert discussion membership into confirmed decisions or alter influence weights.</p>
+<h2>Measured comparison</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Precision %</th>
+<th>Recall %</th>
+<th>F1 %</th>
+<th>AP %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Earlier v2 context model</td>
+<td>34.13</td>
+<td>90.12</td>
+<td>49.51</td>
+<td>56.99</td>
+</tr>
+<tr>
+<td>Matched context logistic regression</td>
+<td>35.61</td>
+<td>87.38</td>
+<td>50.60</td>
+<td>56.99</td>
+</tr>
+<tr>
+<td>Matched context random forest</td>
+<td>39.38</td>
+<td>76.86</td>
+<td>52.08</td>
+<td>41.95</td>
+</tr>
+<tr>
+<td>New discussion-review pipeline</td>
+<td>39.94</td>
+<td>81.18</td>
+<td>53.54</td>
+<td>53.40</td>
+</tr>
+</tbody>
+</table>
+<p>All rows use the same 11,136 reference acts and 2,481 positives from the historical AMI cohort. This table measures discussion membership with oracle text and act boundaries. It is not end-to-end audio accuracy. The dev-selected mixture combines 75% forest with 25% linear scores, then smooths within ±5 acts and applies threshold 0.357740. It scores 59.79% development F1.</p>
+<h2>All prespecified mixtures</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Precision %</th>
+<th>Recall %</th>
+<th>F1 %</th>
+<th>AP %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear weight 0.00</td>
+<td>39.38</td>
+<td>76.86</td>
+<td>52.08</td>
+<td>41.95</td>
+</tr>
+<tr>
+<td>Linear weight 0.25</td>
+<td>39.94</td>
+<td>81.18</td>
+<td>53.54</td>
+<td>53.40</td>
+</tr>
+<tr>
+<td>Linear weight 0.50</td>
+<td>36.11</td>
+<td>85.73</td>
+<td>50.81</td>
+<td>56.82</td>
+</tr>
+<tr>
+<td>Linear weight 0.75</td>
+<td>33.72</td>
+<td>92.14</td>
+<td>49.37</td>
+<td>57.09</td>
+</tr>
+<tr>
+<td>Linear weight 1.00</td>
+<td>35.61</td>
+<td>87.38</td>
+<td>50.60</td>
+<td>56.99</td>
+</tr>
+</tbody>
+</table>
+<p>For every mixture, its smoothing radius and threshold are selected on development only. The components reuse train-fitted, previously dev-selected context classifiers; this is a further development iteration, not new independent model discovery. Historical scores were inspected only after this round's selection was frozen. Selection/model/source hashes are retained in <code>evaluation/pipeline_improvement/</code>.</p>
+<p>The forest-versus-new-pipeline paired series bootstrap interval for F1 difference is -7.16 to +5.99 percentage points. Three test series and two development series remain insufficient for strong significance/generalisation claims. Average precision remains lower than the matched linear baseline. No labels or examples were removed or changed.</p>
+<h2>What changed in the app</h2>
+<ul>
+<li><code>src/meeting/discussions.py</code> performs batched sparse feature extraction and forest/linear scoring locally. Expanded context and feature matrices are bounded to one batch. It preserves source order and never crosses meetings.</li>
+<li>The complete audio-to-report orchestrator runs the learned stage after final transcription/speaker attribution. The preview remains a separate draft path.</li>
+<li>The decision-review screen shows verbatim suggested passages, speaker labels and audio seek buttons. All suggestions remain in report JSON/Markdown/HTML; the screen displays the first 100 for long recordings.</li>
+<li>English-only application is explicit. Mixed detected-language recordings and missing model assets do not receive unsupported learned labels. An optional-stage failure is reported without losing the transcript or other completed analysis.</li>
+<li>Scores are not calibrated correctness probabilities. The classifier's targets are discussion spans, not final decisions. Source-based decision reconstruction and influence weighting therefore remain separate.</li>
+</ul>
+<h2>Validation and limits</h2>
+<p>Unit coverage compares batched runtime features and smoothing against the frozen experiment, checks meeting boundaries and label independence, verifies passage IDs/text/timestamps and tests invalid input/failure behaviour. An orchestrator integration test checks that the new stage reaches JSON/Markdown/HTML exports without inventing decision events. Browser coverage verifies the learned section in the existing workflow.</p>
+<p>Real cached ASR transcripts are exercised separately in <code>evaluation/pipeline_improvement/asr_smoke.json</code>. These checks measure execution and source traceability only. Short introductory excerpts can yield no suggestions; this is retained rather than forcing positives. The mapping from human dialogue acts to longer ASR passages changes the input distribution and has not been accuracy-validated. Independent ASR-passage/recording annotations remain necessary. Hindi/Hinglish accuracy, final-decision accuracy and human influence rankings are not established by this experiment.</p>
+<h2>Model installation and reproduction</h2>
+<p>The model is installed locally at <code>models/discussion/model.joblib</code>, with its provenance in <code>models/discussion/manifest.json</code>. Model binaries are ignored by Git. A fresh checkout needs the training/evaluation artifacts before packaging; a checkout without the model reports <code>model_unavailable</code> and keeps the existing rule pipeline operational. <code>discussion_review.enabled</code> and <code>discussion_review.model</code> in <code>config/config.yaml</code> control this stage.</p>
+<pre><code class="language-bash">OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/improve_discussion_pipeline.py
+OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 .venv/bin/python scripts/improve_discussion_pipeline.py --evaluate
+.venv/bin/python scripts/improve_discussion_pipeline.py --install
+MPLCONFIGDIR=/tmp/influenceiq-mpl .venv/bin/python scripts/report_pipeline_improvement.py
+</code></pre>
+<p>The installation always packages the frozen development-selected mixture, irrespective of historical ranking. Prior experiment outputs and existing meeting reports are preserved. New analyses produce the additional discussion-review field; existing meetings need reanalysis to obtain it. No dependencies, neural downloads or cloud processing were added.</p>
+</body></html>

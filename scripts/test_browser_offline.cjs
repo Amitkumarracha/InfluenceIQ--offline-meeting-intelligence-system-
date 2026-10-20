@@ -20,6 +20,7 @@ const http = require('node:http');
     let title = 'Planning meeting', profile = { name: '', role: '', organization: '' }, uploaded = false, polls = 0;
     const transcript = Array.from({ length: 215 }, (_, i) => ({ segment_id: i + 1, start: 7200 + i * 5, end: 7204 + i * 5, speaker: 'SPEAKER_00', text: `Report passage ${i + 1}. Asha will send Friday.` }));
     const data = { transcript_segments: transcript, vocabulary: '', vocabulary_suggestions: ['budget', 'हिंदी'], participants: [{ speaker_id: 'SPEAKER_00', roles: ['evidence_provider'], influence_score: .7 }], action_items: [{ event_id: 'e1', text: 'I will send the report Friday.', speaker: 'SPEAKER_00', timestamp: '02:00:00', timestamp_s: 7200 }], decisions: [{ decision_id: 'd1', status: 'confirmed', final_decision_text: 'We decided to approve the budget.', supporting_segments: [1] }], processing: { speaker_separation: true }, language_analysis: { label: 'Possible Hindi–English mix', asr_languages: ['en', 'hi'] }, influence: [{ participant: 'SPEAKER_00', influence_score: .7, features: { evidence_contribution: 1 }, raw_features: { evidence_contribution: 2 }, explanation: ['Provided observed evidence.'], supporting_events: ['e1'] }], influence_method: { weights: { evidence: .2 } }, event_timeline: [{ event_id: 'e1', source_segment_id: 1, event_type: 'evidence', start: 7200, speaker: 'SPEAKER_00', text: 'Source budget evidence', slide_id: 'slide_01' }], slides: [{ slide_id: 'slide_01', slide_number: 1, title: 'Budget', text: ['Budget facts'], tables: [] }], aligned_segments: [{ segment_id: 1, speaker: 'SPEAKER_00', slide_id: 'slide_01', start: 7200, text: 'Linked slide discussion', alignment_score: .8 }], consistency_checks: { flags: [{ slide_id: 'slide_01', statement: 'Latency 120 ms', slide_text: 'Latency 100 ms', start: 7200, spoken_value: '120', slide_value: '100', unit: 'ms' }] }, meeting_overview: { duration_s: 8275 } };
+    data.discussion_review = { status: 'ready', requires_review: true, passages: [{ source_segment_id: 1, start: transcript[0].start, end: transcript[0].end, speaker: transcript[0].speaker, text: transcript[0].text, score: .8 }] };
     await context.route('**/*', async route => {
       const url = new URL(route.request().url());
       if (url.hostname !== '127.0.0.1') throw new Error('Unexpected external request');
@@ -32,10 +33,11 @@ const http = require('node:http');
       if (url.pathname === '/api/meetings') return json({ meetings: [{ id: 'demo', title, status: 'completed', created_at: '2026-10-07T12:00:00' }] });
       if (url.pathname === '/api/analyze') {
         const body = route.request().postDataBuffer().toString();
-        for (const value of ['name="model_size"\r\n\r\nmedium', 'name="language"\r\n\r\nauto', 'name="vocabulary"\r\n\r\nAsha', 'slides.pptx']) assert(body.includes(value), value);
+        for (const value of ['name="model_size"\r\n\r\nmedium', 'name="language"\r\n\r\nauto', 'name="vocabulary"\r\n\r\nAsha', 'slides.pptx', 'additional.pptx', 'part2.wav', 'part3.wav']) assert(body.includes(value), value);
+        assert.equal((body.match(/name="audio";/g) || []).length, 3); assert.equal((body.match(/name="ppt";/g) || []).length, 2);
         uploaded = true; return route.fulfill({ status: 202, json: { meeting_id: 'demo' } });
       }
-      if (url.pathname === '/api/meetings/demo' && uploaded && polls++ < 1) return json({ id: 'demo', title, status: 'processing', stage: 'transcription', progress: { completed_seconds: 120, total_seconds: 600, elapsed_seconds: 42, stage_elapsed_seconds: 40, overall_percent: 11, stage_percent: 20, estimated_remaining_seconds: 300 }, preview: { transcript_segments: [{ segment_id: 1, start: 10, text: 'हमने बजट फाइनल कर दिया।' }] } });
+      if (url.pathname === '/api/meetings/demo' && uploaded && polls++ < 1) return json({ id: 'demo', title, status: 'processing', stage: 'transcription', progress: { completed_seconds: 120, total_seconds: 600, elapsed_seconds: 42, stage_elapsed_seconds: 40, overall_percent: 11, stage_percent: 20, estimated_remaining_seconds: 300 }, preview: { transcript_segments: Array.from({ length: 75 }, (_, i) => ({ segment_id: i + 1, start: i * 5, text: i === 0 ? 'हमने बजट फाइनल कर दिया।' : `Saved draft passage ${i + 1}` })) } });
       if (url.pathname === '/api/meetings/demo') return json({ id: 'demo', title, status: 'completed', data: { speaker_names: { SPEAKER_00: 'Imported Asha' }, ...data }, audio_url: null });
       if (url.pathname === '/api/meetings/demo/edit') { const changes = route.request().postDataJSON(); title = changes.title || title; Object.assign(data, changes); return json({ status: 'saved' }); }
       if (url.pathname === '/api/meetings/demo/export') return route.fulfill({ contentType: 'text/markdown', body: '# Planning meeting\nAsha: Reviewer\nReport passage 215.', headers: { 'Content-Disposition': 'attachment; filename="meeting.md"' } });
@@ -70,12 +72,24 @@ const http = require('node:http');
     await page.getByLabel('Speech model', { exact: true }).selectOption('medium');
     await page.screenshot({ path: path.join(screenshots, 'settings.png'), fullPage: true });
     await page.getByRole('button', { name: 'Home', exact: true }).click(); await page.getByRole('button', { name: 'Recover recording', exact: true }).click();
+    await page.getByLabel('Upload audio', { exact: true }).setInputFiles({ name: 'part2.wav', mimeType: 'audio/wav', buffer: Buffer.from('audio part two') });
+    await page.getByText('2 file(s) ready · parts play in the order below', { exact: true }).waitFor();
+    await page.getByLabel('Upload audio', { exact: true }).setInputFiles({ name: 'part3.wav', mimeType: 'audio/wav', buffer: Buffer.from('audio part three') });
+    await page.getByText('3 file(s) ready · parts play in the order below', { exact: true }).waitFor();
     await page.getByLabel('Upload PPT', { exact: true }).setInputFiles({ name: 'slides.pptx', mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', buffer: Buffer.from('presentation fixture') });
     assert.equal(await page.getByText('slides.pptx', { exact: true }).count(), 1);
+    await page.getByLabel('Upload PPT', { exact: true }).setInputFiles({ name: 'additional.pptx', mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', buffer: Buffer.from('additional presentation') });
+    await page.getByText('2 presentation(s) · slides are combined in this order', { exact: true }).waitFor();
+    await page.getByRole('button', { name: 'Move presentation additional.pptx up', exact: true }).click();
+    const presentationRows = page.locator('.attachment li');
+    assert((await presentationRows.first().innerText()).includes('additional.pptx'));
+
     assert(await page.getByLabel('Upload PPT', { exact: true }).evaluate(element => element.classList.contains('visually-hidden')));
     await page.locator('summary').filter({ hasText: 'Vocabulary hints' }).click(); await page.getByLabel('Vocabulary hints', { exact: true }).fill('Asha');
     await page.getByRole('button', { name: 'Analyse meeting', exact: true }).click();
     await page.getByText(/हमने बजट फाइनल कर दिया।/).waitFor();
+    assert.equal(await page.locator('.draft-transcript .preview-text').count(), 75);
+    await page.getByText('Saved draft passage 75', { exact: false }).waitFor({ state: 'attached' });
     await page.getByRole('progressbar', { name: 'Overall processing progress', exact: true }).waitFor();
     await page.getByText('11%', { exact: true }).waitFor();
     await page.screenshot({ path: path.join(screenshots, 'processing.png'), fullPage: true });
@@ -88,6 +102,8 @@ const http = require('node:http');
     assert.equal(data.vocabulary, 'Asha, हिंदी');
     await page.getByRole('button', { name: 'Action items', exact: true }).click(); await page.getByText('I will send the report Friday.', { exact: true }).waitFor();
     await page.getByRole('button', { name: 'Decisions', exact: true }).click(); await page.getByText('We decided to approve the budget.', { exact: true }).waitFor();
+    await page.getByRole('heading', { name: 'Discussion passages to review', exact: true }).waitFor();
+    await page.getByText(transcript[0].text, { exact: true }).waitFor();
     await page.screenshot({ path: path.join(screenshots, 'decisions.png'), fullPage: true });
     await page.getByRole('button', { name: 'Participants', exact: true }).click(); await page.getByText('Estimated roles: evidence provider', { exact: true }).waitFor();
     await page.getByRole('button', { name: 'Edit name & role', exact: true }).click(); await page.getByLabel('Speaker name', { exact: true }).fill('Asha'); await page.getByLabel('Meeting role', { exact: true }).fill('Reviewer'); await page.getByRole('button', { name: 'Save speaker', exact: true }).click(); await page.getByText('Your role label: Reviewer', { exact: true }).waitFor();
@@ -114,6 +130,6 @@ const http = require('node:http');
     await page.getByRole('button', { name: 'Home', exact: true }).click();
     await page.screenshot({ path: path.join(screenshots, 'desktop-home.png'), fullPage: true });
     assert.deepEqual(errors, []);
-    console.log(JSON.stringify({ browser: 'passed', microphone: 'synthetic', recordingRecovery: true, liveMicrophonePreview: true, settingsPersistence: true, profile: true, pptUpload: true, vocabularyEdits: true, speakerEditsAndHistory: true, resultTabs: true, paginationAndPrint: true, generativeFeaturesRemoved: true, transcriptRoleLabels: true, influenceEvidence: true, presentationAlignment: true, export: true, widths: [360, 390, 960, 1440], progressAndAutomaticResults: true, importedSpeakerNames: true, searchHighlight: true, passwordConfirmation: true, errors }));
+    console.log(JSON.stringify({ browser: 'passed', microphone: 'synthetic', recordingRecovery: true, liveMicrophonePreview: true, settingsPersistence: true, profile: true, pptUpload: true, multipleAudioAndPresentations: true, fullDraftFromBeginning: true, vocabularyEdits: true, speakerEditsAndHistory: true, resultTabs: true, paginationAndPrint: true, generativeFeaturesRemoved: true, transcriptRoleLabels: true, influenceEvidence: true, presentationAlignment: true, export: true, widths: [360, 390, 960, 1440], progressAndAutomaticResults: true, importedSpeakerNames: true, searchHighlight: true, passwordConfirmation: true, errors }));
   } finally { await browser.close(); server.close(); }
 })().catch(error => { console.error(error); process.exit(1); });

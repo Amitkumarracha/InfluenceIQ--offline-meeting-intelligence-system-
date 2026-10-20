@@ -1,0 +1,89 @@
+{
+  "n": 4,
+  "wer": 0.7872340425531915,
+  "errors": 37,
+  "reference_words": 47,
+  "rows": [
+    {
+      "index": 100,
+      "segment_id": "103725_UO5ZLDtkc8QMi9Hk_0023",
+      "speaker_id": "103725",
+      "sha256": "2a60fe6eb0e8ccb462663f4afaced6c519dbcf111cdafd31ee6793765778db32",
+      "reference": "अब अपने keyboard पर एक साथ ctrl alt t कीज़ दबाकर terminal खोलते हैं",
+      "hypothesis": "अब अपने की बोड़ पर एक सात कंट्रोल अल्ट ती की जबा कर तमिनल खोलते हैं ताए",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.785714,
+        "substitutions": 8,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_length": 14,
+        "hypothesis_length": 17
+      },
+      "seconds": 8.55,
+      "processing_seconds": 18.31734087500081
+    },
+    {
+      "index": 400,
+      "segment_id": "137494_fpL6MBSZsci9dyAn_0043",
+      "speaker_id": "137494",
+      "sha256": "626240bc8fad34a99cfa6a9f36f4a662a5d2be7b599a2a449cd5729514f60a74",
+      "reference": "टैग को हटाने के लिए पहले mail चुनें",
+      "hypothesis": "तैक को हटाने के लिए पहली मेल जुने",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.5,
+        "substitutions": 4,
+        "deletions": 0,
+        "insertions": 0,
+        "reference_length": 8,
+        "hypothesis_length": 8
+      },
+      "seconds": 4.55,
+      "processing_seconds": 4.930062557003112
+    },
+    {
+      "index": 800,
+      "segment_id": "318923_NhV290ew2hDJfVqc_0054",
+      "speaker_id": "318923",
+      "sha256": "af3f32f4920cc1deb97126d55e9cf986e99fdf39c2a3b8b4b8737479a9887942",
+      "reference": "window के नीचे दाईं ओर पर नए snippet को बनाने के लिए plus के icon पर click करें",
+      "hypothesis": "नीचे दाई ओर पर नहीं स्नी पेट को बनाने के लिए प्लुसके अएकन पर कलिप करें हलो वोर ताएप करें",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 0.777778,
+        "substitutions": 8,
+        "deletions": 2,
+        "insertions": 4,
+        "reference_length": 18,
+        "hypothesis_length": 20
+      },
+      "seconds": 7.55,
+      "processing_seconds": 7.092375552998419
+    },
+    {
+      "index": 1200,
+      "segment_id": "388577_LPGZ2Jo8uBX4sx76_0079",
+      "speaker_id": "388577",
+      "sha256": "18ef629fa8a41c24be45a242e876e179e339d4662d43f8b02e5a7138e4d4de76",
+      "reference": "display line numbers option को checkmark करें",
+      "hypothesis": "दिस्प्ले लिन नम्बस अप्शन को चेक माख करें अग़्िलाइट करेंज़",
+      "wer": {
+        "status": "ok",
+        "metric": "wer",
+        "wer": 1.142857,
+        "substitutions": 5,
+        "deletions": 0,
+        "insertions": 3,
+        "reference_length": 7,
+        "hypothesis_length": 10
+      },
+      "seconds": 4.55,
+      "processing_seconds": 14.670346230002906
+    }
+  ],
+  "scope": "Additional exploratory diagnostic, not independent validation of influence or whole meetings"
+}

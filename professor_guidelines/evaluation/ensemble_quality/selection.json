@@ -1,0 +1,56 @@
+{
+  "primary": {
+    "method": "calibrated_three_way",
+    "alpha": 1.0,
+    "forest_weight": 0.9,
+    "linear_weight": 0.0,
+    "nb_weight": 0.1,
+    "threshold": 0.3841213281586856,
+    "smoothing_radius": 15,
+    "dev": {
+      "precision": 0.5173064820641913,
+      "recall": 0.7358997314234557,
+      "f1": 0.6075388026607539,
+      "positive_support": 1117,
+      "average_precision": 0.5873703074391816,
+      "confusion_matrix_tn_fp_fn_tp": [
+        1855,
+        767,
+        295,
+        822
+      ],
+      "accuracy": 0.7159668360524204,
+      "balanced_accuracy": 0.7216874705934975,
+      "specificity": 0.7074752097635393,
+      "macro_f1": 0.6924953024200668,
+      "mcc": 0.4105186533057284,
+      "roc_auc": 0.7752564725035118,
+      "brier": 0.19049184437884376,
+      "negative_support": 2622
+    },
+    "passes_dev_gate": true
+  },
+  "baseline_dev": {
+    "precision": 0.5091252359974827,
+    "recall": 0.7242614145031334,
+    "f1": 0.597930524759793,
+    "positive_support": 1117,
+    "average_precision": 0.5422205203957804,
+    "confusion_matrix_tn_fp_fn_tp": [
+      1842,
+      780,
+      308,
+      809
+    ],
+    "accuracy": 0.7090131051083177,
+    "balanced_accuracy": 0.7133892884872646,
+    "specificity": 0.7025171624713958,
+    "macro_f1": 0.6849669388258312,
+    "mcc": 0.39515216220897664,
+    "roc_auc": 0.7533995453387663,
+    "brier": 0.18475444277025285,
+    "negative_support": 2622
+  },
+  "model_sha256": "adc070b5dd11e0a8501b56c554cf77f4dfbcdb4de9a4b2fa7016568689f6bc6f",
+  "protocol_sha256": "2fa7d047727ff55b7f7f4f265019e12c99014a3e0ecee8821f749e3310fff2cc"
+}

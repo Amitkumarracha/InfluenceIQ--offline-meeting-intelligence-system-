@@ -52,6 +52,11 @@ def render_export(data, title, format, meeting_id=None):
     lines += ['## Decision candidates', '']
     for decision in data.get('decisions', []):
         lines.append(f"- {decision.get('final_decision_text') or decision.get('proposal_text') or decision.get('topic', '')} ({decision.get('status', 'unknown')})")
+    if data.get('discussion_review', {}).get('status') == 'ready':
+        lines += ['', '## Discussion passages to review', '',
+                  'Learned discussion suggestions; verify against the source audio. These are not final decisions.']
+        for passage in data['discussion_review'].get('passages', []):
+            lines.append(f"- [{stamp(passage['start'])}] {label(passage['speaker'])} · source segment {passage['source_segment_id']}: {passage['text']}")
     lines += ['', '## Action candidates', '']
     for action in action_candidates(data).values():
         lines.append(f"- {label(action.get('speaker', 'UNKNOWN'))}: {action.get('text', '')}")

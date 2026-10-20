@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hinglish",
+  "sample": "turbo_hinglish_7",
+  "source_sha256": "9927067c6339b302649c708ec07acae716066a6cb77f67034ae1b37f64cb9b53",
+  "reference": "फिलहाल normal टैब चुनित हैं",
+  "hypothesis": "जिने व्यू बटन्स कहते हैं फिलहाल नॉर्मल टैब चुनित है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 1.4,
+    "substitutions": 2,
+    "deletions": 0,
+    "insertions": 5,
+    "reference_length": 5,
+    "hypothesis_length": 10
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 1.173913,
+    "substitutions": 6,
+    "deletions": 1,
+    "insertions": 20,
+    "reference_length": 23,
+    "hypothesis_length": 42
+  },
+  "elapsed_seconds": 27.07919338299689,
+  "detected_languages": [
+    "hi"
+  ]
+}

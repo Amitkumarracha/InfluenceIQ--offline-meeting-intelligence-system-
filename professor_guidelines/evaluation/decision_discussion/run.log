@@ -1,0 +1,160 @@
+Dataset loaded {'train': (20339, 5862), 'dev': (3739, 1117), 'test': (11136, 2481)}
+Selected on dev word {'precision': 0.31725190839694656, 'recall': 0.9301700984780662, 'f1': 0.4731329690346084, 'positive_support': 1117, 'average_precision': 0.35970650453434666, 'confusion_matrix_tn_fp_fn_tp': [386, 2236, 78, 1039]}
+Selected on dev char {'precision': 0.3128524784802612, 'recall': 0.9435989256938228, 'f1': 0.46990637539010255, 'positive_support': 1117, 'average_precision': 0.373597308526107, 'confusion_matrix_tn_fp_fn_tp': [307, 2315, 63, 1054]}
+Selected on dev word_char {'precision': 0.3262364886996397, 'recall': 0.891674127126231, 'f1': 0.4776978417266187, 'positive_support': 1117, 'average_precision': 0.361283260539951, 'confusion_matrix_tn_fp_fn_tp': [565, 2057, 121, 996]}
+Selected on dev word_char_context {'precision': 0.3647469458987784, 'recall': 0.7484333034914951, 'f1': 0.490466412437665, 'positive_support': 1117, 'average_precision': 0.4029813297187934, 'confusion_matrix_tn_fp_fn_tp': [1166, 1456, 281, 836]}
+{
+  "models": [
+    {
+      "method": "word",
+      "dev": {
+        "precision": 0.31725190839694656,
+        "recall": 0.9301700984780662,
+        "f1": 0.4731329690346084,
+        "positive_support": 1117,
+        "average_precision": 0.35970650453434666,
+        "confusion_matrix_tn_fp_fn_tp": [
+          386,
+          2236,
+          78,
+          1039
+        ]
+      },
+      "test": {
+        "precision": 0.23690367205777643,
+        "recall": 0.9387343812978638,
+        "f1": 0.37833008447043537,
+        "positive_support": 2481,
+        "average_precision": 0.30083375180718336,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1153,
+          7502,
+          152,
+          2329
+        ]
+      }
+    },
+    {
+      "method": "char",
+      "dev": {
+        "precision": 0.3128524784802612,
+        "recall": 0.9435989256938228,
+        "f1": 0.46990637539010255,
+        "positive_support": 1117,
+        "average_precision": 0.373597308526107,
+        "confusion_matrix_tn_fp_fn_tp": [
+          307,
+          2315,
+          63,
+          1054
+        ]
+      },
+      "test": {
+        "precision": 0.23608635373341255,
+        "recall": 0.9609028617492946,
+        "f1": 0.3790444391446061,
+        "positive_support": 2481,
+        "average_precision": 0.31018786462000736,
+        "confusion_matrix_tn_fp_fn_tp": [
+          941,
+          7714,
+          97,
+          2384
+        ]
+      }
+    },
+    {
+      "method": "word_char",
+      "dev": {
+        "precision": 0.3262364886996397,
+        "recall": 0.891674127126231,
+        "f1": 0.4776978417266187,
+        "positive_support": 1117,
+        "average_precision": 0.361283260539951,
+        "confusion_matrix_tn_fp_fn_tp": [
+          565,
+          2057,
+          121,
+          996
+        ]
+      },
+      "test": {
+        "precision": 0.2428173241852487,
+        "recall": 0.9129383313180169,
+        "f1": 0.38360572444745533,
+        "positive_support": 2481,
+        "average_precision": 0.30156556240856314,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1592,
+          7063,
+          216,
+          2265
+        ]
+      }
+    },
+    {
+      "method": "word_char_context",
+      "dev": {
+        "precision": 0.3647469458987784,
+        "recall": 0.7484333034914951,
+        "f1": 0.490466412437665,
+        "positive_support": 1117,
+        "average_precision": 0.4029813297187934,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1166,
+          1456,
+          281,
+          836
+        ]
+      },
+      "test": {
+        "precision": 0.28184607176203813,
+        "recall": 0.8516727126158807,
+        "f1": 0.4235317698937663,
+        "positive_support": 2481,
+        "average_precision": 0.36795540581165703,
+        "confusion_matrix_tn_fp_fn_tp": [
+          3271,
+          5384,
+          368,
+          2113
+        ]
+      }
+    }
+  ],
+  "baselines": [
+    {
+      "method": "always_negative",
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "positive_support": 2481,
+        "average_precision": null,
+        "confusion_matrix_tn_fp_fn_tp": [
+          8655,
+          0,
+          2481,
+          0
+        ]
+      }
+    },
+    {
+      "method": "current_explicit_decision_rule",
+      "test": {
+        "precision": 0.3076923076923077,
+        "recall": 0.0016122531237404273,
+        "f1": 0.0032076984763432237,
+        "positive_support": 2481,
+        "average_precision": null,
+        "confusion_matrix_tn_fp_fn_tp": [
+          8646,
+          9,
+          2477,
+          4
+        ]
+      },
+      "scope": "Explicit decision cue used for broader discussion-membership task; lexical models are stronger same-task baselines"
+    }
+  ]
+}

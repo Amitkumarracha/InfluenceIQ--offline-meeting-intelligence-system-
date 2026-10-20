@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "english_historical",
+  "sample": "turbo_IS1001b",
+  "source_sha256": "2ce349a3a84cacb4e1e18678ed3ca70bc5f13e184830f742dfb46567245eb59b",
+  "reference": "look at it afterwards so then uh each of you will uh lead a presentation on the task that has been required last time so user requirement specification technical function design and working design then i will uh present you some new project requirements i received from uh the management board then we will take uh the decision on on the remote control uh needed functions and then i will assign you the task for the next part of the meeting of the of the process so uh who want to start the the presentation of what they did mm f do you want to start make a start yeah you can start so cable camera you have uh powerpoint should be in my in their folder no ah yeah maybe there up okay who are you um at three i think no mm ouch and okay we have a technical problem uh do we think w s in the in the wrong folder maybe it is possible you put no it on it was somewhere in something like this i don t remember the name actually must be something like messenger ami or something what do you have in short cut go up participant two yeah go up yeah again no go back",
+  "hypothesis": "look at it afterwards so then each of you will lead the presentation on the task that has been required last time so user requirement specification technical function design and working design then i will present you some new project requirements i received from the management board then we will take the decision on the remote control functions and then i will assign you to task for the next part of the meeting of the process so we want to start the the presentation of what do you want to start who are you technical problem what do you have in shortcut go up yeah go up yeah again go back",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.5,
+    "substitutions": 4,
+    "deletions": 103,
+    "insertions": 0,
+    "reference_length": 214,
+    "hypothesis_length": 111
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.43617,
+    "substitutions": 3,
+    "deletions": 364,
+    "insertions": 2,
+    "reference_length": 846,
+    "hypothesis_length": 484
+  },
+  "elapsed_seconds": 59.387091063996195,
+  "detected_languages": [
+    "en"
+  ]
+}

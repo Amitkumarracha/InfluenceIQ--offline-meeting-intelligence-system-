@@ -2,7 +2,6 @@
 import json
 import re
 import time
-from pathlib import Path
 from src.utils.cache import atomic_json
 from src.utils.config import PROJECT_ROOT, get
 from src.utils.checkpointing import save_resume_state, mark_stage_complete
@@ -52,9 +51,10 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
             progress(stage, details)
 
     def preview(segments, details):
-        recent = [asdict(segment) for segment in segments[-50:]]
+        completed = [asdict(segment) for segment in segments]
+        recent = completed[-50:]
         events = KeywordEventExtractor().extract(recent, meeting_id)
-        atomic_json(preview_path, {**details, 'transcript_segments': recent,
+        atomic_json(preview_path, {**details, 'transcript_segments': completed,
             'events': [asdict(event) for event in events.events], 'requires_review': True})
 
     try:
@@ -98,11 +98,11 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
         source = transcript_path
         if ppt_path:
             update('slides')
-            from src.ppt.extract import PPTXExtractor
+            from src.ppt.parts import extract_presentations
             from src.ppt.io import save_presentation_json
             from src.ppt.embeddings import generate_embeddings, save_embeddings
             from src.fusion.multimodal_representation import run_alignment
-            slides = PPTXExtractor(Path(ppt_path), meeting_id=meeting_id).extract()
+            slides = extract_presentations(ppt_path, meeting_id)
             slides_path = root / 'slides' / f'{meeting_id}_slides.json'
             save_presentation_json(slides, slides_path)
             emb_path = None
@@ -120,6 +120,10 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
         _, evidence = run_evidence_extraction(events, meeting_id, root / 'events',
                                               window_s=float(get('meeting_analysis.evidence_window_s', 60)))
         update('decisions')
+        from src.meeting.discussions import run_discussion_review
+        discussion_language = transcript.language if not (set(transcript.detected_languages) - {'en'}) else None
+        discussion_review = run_discussion_review([asdict(s) for s in transcript.segments],
+            meeting_id, discussion_language, root)
         _, decisions, _ = run_decision_reconstruction(events, evidence, meeting_id, root / 'decisions')
         update('interactions')
         _, interactions, _ = run_interaction_analysis(events, evidence, decisions, meeting_id, root / 'interactions')
@@ -143,7 +147,8 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
             'language': transcript.language, 'recording_quality': transcript.recording_quality, 'asr_model': options.get('model_size') or get('asr.model_size'),
             'options': options, 'alignment_method': get('alignment.method', 'embeddings') if ppt_path else None,
             'slide_ocr_enabled': bool(ppt_path and get('ppt.ocr_enabled', False)),
-            'analysis_method': 'English/Hindi/Hinglish keyword heuristics; review against source audio',
+            'analysis_method': ('Learned English discussion review plus ' if discussion_review['status'] == 'ready' else '') + 'English/Hindi/Hinglish event rules; review against source audio',
+            'discussion_review_status': discussion_review['status'],
             'accuracy_measured': False,
             'stage_timings_seconds': stage_timings,
             'asr_requested_device': get('asr.device', 'cpu'),

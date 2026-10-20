@@ -1,0 +1,16 @@
+{
+  "unit": "meeting/project series",
+  "groups": [
+    "ES2016",
+    "IS1006",
+    "TS3005"
+  ],
+  "n_groups": 3,
+  "draws": 3000,
+  "seed": 42,
+  "descriptive_percentile_interval_f1": [
+    0.36293436293436293,
+    0.4718466195761857
+  ],
+  "warning": "Only three independent test series: this is a coarse uncertainty diagnostic, not a significance claim."
+}

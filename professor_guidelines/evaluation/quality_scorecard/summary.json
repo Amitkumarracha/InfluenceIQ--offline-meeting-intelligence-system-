@@ -1,0 +1,224 @@
+{
+  "discussion": {
+    "installed": {
+      "precision": 0.3994446648155494,
+      "recall": 0.8117694478033051,
+      "f1": 0.5354246975940449,
+      "positive_support": 2481,
+      "average_precision": 0.533985450486222,
+      "confusion_matrix_tn_fp_fn_tp": [
+        5627,
+        3028,
+        467,
+        2014
+      ],
+      "accuracy": 0.6861530172413793,
+      "balanced_accuracy": 0.7309569364955288,
+      "specificity": 0.6501444251877527,
+      "macro_f1": 0.6492297398065824,
+      "mcc": 0.38614932369544536,
+      "roc_auc": 0.800336281912378,
+      "brier": 0.1624714646273942,
+      "negative_support": 8655
+    },
+    "always_negative": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "positive_support": 2481,
+      "average_precision": 0.22279094827586207,
+      "confusion_matrix_tn_fp_fn_tp": [
+        8655,
+        0,
+        2481,
+        0
+      ],
+      "accuracy": 0.7772090517241379,
+      "balanced_accuracy": 0.5,
+      "specificity": 1.0,
+      "macro_f1": 0.43731999393663784,
+      "mcc": 0.0,
+      "roc_auc": 0.5,
+      "brier": 0.22279094827586207,
+      "negative_support": 8655
+    },
+    "scope": "11,136 oracle AMI acts, 2,481 positives, 12 meetings / 3 project series; reused historical cohort"
+  },
+  "asr": [
+    {
+      "cohort": "English development (2 clips)",
+      "model": "small",
+      "wer": {
+        "rate": 0.29981718464351004,
+        "errors": 164,
+        "reference_length": 547
+      },
+      "cer": {
+        "rate": 0.20316132031613204,
+        "errors": 437,
+        "reference_length": 2151
+      }
+    },
+    {
+      "cohort": "English development (2 clips)",
+      "model": "medium",
+      "wer": {
+        "rate": 0.31444241316270566,
+        "errors": 172,
+        "reference_length": 547
+      },
+      "cer": {
+        "rate": 0.21803812180381218,
+        "errors": 469,
+        "reference_length": 2151
+      }
+    },
+    {
+      "cohort": "English historical (2 clips)",
+      "model": "small",
+      "wer": {
+        "rate": 0.6160919540229886,
+        "errors": 268,
+        "reference_length": 435
+      },
+      "cer": {
+        "rate": 0.4696601941747573,
+        "errors": 774,
+        "reference_length": 1648
+      }
+    },
+    {
+      "cohort": "Hindi (8 samples)",
+      "model": "small",
+      "wer": {
+        "rate": 0.5096153846153846,
+        "errors": 106,
+        "reference_length": 208
+      },
+      "cer": {
+        "rate": 0.20092915214866433,
+        "errors": 173,
+        "reference_length": 861
+      }
+    },
+    {
+      "cohort": "Hindi (8 samples)",
+      "model": "medium",
+      "wer": {
+        "rate": 0.3701923076923077,
+        "errors": 77,
+        "reference_length": 208
+      },
+      "cer": {
+        "rate": 0.14982578397212543,
+        "errors": 129,
+        "reference_length": 861
+      }
+    },
+    {
+      "cohort": "Hinglish (8 samples)",
+      "model": "small",
+      "wer": {
+        "rate": 0.6612903225806451,
+        "errors": 82,
+        "reference_length": 124
+      },
+      "cer": {
+        "rate": 0.5,
+        "errors": 267,
+        "reference_length": 534
+      }
+    },
+    {
+      "cohort": "Hinglish (8 samples)",
+      "model": "medium",
+      "wer": {
+        "rate": 0.5725806451612904,
+        "errors": 71,
+        "reference_length": 124
+      },
+      "cer": {
+        "rate": 0.5224719101123596,
+        "errors": 279,
+        "reference_length": 534
+      }
+    },
+    {
+      "cohort": "English development (2 clips)",
+      "model": "large-v3-turbo",
+      "wer": {
+        "rate": 0.28153564899451555,
+        "errors": 154,
+        "reference_length": 547
+      },
+      "cer": {
+        "rate": 0.19758251975825197,
+        "errors": 425,
+        "reference_length": 2151
+      }
+    },
+    {
+      "cohort": "English historical (2 clips)",
+      "model": "large-v3-turbo",
+      "wer": {
+        "rate": 0.639080459770115,
+        "errors": 278,
+        "reference_length": 435
+      },
+      "cer": {
+        "rate": 0.5351941747572816,
+        "errors": 882,
+        "reference_length": 1648
+      }
+    },
+    {
+      "cohort": "Hindi (8 samples)",
+      "model": "large-v3-turbo",
+      "wer": {
+        "rate": 0.28846153846153844,
+        "errors": 60,
+        "reference_length": 208
+      },
+      "cer": {
+        "rate": 0.09407665505226481,
+        "errors": 81,
+        "reference_length": 861
+      }
+    },
+    {
+      "cohort": "Hinglish (8 samples)",
+      "model": "large-v3-turbo",
+      "wer": {
+        "rate": 0.5725806451612904,
+        "errors": 71,
+        "reference_length": 124
+      },
+      "cer": {
+        "rate": 0.48314606741573035,
+        "errors": 258,
+        "reference_length": 534
+      }
+    }
+  ],
+  "installed_asr": "small",
+  "turbo_passes_development_pilot_gate": true,
+  "shared_default_decision": "Historical English WER regressed; retain small as the shared default and expose turbo as an optional model.",
+  "audio_diarization": {
+    "threshold": 0.9,
+    "meetings": 2,
+    "pooled_der": 0.4091163815075802,
+    "pooled_jer": 0.6045105758869135,
+    "speech_precision": 0.8169535095152735,
+    "speech_recall": 0.9072933428707703,
+    "speech_f1": 0.859756802910687,
+    "speaker_count_mae": 1.5
+  },
+  "unmeasured": [
+    "ASR-passage discussion accuracy",
+    "Final-decision accuracy",
+    "Event taxonomy accuracy",
+    "Slide alignment accuracy",
+    "Human influence ranking accuracy"
+  ],
+  "limits": "All comparisons exploratory. No fresh final test, no full-project accuracy, no significance claim."
+}

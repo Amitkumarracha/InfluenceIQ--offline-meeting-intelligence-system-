@@ -1,0 +1,62 @@
+[
+  {
+    "meeting": "IS1001b",
+    "wer": {
+      "status": "ok",
+      "metric": "wer",
+      "wer": 0.415888,
+      "substitutions": 43,
+      "deletions": 41,
+      "insertions": 5,
+      "reference_length": 214,
+      "hypothesis_length": 178
+    },
+    "elapsed_seconds": 19.423547796999628,
+    "rtf": 0.16186289830833023,
+    "model": "small",
+    "device": "cpu",
+    "compute_type": "int8",
+    "reference": "look at it afterwards so then uh each of you will uh lead a presentation on the task that has been required last time so user requirement specification technical function design and working design then i will uh present you some new project requirements i received from uh the management board then we will take uh the decision on on the remote control uh needed functions and then i will assign you the task for the next part of the meeting of the of the process so uh who want to start the the presentation of what they did mm f do you want to start make a start yeah you can start so cable camera you have uh powerpoint should be in my in their folder no ah yeah maybe there up okay who are you um at three i think no mm ouch and okay we have a technical problem uh do we think w s in the in the wrong folder maybe it is possible you put no it on it was somewhere in something like this i don t remember the name actually must be something like messenger ami or something what do you have in short cut go up participant two yeah go up yeah again no go back",
+    "hypothesis": "to look at it afterwards so then each of you will lead a presentation on the task that has been required last time user requirements specification technical function design and working design then i will present you some new project requirements i received from the management board then we will take the decision on the remote control and the functions and then i will assign you the task for the next part of the meeting of the process so we want to start the presentation of what they do do you want to stop i can t start you can stop this will be in my folder no i am in the app who are you i m a 3 up technical problem no you think you said in the wrong folder it s possible you can t eat and there s something like this i don t know the name but it s something like this what do you have in shortcut that s good go up about this point too yeah go up yeah again bye",
+    "cer": {
+      "status": "ok",
+      "metric": "wer",
+      "wer": 0.289598,
+      "substitutions": 62,
+      "deletions": 168,
+      "insertions": 15,
+      "reference_length": 846,
+      "hypothesis_length": 693
+    }
+  },
+  {
+    "meeting": "TS3007d",
+    "wer": {
+      "status": "ok",
+      "metric": "wer",
+      "wer": 0.809955,
+      "substitutions": 155,
+      "deletions": 21,
+      "insertions": 3,
+      "reference_length": 221,
+      "hypothesis_length": 203
+    },
+    "elapsed_seconds": 22.528922273002536,
+    "rtf": 0.1877410189416878,
+    "model": "small",
+    "device": "cpu",
+    "compute_type": "int8",
+    "reference": "wouldn t wanna be project manager uh what we going to do um once again i m uh gonna take minutes so um no presentation for me uh first we have a prototype presentation by g and g yo j afterwards and j some uh eval eval evalu evaluation evaluation evaluation evaluation criteria s sorry uh evaluation crit criteria uh in combination with the finance i um uh i received uh a an uh an excel uh file hmm which we have to fill in later on um you see uh and hmm interesting then we must see uh if we uh stay under the twelve ah and a okay half euro so that s uh oops cool mm hmm that s a that s big gonna l so be let s t uh wait problem it uh um some creative we have we uh have must uh we must have uh some time for that uh because it will be uh yeah quite a oh lot of mathematics yeah and after that uh uh an evaluation of uh the process how we uh how we have done it here with the smartboard with the with our laptops with the all uh all this and uh afterwards uh we closing once again forty minutes so uh ok let s start okay",
+    "hypothesis": "could you put it in the chat hall yeah oh we can begin move to the meeting room and bring your laptop thank you let s play it too welcome to the sorry yeah maybe good for a presentation but just i ll show the chat oh i see it s a lot of fun welcome to the fourth meeting the detailed design meeting where we have to read the decision on the details of the remote control presented by your what am i going to do once again i m going to take minutes no presentation for me first we have a prototype presentation by g g i have to work on evaluation evaluation criteria in combination with finance received an excel file which we have to fill in later on you see and then we must see if we stay under the 12 5 euro so that s we must have some time for that because it will be quite a lot of man to manics and after that the evaluation of the process we have done it here with the smart or with our laptops but all this and afterwards we re once again 40 minutes so let s start",
+    "cer": {
+      "status": "ok",
+      "metric": "wer",
+      "wer": 0.659601,
+      "substitutions": 385,
+      "deletions": 88,
+      "insertions": 56,
+      "reference_length": 802,
+      "hypothesis_length": 770
+    }
+  }
+]

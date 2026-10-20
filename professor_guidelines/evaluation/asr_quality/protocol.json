@@ -1,0 +1,24 @@
+{
+  "cohort": "Two existing AMI development excerpts, Array1-01, seconds 60-180",
+  "meetings": [
+    "ES2002a",
+    "ES2003a"
+  ],
+  "models": [
+    "small",
+    "medium"
+  ],
+  "language": "auto",
+  "device": "cpu",
+  "compute_type": "int8",
+  "beam_size": 5,
+  "normalization": "NFKC/casefold Unicode words; no reference hints; CER excludes spaces",
+  "selection": "Minimum pooled development WER; CER and per-meeting errors reported; fixed tie order",
+  "script_sha256": "c36f29074a701a64a6348474dc8143d10bdf7559684aa80c06eeb81d2beffc18",
+  "limits": [
+    "Exploratory two-meeting development comparison; no fresh final test.",
+    "Overlapping reference words ordered by time; segmentation/reference effects remain.",
+    "Concurrent NLP training; elapsed times cannot establish relative inference speed.",
+    "English cohort; Indic model differences remain separately reported."
+  ]
+}

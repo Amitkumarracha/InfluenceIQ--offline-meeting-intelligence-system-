@@ -1,0 +1,94 @@
+{
+  "task": "Unchanged binary AMI reference-act decision-discussion membership",
+  "status": "Exploratory comparison after previous historical-cohort inspection",
+  "families_and_parameter_grid": {
+    "logistic_regression": [
+      0.3,
+      1.0,
+      3.0
+    ],
+    "complement_nb": [
+      0.1,
+      1.0,
+      10.0
+    ],
+    "linear_svm": [
+      0.3,
+      1.0,
+      3.0
+    ],
+    "random_forest": [
+      10,
+      30,
+      null
+    ]
+  },
+  "parameter_names": {
+    "logistic_regression": "C",
+    "complement_nb": "alpha",
+    "linear_svm": "C",
+    "random_forest": "max_depth"
+  },
+  "features": [
+    "local",
+    "context_40"
+  ],
+  "smoothing_radius_grid": [
+    0,
+    5,
+    15
+  ],
+  "threshold_quantiles": [
+    0.05,
+    0.125,
+    0.2,
+    0.27499999999999997,
+    0.35,
+    0.425,
+    0.49999999999999994,
+    0.5750000000000001,
+    0.65,
+    0.725,
+    0.8,
+    0.875,
+    0.95
+  ],
+  "additional_threshold": 0.5,
+  "thresholds": "Each configuration: 13 fixed dev-score quantiles plus 0.5; duplicate thresholds removed",
+  "selection": "Pooled development F1, fixed loop order breaks ties; all eight pipelines retained",
+  "primary": "Maximum development F1 across the eight independently selected pipelines",
+  "vectorizers": "Reuse unchanged train-fitted v2 word/character/context-40 TF-IDF for every family",
+  "svm": "Sigmoid calibration from three project-group-separated training folds; final SVM fits all training rows",
+  "calibration_limit": "Training-fitted TF-IDF vocabulary/IDF shared by inner calibration folds; no dev/test text fitted",
+  "random_forest": {
+    "n_estimators": 100,
+    "min_samples_leaf": 2,
+    "class_weight": "balanced_subsample",
+    "max_features": "sqrt"
+  },
+  "class_balance": "Balanced class/sample weights for LR/SVM/NB; balanced_subsample for forest",
+  "seed": 42,
+  "python": "3.11.17",
+  "scikit_learn": "1.6.1",
+  "vectorizer_source_sha256": "8f84ef44069ce34bb5ccc6b40d875fbcde159aecffa7351b754527cdf6dd7c4f",
+  "v2_summary_sha256": "6e5583450ebca9a0fd0df0679f5f31b52bf76e182048e3960fc2f6f9b826cee6",
+  "v1_summary_sha256": "973524cb72f02312f5dbc5882384f4dfddbbd0203e9f09b3a9a15644d76b9818",
+  "train_sha256": "80f242d94b8d2a9c6d5b936da87628b7293202adb61e365006e181328297039a",
+  "dev_sha256": "0097c9441aa0f24b0423c6844d16e9632317c5d0d9de7fecaf0cb9bf0f019fa8",
+  "code_sha256": {
+    "scripts/compare_discussion_models.py": "92bb945e551ef9dfd3bac5732b32cfcc195aa58a49f5658e85c679abd295805a",
+    "scripts/improve_decision_discussions.py": "b9fc71c511084a290a03da70731ace9973e12e025421ed97d7020171cb221344",
+    "scripts/evaluate_decision_discussions.py": "c0df1b074fdb554d4d76565d849152c0609c272319a9e007f68a8f97ab0fa22e"
+  },
+  "test_access": "Only in separate --evaluate invocation after selections and model hashes saved",
+  "limits": [
+    "Previously examined historical cohort; no fresh independent confirmatory test.",
+    "Oracle English transcripts and act boundaries; only three test project series.",
+    "Classifier comparison, not a benchmark of complete meeting assistants or influence.",
+    "Same small search count does not mean equal compute or globally optimal hyperparameters."
+  ],
+  "documentation": [
+    "https://scikit-learn.org/1.6/auto_examples/text/plot_document_classification_20newsgroups.html",
+    "https://scikit-learn.org/1.6/modules/generated/sklearn.calibration.CalibratedClassifierCV.html"
+  ]
+}

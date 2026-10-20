@@ -1,0 +1,291 @@
+{
+  "selection": {
+    "method": "calibrated_three_way",
+    "alpha": 1.0,
+    "forest_weight": 0.9,
+    "linear_weight": 0.0,
+    "nb_weight": 0.1,
+    "threshold": 0.3841213281586856,
+    "smoothing_radius": 15,
+    "dev": {
+      "precision": 0.5173064820641913,
+      "recall": 0.7358997314234557,
+      "f1": 0.6075388026607539,
+      "positive_support": 1117,
+      "average_precision": 0.5873703074391816,
+      "confusion_matrix_tn_fp_fn_tp": [
+        1855,
+        767,
+        295,
+        822
+      ],
+      "accuracy": 0.7159668360524204,
+      "balanced_accuracy": 0.7216874705934975,
+      "specificity": 0.7074752097635393,
+      "macro_f1": 0.6924953024200668,
+      "mcc": 0.4105186533057284,
+      "roc_auc": 0.7752564725035118,
+      "brier": 0.19049184437884376,
+      "negative_support": 2622
+    },
+    "passes_dev_gate": true
+  },
+  "selection_sha256_before_test_access": "d714c27942276b8d8d808a738e46ba45012c2e9d8bd4aa822d9b5b6feda49e71",
+  "baseline_test": {
+    "precision": 0.3994446648155494,
+    "recall": 0.8117694478033051,
+    "f1": 0.5354246975940449,
+    "positive_support": 2481,
+    "average_precision": 0.533985450486222,
+    "confusion_matrix_tn_fp_fn_tp": [
+      5627,
+      3028,
+      467,
+      2014
+    ],
+    "accuracy": 0.6861530172413793,
+    "balanced_accuracy": 0.7309569364955288,
+    "specificity": 0.6501444251877527,
+    "macro_f1": 0.6492297398065824,
+    "mcc": 0.38614932369544536,
+    "roc_auc": 0.800336281912378,
+    "brier": 0.1624714646273942,
+    "negative_support": 8655
+  },
+  "test": {
+    "precision": 0.3928920132786565,
+    "recall": 0.8109633212414349,
+    "f1": 0.5293343856879769,
+    "positive_support": 2481,
+    "average_precision": 0.4590625398566116,
+    "confusion_matrix_tn_fp_fn_tp": [
+      5546,
+      3109,
+      469,
+      2012
+    ],
+    "accuracy": 0.6786997126436781,
+    "balanced_accuracy": 0.7258744971314048,
+    "specificity": 0.6407856730213749,
+    "macro_f1": 0.6427176359251063,
+    "mcc": 0.3771802194386292,
+    "roc_auc": 0.7780424350424288,
+    "brier": 0.17720949345880302,
+    "negative_support": 8655
+  },
+  "test_per_group": [
+    {
+      "group": "ES2016",
+      "precision": 0.295800365185636,
+      "recall": 0.9623762376237623,
+      "f1": 0.45251396648044695,
+      "positive_support": 505,
+      "average_precision": 0.30668461202458197,
+      "confusion_matrix_tn_fp_fn_tp": [
+        787,
+        1157,
+        19,
+        486
+      ]
+    },
+    {
+      "group": "IS1006",
+      "precision": 0.32786885245901637,
+      "recall": 0.6807131280388979,
+      "f1": 0.44257112750263433,
+      "positive_support": 617,
+      "average_precision": 0.4002543967519581,
+      "confusion_matrix_tn_fp_fn_tp": [
+        1927,
+        861,
+        197,
+        420
+      ]
+    },
+    {
+      "group": "TS3005",
+      "precision": 0.5034137460172963,
+      "recall": 0.8138337012509198,
+      "f1": 0.6220472440944882,
+      "positive_support": 1359,
+      "average_precision": 0.6710901260024231,
+      "confusion_matrix_tn_fp_fn_tp": [
+        2832,
+        1091,
+        253,
+        1106
+      ]
+    }
+  ],
+  "test_per_meeting": [
+    {
+      "meeting": "ES2016a",
+      "precision": 0.4278481012658228,
+      "recall": 1.0,
+      "f1": 0.599290780141844,
+      "positive_support": 169,
+      "average_precision": 0.467374526675903,
+      "confusion_matrix_tn_fp_fn_tp": [
+        103,
+        226,
+        0,
+        169
+      ]
+    },
+    {
+      "meeting": "ES2016b",
+      "precision": 0.20042194092827004,
+      "recall": 0.9595959595959596,
+      "f1": 0.33158813263525305,
+      "positive_support": 99,
+      "average_precision": 0.17911289703746158,
+      "confusion_matrix_tn_fp_fn_tp": [
+        255,
+        379,
+        4,
+        95
+      ]
+    },
+    {
+      "meeting": "ES2016c",
+      "precision": 0.3404255319148936,
+      "recall": 0.9343065693430657,
+      "f1": 0.49902534113060426,
+      "positive_support": 137,
+      "average_precision": 0.33287806480684057,
+      "confusion_matrix_tn_fp_fn_tp": [
+        181,
+        248,
+        9,
+        128
+      ]
+    },
+    {
+      "meeting": "ES2016d",
+      "precision": 0.23618090452261306,
+      "recall": 0.94,
+      "f1": 0.37751004016064255,
+      "positive_support": 100,
+      "average_precision": 0.33822304354426425,
+      "confusion_matrix_tn_fp_fn_tp": [
+        248,
+        304,
+        6,
+        94
+      ]
+    },
+    {
+      "meeting": "IS1006a",
+      "precision": 0.7058823529411765,
+      "recall": 0.7741935483870968,
+      "f1": 0.7384615384615385,
+      "positive_support": 186,
+      "average_precision": 0.5905977389930859,
+      "confusion_matrix_tn_fp_fn_tp": [
+        147,
+        60,
+        42,
+        144
+      ]
+    },
+    {
+      "meeting": "IS1006b",
+      "precision": 0.1506172839506173,
+      "recall": 0.5865384615384616,
+      "f1": 0.23968565815324164,
+      "positive_support": 104,
+      "average_precision": 0.316730150750251,
+      "confusion_matrix_tn_fp_fn_tp": [
+        444,
+        344,
+        43,
+        61
+      ]
+    },
+    {
+      "meeting": "IS1006c",
+      "precision": 0.3173277661795407,
+      "recall": 0.7958115183246073,
+      "f1": 0.4537313432835821,
+      "positive_support": 191,
+      "average_precision": 0.5370400448316902,
+      "confusion_matrix_tn_fp_fn_tp": [
+        411,
+        327,
+        39,
+        152
+      ]
+    },
+    {
+      "meeting": "IS1006d",
+      "precision": 0.32642487046632124,
+      "recall": 0.4632352941176471,
+      "f1": 0.3829787234042553,
+      "positive_support": 136,
+      "average_precision": 0.23804630583498493,
+      "confusion_matrix_tn_fp_fn_tp": [
+        925,
+        130,
+        73,
+        63
+      ]
+    },
+    {
+      "meeting": "TS3005a",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "positive_support": 1,
+      "average_precision": 0.0029940119760479044,
+      "confusion_matrix_tn_fp_fn_tp": [
+        462,
+        104,
+        1,
+        0
+      ]
+    },
+    {
+      "meeting": "TS3005b",
+      "precision": 0.8474178403755869,
+      "recall": 0.8751515151515151,
+      "f1": 0.8610614192009541,
+      "positive_support": 825,
+      "average_precision": 0.9027520815352164,
+      "confusion_matrix_tn_fp_fn_tp": [
+        397,
+        130,
+        103,
+        722
+      ]
+    },
+    {
+      "meeting": "TS3005c",
+      "precision": 0.33773087071240104,
+      "recall": 0.8737201365187713,
+      "f1": 0.4871550903901047,
+      "positive_support": 293,
+      "average_precision": 0.4629797269755554,
+      "confusion_matrix_tn_fp_fn_tp": [
+        390,
+        502,
+        37,
+        256
+      ]
+    },
+    {
+      "meeting": "TS3005d",
+      "precision": 0.2650103519668737,
+      "recall": 0.5333333333333333,
+      "f1": 0.35408022130013833,
+      "positive_support": 240,
+      "average_precision": 0.21592634344049205,
+      "confusion_matrix_tn_fp_fn_tp": [
+        1583,
+        355,
+        112,
+        128
+      ]
+    }
+  ],
+  "status": "Exploratory reused historical oracle-act cohort"
+}

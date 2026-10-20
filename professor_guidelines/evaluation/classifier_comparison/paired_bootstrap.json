@@ -1,0 +1,138 @@
+[
+  {
+    "method": "logistic_regression__local",
+    "f1_difference_vs_frozen_v2": -0.006215738079164368,
+    "unit": "meeting/project series",
+    "groups": [
+      "ES2016",
+      "IS1006",
+      "TS3005"
+    ],
+    "draws": 3000,
+    "seed": 42,
+    "descriptive_f1_delta_interval": [
+      -0.06595395982908281,
+      0.05161992340934424
+    ],
+    "warning": "Only three independent historical test series; not a significance claim."
+  },
+  {
+    "method": "complement_nb__local",
+    "f1_difference_vs_frozen_v2": -0.014344870013730693,
+    "unit": "meeting/project series",
+    "groups": [
+      "ES2016",
+      "IS1006",
+      "TS3005"
+    ],
+    "draws": 3000,
+    "seed": 42,
+    "descriptive_f1_delta_interval": [
+      -0.08041838287809877,
+      0.043314635008621205
+    ],
+    "warning": "Only three independent historical test series; not a significance claim."
+  },
+  {
+    "method": "linear_svm__local",
+    "f1_difference_vs_frozen_v2": -0.011853878430939324,
+    "unit": "meeting/project series",
+    "groups": [
+      "ES2016",
+      "IS1006",
+      "TS3005"
+    ],
+    "draws": 3000,
+    "seed": 42,
+    "descriptive_f1_delta_interval": [
+      -0.07372522480075616,
+      0.05328998342216751
+    ],
+    "warning": "Only three independent historical test series; not a significance claim."
+  },
+  {
+    "method": "random_forest__local",
+    "f1_difference_vs_frozen_v2": 0.0075018881799301385,
+    "unit": "meeting/project series",
+    "groups": [
+      "ES2016",
+      "IS1006",
+      "TS3005"
+    ],
+    "draws": 3000,
+    "seed": 42,
+    "descriptive_f1_delta_interval": [
+      -0.0335275713272154,
+      0.0376504461834678
+    ],
+    "warning": "Only three independent historical test series; not a significance claim."
+  },
+  {
+    "method": "logistic_regression__context_40",
+    "f1_difference_vs_frozen_v2": 0.010881603935995576,
+    "unit": "meeting/project series",
+    "groups": [
+      "ES2016",
+      "IS1006",
+      "TS3005"
+    ],
+    "draws": 3000,
+    "seed": 42,
+    "descriptive_f1_delta_interval": [
+      -0.010016661029476237,
+      0.019174060913657143
+    ],
+    "warning": "Only three independent historical test series; not a significance claim."
+  },
+  {
+    "method": "complement_nb__context_40",
+    "f1_difference_vs_frozen_v2": -0.023948945061434024,
+    "unit": "meeting/project series",
+    "groups": [
+      "ES2016",
+      "IS1006",
+      "TS3005"
+    ],
+    "draws": 3000,
+    "seed": 42,
+    "descriptive_f1_delta_interval": [
+      -0.08269727236534341,
+      0.03227049058104281
+    ],
+    "warning": "Only three independent historical test series; not a significance claim."
+  },
+  {
+    "method": "linear_svm__context_40",
+    "f1_difference_vs_frozen_v2": 0.009719369337432782,
+    "unit": "meeting/project series",
+    "groups": [
+      "ES2016",
+      "IS1006",
+      "TS3005"
+    ],
+    "draws": 3000,
+    "seed": 42,
+    "descriptive_f1_delta_interval": [
+      0.001243268652290186,
+      0.016884006924544837
+    ],
+    "warning": "Only three independent historical test series; not a significance claim."
+  },
+  {
+    "method": "random_forest__context_40",
+    "f1_difference_vs_frozen_v2": 0.025696366338895826,
+    "unit": "meeting/project series",
+    "groups": [
+      "ES2016",
+      "IS1006",
+      "TS3005"
+    ],
+    "draws": 3000,
+    "seed": 42,
+    "descriptive_f1_delta_interval": [
+      -0.016173464590759412,
+      0.10611978294365915
+    ],
+    "warning": "Only three independent historical test series; not a significance claim."
+  }
+]

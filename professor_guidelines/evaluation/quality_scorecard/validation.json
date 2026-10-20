@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "full_regression_tests": 597,
+  "dependency_warnings": 7,
+  "scorecard_tests": 6,
+  "turbo_samples": 20,
+  "formats_checked": [
+    "md",
+    "html",
+    "docx",
+    "doc",
+    "pdf"
+  ],
+  "paper_metric_export_consistency": true,
+  "discussion_model_unchanged": true,
+  "shared_asr_default": "small",
+  "turbo_available_offline": true,
+  "limit": "Exploratory small/reused cohorts; no independent full-project accuracy."
+}

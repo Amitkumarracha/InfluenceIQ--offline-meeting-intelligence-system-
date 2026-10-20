@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "slides": 18,
+  "main": 18,
+  "backup": 0,
+  "planned_seconds_including_buffer": 900,
+  "native_text_boxes_checked": 335,
+  "pdf_pages": {
+    "InfluenceIQ_ESE_Final.pdf": 18,
+    "Architecture_Detailed.pdf": 1,
+    "PRESENTER_GUIDE.pdf": 12
+  },
+  "checks": [
+    "exactly 18 slides",
+    "original heading order",
+    "MAI cover label",
+    "slide and text bounds",
+    "rendered native text retained",
+    "all slide notes and handoffs",
+    "no removed-slide navigation links",
+    "classifier/ASR/diarization metric consistency",
+    "source hashes",
+    "editable architecture geometry"
+  ],
+  "limits": [
+    "Slide 18 needs the actual post-event photograph.",
+    "Physical projector and live audio devices need a presentation-room check.",
+    "Recorded 597-test project run was not rerun for this document-only task."
+  ]
+}

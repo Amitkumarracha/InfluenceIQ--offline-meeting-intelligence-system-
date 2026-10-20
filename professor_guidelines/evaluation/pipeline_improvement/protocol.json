@@ -1,0 +1,38 @@
+{
+  "status": "Further exploratory development on existing AMI cohort",
+  "linear_weight_grid": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "smoothing_radius_grid": [
+    0,
+    5,
+    15
+  ],
+  "threshold_rule": "Same 13 dev-score quantiles plus 0.5 as matched comparison",
+  "selection": "Maximum pooled dev F1; fixed loop order breaks ties",
+  "models": "Reuse train-fitted, previously dev-selected context-40 LR and random forest",
+  "component_sha256": {
+    "linear": "1d77e6db01f85786378f30ca114d4eb108cff4229970c8744aeccf7d38b6fec8",
+    "forest": "3b5414d91db7704d29faae3362884429a601f676af1a855d4118cd2ae29e3b00",
+    "vectorizers": "8f84ef44069ce34bb5ccc6b40d875fbcde159aecffa7351b754527cdf6dd7c4f"
+  },
+  "train_sha256": "80f242d94b8d2a9c6d5b936da87628b7293202adb61e365006e181328297039a",
+  "dev_sha256": "0097c9441aa0f24b0423c6844d16e9632317c5d0d9de7fecaf0cb9bf0f019fa8",
+  "code_sha256": {
+    "scripts/improve_discussion_pipeline.py": "abbc821fb2521d79e97c43817986285809ce3106e03beff1599b09df198e40c7",
+    "src/meeting/discussions.py": "990ca4070bfed94947b261a03484fa7db3d1b59b55060883f3552558cd05fc86",
+    "scripts/compare_discussion_models.py": "92bb945e551ef9dfd3bac5732b32cfcc195aa58a49f5658e85c679abd295805a",
+    "scripts/improve_decision_discussions.py": "b9fc71c511084a290a03da70731ace9973e12e025421ed97d7020171cb221344"
+  },
+  "test_access": "Separate --evaluate invocation after saving model and selection hashes",
+  "runtime": "Batched local scoring of actual transcript passages; English only; suggestions for human review",
+  "limits": [
+    "Oracle-act results are not ASR-passage accuracy.",
+    "Historical test cohort previously examined; only three independent series.",
+    "Discussion suggestions do not create final decisions or alter influence weights."
+  ]
+}

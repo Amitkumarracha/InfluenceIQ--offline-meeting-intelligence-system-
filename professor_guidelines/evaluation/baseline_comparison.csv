@@ -1,0 +1,8 @@
+method,clusters,nonzero_scores,spearman_vs_human,kendall_vs_human,human_accuracy_status
+B1_speaking_time,139,139,,,ground_truth_unavailable
+B2_speaking_time_turns,139,139,,,ground_truth_unavailable
+B3_decision_event_count,139,8,,,ground_truth_unavailable
+B5_transcript_only,139,8,,,ground_truth_unavailable
+B4_decision_evidence_count,139,0,,,ground_truth_unavailable
+B6_audio_ppt_no_decision,139,139,,,ground_truth_unavailable
+Proposed_decision_linked,139,8,,,ground_truth_unavailable

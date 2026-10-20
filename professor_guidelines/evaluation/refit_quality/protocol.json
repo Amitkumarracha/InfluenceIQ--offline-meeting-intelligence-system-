@@ -1,0 +1,30 @@
+{
+  "operation": "Final refit of the already selected configuration on train+dev; no further parameter search",
+  "training_meetings": 35,
+  "training_acts": 24078,
+  "historical_meetings": 12,
+  "linear_C": 3.0,
+  "forest_max_depth": 10,
+  "forest_n_estimators": 100,
+  "forest_min_samples_leaf": 2,
+  "linear_weight": 0.25,
+  "threshold": 0.3577398635496262,
+  "smoothing_radius": 5,
+  "representation": "Unchanged original train-fitted TF-IDF vocabulary/IDF and context-40; only classifier fits change",
+  "selection": "All settings inherited from prior train/dev selection; no new dev score after refit",
+  "deployment_gate": [
+    "f1",
+    "balanced_accuracy",
+    "average_precision"
+  ],
+  "gate_rule": "Do not install if any listed historical regression metric is below baseline; no alternative candidate search",
+  "baseline_sha256": "9a76d232338132897375083e68081c29920fd9d0f19731ad75fb6bdc4d93b7ed",
+  "train_sha256": "80f242d94b8d2a9c6d5b936da87628b7293202adb61e365006e181328297039a",
+  "dev_sha256": "0097c9441aa0f24b0423c6844d16e9632317c5d0d9de7fecaf0cb9bf0f019fa8",
+  "script_sha256": "522674924c03ca73a1d119f4bc38622e51735d20ed357745e90289011478d0e4",
+  "limits": [
+    "Training size differs from earlier 29-meeting classifier comparisons; not a matched-data superiority claim.",
+    "Previously examined historical cohort; independent final confirmation still required.",
+    "No independent development score can be claimed for a model refit on development labels."
+  ]
+}

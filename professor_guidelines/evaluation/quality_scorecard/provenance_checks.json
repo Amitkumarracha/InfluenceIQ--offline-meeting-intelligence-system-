@@ -1,0 +1,7 @@
+{
+  "semantic_quality": "source/data hashes match frozen protocol",
+  "sequence_quality": "source/data hashes match frozen protocol",
+  "ensemble_quality": "source/data hashes match frozen protocol",
+  "refit_quality": "source/data hashes match frozen protocol",
+  "installed_discussion_model": "original packaged model unchanged"
+}

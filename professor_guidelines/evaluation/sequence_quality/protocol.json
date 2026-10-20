@@ -1,0 +1,41 @@
+{
+  "task": "Same AMI reference-act discussion membership",
+  "linear_weights": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "speed": [
+    0.1,
+    0.3,
+    1.0,
+    3.0
+  ],
+  "power": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "continuity": "Two-state continuous-time transitions estimated only from training labels and elapsed seconds",
+  "selection": "Dev F1 with the same five-metric non-regression gate; otherwise retain installed baseline",
+  "thresholds": "Same 13 development-score quantiles plus 0.5",
+  "baseline_sha256": "9a76d232338132897375083e68081c29920fd9d0f19731ad75fb6bdc4d93b7ed",
+  "train_sha256": "80f242d94b8d2a9c6d5b936da87628b7293202adb61e365006e181328297039a",
+  "dev_sha256": "0097c9441aa0f24b0423c6844d16e9632317c5d0d9de7fecaf0cb9bf0f019fa8",
+  "code_sha256": {
+    "scripts/optimize_discussion_sequence.py": "a5fe682d37d6c4217011f3986304532aa078c650ce1c644a5798ee3cad523554",
+    "src/meeting/discussion_sequence.py": "9ccac003649366e2e4feda357af469380703d84eef42379f4206e23e61c7218a"
+  },
+  "historical_regression_gate": [
+    "f1",
+    "balanced_accuracy",
+    "average_precision"
+  ],
+  "limits": [
+    "Offline forward/backward access; no causal streaming claim.",
+    "Classifier emissions are discriminative scores, not independent generative observations; output is uncalibrated.",
+    "Repeated historical cohort, oracle text/act boundaries, only three independent test series."
+  ]
+}

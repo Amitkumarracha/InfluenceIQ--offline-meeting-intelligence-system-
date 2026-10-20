@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hinglish",
+  "sample": "turbo_hinglish_1",
+  "source_sha256": "2b5ad80d78a230d2aa00d8aa7576465a02b99cd8b5d2ec8ee7020221f18843b1",
+  "reference": "इस tutorial में हम impress window के भागों के बारे में सीखेंगे और कैसे स्लाइड इन्सर्ट करें और कॉपी करें फॉन्ट तथा फॉन्ट को फॉर्मेट करना सीखेंगे",
+  "hypothesis": "स्वागत है इस टीटूरल में हम इंप्रेस विंडो के भागों के बारे में सीखेंगे और कैसे स्लाइड इंसर्ट करें और कॉपी करें फॉर्ण तथा फॉर्ण को फॉर्मैट करना सीखेंगे",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.333333,
+    "substitutions": 7,
+    "deletions": 0,
+    "insertions": 2,
+    "reference_length": 27,
+    "hypothesis_length": 29
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.307692,
+    "substitutions": 28,
+    "deletions": 2,
+    "insertions": 6,
+    "reference_length": 117,
+    "hypothesis_length": 121
+  },
+  "elapsed_seconds": 29.49842307200015,
+  "detected_languages": [
+    "hi"
+  ]
+}

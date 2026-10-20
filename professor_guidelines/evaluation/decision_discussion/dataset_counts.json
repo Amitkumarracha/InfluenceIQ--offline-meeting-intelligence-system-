@@ -1,0 +1,20 @@
+{
+  "train": {
+    "meetings": 29,
+    "acts": 20339,
+    "positive_acts": 5862,
+    "partial_overlap_acts": 5
+  },
+  "dev": {
+    "meetings": 6,
+    "acts": 3739,
+    "positive_acts": 1117,
+    "partial_overlap_acts": 1
+  },
+  "test": {
+    "meetings": 12,
+    "acts": 11136,
+    "positive_acts": 2481,
+    "partial_overlap_acts": 3
+  }
+}

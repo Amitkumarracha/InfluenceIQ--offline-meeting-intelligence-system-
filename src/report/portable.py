@@ -30,6 +30,18 @@ def website_report(source):
         values = data.setdefault(key, {})
         if not isinstance(values, dict) or len(values) > 100 or any(not isinstance(v, str) or len(v) > 200 for v in values.values()):
             raise ValueError('Invalid participant labels')
+    review = data.get('discussion_review', {})
+    if not isinstance(review, dict) or not isinstance(review.get('passages', []), list):
+        raise ValueError('Invalid discussion review')
+    sources = {row['segment_id']: row for row in segments}
+    for passage in review.get('passages', []):
+        if not isinstance(passage, dict):
+            raise ValueError('Invalid discussion passage')
+        source_id = passage.get('source_segment_id')
+        if not isinstance(source_id, int) or isinstance(source_id, bool) or source_id not in sources:
+            raise ValueError('Invalid discussion source')
+        if any(passage.get(key) != sources[source_id].get(key) for key in ('text', 'speaker', 'start', 'end')):
+            raise ValueError('Discussion passage does not match its transcript source')
     data.setdefault('meeting_overview', {})['duration_s'] = duration
     data.setdefault('processing', {})['language'] = data.get('language', 'auto')
     data.setdefault('event_timeline', data.get('events', []))

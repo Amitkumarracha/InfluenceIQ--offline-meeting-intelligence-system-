@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hinglish",
+  "sample": "turbo_hinglish_2",
+  "source_sha256": "6144b783786228cd5cff6b290996877a81287ef85aff8ff642bfc4ccf6b0d5f5",
+  "reference": "यहाँ हम अपने ऑपरेटिंग सिस्टम के रूप में gnu linux और लिबरऑफिस वर्जन 334 का उपयोग कर रहे हैं",
+  "hypothesis": "यहां हम अपने और्परेटिंग सिस्टम के रूप में जेन्यू लिनक्स और लिबर आफिस वर्जिन 3 3 4 का उप्योग कर रहे हैं",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.578947,
+    "substitutions": 8,
+    "deletions": 0,
+    "insertions": 3,
+    "reference_length": 19,
+    "hypothesis_length": 22
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.260274,
+    "substitutions": 11,
+    "deletions": 0,
+    "insertions": 8,
+    "reference_length": 73,
+    "hypothesis_length": 81
+  },
+  "elapsed_seconds": 27.81710969300184,
+  "detected_languages": [
+    "hi"
+  ]
+}

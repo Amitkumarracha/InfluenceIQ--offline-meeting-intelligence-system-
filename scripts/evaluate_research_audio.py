@@ -1,4 +1,4 @@
-"""Small preregistered AMI development/held-out audit; no annotations enter inference."""
+"""Small prespecified AMI development/held-out audit; no annotations enter inference."""
 import sys,json,time,subprocess,resource,xml.etree.ElementTree as ET
 from pathlib import Path
 from unittest.mock import patch

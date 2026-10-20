@@ -1,0 +1,955 @@
+{
+  "primary": "context_40",
+  "models": [
+    {
+      "method": "local",
+      "C": 1.0,
+      "smoothing_radius": 15,
+      "threshold": 0.45,
+      "dev": {
+        "precision": 0.44195176668536174,
+        "recall": 0.7054610564010743,
+        "f1": 0.543448275862069,
+        "positive_support": 1117,
+        "average_precision": 0.49456619970767485,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1627,
+          995,
+          329,
+          788
+        ]
+      },
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.5060728744939271,
+          "recall": 0.5498533724340176,
+          "f1": 0.5270555165144062,
+          "positive_support": 682,
+          "average_precision": 0.5409016215280531,
+          "confusion_matrix_tn_fp_fn_tp": [
+            830,
+            366,
+            307,
+            375
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.3963531669865643,
+          "recall": 0.9494252873563218,
+          "f1": 0.5592417061611374,
+          "positive_support": 435,
+          "average_precision": 0.5062747275516776,
+          "confusion_matrix_tn_fp_fn_tp": [
+            797,
+            629,
+            22,
+            413
+          ]
+        }
+      ],
+      "dev_per_meeting": [
+        {
+          "meeting": "IS1008a",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "positive_support": 12,
+          "average_precision": 0.034509590002206415,
+          "confusion_matrix_tn_fp_fn_tp": [
+            196,
+            48,
+            12,
+            0
+          ]
+        },
+        {
+          "meeting": "IS1008b",
+          "precision": 0.5979899497487438,
+          "recall": 0.519650655021834,
+          "f1": 0.5560747663551402,
+          "positive_support": 229,
+          "average_precision": 0.6654021284291418,
+          "confusion_matrix_tn_fp_fn_tp": [
+            303,
+            80,
+            110,
+            119
+          ]
+        },
+        {
+          "meeting": "IS1008c",
+          "precision": 0.4699248120300752,
+          "recall": 0.6720430107526881,
+          "f1": 0.5530973451327433,
+          "positive_support": 186,
+          "average_precision": 0.4217270609939867,
+          "confusion_matrix_tn_fp_fn_tp": [
+            138,
+            141,
+            61,
+            125
+          ]
+        },
+        {
+          "meeting": "IS1008d",
+          "precision": 0.5745614035087719,
+          "recall": 0.5137254901960784,
+          "f1": 0.5424430641821946,
+          "positive_support": 255,
+          "average_precision": 0.6447565937715407,
+          "confusion_matrix_tn_fp_fn_tp": [
+            193,
+            97,
+            124,
+            131
+          ]
+        },
+        {
+          "meeting": "TS3004a",
+          "precision": 0.12301587301587301,
+          "recall": 0.775,
+          "f1": 0.21232876712328766,
+          "positive_support": 40,
+          "average_precision": 0.09561191291906593,
+          "confusion_matrix_tn_fp_fn_tp": [
+            384,
+            221,
+            9,
+            31
+          ]
+        },
+        {
+          "meeting": "TS3004b",
+          "precision": 0.4835443037974684,
+          "recall": 0.9670886075949368,
+          "f1": 0.6447257383966245,
+          "positive_support": 395,
+          "average_precision": 0.6763686662950131,
+          "confusion_matrix_tn_fp_fn_tp": [
+            413,
+            408,
+            13,
+            382
+          ]
+        }
+      ],
+      "unsmoothed_operating_point": {
+        "method": "local",
+        "C": 1.0,
+        "smoothing_radius": 0,
+        "threshold": 0.25,
+        "dev": {
+          "precision": 0.322183654149574,
+          "recall": 0.9140555058191585,
+          "f1": 0.4764349043397107,
+          "positive_support": 1117,
+          "average_precision": 0.3692654857139528,
+          "confusion_matrix_tn_fp_fn_tp": [
+            474,
+            2148,
+            96,
+            1021
+          ]
+        }
+      }
+    },
+    {
+      "method": "context_1",
+      "C": 3.0,
+      "smoothing_radius": 15,
+      "threshold": 0.35,
+      "dev": {
+        "precision": 0.43836373687119956,
+        "recall": 0.7099373321396598,
+        "f1": 0.5420369104579631,
+        "positive_support": 1117,
+        "average_precision": 0.5133693914277938,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1606,
+          1016,
+          324,
+          793
+        ]
+      },
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.48180677540777916,
+          "recall": 0.5630498533724341,
+          "f1": 0.5192697768762677,
+          "positive_support": 682,
+          "average_precision": 0.5534958452222299,
+          "confusion_matrix_tn_fp_fn_tp": [
+            783,
+            413,
+            298,
+            384
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.4041501976284585,
+          "recall": 0.9402298850574713,
+          "f1": 0.5653075328265377,
+          "positive_support": 435,
+          "average_precision": 0.5308429998955495,
+          "confusion_matrix_tn_fp_fn_tp": [
+            823,
+            603,
+            26,
+            409
+          ]
+        }
+      ],
+      "dev_per_meeting": [
+        {
+          "meeting": "IS1008a",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "positive_support": 12,
+          "average_precision": 0.03538816501363817,
+          "confusion_matrix_tn_fp_fn_tp": [
+            207,
+            37,
+            12,
+            0
+          ]
+        },
+        {
+          "meeting": "IS1008b",
+          "precision": 0.490272373540856,
+          "recall": 0.5502183406113537,
+          "f1": 0.5185185185185185,
+          "positive_support": 229,
+          "average_precision": 0.621871399736345,
+          "confusion_matrix_tn_fp_fn_tp": [
+            252,
+            131,
+            103,
+            126
+          ]
+        },
+        {
+          "meeting": "IS1008c",
+          "precision": 0.4781021897810219,
+          "recall": 0.7043010752688172,
+          "f1": 0.5695652173913044,
+          "positive_support": 186,
+          "average_precision": 0.4995217950633731,
+          "confusion_matrix_tn_fp_fn_tp": [
+            136,
+            143,
+            55,
+            131
+          ]
+        },
+        {
+          "meeting": "IS1008d",
+          "precision": 0.5545851528384279,
+          "recall": 0.4980392156862745,
+          "f1": 0.5247933884297521,
+          "positive_support": 255,
+          "average_precision": 0.5955671875146732,
+          "confusion_matrix_tn_fp_fn_tp": [
+            188,
+            102,
+            128,
+            127
+          ]
+        },
+        {
+          "meeting": "TS3004a",
+          "precision": 0.15151515151515152,
+          "recall": 1.0,
+          "f1": 0.2631578947368421,
+          "positive_support": 40,
+          "average_precision": 0.12650514431180138,
+          "confusion_matrix_tn_fp_fn_tp": [
+            381,
+            224,
+            0,
+            40
+          ]
+        },
+        {
+          "meeting": "TS3004b",
+          "precision": 0.49331550802139035,
+          "recall": 0.9341772151898734,
+          "f1": 0.6456692913385826,
+          "positive_support": 395,
+          "average_precision": 0.647806157166839,
+          "confusion_matrix_tn_fp_fn_tp": [
+            442,
+            379,
+            26,
+            369
+          ]
+        }
+      ],
+      "unsmoothed_operating_point": {
+        "method": "context_1",
+        "C": 3.0,
+        "smoothing_radius": 0,
+        "threshold": 0.15,
+        "dev": {
+          "precision": 0.3494351382937281,
+          "recall": 0.8030438675022381,
+          "f1": 0.48697068403908794,
+          "positive_support": 1117,
+          "average_precision": 0.3914409846758061,
+          "confusion_matrix_tn_fp_fn_tp": [
+            952,
+            1670,
+            220,
+            897
+          ]
+        }
+      }
+    },
+    {
+      "method": "context_5",
+      "C": 0.3,
+      "smoothing_radius": 15,
+      "threshold": 0.3,
+      "dev": {
+        "precision": 0.3956427015250545,
+        "recall": 0.8128916741271263,
+        "f1": 0.5322391559202814,
+        "positive_support": 1117,
+        "average_precision": 0.5014619072557269,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1235,
+          1387,
+          209,
+          908
+        ]
+      },
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.42883046237534,
+          "recall": 0.6935483870967742,
+          "f1": 0.5299719887955182,
+          "positive_support": 682,
+          "average_precision": 0.5199769495986969,
+          "confusion_matrix_tn_fp_fn_tp": [
+            566,
+            630,
+            209,
+            473
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.3649328859060403,
+          "recall": 1.0,
+          "f1": 0.5347264904732637,
+          "positive_support": 435,
+          "average_precision": 0.5229963084990541,
+          "confusion_matrix_tn_fp_fn_tp": [
+            669,
+            757,
+            0,
+            435
+          ]
+        }
+      ],
+      "dev_per_meeting": [
+        {
+          "meeting": "IS1008a",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "positive_support": 12,
+          "average_precision": 0.03965727457898817,
+          "confusion_matrix_tn_fp_fn_tp": [
+            175,
+            69,
+            12,
+            0
+          ]
+        },
+        {
+          "meeting": "IS1008b",
+          "precision": 0.38109756097560976,
+          "recall": 0.5458515283842795,
+          "f1": 0.4488330341113106,
+          "positive_support": 229,
+          "average_precision": 0.5976411190517666,
+          "confusion_matrix_tn_fp_fn_tp": [
+            180,
+            203,
+            104,
+            125
+          ]
+        },
+        {
+          "meeting": "IS1008c",
+          "precision": 0.49714285714285716,
+          "recall": 0.9354838709677419,
+          "f1": 0.6492537313432836,
+          "positive_support": 186,
+          "average_precision": 0.5361788537771394,
+          "confusion_matrix_tn_fp_fn_tp": [
+            103,
+            176,
+            12,
+            174
+          ]
+        },
+        {
+          "meeting": "IS1008d",
+          "precision": 0.4887640449438202,
+          "recall": 0.6823529411764706,
+          "f1": 0.5695581014729951,
+          "positive_support": 255,
+          "average_precision": 0.5142658750257962,
+          "confusion_matrix_tn_fp_fn_tp": [
+            108,
+            182,
+            81,
+            174
+          ]
+        },
+        {
+          "meeting": "TS3004a",
+          "precision": 0.136986301369863,
+          "recall": 1.0,
+          "f1": 0.24096385542168675,
+          "positive_support": 40,
+          "average_precision": 0.0849644313143521,
+          "confusion_matrix_tn_fp_fn_tp": [
+            353,
+            252,
+            0,
+            40
+          ]
+        },
+        {
+          "meeting": "TS3004b",
+          "precision": 0.4388888888888889,
+          "recall": 1.0,
+          "f1": 0.61003861003861,
+          "positive_support": 395,
+          "average_precision": 0.6980289793649916,
+          "confusion_matrix_tn_fp_fn_tp": [
+            316,
+            505,
+            0,
+            395
+          ]
+        }
+      ],
+      "unsmoothed_operating_point": {
+        "method": "context_5",
+        "C": 0.3,
+        "smoothing_radius": 0,
+        "threshold": 0.2,
+        "dev": {
+          "precision": 0.36113152094048495,
+          "recall": 0.8800358102059087,
+          "f1": 0.5121125293045063,
+          "positive_support": 1117,
+          "average_precision": 0.4544033235211979,
+          "confusion_matrix_tn_fp_fn_tp": [
+            883,
+            1739,
+            134,
+            983
+          ]
+        }
+      }
+    },
+    {
+      "method": "context_15",
+      "C": 0.3,
+      "smoothing_radius": 5,
+      "threshold": 0.2,
+      "dev": {
+        "precision": 0.38446135362434924,
+        "recall": 0.8594449418084154,
+        "f1": 0.5312672938572219,
+        "positive_support": 1117,
+        "average_precision": 0.4712119131378423,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1085,
+          1537,
+          157,
+          960
+        ]
+      },
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.4158102766798419,
+          "recall": 0.7712609970674487,
+          "f1": 0.5403184386235234,
+          "positive_support": 682,
+          "average_precision": 0.4964425540892365,
+          "confusion_matrix_tn_fp_fn_tp": [
+            457,
+            739,
+            156,
+            526
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.3522727272727273,
+          "recall": 0.9977011494252873,
+          "f1": 0.5206958608278345,
+          "positive_support": 435,
+          "average_precision": 0.4844291678392151,
+          "confusion_matrix_tn_fp_fn_tp": [
+            628,
+            798,
+            1,
+            434
+          ]
+        }
+      ],
+      "dev_per_meeting": [
+        {
+          "meeting": "IS1008a",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "positive_support": 12,
+          "average_precision": 0.04035426608390305,
+          "confusion_matrix_tn_fp_fn_tp": [
+            136,
+            108,
+            12,
+            0
+          ]
+        },
+        {
+          "meeting": "IS1008b",
+          "precision": 0.34710743801652894,
+          "recall": 0.5502183406113537,
+          "f1": 0.42567567567567566,
+          "positive_support": 229,
+          "average_precision": 0.5721141471879865,
+          "confusion_matrix_tn_fp_fn_tp": [
+            146,
+            237,
+            103,
+            126
+          ]
+        },
+        {
+          "meeting": "IS1008c",
+          "precision": 0.496,
+          "recall": 1.0,
+          "f1": 0.6631016042780749,
+          "positive_support": 186,
+          "average_precision": 0.5698407826160101,
+          "confusion_matrix_tn_fp_fn_tp": [
+            90,
+            189,
+            0,
+            186
+          ]
+        },
+        {
+          "meeting": "IS1008d",
+          "precision": 0.5107398568019093,
+          "recall": 0.8392156862745098,
+          "f1": 0.6350148367952523,
+          "positive_support": 255,
+          "average_precision": 0.5239582989540977,
+          "confusion_matrix_tn_fp_fn_tp": [
+            85,
+            205,
+            41,
+            214
+          ]
+        },
+        {
+          "meeting": "TS3004a",
+          "precision": 0.12422360248447205,
+          "recall": 1.0,
+          "f1": 0.22099447513812154,
+          "positive_support": 40,
+          "average_precision": 0.08368993335135015,
+          "confusion_matrix_tn_fp_fn_tp": [
+            323,
+            282,
+            0,
+            40
+          ]
+        },
+        {
+          "meeting": "TS3004b",
+          "precision": 0.432967032967033,
+          "recall": 0.9974683544303797,
+          "f1": 0.6038314176245211,
+          "positive_support": 395,
+          "average_precision": 0.6763885000193095,
+          "confusion_matrix_tn_fp_fn_tp": [
+            305,
+            516,
+            1,
+            394
+          ]
+        }
+      ],
+      "unsmoothed_operating_point": {
+        "method": "context_15",
+        "C": 0.3,
+        "smoothing_radius": 0,
+        "threshold": 0.2,
+        "dev": {
+          "precision": 0.38118410381184104,
+          "recall": 0.8415398388540735,
+          "f1": 0.5246999720904271,
+          "positive_support": 1117,
+          "average_precision": 0.46156627485864576,
+          "confusion_matrix_tn_fp_fn_tp": [
+            1096,
+            1526,
+            177,
+            940
+          ]
+        }
+      }
+    },
+    {
+      "method": "context_40",
+      "C": 3.0,
+      "smoothing_radius": 15,
+      "threshold": 0.15,
+      "dev": {
+        "precision": 0.43876567020250723,
+        "recall": 0.8146821844225605,
+        "f1": 0.5703541209652147,
+        "positive_support": 1117,
+        "average_precision": 0.4552152081502402,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1458,
+          1164,
+          207,
+          910
+        ]
+      },
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.448685326547922,
+          "recall": 0.7756598240469208,
+          "f1": 0.5685115529285331,
+          "positive_support": 682,
+          "average_precision": 0.5562776093493258,
+          "confusion_matrix_tn_fp_fn_tp": [
+            546,
+            650,
+            153,
+            529
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.42569832402234636,
+          "recall": 0.8758620689655172,
+          "f1": 0.5729323308270676,
+          "positive_support": 435,
+          "average_precision": 0.41673115628331125,
+          "confusion_matrix_tn_fp_fn_tp": [
+            912,
+            514,
+            54,
+            381
+          ]
+        }
+      ],
+      "dev_per_meeting": [
+        {
+          "meeting": "IS1008a",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "positive_support": 12,
+          "average_precision": 0.04216226225642607,
+          "confusion_matrix_tn_fp_fn_tp": [
+            138,
+            106,
+            12,
+            0
+          ]
+        },
+        {
+          "meeting": "IS1008b",
+          "precision": 0.4636363636363636,
+          "recall": 0.44541484716157204,
+          "f1": 0.45434298440979953,
+          "positive_support": 229,
+          "average_precision": 0.5278639798497318,
+          "confusion_matrix_tn_fp_fn_tp": [
+            265,
+            118,
+            127,
+            102
+          ]
+        },
+        {
+          "meeting": "IS1008c",
+          "precision": 0.4780361757105943,
+          "recall": 0.9946236559139785,
+          "f1": 0.6457242582897034,
+          "positive_support": 186,
+          "average_precision": 0.6209711909147225,
+          "confusion_matrix_tn_fp_fn_tp": [
+            77,
+            202,
+            1,
+            185
+          ]
+        },
+        {
+          "meeting": "IS1008d",
+          "precision": 0.51931330472103,
+          "recall": 0.9490196078431372,
+          "f1": 0.6712898751733704,
+          "positive_support": 255,
+          "average_precision": 0.5566026412039645,
+          "confusion_matrix_tn_fp_fn_tp": [
+            66,
+            224,
+            13,
+            242
+          ]
+        },
+        {
+          "meeting": "TS3004a",
+          "precision": 0.149812734082397,
+          "recall": 1.0,
+          "f1": 0.26058631921824105,
+          "positive_support": 40,
+          "average_precision": 0.08328925359669656,
+          "confusion_matrix_tn_fp_fn_tp": [
+            378,
+            227,
+            0,
+            40
+          ]
+        },
+        {
+          "meeting": "TS3004b",
+          "precision": 0.5429936305732485,
+          "recall": 0.8632911392405064,
+          "f1": 0.6666666666666666,
+          "positive_support": 395,
+          "average_precision": 0.7745488007426309,
+          "confusion_matrix_tn_fp_fn_tp": [
+            534,
+            287,
+            54,
+            341
+          ]
+        }
+      ],
+      "unsmoothed_operating_point": {
+        "method": "context_40",
+        "C": 3.0,
+        "smoothing_radius": 0,
+        "threshold": 0.15,
+        "dev": {
+          "precision": 0.42804036112586297,
+          "recall": 0.7215756490599821,
+          "f1": 0.5373333333333333,
+          "positive_support": 1117,
+          "average_precision": 0.45153477044595175,
+          "confusion_matrix_tn_fp_fn_tp": [
+            1545,
+            1077,
+            311,
+            806
+          ]
+        }
+      }
+    },
+    {
+      "method": "context_15_position",
+      "C": 0.3,
+      "smoothing_radius": 15,
+      "threshold": 0.2,
+      "dev": {
+        "precision": 0.40364482357502907,
+        "recall": 0.9319606087735004,
+        "f1": 0.5633116883116883,
+        "positive_support": 1117,
+        "average_precision": 0.5004672100518026,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1084,
+          1538,
+          76,
+          1041
+        ]
+      },
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.44893460690668624,
+          "recall": 0.8958944281524927,
+          "f1": 0.5981399902104748,
+          "positive_support": 682,
+          "average_precision": 0.5374113470288635,
+          "confusion_matrix_tn_fp_fn_tp": [
+            446,
+            750,
+            71,
+            611
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.3530377668308703,
+          "recall": 0.9885057471264368,
+          "f1": 0.5202661826981246,
+          "positive_support": 435,
+          "average_precision": 0.5136712693532988,
+          "confusion_matrix_tn_fp_fn_tp": [
+            638,
+            788,
+            5,
+            430
+          ]
+        }
+      ],
+      "dev_per_meeting": [
+        {
+          "meeting": "IS1008a",
+          "precision": 0.0859375,
+          "recall": 0.9166666666666666,
+          "f1": 0.15714285714285714,
+          "positive_support": 12,
+          "average_precision": 0.052448767914138175,
+          "confusion_matrix_tn_fp_fn_tp": [
+            127,
+            117,
+            1,
+            11
+          ]
+        },
+        {
+          "meeting": "IS1008b",
+          "precision": 0.43699731903485256,
+          "recall": 0.7117903930131004,
+          "f1": 0.5415282392026578,
+          "positive_support": 229,
+          "average_precision": 0.5601478102840864,
+          "confusion_matrix_tn_fp_fn_tp": [
+            173,
+            210,
+            66,
+            163
+          ]
+        },
+        {
+          "meeting": "IS1008c",
+          "precision": 0.48663101604278075,
+          "recall": 0.978494623655914,
+          "f1": 0.65,
+          "positive_support": 186,
+          "average_precision": 0.592741973476026,
+          "confusion_matrix_tn_fp_fn_tp": [
+            87,
+            192,
+            4,
+            182
+          ]
+        },
+        {
+          "meeting": "IS1008d",
+          "precision": 0.5246913580246914,
+          "recall": 1.0,
+          "f1": 0.6882591093117408,
+          "positive_support": 255,
+          "average_precision": 0.5966305844004156,
+          "confusion_matrix_tn_fp_fn_tp": [
+            59,
+            231,
+            0,
+            255
+          ]
+        },
+        {
+          "meeting": "TS3004a",
+          "precision": 0.1238390092879257,
+          "recall": 1.0,
+          "f1": 0.22038567493112948,
+          "positive_support": 40,
+          "average_precision": 0.08214055826662511,
+          "confusion_matrix_tn_fp_fn_tp": [
+            322,
+            283,
+            0,
+            40
+          ]
+        },
+        {
+          "meeting": "TS3004b",
+          "precision": 0.43575418994413406,
+          "recall": 0.9873417721518988,
+          "f1": 0.6046511627906976,
+          "positive_support": 395,
+          "average_precision": 0.7662356980956955,
+          "confusion_matrix_tn_fp_fn_tp": [
+            316,
+            505,
+            5,
+            390
+          ]
+        }
+      ],
+      "unsmoothed_operating_point": {
+        "method": "context_15_position",
+        "C": 0.3,
+        "smoothing_radius": 0,
+        "threshold": 0.2,
+        "dev": {
+          "precision": 0.4014778325123153,
+          "recall": 0.8755595344673232,
+          "f1": 0.550520686743597,
+          "positive_support": 1117,
+          "average_precision": 0.4843986164832532,
+          "confusion_matrix_tn_fp_fn_tp": [
+            1164,
+            1458,
+            139,
+            978
+          ]
+        }
+      }
+    }
+  ],
+  "precision_operating_point": {
+    "threshold": 0.2,
+    "dev": {
+      "precision": 0.4593953764078245,
+      "recall": 0.693822739480752,
+      "f1": 0.5527817403708987,
+      "positive_support": 1117,
+      "average_precision": 0.4552152081502402,
+      "confusion_matrix_tn_fp_fn_tp": [
+        1710,
+        912,
+        342,
+        775
+      ]
+    }
+  },
+  "train_and_selection_seconds": 57.35969592299807,
+  "model_sha256": {
+    "local": "087b27646fff5ad4a0fea769d24238c01f439871e03fb3ef3bd5dea9d36c1b0f",
+    "context_1": "d3d87543e2a5d275ffccacc8fe14e7a41f2c757b407423ca14baa4e49457aed8",
+    "context_5": "847aa3ac5372eb57ca3a71ed25b21de3531f84c99fbddf5b0571c2e95c601812",
+    "context_15": "4356aa10ccc8496e4bad11c77d81f77cbd10acfca9d4432933e942cca6c032e4",
+    "context_40": "8f84ef44069ce34bb5ccc6b40d875fbcde159aecffa7351b754527cdf6dd7c4f",
+    "context_15_position": "83635f9b55ed7ba05b8d9ef3b5e767ac664ce22bd68848ca315f59855a4c413a"
+  },
+  "protocol_sha256": "5ef7c3c3a328ad79065d81e5c59eddf0c61897a5deb18d7963df765bc00dec4e"
+}

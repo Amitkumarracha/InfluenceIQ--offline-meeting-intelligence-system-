@@ -1,0 +1,40 @@
+{
+  "alpha": [
+    1.0,
+    10.0
+  ],
+  "nb_weights": [
+    0.0,
+    0.1,
+    0.25,
+    0.5
+  ],
+  "forest_share_of_remainder": [
+    0.5,
+    0.75,
+    1.0
+  ],
+  "smoothing": [
+    0,
+    5,
+    15
+  ],
+  "thresholds": "13 fixed dev-score quantiles plus 0.5",
+  "calibration": "Sigmoid, three project-separated training folds; no development labels in calibration",
+  "calibration_limit": "Vocabulary/IDF fitted on all training acts; shared across inner calibration folds",
+  "selection": "Max dev F1 without any regression on accuracy/precision/recall/F1/AP; otherwise baseline",
+  "historical_regression_gate": [
+    "f1",
+    "balanced_accuracy",
+    "average_precision"
+  ],
+  "test_access": "Separate evaluation invocation after freezing selection and models",
+  "baseline_sha256": "9a76d232338132897375083e68081c29920fd9d0f19731ad75fb6bdc4d93b7ed",
+  "train_sha256": "80f242d94b8d2a9c6d5b936da87628b7293202adb61e365006e181328297039a",
+  "dev_sha256": "0097c9441aa0f24b0423c6844d16e9632317c5d0d9de7fecaf0cb9bf0f019fa8",
+  "code_sha256": {
+    "scripts/optimize_discussion_ensemble.py": "e43ed7949a498668b4891d9972d24176c748bfb4c82bec7829ce99f848afde4d",
+    "src/meeting/discussion_ensemble.py": "494c3e4ffe6d445a25c2a9bc37b19bd658c8544e82eb248e6ad245deaf6016e5"
+  },
+  "scope": "Further exploratory oracle-act optimization; no new final cohort or end-to-end accuracy claim"
+}

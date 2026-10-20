@@ -1,0 +1,338 @@
+{
+  "source": "presentation/InfluenceIQ_ESE_Presentation.pptx.pptx",
+  "size_inches": [
+    10.666666666666666,
+    8.0
+  ],
+  "slides": [
+    {
+      "slide": 1,
+      "texts": [
+        "B. Tech. Project AY 2026-27",
+        "Title of the Project: InfluenceIQ \u2014 Offline Decision-Discussion Detection with Source-Linked Meeting Review",
+        "Group Members:\nAnushka Chatterjee (23070126015)\nAmitkumar Racha (24070126501)\nSahil Awatramani (23070126112)\nShriyans Sahoo (23070126125)\n",
+        "Name of the Guide: Dr. Nivedita Mishra\n",
+        "Project ID: Group 12",
+        "ESE Presentation"
+      ],
+      "fonts": [
+        19.2,
+        23.5,
+        25.6
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 2,
+      "texts": [
+        "Meeting recordings preserve proposals, explanations and decisions, but finding the relevant passage means manually scrubbing through audio.\nSpeech-recognition errors change the words an extractor sees; speaker-attribution errors credit a contribution to the wrong person.\nA useful review tool therefore needs an explicit evaluation target and a trace back to the original recording."
+      ],
+      "fonts": [
+        17.1
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 3,
+      "texts": [
+        "Noisy inputs",
+        "ASR word errors and diarization errors propagate into every downstream label.",
+        "Discussion \u2260 decision",
+        "A passage can concern a decision without recording a final agreement or action.",
+        "Multilingual meetings",
+        "Hindi and Hinglish speech must be handled honestly by an English-trained detector."
+      ],
+      "fonts": [
+        14.9,
+        17.1
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 4,
+      "texts": [],
+      "fonts": [],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 5,
+      "texts": [
+        "Meeting assistants, Whisper, diarization, multilingual benchmarks",
+        "Period: add month(s)",
+        "AMI project-separated split; FLEURS Hindi & MUCS Hinglish samples",
+        "Period: add month(s)",
+        "4 classifier families \u00d7 2 lexical representations",
+        "Period: add month(s)",
+        "Forest/linear mixture, smoothing and threshold on development data",
+        "Period: add month(s)",
+        "ASR model comparison; diarization threshold calibration",
+        "Period: add month(s)",
+        "Browser review, exports, 597-test regression, ESE report",
+        "Period: add month(s)",
+        "Phases run sequentially across AY 2026\u201327; each later phase builds on frozen selections from the previous one."
+      ],
+      "fonts": [
+        11.7,
+        12.8,
+        13.9
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 6,
+      "texts": [
+        "Work | Focus | Relevance to InfluenceIQ",
+        "Tur et al. 2010 \u2014 CALO | Transcription + semantic interpretation | Broader assistant; we bound the task to discussion review",
+        "Radford et al. 2023 \u2014 Whisper | Multilingual ASR, weak supervision | Basis of the local faster-whisper recogniser",
+        "Bain et al. 2023 \u2014 WhisperX | Time-accurate long-form ASR | Motivates alignment; full pipeline not used",
+        "Bredin 2023; Plaquet & Bredin 2023 | pyannote diarization; overlap-aware powerset | Report speaker attribution separately",
+        "Mach\u00e1\u010dek et al. 2023 | Streaming Whisper commit policies | We use bounded preview windows + full post-capture pass",
+        "DISPLACE 2023/24; Vistaar 2023 | Multilingual diarization; Indian-language ASR | Motivate code-switched meeting evaluation",
+        "MeetingBank 2023; ExplainMeetSum 2023 | Meeting summarisation; evidence-aligned summaries | We give extractive, source-linked suggestions instead"
+      ],
+      "fonts": [],
+      "pictures": 0,
+      "tables": 1,
+      "notes": ""
+    },
+    {
+      "slide": 7,
+      "texts": [
+        "Weak traceability",
+        "Generated summaries rarely link each claim back to the exact segment, speaker and timestamp.",
+        "Cloud dependence",
+        "Most meeting assistants rely on remote inference, which conflicts with local, private review.",
+        "Non-comparable scores",
+        "Published summarisation and diarization scores are not baselines for binary discussion membership.",
+        "Hidden error propagation",
+        "ASR and diarization errors are seldom reported separately, and Hindi\u2013English meetings are under-evaluated."
+      ],
+      "fonts": [
+        16.0,
+        18.1
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 8,
+      "texts": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Recognition is cached separately from speaker attribution, so speaker fixes reuse saved words.\nScores are ranking signals, not calibrated probabilities.",
+        "Fig. Local processing and source-linked review (adapted from the report, Fig. 1)"
+      ],
+      "fonts": [
+        11.7,
+        13.9
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 9,
+      "texts": [
+        "Functional",
+        "Upload or record meeting audio\nLocal ASR and full-recording diarization\nSpeaker renaming that reuses cached words\nPPTX text, table and notes extraction with passage-to-slide links\nDiscussion suggestions with text, speaker, timestamp and seek\nRule-based events: proposals, questions, objections, agreements, decisions, actions\nExports that retain source information",
+        "Non-functional",
+        "Offline: local CPU inference with 8-bit integer computation\nTraceability of every suggestion to its source\nExplicit stage status for unsupported languages or missing models\nBatched runtime feature extraction\nEnglish/Hindi language constraint for automatic detection\nReproducibility: split membership, source hashes and frozen selections retained"
+      ],
+      "fonts": [
+        13.9,
+        19.2
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 10,
+      "texts": [
+        "Speech recognition",
+        "faster-whisper: small, medium, large-v3-turbo \u00b7 int8 on CPU \u00b7 beam size 5",
+        "Speaker diarization",
+        "Sherpa-ONNX speaker backend, threshold calibrated to 0.9",
+        "Text features",
+        "TF-IDF: word 1\u20132-grams (12k) + character 3\u20135-grams (20k)",
+        "Classifiers",
+        "Logistic regression, Complement Naive Bayes, linear SVM, random forest",
+        "Slide processing",
+        "PPTX text, tables, notes; lexical or embedding similarity",
+        "Review interface",
+        "Browser review with audio seek; source-preserving exports",
+        "Datasets",
+        "AMI Meeting Corpus \u00b7 FLEURS Hindi \u00b7 MUCS 2021 Hinglish",
+        "Evaluation",
+        "P / R / F1, AP, MCC, ROC-AUC \u00b7 WER / CER \u00b7 DER / JER"
+      ],
+      "fonts": [
+        13.9,
+        16.0
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 11,
+      "texts": [
+        "Dialogue act",
+        "Positive if \u2265 50% of its words lie in an annotated decision-discussion span",
+        "",
+        "Local features",
+        "Word + character TF-IDF, fitted on training text only",
+        "",
+        "Context-40",
+        "Append lexical context from \u00b140 acts, never crossing meeting boundaries",
+        "",
+        "Component scores",
+        "Random forest f(i) and logistic regression l(i)",
+        "Score combination",
+        "Smoothing and decision",
+        "N(i): current act plus at most 5 acts on either side, within one meeting\nWeights, radius and threshold chosen on development data only\nFuture context makes this an offline detector"
+      ],
+      "fonts": [
+        12.8,
+        13.9,
+        16.0,
+        18.1
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 12,
+      "texts": [
+        "Partition | Meetings | Acts | Positive acts",
+        "Training | 29 | 20,339 | 5,862",
+        "Development | 6 | 3,739 | 1,117",
+        "Historical | 12 | 11,136 | 2,481",
+        "AMI meetings split by project series; a series never spans two partitions\nHistorical cohort = 3 independent series, so treated as exploratory, not a fresh test\nHistorical labels excluded from fitting and threshold selection",
+        "Matched search per classifier",
+        "3 predefined parameter values per family\nSmoothing radii 0, 5, 15; 13 development-score quantile thresholds + 0.5\nSelection by pooled development F1\nForest: 100 trees, min leaf size 2, depth grid; balanced bootstrap weights\nSVM: sigmoid calibration on 3 project-separated folds\nMixture weights searched over 0, 0.25, 0.5, 0.75, 1"
+      ],
+      "fonts": [
+        14.9,
+        17.1
+      ],
+      "pictures": 0,
+      "tables": 1,
+      "notes": ""
+    },
+    {
+      "slide": 13,
+      "texts": [
+        "regression tests passed in the latest software run",
+        "Integration checks cover\nbatched scoring, meeting boundaries, source preservation, missing-model behaviour, report exports and browser review",
+        "Model changes tested and rejected",
+        "Trial | Dev F1 | Hist. F1 | Hist. AP | Outcome",
+        "Semantic / continuity features | \u2014 | \u2014 | \u2014 | No candidate passed",
+        "Calibrated forest + NB | 60.75 | 52.93 | 45.91 | Rejected",
+        "Refit on 35 meetings | \u2014 | 53.72 | 48.70 | Rejected",
+        "Non-regression rule: a change is kept only if it does not degrade the declared development metrics\nCached real-transcript smoke checks confirm execution and traceability only"
+      ],
+      "fonts": [
+        13.9,
+        14.9,
+        17.1
+      ],
+      "pictures": 0,
+      "tables": 1,
+      "notes": ""
+    },
+    {
+      "slide": 14,
+      "texts": [
+        "39.94%",
+        "Precision",
+        "81.18%",
+        "Recall",
+        "53.54%",
+        "F1 on 11,136 acts",
+        "+1.46 pp F1 over the matched forest; bootstrap interval \u22127.16 to +5.99 pp\nROC-AUC 80.03%, MCC 0.386"
+      ],
+      "fonts": [
+        12.8,
+        13.9,
+        32.0
+      ],
+      "pictures": 1,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 15,
+      "texts": [
+        "Turbo cuts Hindi WER from 50.96% to 28.85%, but historical English worsens (61.61% \u2192 63.91%), so small stays the default.",
+        "Diarization pilot (AMI excerpts)",
+        "Metric | Thr 0.5 | Thr 0.9",
+        "Diarization error % | 64.08 | 40.91",
+        "Jaccard error % | 69.60 | 60.45",
+        "Speech F1 % | 85.89 | 85.98",
+        "Speaker-count MAE | 8.50 | 1.50",
+        "Calibrating the threshold to 0.9 on development excerpts cuts fragmentation; speech-region detection barely changes."
+      ],
+      "fonts": [
+        12.8,
+        16.0
+      ],
+      "pictures": 1,
+      "tables": 1,
+      "notes": ""
+    },
+    {
+      "slide": 16,
+      "texts": [
+        "InfluenceIQ delivers offline meeting processing with source-linked discussion suggestions and human review.\nThe development-selected forest/linear mix reaches 53.54% historical F1 on oracle transcripts, with precision and ranking trade-offs.\nTurbo ASR gives large Hindi gains but regresses on historical English, so model choice stays explicit.\nNegative trials, provenance and missing downstream metrics remain visible.",
+        "Future work",
+        "Independent, group-separated, recording-level annotations\nSeparate human-transcript, recognised-transcript and fully automatic evaluation\nAnnotated slide references, decisions and contribution rankings\nControlled runtime, memory and physical-phone measurements"
+      ],
+      "fonts": [
+        13.9,
+        16.0,
+        18.1
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 17,
+      "texts": [
+        "[1] G. Tur et al., \u201cThe CALO meeting assistant system,\u201d IEEE Trans. ASLP, 2010.\n[2] A. Radford et al., \u201cRobust speech recognition via large-scale weak supervision,\u201d ICML, 2023.\n[3] M. Bain et al., \u201cWhisperX: Time-accurate speech transcription of long-form audio,\u201d Interspeech, 2023.\n[4] H. Bredin, \u201cpyannote.audio 2.1 speaker diarization pipeline,\u201d Interspeech, 2023.\n[5] A. Plaquet and H. Bredin, \u201cPowerset multi-class cross entropy loss for neural speaker diarization,\u201d Interspeech, 2023.\n[6] D. Mach\u00e1\u010dek et al., \u201cTurning Whisper into real-time transcription system,\u201d IJCNLP\u2013AACL Demos, 2023.\n[7] S. Baghel et al., \u201cThe DISPLACE challenge 2023,\u201d Interspeech, 2023.\n[8] S. B. Kalluri et al., \u201cThe second DISPLACE challenge,\u201d Interspeech, 2024.\n[9] K. Bhogale et al., \u201cVistaar: Diverse benchmarks and training sets for Indian language ASR,\u201d Interspeech, 2023.\n[10] Y. Hu et al., \u201cMeetingBank: A benchmark dataset for meeting summarization,\u201d ACL, 2023.\n[11] H. Kim et al., \u201cExplainMeetSum: Explainable meeting summarization,\u201d ACL, 2023.\n[12] J. Carletta et al., \u201cThe AMI meeting corpus: A pre-announcement,\u201d MLMI, LNCS 3869, 2006.\n[13] A. Conneau et al., \u201cFLEURS: Few-shot learning evaluation of universal representations of speech,\u201d arXiv:2205.12446, 2022.\n[14] A. Diwan et al., \u201cMUCS 2021: Multilingual and code-switching ASR challenges,\u201d Interspeech, 2021.\n[15] OpenAI, \u201cWhisper large-v3-turbo,\u201d model card, accessed Oct. 2026."
+      ],
+      "fonts": [
+        13.3
+      ],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    },
+    {
+      "slide": 18,
+      "texts": [],
+      "fonts": [],
+      "pictures": 0,
+      "tables": 0,
+      "notes": ""
+    }
+  ]
+}

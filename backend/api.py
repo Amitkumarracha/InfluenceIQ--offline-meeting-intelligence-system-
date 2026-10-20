@@ -392,8 +392,8 @@ async def analyze_meeting(audio: list[UploadFile] = File(...), ppt: list[UploadF
     if language not in {'auto', 'en', 'hi'}:
         raise HTTPException(422, 'Choose auto, English or Hindi')
     slides = [f for f in (ppt or []) if f.filename]
-    if len(slides) > 1:
-        raise HTTPException(422, 'Upload one combined PPTX presentation')
+    if len(slides) > 32:
+        raise HTTPException(422, 'Supply at most 32 PPTX presentations, in presentation order')
     meeting_id = 'meeting_' + uuid.uuid4().hex
     upload_dir = RUNTIME / 'uploads' / meeting_id
     upload_dir.mkdir(parents=True)
@@ -432,13 +432,16 @@ async def analyze_meeting(audio: list[UploadFile] = File(...), ppt: list[UploadF
             except ValueError:
                 raise HTTPException(422, 'File does not contain decodable audio')
             paths.append(path)
-        ppt_path = await save(slides[0], 'slides', {'.pptx'}) if slides else None
-        if ppt_path:
-            from src.ppt.validation import validate_pptx
+        ppt_paths = []
+        from src.ppt.validation import validate_pptx
+        for index, upload in enumerate(slides):
+            path = await save(upload, f'slides_{index}', {'.pptx'})
             try:
-                await asyncio.to_thread(validate_pptx, ppt_path)
+                await asyncio.to_thread(validate_pptx, path)
             except ValueError as exc:
-                raise HTTPException(422, str(exc))
+                raise HTTPException(422, f'{upload.filename}: {exc}')
+            ppt_paths.append(path)
+        ppt_path = ppt_paths or None
         state = {'queued_at': datetime.now(timezone.utc).isoformat(), 'audio_duration_seconds': duration, 'audio': paths, 'ppt': ppt_path, 'diarization': diarization, 'stage': 'queued', 'error': None,
                  'options': {'model_size': model_size or None, 'language': None if language == 'auto' else language,
                              'vocabulary': vocabulary.strip(), 'num_speakers': num_speakers}}

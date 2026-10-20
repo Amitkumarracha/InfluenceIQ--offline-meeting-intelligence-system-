@@ -1,0 +1,20 @@
+{
+  "index": 800,
+  "segment_id": "318923_NhV290ew2hDJfVqc_0054",
+  "speaker_id": "318923",
+  "sha256": "af3f32f4920cc1deb97126d55e9cf986e99fdf39c2a3b8b4b8737479a9887942",
+  "reference": "window के नीचे दाईं ओर पर नए snippet को बनाने के लिए plus के icon पर click करें",
+  "hypothesis": "नीचे दाई ओर पर नहीं स्नी पेट को बनाने के लिए प्लुसके अएकन पर कलिप करें हलो वोर ताएप करें",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.777778,
+    "substitutions": 8,
+    "deletions": 2,
+    "insertions": 4,
+    "reference_length": 18,
+    "hypothesis_length": 20
+  },
+  "seconds": 7.55,
+  "processing_seconds": 7.092375552998419
+}

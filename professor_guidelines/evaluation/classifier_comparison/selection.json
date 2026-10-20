@@ -1,0 +1,433 @@
+{
+  "models": [
+    {
+      "method": "logistic_regression__local",
+      "family": "logistic_regression",
+      "features": "local",
+      "parameter": 3.0,
+      "smoothing_radius": 15,
+      "threshold": 0.42732628047115384,
+      "dev": {
+        "precision": 0.439572192513369,
+        "recall": 0.7358997314234557,
+        "f1": 0.5503850016739203,
+        "positive_support": 1117,
+        "average_precision": 0.5010387760661754,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1574,
+          1048,
+          295,
+          822
+        ]
+      },
+      "fit_grid_seconds": 1.8260947880044114,
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.49502487562189057,
+          "recall": 0.5835777126099707,
+          "f1": 0.5356662180349933,
+          "positive_support": 682,
+          "average_precision": 0.5619023957389737,
+          "confusion_matrix_tn_fp_fn_tp": [
+            790,
+            406,
+            284,
+            398
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.3977485928705441,
+          "recall": 0.9747126436781609,
+          "f1": 0.5649566955363091,
+          "positive_support": 435,
+          "average_precision": 0.5001200643115348,
+          "confusion_matrix_tn_fp_fn_tp": [
+            784,
+            642,
+            11,
+            424
+          ]
+        }
+      ]
+    },
+    {
+      "method": "complement_nb__local",
+      "family": "complement_nb",
+      "features": "local",
+      "parameter": 1.0,
+      "smoothing_radius": 15,
+      "threshold": 0.4835623090920633,
+      "dev": {
+        "precision": 0.47388294524858404,
+        "recall": 0.6741271262309758,
+        "f1": 0.5565410199556541,
+        "positive_support": 1117,
+        "average_precision": 0.4500905065385731,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1786,
+          836,
+          364,
+          753
+        ]
+      },
+      "fit_grid_seconds": 0.037507176006329246,
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.5741379310344827,
+          "recall": 0.48826979472140764,
+          "f1": 0.5277337559429477,
+          "positive_support": 682,
+          "average_precision": 0.5077782141560584,
+          "confusion_matrix_tn_fp_fn_tp": [
+            949,
+            247,
+            349,
+            333
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.41625371655104065,
+          "recall": 0.9655172413793104,
+          "f1": 0.5817174515235457,
+          "positive_support": 435,
+          "average_precision": 0.45040242138657516,
+          "confusion_matrix_tn_fp_fn_tp": [
+            837,
+            589,
+            15,
+            420
+          ]
+        }
+      ]
+    },
+    {
+      "method": "linear_svm__local",
+      "family": "linear_svm",
+      "features": "local",
+      "parameter": 1.0,
+      "smoothing_radius": 15,
+      "threshold": 0.28969447009920246,
+      "dev": {
+        "precision": 0.4411764705882353,
+        "recall": 0.738585496866607,
+        "f1": 0.5523937060595916,
+        "positive_support": 1117,
+        "average_precision": 0.5040935073108143,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1577,
+          1045,
+          292,
+          825
+        ]
+      },
+      "fit_grid_seconds": 8.203537722001784,
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.5145385587863464,
+          "recall": 0.5967741935483871,
+          "f1": 0.5526137135098439,
+          "positive_support": 682,
+          "average_precision": 0.5821428473113771,
+          "confusion_matrix_tn_fp_fn_tp": [
+            812,
+            384,
+            275,
+            407
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.3873957367933272,
+          "recall": 0.960919540229885,
+          "f1": 0.5521796565389696,
+          "positive_support": 435,
+          "average_precision": 0.48137280246782826,
+          "confusion_matrix_tn_fp_fn_tp": [
+            765,
+            661,
+            17,
+            418
+          ]
+        }
+      ]
+    },
+    {
+      "method": "random_forest__local",
+      "family": "random_forest",
+      "features": "local",
+      "parameter": null,
+      "smoothing_radius": 15,
+      "threshold": 0.42112463751687057,
+      "dev": {
+        "precision": 0.5019098548510313,
+        "recall": 0.5881826320501343,
+        "f1": 0.5416323165704864,
+        "positive_support": 1117,
+        "average_precision": 0.4867846267815833,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1970,
+          652,
+          460,
+          657
+        ]
+      },
+      "fit_grid_seconds": 26.401940814990667,
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.6781914893617021,
+          "recall": 0.37390029325513197,
+          "f1": 0.4820415879017013,
+          "positive_support": 682,
+          "average_precision": 0.5937996786790485,
+          "confusion_matrix_tn_fp_fn_tp": [
+            1075,
+            121,
+            427,
+            255
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.43086816720257237,
+          "recall": 0.9241379310344827,
+          "f1": 0.5877192982456141,
+          "positive_support": 435,
+          "average_precision": 0.5289779616058768,
+          "confusion_matrix_tn_fp_fn_tp": [
+            895,
+            531,
+            33,
+            402
+          ]
+        }
+      ]
+    },
+    {
+      "method": "logistic_regression__context_40",
+      "family": "logistic_regression",
+      "features": "context_40",
+      "parameter": 3.0,
+      "smoothing_radius": 15,
+      "threshold": 0.17257511461770952,
+      "dev": {
+        "precision": 0.4556149732620321,
+        "recall": 0.7627573858549687,
+        "f1": 0.5704720455306327,
+        "positive_support": 1117,
+        "average_precision": 0.45521627958669575,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1604,
+          1018,
+          265,
+          852
+        ]
+      },
+      "fit_grid_seconds": 10.975506879010936,
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.45829428303655106,
+          "recall": 0.717008797653959,
+          "f1": 0.5591766723842195,
+          "positive_support": 682,
+          "average_precision": 0.5562805329980707,
+          "confusion_matrix_tn_fp_fn_tp": [
+            618,
+            578,
+            193,
+            489
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.4520547945205479,
+          "recall": 0.8344827586206897,
+          "f1": 0.5864297253634895,
+          "positive_support": 435,
+          "average_precision": 0.4167329070068718,
+          "confusion_matrix_tn_fp_fn_tp": [
+            986,
+            440,
+            72,
+            363
+          ]
+        }
+      ]
+    },
+    {
+      "method": "complement_nb__context_40",
+      "family": "complement_nb",
+      "features": "context_40",
+      "parameter": 10.0,
+      "smoothing_radius": 5,
+      "threshold": 0.38691905791582754,
+      "dev": {
+        "precision": 0.4449197860962567,
+        "recall": 0.7448522829006267,
+        "f1": 0.5570806829594911,
+        "positive_support": 1117,
+        "average_precision": 0.4870802481256861,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1584,
+          1038,
+          285,
+          832
+        ]
+      },
+      "fit_grid_seconds": 0.15286952599853976,
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.5148514851485149,
+          "recall": 0.6099706744868035,
+          "f1": 0.5583892617449664,
+          "positive_support": 682,
+          "average_precision": 0.5164348390976666,
+          "confusion_matrix_tn_fp_fn_tp": [
+            804,
+            392,
+            266,
+            416
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.391713747645951,
+          "recall": 0.9563218390804598,
+          "f1": 0.5557782231128925,
+          "positive_support": 435,
+          "average_precision": 0.5126288816532663,
+          "confusion_matrix_tn_fp_fn_tp": [
+            780,
+            646,
+            19,
+            416
+          ]
+        }
+      ]
+    },
+    {
+      "method": "linear_svm__context_40",
+      "family": "linear_svm",
+      "features": "context_40",
+      "parameter": 0.3,
+      "smoothing_radius": 15,
+      "threshold": 0.279494663967876,
+      "dev": {
+        "precision": 0.44545454545454544,
+        "recall": 0.7457475380483438,
+        "f1": 0.5577502510880482,
+        "positive_support": 1117,
+        "average_precision": 0.45119904078616824,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1585,
+          1037,
+          284,
+          833
+        ]
+      },
+      "fit_grid_seconds": 19.510611671001243,
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.4623955431754875,
+          "recall": 0.7302052785923754,
+          "f1": 0.5662308129619101,
+          "positive_support": 682,
+          "average_precision": 0.5624157839019218,
+          "confusion_matrix_tn_fp_fn_tp": [
+            617,
+            579,
+            184,
+            498
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.4224464060529634,
+          "recall": 0.7701149425287356,
+          "f1": 0.5456026058631922,
+          "positive_support": 435,
+          "average_precision": 0.40046386641166487,
+          "confusion_matrix_tn_fp_fn_tp": [
+            968,
+            458,
+            100,
+            335
+          ]
+        }
+      ]
+    },
+    {
+      "method": "random_forest__context_40",
+      "family": "random_forest",
+      "features": "context_40",
+      "parameter": 10,
+      "smoothing_radius": 15,
+      "threshold": 0.4040724419340674,
+      "dev": {
+        "precision": 0.5084959093769666,
+        "recall": 0.7233661593554163,
+        "f1": 0.5971914264597191,
+        "positive_support": 1117,
+        "average_precision": 0.5953450844787864,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1841,
+          781,
+          309,
+          808
+        ]
+      },
+      "fit_grid_seconds": 30.43413970300753,
+      "dev_per_group": [
+        {
+          "group": "IS1008",
+          "precision": 0.5931758530183727,
+          "recall": 0.6627565982404692,
+          "f1": 0.6260387811634349,
+          "positive_support": 682,
+          "average_precision": 0.6469182481014217,
+          "confusion_matrix_tn_fp_fn_tp": [
+            886,
+            310,
+            230,
+            452
+          ]
+        },
+        {
+          "group": "TS3004",
+          "precision": 0.43047158403869407,
+          "recall": 0.8183908045977012,
+          "f1": 0.5641838351822503,
+          "positive_support": 435,
+          "average_precision": 0.5728946863536604,
+          "confusion_matrix_tn_fp_fn_tp": [
+            955,
+            471,
+            79,
+            356
+          ]
+        }
+      ]
+    }
+  ],
+  "primary": "random_forest__context_40",
+  "shared_transform_seconds": 12.863740977001726,
+  "protocol_sha256": "a712b8e244966b2b80d6bf97e500ce3004a5ede8fedf68164e9e0ccff7bf3906",
+  "model_sha256": {
+    "logistic_regression__local": "95c2a21a31756b04981dd980b77ac57c39da35a11828ea82550f5820f55e1af5",
+    "complement_nb__local": "08c9de9a80f49e9a3500371bddbf722f43dec618c6698102c839387cc1037aa6",
+    "linear_svm__local": "b9c31ff4771aef300f9e02ae662906a3fdbe66b4c072faace0c2c13a8e206290",
+    "random_forest__local": "903d480498b4302f2a8d0becd9f21d2d2125d6a52365629d920bb77b2bcd59d0",
+    "logistic_regression__context_40": "1d77e6db01f85786378f30ca114d4eb108cff4229970c8744aeccf7d38b6fec8",
+    "complement_nb__context_40": "46dab2cb30d4d5b29bd35a2be0a4c750d194e6f77aba510477327f30689a37c8",
+    "linear_svm__context_40": "e7ca2c620dfe0482d6897b29ce844789171981af61f693430eb4c35bef420faa",
+    "random_forest__context_40": "3b5414d91db7704d29faae3362884429a601f676af1a855d4118cd2ae29e3b00"
+  }
+}

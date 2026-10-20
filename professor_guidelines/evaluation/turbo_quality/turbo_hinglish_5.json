@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hinglish",
+  "sample": "turbo_hinglish_5",
+  "source_sha256": "76e01e4481986ba5d4c51ac74fa5cceb107364f8e730eda6625834bf88277590",
+  "reference": "मध्य में हम खाली जगह देखते है जोकि workspace है जहाँ हम काम करेंगे",
+  "hypothesis": "मद्धे में हम खाली जगा देखते हैं जो की वर्क स्पेस है जहां हम काम करें",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.642857,
+    "substitutions": 7,
+    "deletions": 0,
+    "insertions": 2,
+    "reference_length": 14,
+    "hypothesis_length": 16
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.339623,
+    "substitutions": 14,
+    "deletions": 2,
+    "insertions": 2,
+    "reference_length": 53,
+    "hypothesis_length": 53
+  },
+  "elapsed_seconds": 27.400703548999445,
+  "detected_languages": [
+    "hi"
+  ]
+}

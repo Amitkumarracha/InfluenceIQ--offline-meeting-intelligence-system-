@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hinglish",
+  "sample": "turbo_hinglish_4",
+  "source_sha256": "b058a585ed1ae09346910b75ac4acae29e83d011d6ad47ddb154c2e2acb93a4e",
+  "reference": "चलिए देखते हैं कि screen पर क्या क्या है",
+  "hypothesis": "में बनाया था चलिए देखते हैं कि स्क्रीन पर क्या क्या है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.444444,
+    "substitutions": 1,
+    "deletions": 0,
+    "insertions": 3,
+    "reference_length": 9,
+    "hypothesis_length": 12
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.53125,
+    "substitutions": 6,
+    "deletions": 0,
+    "insertions": 11,
+    "reference_length": 32,
+    "hypothesis_length": 43
+  },
+  "elapsed_seconds": 26.42817630200443,
+  "detected_languages": [
+    "hi"
+  ]
+}

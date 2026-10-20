@@ -1,0 +1,101 @@
+{
+  "task": "Binary dialogue-act membership in manually annotated decision-discussion spans",
+  "positive_rule": "At least 50% of act lexical word IDs belong to manual decision spans",
+  "splits": {
+    "train": [
+      "ES2002a",
+      "ES2002d",
+      "ES2006a",
+      "ES2006c",
+      "ES2009a",
+      "ES2009b",
+      "ES2009c",
+      "ES2010b",
+      "ES2010c",
+      "ES2010d",
+      "ES2012c",
+      "ES2012d",
+      "ES2015a",
+      "ES2015b",
+      "ES2015c",
+      "ES2015d",
+      "IS1000a",
+      "IS1001b",
+      "IS1001c",
+      "IS1001d",
+      "IS1003a",
+      "IS1003b",
+      "IS1003c",
+      "IS1004a",
+      "IS1004b",
+      "IS1004c",
+      "IS1004d",
+      "IS1005a",
+      "TS3007a"
+    ],
+    "dev": [
+      "IS1008a",
+      "IS1008b",
+      "IS1008c",
+      "IS1008d",
+      "TS3004a",
+      "TS3004b"
+    ],
+    "test": [
+      "ES2016a",
+      "ES2016b",
+      "ES2016c",
+      "ES2016d",
+      "IS1006a",
+      "IS1006b",
+      "IS1006c",
+      "IS1006d",
+      "TS3005a",
+      "TS3005b",
+      "TS3005c",
+      "TS3005d"
+    ]
+  },
+  "group_separation": "Meeting series/project; no dialogue-act random split",
+  "official_test_status": "No selected manual decision files intersect official BUT test; this is a custom group-separated experiment",
+  "oracle_inputs": "Reference words, dialogue-act boundaries; no DA type labels or decision labels enter features",
+  "variants": {
+    "word": [
+      "word"
+    ],
+    "char": [
+      "char"
+    ],
+    "word_char": [
+      "word",
+      "char"
+    ],
+    "word_char_context": [
+      "word",
+      "char",
+      "context"
+    ]
+  },
+  "C_grid": [
+    0.3,
+    1,
+    3
+  ],
+  "threshold_grid": [
+    0.2,
+    0.35,
+    0.5,
+    0.65,
+    0.8
+  ],
+  "selection": "F1 on dev only; fixed tie order; all prespecified variants reported on test",
+  "seed": 42,
+  "installed_in_application": false,
+  "limits": [
+    "English AMI scenario discussions; not Hindi/Hinglish validation.",
+    "Decision-discussion membership is not final decision extraction or influence accuracy.",
+    "Manual boundary input removes ASR and segmentation errors; full pipeline requires a separate study.",
+    "Outside-span acts are treated as negatives, assuming manual decision annotations are exhaustive.",
+    "Neighbour context includes next act: offline classification, not causal streaming."
+  ]
+}

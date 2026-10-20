@@ -1,0 +1,15 @@
+{
+  "unit": "meeting/project series",
+  "groups": [
+    "ES2016",
+    "IS1006",
+    "TS3005"
+  ],
+  "draws": 3000,
+  "seed": 42,
+  "descriptive_f1_delta_interval": [
+    -0.07163777266296428,
+    0.05985999796542529
+  ],
+  "warning": "Only three independent historical test series; not a significance claim."
+}

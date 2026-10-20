@@ -1,0 +1,6 @@
+{
+  "model_sha256": "2ce2deb0a88f7095c77e0bc0b8dc8b247700583eb9ff05cbe75fef83e333b610",
+  "protocol_sha256": "62d59710708b7768eb237c04cfddad3f993d2d0c3a9205fac1a566b98e219e1b",
+  "training_acts": 24078,
+  "training_positive_acts": 6979
+}

@@ -1,0 +1,142 @@
+2026-10-19 22:38:28 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:38:28 [INFO] src.audio.asr: Loading faster-whisper model: size=large-v3-turbo device=cpu compute_type=int8
+[0;93m2026-10-19 22:38:30.825954948 [W:onnxruntime:Default, telemetry.cc:800 operator()] Failed to persist telemetry device ID; using an in-memory identifier[m
+2026-10-19 22:39:28 [INFO] src.audio.asr: ASR checkpoint 1: 120.0 / 120.0 seconds
+2026-10-19 22:39:28 [INFO] src.audio.asr: Transcript saved: 25 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_ES2002a_transcript.json
+turbo_ES2002a WER 0.330159 CER 0.25412
+2026-10-19 22:39:29 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:40:17 [INFO] src.audio.asr: ASR checkpoint 1: 120.0 / 120.0 seconds
+2026-10-19 22:40:17 [INFO] src.audio.asr: Transcript saved: 15 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_ES2003a_transcript.json
+turbo_ES2003a WER 0.215517 CER 0.132265
+2026-10-19 22:40:18 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:41:17 [INFO] src.audio.asr: ASR checkpoint 1: 120.0 / 120.0 seconds
+2026-10-19 22:41:17 [INFO] src.audio.asr: Transcript saved: 15 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_IS1001b_transcript.json
+turbo_IS1001b WER 0.5 CER 0.43617
+2026-10-19 22:41:17 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:42:31 [INFO] src.audio.asr: ASR checkpoint 1: 120.0 / 120.0 seconds
+2026-10-19 22:42:31 [INFO] src.audio.asr: Transcript saved: 25 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_TS3007d_transcript.json
+turbo_TS3007d WER 0.773756 CER 0.639651
+2026-10-19 22:42:32 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:43:00 [INFO] src.audio.asr: ASR checkpoint 1: 9.1 / 9.1 seconds
+2026-10-19 22:43:00 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hindi_0_transcript.json
+turbo_hindi_0 WER 0.375 CER 0.096774
+2026-10-19 22:43:00 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:43:31 [INFO] src.audio.asr: ASR checkpoint 1: 13.8 / 13.8 seconds
+2026-10-19 22:43:31 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hindi_1_transcript.json
+turbo_hindi_1 WER 0.275 CER 0.050314
+2026-10-19 22:43:31 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:44:00 [INFO] src.audio.asr: ASR checkpoint 1: 15.0 / 15.0 seconds
+2026-10-19 22:44:00 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hindi_2_transcript.json
+turbo_hindi_2 WER 0.37931 CER 0.15
+2026-10-19 22:44:00 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:44:27 [INFO] src.audio.asr: ASR checkpoint 1: 5.1 / 5.1 seconds
+2026-10-19 22:44:27 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hindi_3_transcript.json
+turbo_hindi_3 WER 0.166667 CER 0.035088
+2026-10-19 22:44:27 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:44:56 [INFO] src.audio.asr: ASR checkpoint 1: 13.2 / 13.2 seconds
+2026-10-19 22:44:56 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hindi_4_transcript.json
+turbo_hindi_4 WER 0.333333 CER 0.149425
+2026-10-19 22:44:56 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:45:23 [INFO] src.audio.asr: ASR checkpoint 1: 10.6 / 10.6 seconds
+2026-10-19 22:45:24 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hindi_5_transcript.json
+turbo_hindi_5 WER 0.153846 CER 0.039604
+2026-10-19 22:45:24 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:45:36 [WARNING] src.audio.asr: Detected ur outside configured languages ['en', 'hi']; decoding with hi
+2026-10-19 22:45:54 [INFO] src.audio.asr: ASR checkpoint 1: 17.1 / 17.1 seconds
+2026-10-19 22:45:54 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hindi_6_transcript.json
+turbo_hindi_6 WER 0.282051 CER 0.107955
+2026-10-19 22:45:54 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:46:07 [WARNING] src.audio.asr: Detected ur outside configured languages ['en', 'hi']; decoding with hi
+2026-10-19 22:46:22 [INFO] src.audio.asr: ASR checkpoint 1: 8.2 / 8.2 seconds
+2026-10-19 22:46:22 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hindi_7_transcript.json
+turbo_hindi_7 WER 0.3 CER 0.117647
+2026-10-19 22:46:22 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:46:35 [WARNING] src.audio.asr: Detected ur outside configured languages ['en', 'hi']; decoding with hi
+2026-10-19 22:46:51 [INFO] src.audio.asr: ASR checkpoint 1: 8.3 / 8.3 seconds
+2026-10-19 22:46:51 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hinglish_0_transcript.json
+turbo_hinglish_0 WER 0.421053 CER 0.463158
+2026-10-19 22:46:51 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:47:21 [INFO] src.audio.asr: ASR checkpoint 1: 13.6 / 13.6 seconds
+2026-10-19 22:47:21 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hinglish_1_transcript.json
+turbo_hinglish_1 WER 0.333333 CER 0.307692
+2026-10-19 22:47:21 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:47:34 [WARNING] src.audio.asr: Detected ur outside configured languages ['en', 'hi']; decoding with hi
+2026-10-19 22:47:49 [INFO] src.audio.asr: ASR checkpoint 1: 8.6 / 8.6 seconds
+2026-10-19 22:47:49 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hinglish_2_transcript.json
+turbo_hinglish_2 WER 0.578947 CER 0.260274
+2026-10-19 22:47:49 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:48:16 [INFO] src.audio.asr: ASR checkpoint 1: 6.5 / 6.5 seconds
+2026-10-19 22:48:16 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hinglish_3_transcript.json
+turbo_hinglish_3 WER 0.733333 CER 0.615385
+2026-10-19 22:48:16 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:48:29 [WARNING] src.audio.asr: Detected ur outside configured languages ['en', 'hi']; decoding with hi
+2026-10-19 22:48:43 [INFO] src.audio.asr: ASR checkpoint 1: 4.5 / 4.5 seconds
+2026-10-19 22:48:43 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hinglish_4_transcript.json
+turbo_hinglish_4 WER 0.444444 CER 0.53125
+2026-10-19 22:48:43 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:48:56 [WARNING] src.audio.asr: Detected ur outside configured languages ['en', 'hi']; decoding with hi
+2026-10-19 22:49:10 [INFO] src.audio.asr: ASR checkpoint 1: 5.5 / 5.5 seconds
+2026-10-19 22:49:10 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hinglish_5_transcript.json
+turbo_hinglish_5 WER 0.642857 CER 0.339623
+2026-10-19 22:49:10 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:49:37 [INFO] src.audio.asr: ASR checkpoint 1: 5.5 / 5.5 seconds
+2026-10-19 22:49:37 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hinglish_6_transcript.json
+turbo_hinglish_6 WER 0.75 CER 0.777778
+2026-10-19 22:49:37 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 22:50:04 [INFO] src.audio.asr: ASR checkpoint 1: 3.5 / 3.5 seconds
+2026-10-19 22:50:04 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/turbo-quality/turbo_hinglish_7_transcript.json
+turbo_hinglish_7 WER 1.4 CER 1.173913
+{
+  "english_dev": {
+    "n": 2,
+    "wer": {
+      "rate": 0.28153564899451555,
+      "errors": 154,
+      "reference_length": 547
+    },
+    "cer": {
+      "rate": 0.19758251975825197,
+      "errors": 425,
+      "reference_length": 2151
+    }
+  },
+  "english_historical": {
+    "n": 2,
+    "wer": {
+      "rate": 0.639080459770115,
+      "errors": 278,
+      "reference_length": 435
+    },
+    "cer": {
+      "rate": 0.5351941747572816,
+      "errors": 882,
+      "reference_length": 1648
+    }
+  },
+  "hindi": {
+    "n": 8,
+    "wer": {
+      "rate": 0.28846153846153844,
+      "errors": 60,
+      "reference_length": 208
+    },
+    "cer": {
+      "rate": 0.09407665505226481,
+      "errors": 81,
+      "reference_length": 861
+    }
+  },
+  "hinglish": {
+    "n": 8,
+    "wer": {
+      "rate": 0.5725806451612904,
+      "errors": 71,
+      "reference_length": 124
+    },
+    "cer": {
+      "rate": 0.48314606741573035,
+      "errors": 258,
+      "reference_length": 534
+    }
+  }
+}

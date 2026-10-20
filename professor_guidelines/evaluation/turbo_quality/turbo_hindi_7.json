@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hindi",
+  "sample": "turbo_hindi_7",
+  "source_sha256": "1627aac0f973d5bf25cbfe47cd0185538858b76c88a944fe9e7d7d89e068b932",
+  "reference": "इसे केमिकल का ph कहा जाता है आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं",
+  "hypothesis": "इसे कैमिकल का पीएच कहा जाता है आप लाल गोभी के जूस को इस्तमाल करके एक संकेत तक बना सकते हैं",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.3,
+    "substitutions": 5,
+    "deletions": 0,
+    "insertions": 1,
+    "reference_length": 20,
+    "hypothesis_length": 21
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.117647,
+    "substitutions": 4,
+    "deletions": 1,
+    "insertions": 3,
+    "reference_length": 68,
+    "hypothesis_length": 70
+  },
+  "elapsed_seconds": 27.54150182900048,
+  "detected_languages": [
+    "hi"
+  ]
+}

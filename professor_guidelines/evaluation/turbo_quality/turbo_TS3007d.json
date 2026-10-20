@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "english_historical",
+  "sample": "turbo_TS3007d",
+  "source_sha256": "6160b25563350c3f9200cef1ccc9de72e81e636f8dfbca8e4df610a4505da999",
+  "reference": "wouldn t wanna be project manager uh what we going to do um once again i m uh gonna take minutes so um no presentation for me uh first we have a prototype presentation by g and g yo j afterwards and j some uh eval eval evalu evaluation evaluation evaluation evaluation criteria s sorry uh evaluation crit criteria uh in combination with the finance i um uh i received uh a an uh an excel uh file hmm which we have to fill in later on um you see uh and hmm interesting then we must see uh if we uh stay under the twelve ah and a okay half euro so that s uh oops cool mm hmm that s a that s big gonna l so be let s t uh wait problem it uh um some creative we have we uh have must uh we must have uh some time for that uh because it will be uh yeah quite a oh lot of mathematics yeah and after that uh uh an evaluation of uh the process how we uh how we have done it here with the smartboard with the with our laptops with the all uh all this and uh afterwards uh we closing once again forty minutes so uh ok let s start okay",
+  "hypothesis": "could you put it in the chat folder yeah oh we can begin move to the meeting room and bring your laptop thank you welcome to the sorry yeah it may be good for a presentation if i just i ll show you the chat welcome to the fourth meeting the details design meeting where we have to read the decision on the details after remote control presented by your what are we going to do once again i m going to take minutes so no presentation for me first we have a prototype presentation by g g afterwards some evaluation evaluation criteria evaluation criteria in combination with finance i received an excel file which we have to fill in later on you see and then we must see if we stay under the 12 5 euro we must have some time for that because it will be quite a lot of mathematics after that evaluation of the process how we have done it here with the smartnord with our laptops with all this and afterwards we re closing once again for 40 minutes so let s start",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.773756,
+    "substitutions": 136,
+    "deletions": 34,
+    "insertions": 1,
+    "reference_length": 221,
+    "hypothesis_length": 188
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.639651,
+    "substitutions": 355,
+    "deletions": 94,
+    "insertions": 64,
+    "reference_length": 802,
+    "hypothesis_length": 772
+  },
+  "elapsed_seconds": 74.36208876100136,
+  "detected_languages": [
+    "en"
+  ]
+}

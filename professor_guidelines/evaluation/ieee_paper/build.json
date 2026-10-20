@@ -1,0 +1,19 @@
+{
+  "source_sha256": "f6c877e75f0ddda04644cf11c7cf3618516bd61f864ab187980fead192f3652c",
+  "IEEEtran_sha256": "da751920a317ed318b7b5cd7fa585a6cc7d28502d457856382e9be24b10a3bd7",
+  "format": "IEEEtran conference,a4paper; 10pt default; two columns",
+  "format_sources": [
+    "https://cai.ieee.org/2025/manuscript-templates-for-conference-proceedings/",
+    "https://conferences.ieeeauthorcenter.ieee.org/write-your-paper/structure-your-paper/"
+  ],
+  "class_source": "https://mirrors.ctan.org/macros/latex/contrib/IEEEtran.zip",
+  "author_details": {
+    "source": "User-provided Screenshot_20261019_231611.png",
+    "status": "Names, affiliation and faculty guide transcribed; all five contact emails supplied by the user"
+  },
+  "limits": [
+    "No venue selected; its page limit and review/anonymity rules remain to be checked.",
+    "PDF eXpress certification not performed.",
+    "Word uses matching geometry; pagination may differ by installed fonts."
+  ]
+}

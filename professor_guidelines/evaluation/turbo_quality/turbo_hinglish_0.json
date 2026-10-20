@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hinglish",
+  "sample": "turbo_hinglish_0",
+  "source_sha256": "a5c06d1063825a37962386d9bab8016060768f78296f149d93376699b51fb24f",
+  "reference": "लिबर ऑफिस impress में एक प्रस्तुति document बनाना और बुनियादी formatting के इस spoken tutorial में आपका स्वागत है",
+  "hypothesis": "लिबर आफिस इंप्रेस में एक प्रस्तुती डॉक्यमेंट बनाना और बुन्यादी फॉर्मेटिंग के इस स्पोकेंट टिटोरिल में आपका स्वागत है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.421053,
+    "substitutions": 8,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_length": 19,
+    "hypothesis_length": 19
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.463158,
+    "substitutions": 42,
+    "deletions": 0,
+    "insertions": 2,
+    "reference_length": 95,
+    "hypothesis_length": 97
+  },
+  "elapsed_seconds": 29.444287163998524,
+  "detected_languages": [
+    "hi"
+  ]
+}

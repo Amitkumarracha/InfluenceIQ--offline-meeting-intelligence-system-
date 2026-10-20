@@ -1,0 +1,72 @@
+{
+  "model": "large-v3-turbo",
+  "summary": {
+    "english_dev": {
+      "n": 2,
+      "wer": {
+        "rate": 0.28153564899451555,
+        "errors": 154,
+        "reference_length": 547
+      },
+      "cer": {
+        "rate": 0.19758251975825197,
+        "errors": 425,
+        "reference_length": 2151
+      }
+    },
+    "english_historical": {
+      "n": 2,
+      "wer": {
+        "rate": 0.639080459770115,
+        "errors": 278,
+        "reference_length": 435
+      },
+      "cer": {
+        "rate": 0.5351941747572816,
+        "errors": 882,
+        "reference_length": 1648
+      }
+    },
+    "hindi": {
+      "n": 8,
+      "wer": {
+        "rate": 0.28846153846153844,
+        "errors": 60,
+        "reference_length": 208
+      },
+      "cer": {
+        "rate": 0.09407665505226481,
+        "errors": 81,
+        "reference_length": 861
+      }
+    },
+    "hinglish": {
+      "n": 8,
+      "wer": {
+        "rate": 0.5725806451612904,
+        "errors": 71,
+        "reference_length": 124
+      },
+      "cer": {
+        "rate": 0.48314606741573035,
+        "errors": 258,
+        "reference_length": 534
+      }
+    }
+  },
+  "passes_english_dev_gate": true,
+  "baseline_english_dev": {
+    "model": "small",
+    "wer": {
+      "rate": 0.29981718464351004,
+      "errors": 164,
+      "reference_length": 547
+    },
+    "cer": {
+      "rate": 0.20316132031613204,
+      "errors": 437,
+      "reference_length": 2151
+    }
+  },
+  "status": "Exploratory frozen-cohort recognition comparison; no new speech-model training"
+}

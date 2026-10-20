@@ -1,0 +1,45 @@
+task,cohort,model,metric,value,direction,errors,reference_length
+discussion_membership,historical_oracle_acts,installed_forest_linear,accuracy,0.6861530172413793,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,balanced_accuracy,0.7309569364955288,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,precision,0.3994446648155494,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,recall,0.8117694478033051,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,f1,0.5354246975940449,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,specificity,0.6501444251877527,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,macro_f1,0.6492297398065824,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,average_precision,0.533985450486222,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,roc_auc,0.800336281912378,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,mcc,0.38614932369544536,higher,,11136
+discussion_membership,historical_oracle_acts,installed_forest_linear,brier,0.1624714646273942,lower,,11136
+discussion_membership,historical_oracle_acts,always_negative,accuracy,0.7772090517241379,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,balanced_accuracy,0.5,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,precision,0.0,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,recall,0.0,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,f1,0.0,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,specificity,1.0,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,macro_f1,0.43731999393663784,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,average_precision,0.22279094827586207,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,roc_auc,0.5,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,mcc,0.0,higher,,11136
+discussion_membership,historical_oracle_acts,always_negative,brier,0.22279094827586207,lower,,11136
+speech_recognition,English development (2 clips),small,wer,0.29981718464351004,lower,164,547
+speech_recognition,English development (2 clips),small,cer,0.20316132031613204,lower,437,2151
+speech_recognition,English development (2 clips),medium,wer,0.31444241316270566,lower,172,547
+speech_recognition,English development (2 clips),medium,cer,0.21803812180381218,lower,469,2151
+speech_recognition,English historical (2 clips),small,wer,0.6160919540229886,lower,268,435
+speech_recognition,English historical (2 clips),small,cer,0.4696601941747573,lower,774,1648
+speech_recognition,Hindi (8 samples),small,wer,0.5096153846153846,lower,106,208
+speech_recognition,Hindi (8 samples),small,cer,0.20092915214866433,lower,173,861
+speech_recognition,Hindi (8 samples),medium,wer,0.3701923076923077,lower,77,208
+speech_recognition,Hindi (8 samples),medium,cer,0.14982578397212543,lower,129,861
+speech_recognition,Hinglish (8 samples),small,wer,0.6612903225806451,lower,82,124
+speech_recognition,Hinglish (8 samples),small,cer,0.5,lower,267,534
+speech_recognition,Hinglish (8 samples),medium,wer,0.5725806451612904,lower,71,124
+speech_recognition,Hinglish (8 samples),medium,cer,0.5224719101123596,lower,279,534
+speech_recognition,English development (2 clips),large-v3-turbo,wer,0.28153564899451555,lower,154,547
+speech_recognition,English development (2 clips),large-v3-turbo,cer,0.19758251975825197,lower,425,2151
+speech_recognition,English historical (2 clips),large-v3-turbo,wer,0.639080459770115,lower,278,435
+speech_recognition,English historical (2 clips),large-v3-turbo,cer,0.5351941747572816,lower,882,1648
+speech_recognition,Hindi (8 samples),large-v3-turbo,wer,0.28846153846153844,lower,60,208
+speech_recognition,Hindi (8 samples),large-v3-turbo,cer,0.09407665505226481,lower,81,861
+speech_recognition,Hinglish (8 samples),large-v3-turbo,wer,0.5725806451612904,lower,71,124
+speech_recognition,Hinglish (8 samples),large-v3-turbo,cer,0.48314606741573035,lower,258,534

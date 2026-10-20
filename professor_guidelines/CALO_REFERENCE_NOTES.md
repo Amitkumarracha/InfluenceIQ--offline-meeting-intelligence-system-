@@ -15,3 +15,7 @@ Useful lessons for the report:
 5. State limitations of multilingual rules, name inference and participant attribution. CALO's historical results are related work, not measurements of this project.
 
 Read the full supplied PDF alongside the manuscript. No figures or tables from it have been copied into the new paper; the diagrams in this folder are original descriptions of the present implementation.
+
+## How its writing structure informs this manuscript
+
+CALO is used as an example of technical exposition, not a template to copy. The revised manuscript introduces the problem and scope, compares related work, explains the complete architecture, defines component interfaces and scoring, declares an evaluation protocol, and then separates results from interpretation. Each figure has a short caption and an explicit reference in the prose. New diagrams describe InfluenceIQ only. Unlike the historical reference, our current evidence is a small exploratory pilot, which must remain explicit in the abstract and conclusions.

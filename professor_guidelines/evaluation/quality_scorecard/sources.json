@@ -1,0 +1,8 @@
+{
+  "professor_guidelines/evaluation/semantic_quality/summary.json": "7fcd1f1f7bcd7a7754cc9ff7c289a94bcc866df6c5ce8cd8b94761c05e236678",
+  "professor_guidelines/evaluation/sequence_quality/summary.json": "f4af3f363a72271e3c99f5a6baa440e55c4203f164de7956fea25e1357b547f2",
+  "professor_guidelines/evaluation/ensemble_quality/summary.json": "20661961bdb4e226a65b8106542ba2698aa20b873bbd0d7476251a4a42e571d4",
+  "professor_guidelines/evaluation/refit_quality/summary.json": "64d39833235d6a81a1bc73b190447e841c102cc29f848118ef12cedf2aa46758",
+  "professor_guidelines/evaluation/asr_quality/summary.json": "c7634d48a47078dcda6bb553d9876a461d91a9a4270e7040841ec468ecaf5f54",
+  "professor_guidelines/evaluation/turbo_quality/summary.json": "2de9b05b51118e6194be91782379a17fc4522019f63f72c278241523d3092d5b"
+}

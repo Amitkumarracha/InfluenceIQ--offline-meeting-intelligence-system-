@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "conditions": "Real cached ASR text; functional inference and source traceability only",
+  "recordings": [
+    {
+      "meeting": "IS1001b",
+      "source": ".runtime/research-evaluation/research_IS1001b_transcript.json",
+      "asr_passages": 28,
+      "suggested_passages": 0,
+      "elapsed_seconds": 1.2132920189978904,
+      "source_trace_verified": true,
+      "accuracy_measured": false
+    },
+    {
+      "meeting": "TS3007d",
+      "source": ".runtime/research-evaluation/research_TS3007d_transcript.json",
+      "asr_passages": 26,
+      "suggested_passages": 0,
+      "elapsed_seconds": 0.08678929299640004,
+      "source_trace_verified": true,
+      "accuracy_measured": false
+    },
+    {
+      "meeting": "ES2002a_30_600_medium",
+      "source": "data/processed/audio/benchmark_ES2002a_30_600_medium_language_scope_transcript.json",
+      "source_sha256": "074ad0a70dae0999ffae77f1c7b60acc27c6b007799e44f9ad165e15b23d55fa",
+      "asr_passages": 120,
+      "suggested_passages": 47,
+      "elapsed_seconds": 0.6278237779988558,
+      "source_trace_verified": true,
+      "accuracy_measured": false
+    }
+  ],
+  "accuracy_measured": false,
+  "installed_model_sha256": "1db06c011c554b056528a02c08a379d3aa88835aa28d78e312d6c801d12725bf"
+}

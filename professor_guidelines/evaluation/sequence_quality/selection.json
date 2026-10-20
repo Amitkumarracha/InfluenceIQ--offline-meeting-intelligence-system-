@@ -1,0 +1,56 @@
+{
+  "primary": {
+    "method": "installed_baseline",
+    "dev": {
+      "precision": 0.5091252359974827,
+      "recall": 0.7242614145031334,
+      "f1": 0.597930524759793,
+      "positive_support": 1117,
+      "average_precision": 0.5422205203957804,
+      "confusion_matrix_tn_fp_fn_tp": [
+        1842,
+        780,
+        308,
+        809
+      ],
+      "accuracy": 0.7090131051083177,
+      "balanced_accuracy": 0.7133892884872646,
+      "specificity": 0.7025171624713958,
+      "macro_f1": 0.6849669388258312,
+      "mcc": 0.39515216220897664,
+      "roc_auc": 0.7533995453387663,
+      "brier": 0.18475444277025285,
+      "negative_support": 2622
+    },
+    "linear_weight": 0.25,
+    "threshold": 0.3577398635496262,
+    "smoothing_radius": 5
+  },
+  "baseline_dev": {
+    "precision": 0.5091252359974827,
+    "recall": 0.7242614145031334,
+    "f1": 0.597930524759793,
+    "positive_support": 1117,
+    "average_precision": 0.5422205203957804,
+    "confusion_matrix_tn_fp_fn_tp": [
+      1842,
+      780,
+      308,
+      809
+    ],
+    "accuracy": 0.7090131051083177,
+    "balanced_accuracy": 0.7133892884872646,
+    "specificity": 0.7025171624713958,
+    "macro_f1": 0.6849669388258312,
+    "mcc": 0.39515216220897664,
+    "roc_auc": 0.7533995453387663,
+    "brier": 0.18475444277025285,
+    "negative_support": 2622
+  },
+  "rates": [
+    0.004399604154534331,
+    0.012170812418175985
+  ],
+  "model_sha256": "d420431247145480272809a59f1f80ecb6d1fd9b6ddd89d168e79682d07b6b28",
+  "protocol_sha256": "eb3e7c22e8f7acf70eb2af607c2fb76ee9cb8c00491954715129a65e0872ded0"
+}

@@ -1,0 +1,31 @@
+{
+  "model": "small",
+  "meeting": "ES2002a",
+  "audio_sha256": "f147aa1e45c25c4b1c6025ce3f0688763df0ec8c1b1c99f57915900da0aeaf91",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.342857,
+    "substitutions": 30,
+    "deletions": 77,
+    "insertions": 1,
+    "reference_length": 315,
+    "hypothesis_length": 239
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.257589,
+    "substitutions": 40,
+    "deletions": 245,
+    "insertions": 12,
+    "reference_length": 1153,
+    "hypothesis_length": 920
+  },
+  "reference": "um and um this is just what we re gonna be doing over the next twenty five minutes mm hmm um so first of all just to kind of make sure that we all know each other i m laura and i m the project manager do great you want to introduce yourself again hi i m david and i m supposed to be an industrial designer okay and i m andrew and i m uh our marketing um expert i m craig and i m user interface great okay um so we re designing a new remote control and um oh i have to record who s here actually so that s david andrew and craig isn t it and you all arrived on time um yeah so des uh design a new remote control um as you can see it s supposed to be original trendy and user friendly um so that s kind of our our brief as it were um and so there are three different stages to the design um i m not really sure what what you guys have already received um in your emails what did you get um i just got the project announcement about mm hmm what the project is designing mm hmm a remote control that s about it mm hmm didn t yeah get that s anything that s is else that what it everybody yeah did got you get the same thing okay yeah um so we re gonna have like individual work and then a meeting about it and repeat that process three times um and at this point we get try out the whiteboard over there um so uh you get to draw your favourite animal and sum up your favourite characteristics of it so who would like to go i first will go that s fine very good alright so",
+  "hypothesis": "and this is what we re going to be doing over the next 25 minutes so first of all just to kind of make sure that we all know each other i m laura and i m a project manager do you want to introduce yourself again hi i m david and i m supposed to be an industrial designer i m andrew and i m a marketing expert so we re designing a new remote control and oh i have to record he s here actually so it s david and joan created this yes we re designing a new remote control as you can see it s the original trendy and user friendly so that s kind of our brief the wire and so there are three different stages to the design i m not really sure what you guys have already received in your emails what did you get i just got the project announcement about what the project is about designing your remote control that s about it yeah that s enough so everybody goes okay so we re to have individual work and then a meeting about it and repeat that process three times and at this point you get triad to whiteboard over there so you get to draw your favourite animal and sum up your favourite characteristics of it so who would like to go first i ll go first very good",
+  "elapsed_seconds": 31.281154646996583,
+  "detected_languages": [
+    "en"
+  ]
+}

@@ -139,6 +139,7 @@ class MeetingReport:
     influence_method: dict[str, Any] = field(default_factory=dict)
     consistency_checks: dict[str, Any] = field(default_factory=dict)
     language_analysis: dict[str, Any] = field(default_factory=dict)
+    discussion_review: dict[str, Any] = field(default_factory=dict)
 
 
 # ---------------------------------------------------------------------------
@@ -213,6 +214,7 @@ def _resolve_input_paths(meeting_id: str, input_dir: Path) -> dict[str, Path]:
         "events":       ev_dir  / f"{meeting_id}_events.json",
         "evidence":     ev_dir  / f"{meeting_id}_evidence.json",
         "decisions":    dec_dir / f"{meeting_id}_decisions.json",
+        "discussions":  input_dir / "discussions" / f"{meeting_id}_discussions.json",
         "interactions": int_dir / f"{meeting_id}_interactions.json",
         "influence":    inf_dir / f"{meeting_id}_influence.json",
         "slides":       sld_dir / f"{meeting_id}_slides.json",
@@ -828,4 +830,5 @@ def generate_report(
         influence_method=(influence_data or {}).get('method', {}),
         consistency_checks=check_consistency(aligned, slides),
         language_analysis=language_profile((transcript_data or {}).get('segments', []), languages),
+        discussion_review=_load_json(paths['discussions']) or {},
     )

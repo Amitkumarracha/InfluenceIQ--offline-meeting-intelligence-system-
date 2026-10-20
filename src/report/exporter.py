@@ -137,6 +137,7 @@ def export_json(report: MeetingReport, output_path: Path) -> None:
         "influence_method":     report.influence_method,
         "consistency_checks":   report.consistency_checks,
         "language_analysis":    report.language_analysis,
+        "discussion_review":    report.discussion_review,
     }
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
@@ -460,6 +461,11 @@ def export_markdown(report: MeetingReport, output_path: Path) -> None:
         lines += ["*Traceability data not available.*", ""]
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    if report.discussion_review.get('status') == 'ready':
+        lines += ['## Discussion passages to review', '',
+                  'Learned suggestions for English discussion passages. Verify against the audio; these are not final decisions.', '']
+        for passage in report.discussion_review.get('passages', []):
+            lines += [f"- {_fmt_ts(passage['start'])} · {passage['speaker']} · source segment {passage['source_segment_id']}: {passage['text']}"]
     output_path.write_text("\n".join(lines), encoding="utf-8")
     logger.info("Markdown report saved: %s", output_path)
 
@@ -670,6 +676,12 @@ def export_html(report: MeetingReport, output_path: Path) -> None:
             tr_rows)
         sections.append(_sec("10. Traceability", tr_html))
 
+    if report.discussion_review.get('status') == 'ready':
+        suggestions = '<p>Learned suggestions for English discussion passages. Verify against the audio; these are not final decisions.</p>'
+        for passage in report.discussion_review.get('passages', []):
+            suggestions += (f"<article><p>{_h(passage['text'])}</p><p>{_h(_fmt_ts(passage['start']))} · "
+                            f"{_h(passage['speaker'])} · source segment {_h(passage['source_segment_id'])}</p></article>")
+        sections.append(_sec('Discussion passages to review', suggestions))
     body = "\n".join(sections)
     html_content = f"""<!DOCTYPE html>
 <html lang="en">

@@ -1,0 +1,17 @@
+{
+  "prepared": "2026-10-20",
+  "scope": "Presentation sources; original rough deck retained unchanged.",
+  "sha256": {
+    "presentation/InfluenceIQ_ESE_Presentation.pptx.pptx": "97ed49d497eab7e269cc624ab114c184cbd77401bf2fa6a8b14829e644189fee",
+    "professor_guidelines/RESEARCH_PAPER.md": "f6c877e75f0ddda04644cf11c7cf3618516bd61f864ab187980fead192f3652c",
+    "professor_guidelines/evaluation/quality_scorecard/summary.json": "e505d547d073d1068f0c0a557f657b12ed04a19b45530ca6ba6d15dd9b276681",
+    "professor_guidelines/evaluation/classifier_comparison/summary.json": "4e593570db27d574fe1a1f8fc2d4a637d1728f44f2a199c4f2c771a465773ccd",
+    "professor_guidelines/evaluation/pipeline_improvement/summary.json": "87f63c828ef6b057d4fcd832c2ceb8c2c8febcf18d68423cc4dfa5886b6fc473",
+    "professor_guidelines/evaluation/comparative_evaluation.json": "9e4881808c75b7c8b1b94d83f81d681e9c0f84c01715cfa69e4479076daaa07d",
+    "professor_guidelines/evaluation/quality_scorecard/regression_tests.log": "43fd9435881fb21be3d4c4464c061a225342bc898a60fce08444aa9381e2848e",
+    "backend/api.py": "709180c3743a6d88aa9d091d81098e8e8a5cab1ea54eb44641b05f6cd0c5a8a0",
+    "src/pipeline/orchestrator.py": "a41468a52f9b1ba3320be4692b8fca5bc905654d20b3943b2deee76148c95bb5",
+    "src/audio/asr.py": "6e3da82755739ddbcbd776148f1396c8cb262030c98c9bcf74891aabae11a398",
+    "src/meeting/discussions.py": "990ca4070bfed94947b261a03484fa7db3d1b59b55060883f3552558cd05fc86"
+  }
+}

@@ -1,0 +1,3017 @@
+[
+  {
+    "slide": 1,
+    "text": "MAI Project AY 2026–27",
+    "x": 0.6,
+    "y": 0.25,
+    "w": 12.13,
+    "h": 0.52,
+    "font": 28
+  },
+  {
+    "slide": 1,
+    "text": "ESE Presentation",
+    "x": 0.6,
+    "y": 0.93,
+    "w": 12.13,
+    "h": 0.48,
+    "font": 25
+  },
+  {
+    "slide": 1,
+    "text": "Project ID: Group 12",
+    "x": 0.6,
+    "y": 1.55,
+    "w": 12.13,
+    "h": 0.36,
+    "font": 19
+  },
+  {
+    "slide": 1,
+    "text": "Title of the Project: InfluenceIQ — Offline Decision-Discussion Detection with\nSource-Linked Meeting Review",
+    "x": 0.7,
+    "y": 2.02,
+    "w": 11.93,
+    "h": 0.68,
+    "font": 19
+  },
+  {
+    "slide": 1,
+    "text": "Name of the Guide: Dr. Nivedita Mishra",
+    "x": 0.6,
+    "y": 4.9,
+    "w": 12.13,
+    "h": 0.4,
+    "font": 20
+  },
+  {
+    "slide": 1,
+    "text": "Group Members:",
+    "x": 0.55,
+    "y": 5.48,
+    "w": 12.2,
+    "h": 0.34,
+    "font": 18
+  },
+  {
+    "slide": 1,
+    "text": "1. Anushka Chatterjee (23070126015)",
+    "x": 0.72,
+    "y": 5.93,
+    "w": 11.9,
+    "h": 0.3,
+    "font": 17.5
+  },
+  {
+    "slide": 1,
+    "text": "2. Amitkumar Racha (24070126501)",
+    "x": 0.72,
+    "y": 6.239999999999999,
+    "w": 11.9,
+    "h": 0.3,
+    "font": 17.5
+  },
+  {
+    "slide": 1,
+    "text": "3. Sahil Awatramani (23070126112)",
+    "x": 0.72,
+    "y": 6.55,
+    "w": 11.9,
+    "h": 0.3,
+    "font": 17.5
+  },
+  {
+    "slide": 1,
+    "text": "4. Shriyans Sahoo (23070126125)",
+    "x": 0.72,
+    "y": 6.859999999999999,
+    "w": 11.9,
+    "h": 0.3,
+    "font": 17.5
+  },
+  {
+    "slide": 1,
+    "text": "20-10-2026",
+    "x": 0.6,
+    "y": 7.25,
+    "w": 2,
+    "h": 0.18,
+    "font": 9
+  },
+  {
+    "slide": 1,
+    "text": "Department of Artificial Intelligence & Machine Learning",
+    "x": 3.1,
+    "y": 7.25,
+    "w": 9.6,
+    "h": 0.18,
+    "font": 9
+  },
+  {
+    "slide": 2,
+    "text": "WHY THIS PROJECT",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 2,
+    "text": "Introduction",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 2,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 2,
+    "text": "02 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 2,
+    "text": "“Where did we discuss the prototype decision?”",
+    "x": 0.7,
+    "y": 1.95,
+    "w": 11.9,
+    "h": 0.85,
+    "font": 30
+  },
+  {
+    "slide": 2,
+    "text": "Find the passage",
+    "x": 0.87,
+    "y": 3.4000000000000004,
+    "w": 3.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 2,
+    "text": "Relevant discussion can be scattered across the recording.",
+    "x": 0.87,
+    "y": 4.12,
+    "w": 3.5100000000000002,
+    "h": 1.5899999999999999,
+    "font": 22
+  },
+  {
+    "slide": 2,
+    "text": "Know who spoke",
+    "x": 5.07,
+    "y": 3.4000000000000004,
+    "w": 3.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 2,
+    "text": "Wrong speaker labels can credit the wrong participant.",
+    "x": 5.07,
+    "y": 4.12,
+    "w": 3.5100000000000002,
+    "h": 1.5899999999999999,
+    "font": 22
+  },
+  {
+    "slide": 2,
+    "text": "Check the source",
+    "x": 9.270000000000001,
+    "y": 3.4000000000000004,
+    "w": 3.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 2,
+    "text": "A candidate should lead back to its words and timestamp.",
+    "x": 9.270000000000001,
+    "y": 4.12,
+    "w": 3.5100000000000002,
+    "h": 1.5899999999999999,
+    "font": 22
+  },
+  {
+    "slide": 2,
+    "text": "Problem framing: passage retrieval and evidence review. We do not assume any external product lacks these features.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 3,
+    "text": "A PLAIN-LANGUAGE EXAMPLE",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 3,
+    "text": "Problem Statement",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 3,
+    "text": "Illustrative dialogue only — these are not measured model predictions.",
+    "x": 0.55,
+    "y": 1.42,
+    "w": 12.1,
+    "h": 0.45,
+    "font": 15
+  },
+  {
+    "slide": 3,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 3,
+    "text": "03 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 3,
+    "text": "Discussion",
+    "x": 0.87,
+    "y": 2.35,
+    "w": 5.31,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 3,
+    "text": "“Could we use the smaller prototype?\nLet’s check its battery life first.”",
+    "x": 0.87,
+    "y": 3.07,
+    "w": 5.31,
+    "h": 1.69,
+    "font": 25
+  },
+  {
+    "slide": 3,
+    "text": "Final-decision candidate",
+    "x": 6.97,
+    "y": 2.35,
+    "w": 5.46,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 3,
+    "text": "“We agree to use the smaller prototype.”",
+    "x": 6.97,
+    "y": 3.07,
+    "w": 5.46,
+    "h": 1.69,
+    "font": 25
+  },
+  {
+    "slide": 3,
+    "text": "The learned model suggests discussion passages.\nDecision rules and human confirmation are separate.",
+    "x": 0.85,
+    "y": 5.45,
+    "w": 11.7,
+    "h": 0.95,
+    "font": 26
+  },
+  {
+    "slide": 4,
+    "text": "OBJECTIVES & REQUIREMENTS",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 4,
+    "text": "Objectives of the Project",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 4,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 4,
+    "text": "04 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 4,
+    "text": "Process locally",
+    "x": 0.87,
+    "y": 2.3000000000000003,
+    "w": 3.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 4,
+    "text": "Audio, speaker analysis and available slide content are processed on the laptop.",
+    "x": 0.87,
+    "y": 3.02,
+    "w": 3.5100000000000002,
+    "h": 2.14,
+    "font": 22
+  },
+  {
+    "slide": 4,
+    "text": "Keep evidence attached",
+    "x": 5.07,
+    "y": 2.3000000000000003,
+    "w": 3.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 4,
+    "text": "Retain source text, segment IDs, speaker labels and recording timestamps.",
+    "x": 5.07,
+    "y": 3.02,
+    "w": 3.5100000000000002,
+    "h": 2.14,
+    "font": 22
+  },
+  {
+    "slide": 4,
+    "text": "Measure specific tasks",
+    "x": 9.270000000000001,
+    "y": 2.3000000000000003,
+    "w": 3.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 4,
+    "text": "Compare discussion classifiers and speech components with matched references.",
+    "x": 9.270000000000001,
+    "y": 3.02,
+    "w": 3.5100000000000002,
+    "h": 2.14,
+    "font": 22
+  },
+  {
+    "slide": 4,
+    "text": "Required behaviour: record/upload → analyse → review → export",
+    "x": 0.8,
+    "y": 5.8,
+    "w": 11.8,
+    "h": 0.6,
+    "font": 25
+  },
+  {
+    "slide": 5,
+    "text": "PROJECT PLAN • COMPLETED PHASES",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 5,
+    "text": "Project Plan with Timeline",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 5,
+    "text": "Phase sequence is documented; unverified month-by-month dates are not invented.",
+    "x": 0.55,
+    "y": 1.42,
+    "w": 12.1,
+    "h": 0.45,
+    "font": 15
+  },
+  {
+    "slide": 5,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 5,
+    "text": "05 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 5,
+    "text": "1",
+    "x": 0.8500000000000001,
+    "y": 2.35,
+    "w": 0.5,
+    "h": 0.5,
+    "font": 30
+  },
+  {
+    "slide": 5,
+    "text": "Scope + literature",
+    "x": 1.5,
+    "y": 2.4,
+    "w": 2.85,
+    "h": 0.9,
+    "font": 22
+  },
+  {
+    "slide": 5,
+    "text": "2",
+    "x": 5.050000000000001,
+    "y": 2.35,
+    "w": 0.5,
+    "h": 0.5,
+    "font": 30
+  },
+  {
+    "slide": 5,
+    "text": "Prepare grouped data",
+    "x": 5.7,
+    "y": 2.4,
+    "w": 2.85,
+    "h": 0.9,
+    "font": 22
+  },
+  {
+    "slide": 5,
+    "text": "3",
+    "x": 9.25,
+    "y": 2.35,
+    "w": 0.5,
+    "h": 0.5,
+    "font": 30
+  },
+  {
+    "slide": 5,
+    "text": "Train + compare",
+    "x": 9.9,
+    "y": 2.4,
+    "w": 2.85,
+    "h": 0.9,
+    "font": 22
+  },
+  {
+    "slide": 5,
+    "text": "4",
+    "x": 0.8500000000000001,
+    "y": 4.15,
+    "w": 0.5,
+    "h": 0.5,
+    "font": 30
+  },
+  {
+    "slide": 5,
+    "text": "Select combination",
+    "x": 1.5,
+    "y": 4.2,
+    "w": 2.85,
+    "h": 0.9,
+    "font": 22
+  },
+  {
+    "slide": 5,
+    "text": "5",
+    "x": 5.050000000000001,
+    "y": 4.15,
+    "w": 0.5,
+    "h": 0.5,
+    "font": 30
+  },
+  {
+    "slide": 5,
+    "text": "Integrate review",
+    "x": 5.7,
+    "y": 4.2,
+    "w": 2.85,
+    "h": 0.9,
+    "font": 22
+  },
+  {
+    "slide": 5,
+    "text": "6",
+    "x": 9.25,
+    "y": 4.15,
+    "w": 0.5,
+    "h": 0.5,
+    "font": 30
+  },
+  {
+    "slide": 5,
+    "text": "Evaluate + report",
+    "x": 9.9,
+    "y": 4.2,
+    "w": 2.85,
+    "h": 0.9,
+    "font": 22
+  },
+  {
+    "slide": 6,
+    "text": "LITERATURE & CONTRIBUTION",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 6,
+    "text": "Literature Review",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 6,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 6,
+    "text": "06 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 6,
+    "text": "Research area",
+    "x": 0.75,
+    "y": 2.1950000000000003,
+    "w": 2.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Established focus",
+    "x": 3.75,
+    "y": 2.1950000000000003,
+    "w": 3.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Our implemented focus",
+    "x": 7.75,
+    "y": 2.1950000000000003,
+    "w": 4.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "CALO [1]",
+    "x": 0.75,
+    "y": 2.9250000000000003,
+    "w": 2.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Integrated meeting assistance",
+    "x": 3.75,
+    "y": 2.9250000000000003,
+    "w": 3.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Bound the task to local evidence review",
+    "x": 7.75,
+    "y": 2.9250000000000003,
+    "w": 4.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Whisper / WhisperX [2–3]",
+    "x": 0.75,
+    "y": 3.6550000000000002,
+    "w": 2.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Recognition and alignment",
+    "x": 3.75,
+    "y": 3.6550000000000002,
+    "w": 3.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Use pretrained speech; no ASR novelty claim",
+    "x": 7.75,
+    "y": 3.6550000000000002,
+    "w": 4.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Speakers [4–5, 7–8]",
+    "x": 0.75,
+    "y": 4.385000000000001,
+    "w": 2.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Speakers and multilingual evaluation",
+    "x": 3.75,
+    "y": 4.385000000000001,
+    "w": 3.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Measure speaker and language limits separately",
+    "x": 7.75,
+    "y": 4.385000000000001,
+    "w": 4.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Meeting datasets [10–11]",
+    "x": 0.75,
+    "y": 5.115,
+    "w": 2.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Summaries and supporting evidence",
+    "x": 3.75,
+    "y": 5.115,
+    "w": 3.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Provide extractive, source-linked suggestions",
+    "x": 7.75,
+    "y": 5.115,
+    "w": 4.8,
+    "h": 0.65,
+    "font": 17
+  },
+  {
+    "slide": 6,
+    "text": "Integrated local review + a matched discussion-classifier comparison.",
+    "x": 0.8,
+    "y": 6.03,
+    "w": 11.7,
+    "h": 0.5,
+    "font": 23
+  },
+  {
+    "slide": 7,
+    "text": "PROJECT FOCUS",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 7,
+    "text": "Gap in the Research / Technology / Methodology",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 7,
+    "text": "Established components exist; the project connects them into a reviewable local workflow.",
+    "x": 0.55,
+    "y": 1.42,
+    "w": 12.1,
+    "h": 0.45,
+    "font": 15
+  },
+  {
+    "slide": 7,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 7,
+    "text": "07 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 7,
+    "text": "Integration need",
+    "x": 0.87,
+    "y": 2.3000000000000003,
+    "w": 3.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 7,
+    "text": "Connect words, speakers and optional slide content while retaining source IDs and timestamps.",
+    "x": 0.87,
+    "y": 3.02,
+    "w": 3.5100000000000002,
+    "h": 2.59,
+    "font": 22
+  },
+  {
+    "slide": 7,
+    "text": "Evaluation need",
+    "x": 5.07,
+    "y": 2.3000000000000003,
+    "w": 3.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 7,
+    "text": "Measure discussion membership separately from speech errors and final-decision correctness.",
+    "x": 5.07,
+    "y": 3.02,
+    "w": 3.5100000000000002,
+    "h": 2.59,
+    "font": 22
+  },
+  {
+    "slide": 7,
+    "text": "Evidence still needed",
+    "x": 9.270000000000001,
+    "y": 2.3000000000000003,
+    "w": 3.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 7,
+    "text": "Validate complete recordings, slide links and human influence rankings on new annotations.",
+    "x": 9.270000000000001,
+    "y": 3.02,
+    "w": 3.5100000000000002,
+    "h": 2.59,
+    "font": 22
+  },
+  {
+    "slide": 7,
+    "text": "Implemented focus: local, source-linked discussion review.",
+    "x": 0.8,
+    "y": 6.05,
+    "w": 11.9,
+    "h": 0.45,
+    "font": 24
+  },
+  {
+    "slide": 8,
+    "text": "SYSTEM DESIGN",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 8,
+    "text": "Description of the Proposed Solution",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 8,
+    "text": "Data flow, model boundaries, persistence and human review — all on the laptop.",
+    "x": 0.55,
+    "y": 1.42,
+    "w": 12.1,
+    "h": 0.45,
+    "font": 15
+  },
+  {
+    "slide": 8,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 8,
+    "text": "08 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 8,
+    "text": "1  Capture",
+    "x": 0.55,
+    "y": 1.95,
+    "w": 2.1,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 8,
+    "text": "2  Speech & slides",
+    "x": 2.95,
+    "y": 1.95,
+    "w": 3.25,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 8,
+    "text": "3  Analysis",
+    "x": 6.55,
+    "y": 1.95,
+    "w": 3.1,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 8,
+    "text": "4  Save & review",
+    "x": 10.0,
+    "y": 1.95,
+    "w": 2.75,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 8,
+    "text": "Browser input",
+    "x": 0.67,
+    "y": 2.5500000000000003,
+    "w": 1.86,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "FastAPI",
+    "x": 0.67,
+    "y": 3.46,
+    "w": 1.86,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Auth + validation",
+    "x": 0.67,
+    "y": 3.8899999999999997,
+    "w": 1.86,
+    "h": 0.2599999999999999,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Queue + FFmpeg",
+    "x": 0.67,
+    "y": 4.5,
+    "w": 1.86,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "1 worker; 16 kHz mono",
+    "x": 0.67,
+    "y": 4.930000000000001,
+    "w": 1.86,
+    "h": 0.33999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Optional PPTX",
+    "x": 0.67,
+    "y": 5.67,
+    "w": 1.86,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Ordered slide files",
+    "x": 0.67,
+    "y": 6.1000000000000005,
+    "w": 1.86,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "ASR + VAD",
+    "x": 3.0700000000000003,
+    "y": 2.5500000000000003,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "faster-whisper",
+    "x": 3.0700000000000003,
+    "y": 2.9800000000000004,
+    "w": 1.29,
+    "h": 0.18999999999999995,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Word cache",
+    "x": 4.7700000000000005,
+    "y": 2.5500000000000003,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Words + times",
+    "x": 4.7700000000000005,
+    "y": 2.9800000000000004,
+    "w": 1.29,
+    "h": 0.18999999999999995,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Diarization",
+    "x": 3.0700000000000003,
+    "y": 3.65,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Sherpa-ONNX",
+    "x": 3.0700000000000003,
+    "y": 4.08,
+    "w": 1.29,
+    "h": 0.2899999999999999,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Speakers",
+    "x": 4.7700000000000005,
+    "y": 3.65,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Who spoke when",
+    "x": 4.7700000000000005,
+    "y": 4.08,
+    "w": 1.29,
+    "h": 0.2899999999999999,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Attribution",
+    "x": 4.7700000000000005,
+    "y": 4.72,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Tagged words",
+    "x": 4.7700000000000005,
+    "y": 5.15,
+    "w": 1.29,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Slide parsing",
+    "x": 3.0700000000000003,
+    "y": 5.67,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Text/tables/notes",
+    "x": 3.0700000000000003,
+    "y": 6.1000000000000005,
+    "w": 1.29,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Align or skip",
+    "x": 4.7700000000000005,
+    "y": 5.67,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "MiniLM / TF-IDF",
+    "x": 4.7700000000000005,
+    "y": 6.1000000000000005,
+    "w": 1.29,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Learned English review",
+    "x": 6.67,
+    "y": 2.5500000000000003,
+    "w": 2.8600000000000003,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "TF-IDF → 75% forest + 25% linear\nSmooth → threshold → suggestions",
+    "x": 6.67,
+    "y": 2.9800000000000004,
+    "w": 2.8600000000000003,
+    "h": 0.49,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Event rules → evidence",
+    "x": 6.67,
+    "y": 3.75,
+    "w": 2.8600000000000003,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Proposals / questions / agreements",
+    "x": 6.67,
+    "y": 4.18,
+    "w": 2.8600000000000003,
+    "h": 0.20999999999999996,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Decisions → interactions",
+    "x": 6.67,
+    "y": 4.75,
+    "w": 2.8600000000000003,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Source anchors and relationships",
+    "x": 6.67,
+    "y": 5.180000000000001,
+    "w": 2.8600000000000003,
+    "h": 0.24,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Exploratory influence",
+    "x": 6.67,
+    "y": 5.77,
+    "w": 2.8600000000000003,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Unvalidated heuristic",
+    "x": 6.67,
+    "y": 6.2,
+    "w": 2.8600000000000003,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Report builder",
+    "x": 10.12,
+    "y": 2.5500000000000003,
+    "w": 2.51,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Suggestions + rule outputs\nSource IDs stay attached",
+    "x": 10.12,
+    "y": 2.9800000000000004,
+    "w": 2.51,
+    "h": 0.6399999999999999,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Local persistence",
+    "x": 10.12,
+    "y": 4.0,
+    "w": 2.51,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "SQLite reports + file artifacts",
+    "x": 10.12,
+    "y": 4.43,
+    "w": 2.51,
+    "h": 0.30999999999999994,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Review + exports",
+    "x": 10.12,
+    "y": 5.13,
+    "w": 2.51,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 8,
+    "text": "Listen • labels • evidence\nJSON / MD / HTML / CSV",
+    "x": 10.12,
+    "y": 5.5600000000000005,
+    "w": 2.51,
+    "h": 0.74,
+    "font": 11.2
+  },
+  {
+    "slide": 8,
+    "text": "Arrows show data dependencies, not parallel compute. ASR drafts precede final speaker attribution; cached words are reused.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 9,
+    "text": "FUNCTIONAL & OPERATIONAL REQUIREMENTS",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 9,
+    "text": "Requirement Analysis",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 9,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 9,
+    "text": "09 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 9,
+    "text": "Functional requirements",
+    "x": 0.87,
+    "y": 2.3000000000000003,
+    "w": 5.46,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 9,
+    "text": "Record or upload audio.\nOptionally add presentation slides.\nReview source text and timestamps.\nCorrect speaker display names.\nExport source-linked reports.",
+    "x": 0.87,
+    "y": 3.02,
+    "w": 5.46,
+    "h": 2.84,
+    "font": 23
+  },
+  {
+    "slide": 9,
+    "text": "Operational requirements",
+    "x": 7.069999999999999,
+    "y": 2.3000000000000003,
+    "w": 5.359999999999999,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 9,
+    "text": "Preprovision local model assets.\nShow explicit processing stages.\nQueue one analysis job at a time.\nPersist job and report state.\nKeep optional-stage failures visible.",
+    "x": 7.069999999999999,
+    "y": 3.02,
+    "w": 5.359999999999999,
+    "h": 2.84,
+    "font": 23
+  },
+  {
+    "slide": 9,
+    "text": "Speaker renaming changes display metadata; correcting acoustic clusters requires speaker analysis to be rerun.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 10,
+    "text": "IMPLEMENTED COMPONENTS",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 10,
+    "text": "Technology Stack",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 10,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 10,
+    "text": "10 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 10,
+    "text": "Layer",
+    "x": 0.75,
+    "y": 2.125,
+    "w": 2.3499999999999996,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Technology",
+    "x": 3.3,
+    "y": 2.125,
+    "w": 4.8,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Purpose",
+    "x": 8.299999999999999,
+    "y": 2.125,
+    "w": 4.25,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Interface",
+    "x": 0.75,
+    "y": 2.765,
+    "w": 2.3499999999999996,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "React + browser audio",
+    "x": 3.3,
+    "y": 2.765,
+    "w": 4.8,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Record, upload and source review",
+    "x": 8.299999999999999,
+    "y": 2.765,
+    "w": 4.25,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Local service",
+    "x": 0.75,
+    "y": 3.4050000000000002,
+    "w": 2.3499999999999996,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "FastAPI + Python",
+    "x": 3.3,
+    "y": 3.4050000000000002,
+    "w": 4.8,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Validation, queue and orchestration",
+    "x": 8.299999999999999,
+    "y": 3.4050000000000002,
+    "w": 4.25,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Audio and speakers",
+    "x": 0.75,
+    "y": 4.045,
+    "w": 2.3499999999999996,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "FFmpeg / faster-whisper / Sherpa-ONNX",
+    "x": 3.3,
+    "y": 4.045,
+    "w": 4.8,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Normalize, recognise and diarize",
+    "x": 8.299999999999999,
+    "y": 4.045,
+    "w": 4.25,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Slides",
+    "x": 0.75,
+    "y": 4.685,
+    "w": 2.3499999999999996,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "PPTX parsing / MiniLM / TF-IDF",
+    "x": 3.3,
+    "y": 4.685,
+    "w": 4.8,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Extract text and propose links",
+    "x": 8.299999999999999,
+    "y": 4.685,
+    "w": 4.25,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Learned discussion",
+    "x": 0.75,
+    "y": 5.325,
+    "w": 2.3499999999999996,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "scikit-learn: TF-IDF + forest / logistic",
+    "x": 3.3,
+    "y": 5.325,
+    "w": 4.8,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "English discussion suggestions",
+    "x": 8.299999999999999,
+    "y": 5.325,
+    "w": 4.25,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Storage and reports",
+    "x": 0.75,
+    "y": 5.965,
+    "w": 2.3499999999999996,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "SQLite + local artifacts",
+    "x": 3.3,
+    "y": 5.965,
+    "w": 4.8,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Saved review and report exports",
+    "x": 8.299999999999999,
+    "y": 5.965,
+    "w": 4.25,
+    "h": 0.56,
+    "font": 17
+  },
+  {
+    "slide": 10,
+    "text": "Speech and embedding models are pretrained. Small supervised discussion classifiers are trained on the training partition.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 11,
+    "text": "THE NLP METHOD",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 11,
+    "text": "Design: Discussion Detector",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 11,
+    "text": "Two conventional classifiers; no generative meeting summary is produced.",
+    "x": 0.55,
+    "y": 1.42,
+    "w": 12.1,
+    "h": 0.45,
+    "font": 15
+  },
+  {
+    "slide": 11,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 11,
+    "text": "11 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 11,
+    "text": "Reference acts",
+    "x": 0.87,
+    "y": 2.35,
+    "w": 2.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 11,
+    "text": "Human text +\ndiscussion labels",
+    "x": 0.87,
+    "y": 3.07,
+    "w": 2.5100000000000002,
+    "h": 1.3900000000000001,
+    "font": 20
+  },
+  {
+    "slide": 11,
+    "text": "Lexical features",
+    "x": 4.05,
+    "y": 2.35,
+    "w": 2.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 11,
+    "text": "Words / characters\n+ nearby context",
+    "x": 4.05,
+    "y": 3.07,
+    "w": 2.5100000000000002,
+    "h": 1.3900000000000001,
+    "font": 20
+  },
+  {
+    "slide": 11,
+    "text": "Two scores",
+    "x": 7.23,
+    "y": 2.35,
+    "w": 2.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 11,
+    "text": "Random forest\n+ logistic regression",
+    "x": 7.23,
+    "y": 3.07,
+    "w": 2.5100000000000002,
+    "h": 1.3900000000000001,
+    "font": 20
+  },
+  {
+    "slide": 11,
+    "text": "Review output",
+    "x": 10.410000000000002,
+    "y": 2.35,
+    "w": 2.5100000000000002,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 11,
+    "text": "Smooth scores\n+ apply threshold",
+    "x": 10.410000000000002,
+    "y": 3.07,
+    "w": 2.5100000000000002,
+    "h": 1.3900000000000001,
+    "font": 20
+  },
+  {
+    "slide": 11,
+    "text": "Combined score = 75% forest + 25% logistic",
+    "x": 1.05,
+    "y": 5.22,
+    "w": 11.1,
+    "h": 0.5,
+    "font": 26
+  },
+  {
+    "slide": 11,
+    "text": "Context: ±40 acts. Smoothing: ±5 acts. Threshold: 0.357740. English-only learned review.",
+    "x": 0.85,
+    "y": 6.12,
+    "w": 11.7,
+    "h": 0.4,
+    "font": 16
+  },
+  {
+    "slide": 12,
+    "text": "EVALUATION DESIGN",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 12,
+    "text": "Development / Implementation",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 12,
+    "text": "47 AMI meetings with manual discussion spans; series remain in one partition.",
+    "x": 0.55,
+    "y": 1.42,
+    "w": 12.1,
+    "h": 0.45,
+    "font": 15
+  },
+  {
+    "slide": 12,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 12,
+    "text": "12 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 12,
+    "text": "Partition",
+    "x": 0.9,
+    "y": 2.2550000000000003,
+    "w": 3.0999999999999996,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "Meetings",
+    "x": 4.199999999999999,
+    "y": 2.2550000000000003,
+    "w": 1.9000000000000001,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "Acts",
+    "x": 6.299999999999999,
+    "y": 2.2550000000000003,
+    "w": 2.8,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "Positive acts",
+    "x": 9.299999999999999,
+    "y": 2.2550000000000003,
+    "w": 3.0999999999999996,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "Training",
+    "x": 0.9,
+    "y": 2.9750000000000005,
+    "w": 3.0999999999999996,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "29",
+    "x": 4.199999999999999,
+    "y": 2.9750000000000005,
+    "w": 1.9000000000000001,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "20,339",
+    "x": 6.299999999999999,
+    "y": 2.9750000000000005,
+    "w": 2.8,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "5,862",
+    "x": 9.299999999999999,
+    "y": 2.9750000000000005,
+    "w": 3.0999999999999996,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "Development",
+    "x": 0.9,
+    "y": 3.6950000000000003,
+    "w": 3.0999999999999996,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "6",
+    "x": 4.199999999999999,
+    "y": 3.6950000000000003,
+    "w": 1.9000000000000001,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "3,739",
+    "x": 6.299999999999999,
+    "y": 3.6950000000000003,
+    "w": 2.8,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "1,117",
+    "x": 9.299999999999999,
+    "y": 3.6950000000000003,
+    "w": 3.0999999999999996,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "Historical",
+    "x": 0.9,
+    "y": 4.415,
+    "w": 3.0999999999999996,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "12",
+    "x": 4.199999999999999,
+    "y": 4.415,
+    "w": 1.9000000000000001,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "11,136",
+    "x": 6.299999999999999,
+    "y": 4.415,
+    "w": 2.8,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "2,481",
+    "x": 9.299999999999999,
+    "y": 4.415,
+    "w": 3.0999999999999996,
+    "h": 0.64,
+    "font": 23
+  },
+  {
+    "slide": 12,
+    "text": "Compare 4 classifier families × 2 feature settings.\nChoose settings on development data; retain all results.",
+    "x": 0.85,
+    "y": 5.35,
+    "w": 11.6,
+    "h": 0.95,
+    "font": 25
+  },
+  {
+    "slide": 12,
+    "text": "Historical data has been examined across rounds: exploratory evidence, with only 3 independent historical project series.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 13,
+    "text": "TESTING & QUALITY",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 13,
+    "text": "Testing & Debugging",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 13,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 13,
+    "text": "13 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 13,
+    "text": "597 recorded software tests",
+    "x": 0.87,
+    "y": 2.3000000000000003,
+    "w": 5.46,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 13,
+    "text": "Checks include batching, source IDs, meeting boundaries, optional-stage errors and report/export integration.",
+    "x": 0.87,
+    "y": 3.02,
+    "w": 5.46,
+    "h": 2.64,
+    "font": 24
+  },
+  {
+    "slide": 13,
+    "text": "Keep failed experiments visible",
+    "x": 7.069999999999999,
+    "y": 2.3000000000000003,
+    "w": 5.359999999999999,
+    "h": 0.55,
+    "font": 21
+  },
+  {
+    "slide": 13,
+    "text": "Semantic and continuity searches did not replace the baseline. Calibration and refit gains failed transfer checks.",
+    "x": 7.069999999999999,
+    "y": 3.02,
+    "w": 5.359999999999999,
+    "h": 2.64,
+    "font": 24
+  },
+  {
+    "slide": 13,
+    "text": "597-test regression recorded 19 October 2026; it is not a count of correctly analysed meetings. Full negative results remain in the research report.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 14,
+    "text": "DISCUSSION RESULTS",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 14,
+    "text": "Project Outcome: Discussion Detection",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 14,
+    "text": "Historical cohort: human reference transcripts and act boundaries — not recording-level app accuracy.",
+    "x": 0.55,
+    "y": 1.42,
+    "w": 12.1,
+    "h": 0.45,
+    "font": 15
+  },
+  {
+    "slide": 14,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 14,
+    "text": "14 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 14,
+    "text": "Logistic",
+    "x": 0.75,
+    "y": 2.2,
+    "w": 2.1,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "50.60",
+    "x": 7.35,
+    "y": 2.1900000000000004,
+    "w": 0.8,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "Naive Bayes",
+    "x": 0.75,
+    "y": 2.8800000000000003,
+    "w": 2.1,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "47.12",
+    "x": 7.35,
+    "y": 2.8700000000000006,
+    "w": 0.8,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "Linear SVM",
+    "x": 0.75,
+    "y": 3.5600000000000005,
+    "w": 2.1,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "50.48",
+    "x": 7.35,
+    "y": 3.5500000000000007,
+    "w": 0.8,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "Forest",
+    "x": 0.75,
+    "y": 4.24,
+    "w": 2.1,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "52.08",
+    "x": 7.35,
+    "y": 4.23,
+    "w": 0.8,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "Combination",
+    "x": 0.75,
+    "y": 4.92,
+    "w": 2.1,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "53.54",
+    "x": 7.35,
+    "y": 4.91,
+    "w": 0.8,
+    "h": 0.4,
+    "font": 18
+  },
+  {
+    "slide": 14,
+    "text": "Historical F1 (%) — common context-40 features",
+    "x": 0.8,
+    "y": 5.95,
+    "w": 7.4,
+    "h": 0.4,
+    "font": 16
+  },
+  {
+    "slide": 14,
+    "text": "39.94%",
+    "x": 9.05,
+    "y": 2.37,
+    "w": 3.2,
+    "h": 0.55,
+    "font": 31
+  },
+  {
+    "slide": 14,
+    "text": "Precision",
+    "x": 9.05,
+    "y": 2.9699999999999998,
+    "w": 3.2,
+    "h": 0.35,
+    "font": 17
+  },
+  {
+    "slide": 14,
+    "text": "About 40 of 100 flagged acts\nmatch reference positives.",
+    "x": 9.05,
+    "y": 3.35,
+    "w": 3.2,
+    "h": 0.5,
+    "font": 12.5
+  },
+  {
+    "slide": 14,
+    "text": "81.18%",
+    "x": 9.05,
+    "y": 4.2700000000000005,
+    "w": 3.2,
+    "h": 0.55,
+    "font": 31
+  },
+  {
+    "slide": 14,
+    "text": "Recall",
+    "x": 9.05,
+    "y": 4.87,
+    "w": 3.2,
+    "h": 0.35,
+    "font": 17
+  },
+  {
+    "slide": 14,
+    "text": "Finds about 81 of 100\nreference-positive acts.",
+    "x": 9.05,
+    "y": 5.25,
+    "w": 3.2,
+    "h": 0.5,
+    "font": 12.5
+  },
+  {
+    "slide": 14,
+    "text": "Mixture F1 53.54%; matched forest 52.08%. Difference +1.46 points; descriptive series-bootstrap interval −7.16 to +5.99.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 15,
+    "text": "SPEECH RESULTS",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 15,
+    "text": "Project Outcome: Speech and Speakers",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 15,
+    "text": "Word error rate: edits per 100 reference words, pooled by reference count. Lower is better.",
+    "x": 0.55,
+    "y": 1.42,
+    "w": 12.1,
+    "h": 0.45,
+    "font": 15
+  },
+  {
+    "slide": 15,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 15,
+    "text": "15 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 15,
+    "text": "Hindi • 8 samples",
+    "x": 0.8,
+    "y": 2.15,
+    "w": 5.3,
+    "h": 0.45,
+    "font": 23
+  },
+  {
+    "slide": 15,
+    "text": "50.96%",
+    "x": 6.35,
+    "y": 2.15,
+    "w": 2.1,
+    "h": 0.5,
+    "font": 28
+  },
+  {
+    "slide": 15,
+    "text": "28.85%",
+    "x": 9.55,
+    "y": 2.15,
+    "w": 2.45,
+    "h": 0.5,
+    "font": 28
+  },
+  {
+    "slide": 15,
+    "text": "Hinglish • 8 samples",
+    "x": 0.8,
+    "y": 3.3099999999999996,
+    "w": 5.3,
+    "h": 0.45,
+    "font": 23
+  },
+  {
+    "slide": 15,
+    "text": "66.13%",
+    "x": 6.35,
+    "y": 3.3099999999999996,
+    "w": 2.1,
+    "h": 0.5,
+    "font": 28
+  },
+  {
+    "slide": 15,
+    "text": "57.26%",
+    "x": 9.55,
+    "y": 3.3099999999999996,
+    "w": 2.45,
+    "h": 0.5,
+    "font": 28
+  },
+  {
+    "slide": 15,
+    "text": "English historical • 2 clips",
+    "x": 0.8,
+    "y": 4.47,
+    "w": 5.3,
+    "h": 0.45,
+    "font": 23
+  },
+  {
+    "slide": 15,
+    "text": "61.61%",
+    "x": 6.35,
+    "y": 4.47,
+    "w": 2.1,
+    "h": 0.5,
+    "font": 28
+  },
+  {
+    "slide": 15,
+    "text": "63.91%",
+    "x": 9.55,
+    "y": 4.47,
+    "w": 2.45,
+    "h": 0.5,
+    "font": 28
+  },
+  {
+    "slide": 15,
+    "text": "small model",
+    "x": 6.28,
+    "y": 5.82,
+    "w": 2.4,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 15,
+    "text": "large-v3-turbo",
+    "x": 9.45,
+    "y": 5.82,
+    "w": 3.0,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 15,
+    "text": "Speaker pilot: DER 64.08% → 40.91%; speaker-count MAE 8.5 → 1.5.",
+    "x": 0.8,
+    "y": 6.18,
+    "w": 11.8,
+    "h": 0.35,
+    "font": 17
+  },
+  {
+    "slide": 15,
+    "text": "Small stays the shared default; Turbo is selectable. Tiny fixed pilots, strict scoring and reference-coverage limits apply.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 16,
+    "text": "TAKEAWAY",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 16,
+    "text": "Conclusion",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 16,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 16,
+    "text": "16 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 16,
+    "text": "Local processing\nSource-linked review\nMeasured, bounded claims",
+    "x": 0.9,
+    "y": 2.05,
+    "w": 11.5,
+    "h": 2.6,
+    "font": 39
+  },
+  {
+    "slide": 16,
+    "text": "A working prototype, a reproducible classifier comparison,\nand a clear plan for independent recording-level validation.",
+    "x": 0.95,
+    "y": 5.3,
+    "w": 11.1,
+    "h": 1.0,
+    "font": 25
+  },
+  {
+    "slide": 16,
+    "text": "Still unmeasured: final-decision, slide-link and human influence accuracy. Fresh recording-level evaluation is needed.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 17,
+    "text": "SELECTED REFERENCES • PAPER NUMBERING",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 17,
+    "text": "References",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 17,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 17,
+    "text": "17 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 17,
+    "text": "[1] Tur et al. (2010)\nThe CALO meeting assistant system.",
+    "x": 0.7,
+    "y": 1.95,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "[2] Radford et al. (2023)\nRobust speech recognition via large-scale weak supervision.",
+    "x": 0.7,
+    "y": 2.86,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "[3] Bain et al. (2023)\nWhisperX: Time-accurate speech transcription of long-form audio.",
+    "x": 0.7,
+    "y": 3.77,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "[4] Bredin (2023)\npyannote.audio 2.1 speaker diarization pipeline: Principle, benchmark, and recipe.",
+    "x": 0.7,
+    "y": 4.68,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "[5] Plaquet & Bredin (2023)\nPowerset multi-class cross entropy loss for neural speaker diarization.",
+    "x": 0.7,
+    "y": 5.59,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "[7] Baghel et al. (2023)\nThe DISPLACE challenge 2023.",
+    "x": 6.9,
+    "y": 1.95,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "[8] Kalluri et al. (2024)\nThe second DISPLACE challenge: DIarization of SPeaker and LAnguage in Conversational Environments.",
+    "x": 6.9,
+    "y": 2.86,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "[10] Hu et al. (2023)\nMeetingBank: A benchmark dataset for meeting summarization.",
+    "x": 6.9,
+    "y": 3.77,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "[11] Kim et al. (2023)\nExplainMeetSum: A dataset for explainable meeting summarization aligned with human intent.",
+    "x": 6.9,
+    "y": 4.68,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "[12] Carletta et al. (2006)\nThe AMI meeting corpus: A pre-announcement.",
+    "x": 6.9,
+    "y": 5.59,
+    "w": 5.75,
+    "h": 0.88,
+    "font": 14.5
+  },
+  {
+    "slide": 17,
+    "text": "Selected entries retain IEEE paper numbering. All 15 full references are in the paper and this slide’s notes.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  },
+  {
+    "slide": 18,
+    "text": "MAI PROJECT • GROUP 12",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 18,
+    "text": "Photograph of the Presentation",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 18,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 18,
+    "text": "18 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 18,
+    "text": "Add the actual presentation photograph\nafter the session.",
+    "x": 1.65,
+    "y": 3.3,
+    "w": 10.0,
+    "h": 1.0,
+    "font": 27
+  },
+  {
+    "slide": 18,
+    "text": "Symbiosis Institute of Technology, Pune • AY 2026–27",
+    "x": 1.5,
+    "y": 5.4,
+    "w": 10.3,
+    "h": 0.45,
+    "font": 19
+  },
+  {
+    "slide": 1,
+    "text": "SYSTEM DESIGN",
+    "x": 0.72,
+    "y": 0.35,
+    "w": 10,
+    "h": 0.25,
+    "font": 11
+  },
+  {
+    "slide": 1,
+    "text": "The complete local architecture",
+    "x": 0.53,
+    "y": 0.82,
+    "w": 11.9,
+    "h": 0.55,
+    "font": 29
+  },
+  {
+    "slide": 1,
+    "text": "Data flow, model boundaries, persistence and human review — all on the laptop.",
+    "x": 0.55,
+    "y": 1.42,
+    "w": 12.1,
+    "h": 0.45,
+    "font": 15
+  },
+  {
+    "slide": 1,
+    "text": "SIT Pune  |  AI & ML  |  Group 12  |  Prepared 20 October 2026",
+    "x": 0.55,
+    "y": 7.13,
+    "w": 10.4,
+    "h": 0.19,
+    "font": 9
+  },
+  {
+    "slide": 1,
+    "text": "01 / 18",
+    "x": 11.8,
+    "y": 7.12,
+    "w": 1,
+    "h": 0.22,
+    "font": 10
+  },
+  {
+    "slide": 1,
+    "text": "1  Capture",
+    "x": 0.55,
+    "y": 1.95,
+    "w": 2.1,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 1,
+    "text": "2  Speech & slides",
+    "x": 2.95,
+    "y": 1.95,
+    "w": 3.25,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 1,
+    "text": "3  Analysis",
+    "x": 6.55,
+    "y": 1.95,
+    "w": 3.1,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 1,
+    "text": "4  Save & review",
+    "x": 10.0,
+    "y": 1.95,
+    "w": 2.75,
+    "h": 0.4,
+    "font": 17
+  },
+  {
+    "slide": 1,
+    "text": "Browser input",
+    "x": 0.67,
+    "y": 2.5500000000000003,
+    "w": 1.86,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "FastAPI",
+    "x": 0.67,
+    "y": 3.46,
+    "w": 1.86,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Auth + validation",
+    "x": 0.67,
+    "y": 3.8899999999999997,
+    "w": 1.86,
+    "h": 0.2599999999999999,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Queue + FFmpeg",
+    "x": 0.67,
+    "y": 4.5,
+    "w": 1.86,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "1 worker; 16 kHz mono",
+    "x": 0.67,
+    "y": 4.930000000000001,
+    "w": 1.86,
+    "h": 0.33999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Optional PPTX",
+    "x": 0.67,
+    "y": 5.67,
+    "w": 1.86,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Ordered slide files",
+    "x": 0.67,
+    "y": 6.1000000000000005,
+    "w": 1.86,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "ASR + VAD",
+    "x": 3.0700000000000003,
+    "y": 2.5500000000000003,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "faster-whisper",
+    "x": 3.0700000000000003,
+    "y": 2.9800000000000004,
+    "w": 1.29,
+    "h": 0.18999999999999995,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Word cache",
+    "x": 4.7700000000000005,
+    "y": 2.5500000000000003,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Words + times",
+    "x": 4.7700000000000005,
+    "y": 2.9800000000000004,
+    "w": 1.29,
+    "h": 0.18999999999999995,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Diarization",
+    "x": 3.0700000000000003,
+    "y": 3.65,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Sherpa-ONNX",
+    "x": 3.0700000000000003,
+    "y": 4.08,
+    "w": 1.29,
+    "h": 0.2899999999999999,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Speakers",
+    "x": 4.7700000000000005,
+    "y": 3.65,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Who spoke when",
+    "x": 4.7700000000000005,
+    "y": 4.08,
+    "w": 1.29,
+    "h": 0.2899999999999999,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Attribution",
+    "x": 4.7700000000000005,
+    "y": 4.72,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Tagged words",
+    "x": 4.7700000000000005,
+    "y": 5.15,
+    "w": 1.29,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Slide parsing",
+    "x": 3.0700000000000003,
+    "y": 5.67,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Text/tables/notes",
+    "x": 3.0700000000000003,
+    "y": 6.1000000000000005,
+    "w": 1.29,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Align or skip",
+    "x": 4.7700000000000005,
+    "y": 5.67,
+    "w": 1.29,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "MiniLM / TF-IDF",
+    "x": 4.7700000000000005,
+    "y": 6.1000000000000005,
+    "w": 1.29,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Learned English review",
+    "x": 6.67,
+    "y": 2.5500000000000003,
+    "w": 2.8600000000000003,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "TF-IDF → 75% forest + 25% linear\nSmooth → threshold → suggestions",
+    "x": 6.67,
+    "y": 2.9800000000000004,
+    "w": 2.8600000000000003,
+    "h": 0.49,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Event rules → evidence",
+    "x": 6.67,
+    "y": 3.75,
+    "w": 2.8600000000000003,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Proposals / questions / agreements",
+    "x": 6.67,
+    "y": 4.18,
+    "w": 2.8600000000000003,
+    "h": 0.20999999999999996,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Decisions → interactions",
+    "x": 6.67,
+    "y": 4.75,
+    "w": 2.8600000000000003,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Source anchors and relationships",
+    "x": 6.67,
+    "y": 5.180000000000001,
+    "w": 2.8600000000000003,
+    "h": 0.24,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Exploratory influence",
+    "x": 6.67,
+    "y": 5.77,
+    "w": 2.8600000000000003,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Unvalidated heuristic",
+    "x": 6.67,
+    "y": 6.2,
+    "w": 2.8600000000000003,
+    "h": 0.21999999999999997,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Report builder",
+    "x": 10.12,
+    "y": 2.5500000000000003,
+    "w": 2.51,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Suggestions + rule outputs\nSource IDs stay attached",
+    "x": 10.12,
+    "y": 2.9800000000000004,
+    "w": 2.51,
+    "h": 0.6399999999999999,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Local persistence",
+    "x": 10.12,
+    "y": 4.0,
+    "w": 2.51,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "SQLite reports + file artifacts",
+    "x": 10.12,
+    "y": 4.43,
+    "w": 2.51,
+    "h": 0.30999999999999994,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Review + exports",
+    "x": 10.12,
+    "y": 5.13,
+    "w": 2.51,
+    "h": 0.42,
+    "font": 13.5
+  },
+  {
+    "slide": 1,
+    "text": "Listen • labels • evidence\nJSON / MD / HTML / CSV",
+    "x": 10.12,
+    "y": 5.5600000000000005,
+    "w": 2.51,
+    "h": 0.74,
+    "font": 11.2
+  },
+  {
+    "slide": 1,
+    "text": "Arrows show data dependencies, not parallel compute. ASR drafts precede final speaker attribution; cached words are reused.",
+    "x": 0.58,
+    "y": 6.65,
+    "w": 12.1,
+    "h": 0.26,
+    "font": 10.5
+  }
+]

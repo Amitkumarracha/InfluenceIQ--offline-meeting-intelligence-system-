@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "full_tests_passed": 584,
+  "dependency_warnings": 7,
+  "frontend_build": "passed",
+  "frontend_lint": "passed",
+  "browser": "passed",
+  "real_cached_asr_recordings": 3,
+  "asr_passage_accuracy_measured": false,
+  "frozen_selection_and_installed_model_hashes_verified": true,
+  "document_exports": "passed"
+}

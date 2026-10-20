@@ -3,7 +3,6 @@
   "revision": "3c66ee127a7b0e0a746d4df1002858567135edc1",
   "split": "test",
   "selection": "First eight rows chosen before inference; consecutive lecture excerpts, not independent meetings",
-  "license": "CC-BY-4.0",
   "original_source": "https://www.openslr.org/104/",
   "samples": [
     {
@@ -70,5 +69,8 @@
       "reference": "फिलहाल normal टैब चुनित हैं",
       "sha256": "9927067c6339b302649c708ec07acae716066a6cb77f67034ae1b37f64cb9b53"
     }
-  ]
+  ],
+  "mirror_declared_license": "CC-BY-4.0",
+  "license": "CC-BY-SA-4.0 (original source)",
+  "license_discrepancy": "Original OpenSLR SLR104 says CC BY-SA 4.0; mirror metadata says CC BY 4.0. Respect original source terms."
 }

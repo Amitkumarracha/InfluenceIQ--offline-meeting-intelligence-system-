@@ -1,0 +1,20 @@
+{
+  "index": 400,
+  "segment_id": "137494_fpL6MBSZsci9dyAn_0043",
+  "speaker_id": "137494",
+  "sha256": "626240bc8fad34a99cfa6a9f36f4a662a5d2be7b599a2a449cd5729514f60a74",
+  "reference": "टैग को हटाने के लिए पहले mail चुनें",
+  "hypothesis": "तैक को हटाने के लिए पहली मेल जुने",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.5,
+    "substitutions": 4,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_length": 8,
+    "hypothesis_length": 8
+  },
+  "seconds": 4.55,
+  "processing_seconds": 4.930062557003112
+}

@@ -50,6 +50,11 @@ ppt:
     # Set to null to skip embedding generation.
     model: all-MiniLM-L6-v2
 
+discussion_review:
+  # Learned English discussion suggestions; final-decision rules remain separate.
+  enabled: true
+  model: models/discussion/model.joblib
+
 decision_analysis:
   # Maximum time gap (seconds) around an anchor event to form a cluster.
   # NOTE: Prototype default — not validated against annotated data.
@@ -164,7 +169,7 @@ report:
     traceability: true
 
 asr:
-  # faster-whisper model size: tiny | base | small | medium | large-v2 | large-v3
+  # faster-whisper size: tiny | base | small | medium | large-v3 | large-v3-turbo
   model_size: small
   # Device for inference: cpu | cuda | auto
   # Default to CPU for stability on machines without a working CUDA runtime.

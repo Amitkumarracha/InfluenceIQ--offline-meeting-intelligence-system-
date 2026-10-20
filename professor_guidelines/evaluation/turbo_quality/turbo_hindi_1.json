@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hindi",
+  "sample": "turbo_hindi_1",
+  "source_sha256": "b63e6ae5a8a5b53fcd5b60c467790baca13ca0c8490d35418d692ef7751a5459",
+  "reference": "ग्रीनलैंड को बहुत कम जगह बसाया गया था नॉर्स सगास में वे कहते हैं कि एरिक रेड हत्या के लिए आइसलैंड से निर्वासित किया गया था और आगे पश्चिम की यात्रा करते समय ग्रीनलैंड मिला जिसे ग्रीनलैंड नाम दिया गया",
+  "hypothesis": "ग्रीन लेंड को बहुत कम जगव बसाया गया था नौर्स सगास में वे कहते हैं कि एरिक रेड हत्या के लिए आइसलेंड से निर्वासित किया गया था और आगे पश्चम की यात्र करते समय ग्रीन लेंड मिला जिसे ग्रीन लेंड नाम दिया गया",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.275,
+    "substitutions": 8,
+    "deletions": 0,
+    "insertions": 3,
+    "reference_length": 40,
+    "hypothesis_length": 43
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.050314,
+    "substitutions": 6,
+    "deletions": 2,
+    "insertions": 0,
+    "reference_length": 159,
+    "hypothesis_length": 157
+  },
+  "elapsed_seconds": 31.0883415329954,
+  "detected_languages": [
+    "hi"
+  ]
+}

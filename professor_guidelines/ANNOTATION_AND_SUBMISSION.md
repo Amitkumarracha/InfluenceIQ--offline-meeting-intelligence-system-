@@ -40,11 +40,11 @@ The calibrated-vs-default clustering experiment has reference DER and is the mea
 | Around 10–15 relevant recent papers | Fifteen related works: eleven from 2023–2025 plus foundational system/dataset sources; source links and numbered references |
 | Comparison table | Table 1 compares tasks, presentation/decision scope and local-processing relevance; unspecified features are not asserted absent |
 | Novelty | Section 2 states engineering contributions and explicitly limits novelty claims |
-| Small ablation | Threshold calibration with separate development/test meetings, Table 2 and Fig. 2 |
+| Small ablation | Threshold calibration with separate development/test meetings, Table 2 and Fig. 4 |
 | Supported claims only | Pilot scope, raw JSON and unmeasured metrics stated explicitly |
 | Citations starting at [1] | Numbered references, CALO first |
 | No citations in abstract/results/conclusion | Manuscript keeps references in introduction, related work and methods |
-| Reference every figure/table | Body introduces Table 1, Table 2, Table 3, Fig. 1 and Fig. 2 |
+| Reference every figure/table | Body introduces Table 1, Table 2, Table 3, Figs. 1–6 |
 | Short captions | Caption text separate from explanatory prose |
 | Implemented/tested focus | Limitations and future evaluation separated from completed implementation |
 

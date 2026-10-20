@@ -1,0 +1,7 @@
+| Model | Corpus | Samples | WER | CER |
+|---|---|---|---|---|
+| small | hindi | 8 | 50.96% | 20.09% |
+| small | hinglish | 8 | 66.13% | 50.00% |
+| medium | hindi | 8 | 37.02% | 14.98% |
+| medium | hinglish | 8 | 57.26% | 52.25% |
+

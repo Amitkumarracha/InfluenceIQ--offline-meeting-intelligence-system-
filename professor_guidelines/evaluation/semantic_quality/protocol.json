@@ -1,0 +1,71 @@
+{
+  "task": "Unchanged AMI English decision-discussion act membership",
+  "status": "Continued exploratory optimization after earlier historical-cohort inspection",
+  "features": {
+    "context_5": [
+      5,
+      false
+    ],
+    "context_15": [
+      15,
+      false
+    ],
+    "context_40": [
+      40,
+      false
+    ],
+    "context_15_timing": [
+      15,
+      true
+    ]
+  },
+  "classifiers_and_parameter_grid": {
+    "linear": [
+      0.3,
+      3.0,
+      30.0
+    ],
+    "boosted": [
+      15,
+      31
+    ]
+  },
+  "semantic_blend_weights": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "smoothing_radii": [
+    0,
+    5,
+    15
+  ],
+  "thresholds": "13 fixed dev-score quantiles plus 0.5",
+  "selection": "Max dev F1 among candidates not worse on any gate metric; otherwise keep installed baseline",
+  "gate_metrics": [
+    "precision",
+    "recall",
+    "f1",
+    "average_precision",
+    "accuracy"
+  ],
+  "encoder": "Frozen local all-MiniLM-L6-v2; encoder weights not fine-tuned",
+  "encoder_weights_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+  "baseline_model_sha256": "9a76d232338132897375083e68081c29920fd9d0f19731ad75fb6bdc4d93b7ed",
+  "train_sha256": "80f242d94b8d2a9c6d5b936da87628b7293202adb61e365006e181328297039a",
+  "dev_sha256": "0097c9441aa0f24b0423c6844d16e9632317c5d0d9de7fecaf0cb9bf0f019fa8",
+  "code_sha256": {
+    "scripts/optimize_discussion_quality.py": "2c65c41c1315f5240e9e1227aec386b50fe0eef7fe57a334e11d0498ecd78aba",
+    "src/meeting/discussion_semantics.py": "1febe59c50cf5073b04eefc8c5cc8c9c5321f4abf78a80615a1a9e22d01098fa"
+  },
+  "test_access": "Separate --evaluate invocation after saving selected model and hashes",
+  "training": "Balanced LR C=0.3/3/30; balanced histogram gradient boosting, leaves=15/31, 120 iterations, no random-act early stopping",
+  "limits": [
+    "Oracle text/act boundaries; full ASR accuracy requires separate annotation.",
+    "Only two dev and three historical-test project series; no fresh confirmatory cohort.",
+    "Relative timing may exploit scenario structure; the timing ablation is reported separately.",
+    "Development non-regression does not guarantee non-regression on new data."
+  ]
+}

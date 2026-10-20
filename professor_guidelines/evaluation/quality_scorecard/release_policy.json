@@ -1,0 +1,6 @@
+{
+  "decision": "Consider large-v3-turbo for the shared laptop ASR default only if both fixed English development WER/CER pass, and neither Hindi nor Hinglish pooled WER/CER regresses versus current small on the unchanged eight-sample pilots.",
+  "historical_english": "Report unchanged historical cohort as exploratory; do not select alternate settings from historical scores.",
+  "nlp": "Preserve installed model because final fixed refit failed its frozen F1/balanced-accuracy/average-precision release gate.",
+  "no_further_search": true
+}

@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hindi",
+  "sample": "turbo_hindi_6",
+  "source_sha256": "c1c970d98d4ac10c9fe8e5eb7e22779945ff8fb75c71bf384ba2709261210c65",
+  "reference": "प्राचीनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है और इन्हें प्राथमिक उपकरणों के ज़रिए ढूंढना अपेक्षाकृत आसान है",
+  "hypothesis": "प्राचीन काल से ही लोग सोने चादी और तामबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृती में मूल स्वरी में धूना चा सकता है और इन्हें प्रात्मिक उपकरणों के जर्दिये धूना अपेक्षाकृत आसान है",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.282051,
+    "substitutions": 10,
+    "deletions": 0,
+    "insertions": 1,
+    "reference_length": 39,
+    "hypothesis_length": 40
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.107955,
+    "substitutions": 15,
+    "deletions": 3,
+    "insertions": 1,
+    "reference_length": 176,
+    "hypothesis_length": 174
+  },
+  "elapsed_seconds": 30.76653090200125,
+  "detected_languages": [
+    "hi"
+  ]
+}

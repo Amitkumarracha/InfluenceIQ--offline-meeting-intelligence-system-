@@ -1,0 +1,9 @@
+experiment,variant,type,events,decisions,slide_grounded_events,status,clusters,nonzero_scores,changed_scores,mean_absolute_score_change,max_absolute_score_change,human_accuracy_status
+A1,full_system,control,120,1,6,ok,139,8,0,0.0,0.0,ground_truth_unavailable
+A2,without_ppt,component_removal,120,1,0,ok,139,8,0,0.0,0.0,ground_truth_unavailable
+A3,without_temporal_alignment,component_removal,120,1,6,ok,139,8,0,0.0,0.0,ground_truth_unavailable
+A4,without_semantic_alignment,component_removal,120,1,0,ok,139,8,0,0.0,0.0,ground_truth_unavailable
+A5,without_evidence_features,component_removal,120,1,6,ok,139,8,8,0.0014838129496402878,0.037500000000000006,ground_truth_unavailable
+A6,without_interaction_features,component_removal,120,1,6,ok,139,8,8,0.00031237410071942496,0.007895000000000013,ground_truth_unavailable
+A7,without_decision_impact_features,component_removal,120,1,6,ok,139,0,8,0.005935251798561151,0.15,ground_truth_unavailable
+A8,speaking_time_only_baseline,baseline,,,,ok,139,139,,,,ground_truth_unavailable

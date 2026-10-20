@@ -276,7 +276,7 @@ def run_asr(
         if progress:
             progress({"completed_seconds": result.duration, "total_seconds": result.duration, "cached": True})
         if on_chunk:
-            on_chunk(result.segments[-50:], {"completed_seconds": result.duration,
+            on_chunk(result.segments, {"completed_seconds": result.duration,
                 "total_seconds": result.duration, "total_segments": len(result.segments), "cached": True})
         if not txt_path.exists():
             _save_txt(result, txt_path)
@@ -311,7 +311,7 @@ def run_asr(
                 if cached_chunk.get("language"):
                     detected_languages.add(cached_chunk["language"])
                 if on_chunk:
-                    on_chunk(transcript_segments[-50:], {"completed_seconds": min(duration, first / sr + chunk_seconds),
+                    on_chunk(transcript_segments, {"completed_seconds": min(duration, first / sr + chunk_seconds),
                         "total_seconds": duration, "total_segments": len(transcript_segments), "cached": True})
                 if progress:
                     progress({"completed_seconds": min(duration, first / sr + chunk_seconds), "total_seconds": duration, "cached": True})
@@ -409,7 +409,7 @@ def run_asr(
                                     "segments": [asdict(item) for item in chunk_segments]})
             transcript_segments.extend(chunk_segments)
             if on_chunk:
-                on_chunk(transcript_segments[-50:], {"completed_seconds": min(duration, first / sr + chunk_seconds),
+                on_chunk(transcript_segments, {"completed_seconds": min(duration, first / sr + chunk_seconds),
                     "total_seconds": duration, "total_segments": len(transcript_segments), "cached": observations is not None})
             if progress:
                 progress({"completed_seconds": min(duration, first / sr + chunk_seconds), "total_seconds": duration, "cached": observations is not None})

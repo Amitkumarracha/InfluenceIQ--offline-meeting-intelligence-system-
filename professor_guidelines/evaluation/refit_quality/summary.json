@@ -1,0 +1,261 @@
+{
+  "baseline_test": {
+    "precision": 0.3994446648155494,
+    "recall": 0.8117694478033051,
+    "f1": 0.5354246975940449,
+    "positive_support": 2481,
+    "average_precision": 0.533985450486222,
+    "confusion_matrix_tn_fp_fn_tp": [
+      5627,
+      3028,
+      467,
+      2014
+    ],
+    "accuracy": 0.6861530172413793,
+    "balanced_accuracy": 0.7309569364955288,
+    "specificity": 0.6501444251877527,
+    "macro_f1": 0.6492297398065824,
+    "mcc": 0.38614932369544536,
+    "roc_auc": 0.800336281912378,
+    "brier": 0.1624714646273942,
+    "negative_support": 8655
+  },
+  "test": {
+    "precision": 0.39448327980351405,
+    "recall": 0.841596130592503,
+    "f1": 0.5371751993825572,
+    "positive_support": 2481,
+    "average_precision": 0.4869907702159848,
+    "confusion_matrix_tn_fp_fn_tp": [
+      5450,
+      3205,
+      393,
+      2088
+    ],
+    "accuracy": 0.6769037356321839,
+    "balanced_accuracy": 0.7356449745972335,
+    "specificity": 0.6296938186019642,
+    "macro_f1": 0.6445015188525423,
+    "mcc": 0.3927047968034602,
+    "roc_auc": 0.7984822839600607,
+    "brier": 0.16637286349696995,
+    "negative_support": 8655
+  },
+  "passes_deployment_gate": false,
+  "selection_sha256_before_test_access": "73989985127454d528235287af0d747546a6a59d39d36fcd86355c7e798045b3",
+  "test_per_group": [
+    {
+      "group": "ES2016",
+      "precision": 0.3064713064713065,
+      "recall": 0.994059405940594,
+      "f1": 0.46850209986000935,
+      "positive_support": 505,
+      "average_precision": 0.40696498807307135,
+      "confusion_matrix_tn_fp_fn_tp": [
+        808,
+        1136,
+        3,
+        502
+      ]
+    },
+    {
+      "group": "IS1006",
+      "precision": 0.2935719019218025,
+      "recall": 0.7179902755267423,
+      "f1": 0.4167450611476952,
+      "positive_support": 617,
+      "average_precision": 0.33402771488435967,
+      "confusion_matrix_tn_fp_fn_tp": [
+        1722,
+        1066,
+        174,
+        443
+      ]
+    },
+    {
+      "group": "TS3005",
+      "precision": 0.532618825722274,
+      "recall": 0.8410596026490066,
+      "f1": 0.6522111269614836,
+      "positive_support": 1359,
+      "average_precision": 0.6783165995705094,
+      "confusion_matrix_tn_fp_fn_tp": [
+        2920,
+        1003,
+        216,
+        1143
+      ]
+    }
+  ],
+  "test_per_meeting": [
+    {
+      "meeting": "ES2016a",
+      "precision": 0.4300254452926209,
+      "recall": 1.0,
+      "f1": 0.6014234875444839,
+      "positive_support": 169,
+      "average_precision": 0.42991055709558257,
+      "confusion_matrix_tn_fp_fn_tp": [
+        105,
+        224,
+        0,
+        169
+      ]
+    },
+    {
+      "meeting": "ES2016b",
+      "precision": 0.21382289416846653,
+      "recall": 1.0,
+      "f1": 0.35231316725978645,
+      "positive_support": 99,
+      "average_precision": 0.16376982298534618,
+      "confusion_matrix_tn_fp_fn_tp": [
+        270,
+        364,
+        0,
+        99
+      ]
+    },
+    {
+      "meeting": "ES2016c",
+      "precision": 0.3276283618581907,
+      "recall": 0.9781021897810219,
+      "f1": 0.4908424908424908,
+      "positive_support": 137,
+      "average_precision": 0.6338786490737894,
+      "confusion_matrix_tn_fp_fn_tp": [
+        154,
+        275,
+        3,
+        134
+      ]
+    },
+    {
+      "meeting": "ES2016d",
+      "precision": 0.2680965147453083,
+      "recall": 1.0,
+      "f1": 0.42283298097251587,
+      "positive_support": 100,
+      "average_precision": 0.4078116073655199,
+      "confusion_matrix_tn_fp_fn_tp": [
+        279,
+        273,
+        0,
+        100
+      ]
+    },
+    {
+      "meeting": "IS1006a",
+      "precision": 0.7169811320754716,
+      "recall": 0.8172043010752689,
+      "f1": 0.7638190954773869,
+      "positive_support": 186,
+      "average_precision": 0.8348267167070609,
+      "confusion_matrix_tn_fp_fn_tp": [
+        147,
+        60,
+        34,
+        152
+      ]
+    },
+    {
+      "meeting": "IS1006b",
+      "precision": 0.13370473537604458,
+      "recall": 0.46153846153846156,
+      "f1": 0.20734341252699784,
+      "positive_support": 104,
+      "average_precision": 0.13596223487245815,
+      "confusion_matrix_tn_fp_fn_tp": [
+        477,
+        311,
+        56,
+        48
+      ]
+    },
+    {
+      "meeting": "IS1006c",
+      "precision": 0.27703984819734345,
+      "recall": 0.7643979057591623,
+      "f1": 0.40668523676880225,
+      "positive_support": 191,
+      "average_precision": 0.3362602248161667,
+      "confusion_matrix_tn_fp_fn_tp": [
+        357,
+        381,
+        45,
+        146
+      ]
+    },
+    {
+      "meeting": "IS1006d",
+      "precision": 0.2360097323600973,
+      "recall": 0.7132352941176471,
+      "f1": 0.3546617915904936,
+      "positive_support": 136,
+      "average_precision": 0.22493479188412113,
+      "confusion_matrix_tn_fp_fn_tp": [
+        741,
+        314,
+        39,
+        97
+      ]
+    },
+    {
+      "meeting": "TS3005a",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "positive_support": 1,
+      "average_precision": 0.003257328990228013,
+      "confusion_matrix_tn_fp_fn_tp": [
+        441,
+        125,
+        1,
+        0
+      ]
+    },
+    {
+      "meeting": "TS3005b",
+      "precision": 0.8393051031487514,
+      "recall": 0.936969696969697,
+      "f1": 0.8854524627720504,
+      "positive_support": 825,
+      "average_precision": 0.9149289289614506,
+      "confusion_matrix_tn_fp_fn_tp": [
+        379,
+        148,
+        52,
+        773
+      ]
+    },
+    {
+      "meeting": "TS3005c",
+      "precision": 0.40219092331768386,
+      "recall": 0.8771331058020477,
+      "f1": 0.5515021459227468,
+      "positive_support": 293,
+      "average_precision": 0.5849680347941771,
+      "confusion_matrix_tn_fp_fn_tp": [
+        510,
+        382,
+        36,
+        257
+      ]
+    },
+    {
+      "meeting": "TS3005d",
+      "precision": 0.24511930585683298,
+      "recall": 0.4708333333333333,
+      "f1": 0.3223965763195435,
+      "positive_support": 240,
+      "average_precision": 0.2143956749098241,
+      "confusion_matrix_tn_fp_fn_tp": [
+        1590,
+        348,
+        127,
+        113
+      ]
+    }
+  ],
+  "status": "Exploratory historical comparison after final train+dev refit; not independent app accuracy"
+}

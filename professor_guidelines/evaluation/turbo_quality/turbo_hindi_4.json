@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hindi",
+  "sample": "turbo_hindi_4",
+  "source_sha256": "ebe88dec83ef1fc371bb3b5f6343cd8920d275a8a281b9976977d71a838bc2f4",
+  "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+  "hypothesis": "इंटरनेट पर ये खोज सत्रुतापुर्ण परियावरंग पाठिकरम के लिए अक्सर आपको एक इस्थाने कमपनी का पता प्रदान करेगी",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.333333,
+    "substitutions": 6,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_length": 18,
+    "hypothesis_length": 18
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.149425,
+    "substitutions": 8,
+    "deletions": 3,
+    "insertions": 2,
+    "reference_length": 87,
+    "hypothesis_length": 86
+  },
+  "elapsed_seconds": 28.45483178300492,
+  "detected_languages": [
+    "hi"
+  ]
+}

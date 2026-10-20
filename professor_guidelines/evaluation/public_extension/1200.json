@@ -1,0 +1,20 @@
+{
+  "index": 1200,
+  "segment_id": "388577_LPGZ2Jo8uBX4sx76_0079",
+  "speaker_id": "388577",
+  "sha256": "18ef629fa8a41c24be45a242e876e179e339d4662d43f8b02e5a7138e4d4de76",
+  "reference": "display line numbers option को checkmark करें",
+  "hypothesis": "दिस्प्ले लिन नम्बस अप्शन को चेक माख करें अग़्िलाइट करेंज़",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 1.142857,
+    "substitutions": 5,
+    "deletions": 0,
+    "insertions": 3,
+    "reference_length": 7,
+    "hypothesis_length": 10
+  },
+  "seconds": 4.55,
+  "processing_seconds": 14.670346230002906
+}

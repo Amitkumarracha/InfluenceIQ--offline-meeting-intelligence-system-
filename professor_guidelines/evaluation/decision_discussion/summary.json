@@ -1,0 +1,1039 @@
+{
+  "protocol": {
+    "task": "Binary dialogue-act membership in manually annotated decision-discussion spans",
+    "positive_rule": "At least 50% of act lexical word IDs belong to manual decision spans",
+    "splits": {
+      "train": [
+        "ES2002a",
+        "ES2002d",
+        "ES2006a",
+        "ES2006c",
+        "ES2009a",
+        "ES2009b",
+        "ES2009c",
+        "ES2010b",
+        "ES2010c",
+        "ES2010d",
+        "ES2012c",
+        "ES2012d",
+        "ES2015a",
+        "ES2015b",
+        "ES2015c",
+        "ES2015d",
+        "IS1000a",
+        "IS1001b",
+        "IS1001c",
+        "IS1001d",
+        "IS1003a",
+        "IS1003b",
+        "IS1003c",
+        "IS1004a",
+        "IS1004b",
+        "IS1004c",
+        "IS1004d",
+        "IS1005a",
+        "TS3007a"
+      ],
+      "dev": [
+        "IS1008a",
+        "IS1008b",
+        "IS1008c",
+        "IS1008d",
+        "TS3004a",
+        "TS3004b"
+      ],
+      "test": [
+        "ES2016a",
+        "ES2016b",
+        "ES2016c",
+        "ES2016d",
+        "IS1006a",
+        "IS1006b",
+        "IS1006c",
+        "IS1006d",
+        "TS3005a",
+        "TS3005b",
+        "TS3005c",
+        "TS3005d"
+      ]
+    },
+    "group_separation": "Meeting series/project; no dialogue-act random split",
+    "official_test_status": "No selected manual decision files intersect official BUT test; this is a custom group-separated experiment",
+    "oracle_inputs": "Reference words, dialogue-act boundaries; no DA type labels or decision labels enter features",
+    "variants": {
+      "word": [
+        "word"
+      ],
+      "char": [
+        "char"
+      ],
+      "word_char": [
+        "word",
+        "char"
+      ],
+      "word_char_context": [
+        "word",
+        "char",
+        "context"
+      ]
+    },
+    "C_grid": [
+      0.3,
+      1,
+      3
+    ],
+    "threshold_grid": [
+      0.2,
+      0.35,
+      0.5,
+      0.65,
+      0.8
+    ],
+    "selection": "F1 on dev only; fixed tie order; all prespecified variants reported on test",
+    "seed": 42,
+    "installed_in_application": false,
+    "limits": [
+      "English AMI scenario discussions; not Hindi/Hinglish validation.",
+      "Decision-discussion membership is not final decision extraction or influence accuracy.",
+      "Manual boundary input removes ASR and segmentation errors; full pipeline requires a separate study.",
+      "Outside-span acts are treated as negatives, assuming manual decision annotations are exhaustive.",
+      "Neighbour context includes next act: offline classification, not causal streaming."
+    ]
+  },
+  "models": [
+    {
+      "method": "word",
+      "features": [
+        "word"
+      ],
+      "C": 3,
+      "threshold": 0.2,
+      "dev": {
+        "precision": 0.31725190839694656,
+        "recall": 0.9301700984780662,
+        "f1": 0.4731329690346084,
+        "positive_support": 1117,
+        "average_precision": 0.35970650453434666,
+        "confusion_matrix_tn_fp_fn_tp": [
+          386,
+          2236,
+          78,
+          1039
+        ]
+      },
+      "test": {
+        "precision": 0.23690367205777643,
+        "recall": 0.9387343812978638,
+        "f1": 0.37833008447043537,
+        "positive_support": 2481,
+        "average_precision": 0.30083375180718336,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1153,
+          7502,
+          152,
+          2329
+        ]
+      },
+      "per_meeting": [
+        {
+          "meeting": "ES2016a",
+          "precision": 0.3458980044345898,
+          "recall": 0.9230769230769231,
+          "f1": 0.5032258064516129,
+          "positive_support": 169,
+          "average_precision": 0.4469883847790965,
+          "confusion_matrix_tn_fp_fn_tp": [
+            34,
+            295,
+            13,
+            156
+          ]
+        },
+        {
+          "meeting": "ES2016b",
+          "precision": 0.14528593508500773,
+          "recall": 0.9494949494949495,
+          "f1": 0.2520107238605898,
+          "positive_support": 99,
+          "average_precision": 0.16105717659628946,
+          "confusion_matrix_tn_fp_fn_tp": [
+            81,
+            553,
+            5,
+            94
+          ]
+        },
+        {
+          "meeting": "ES2016c",
+          "precision": 0.2583170254403131,
+          "recall": 0.9635036496350365,
+          "f1": 0.4074074074074074,
+          "positive_support": 137,
+          "average_precision": 0.3048287735687719,
+          "confusion_matrix_tn_fp_fn_tp": [
+            50,
+            379,
+            5,
+            132
+          ]
+        },
+        {
+          "meeting": "ES2016d",
+          "precision": 0.16636528028933092,
+          "recall": 0.92,
+          "f1": 0.28177641653905056,
+          "positive_support": 100,
+          "average_precision": 0.2565484030717527,
+          "confusion_matrix_tn_fp_fn_tp": [
+            91,
+            461,
+            8,
+            92
+          ]
+        },
+        {
+          "meeting": "IS1006a",
+          "precision": 0.5329341317365269,
+          "recall": 0.956989247311828,
+          "f1": 0.6846153846153846,
+          "positive_support": 186,
+          "average_precision": 0.6268717421206722,
+          "confusion_matrix_tn_fp_fn_tp": [
+            51,
+            156,
+            8,
+            178
+          ]
+        },
+        {
+          "meeting": "IS1006b",
+          "precision": 0.11926605504587157,
+          "recall": 0.875,
+          "f1": 0.209919261822376,
+          "positive_support": 104,
+          "average_precision": 0.18129873153194836,
+          "confusion_matrix_tn_fp_fn_tp": [
+            116,
+            672,
+            13,
+            91
+          ]
+        },
+        {
+          "meeting": "IS1006c",
+          "precision": 0.21841794569067297,
+          "recall": 0.9685863874345549,
+          "f1": 0.35645472061657035,
+          "positive_support": 191,
+          "average_precision": 0.2874083495241445,
+          "confusion_matrix_tn_fp_fn_tp": [
+            76,
+            662,
+            6,
+            185
+          ]
+        },
+        {
+          "meeting": "IS1006d",
+          "precision": 0.12355212355212356,
+          "recall": 0.9411764705882353,
+          "f1": 0.21843003412969283,
+          "positive_support": 136,
+          "average_precision": 0.1366252600630926,
+          "confusion_matrix_tn_fp_fn_tp": [
+            147,
+            908,
+            8,
+            128
+          ]
+        },
+        {
+          "meeting": "TS3005a",
+          "precision": 0.0021598272138228943,
+          "recall": 1.0,
+          "f1": 0.004310344827586207,
+          "positive_support": 1,
+          "average_precision": 0.0196078431372549,
+          "confusion_matrix_tn_fp_fn_tp": [
+            104,
+            462,
+            0,
+            1
+          ]
+        },
+        {
+          "meeting": "TS3005b",
+          "precision": 0.6368118323746919,
+          "recall": 0.9393939393939394,
+          "f1": 0.7590597453476984,
+          "positive_support": 825,
+          "average_precision": 0.707910915426841,
+          "confusion_matrix_tn_fp_fn_tp": [
+            85,
+            442,
+            50,
+            775
+          ]
+        },
+        {
+          "meeting": "TS3005c",
+          "precision": 0.2607879924953096,
+          "recall": 0.9488054607508533,
+          "f1": 0.4091243561442237,
+          "positive_support": 293,
+          "average_precision": 0.32058953306569155,
+          "confusion_matrix_tn_fp_fn_tp": [
+            104,
+            788,
+            15,
+            278
+          ]
+        },
+        {
+          "meeting": "TS3005d",
+          "precision": 0.11271230056613485,
+          "recall": 0.9125,
+          "f1": 0.2006413192853871,
+          "positive_support": 240,
+          "average_precision": 0.17073913069044783,
+          "confusion_matrix_tn_fp_fn_tp": [
+            214,
+            1724,
+            21,
+            219
+          ]
+        }
+      ],
+      "fit_selection_seconds": 0.20756488000188256,
+      "test_classification_seconds": 0.00043472099787322804,
+      "timing_scope": "Classifier only; excludes vectorizer fitting/transforms and file I/O"
+    },
+    {
+      "method": "char",
+      "features": [
+        "char"
+      ],
+      "C": 3,
+      "threshold": 0.2,
+      "dev": {
+        "precision": 0.3128524784802612,
+        "recall": 0.9435989256938228,
+        "f1": 0.46990637539010255,
+        "positive_support": 1117,
+        "average_precision": 0.373597308526107,
+        "confusion_matrix_tn_fp_fn_tp": [
+          307,
+          2315,
+          63,
+          1054
+        ]
+      },
+      "test": {
+        "precision": 0.23608635373341255,
+        "recall": 0.9609028617492946,
+        "f1": 0.3790444391446061,
+        "positive_support": 2481,
+        "average_precision": 0.31018786462000736,
+        "confusion_matrix_tn_fp_fn_tp": [
+          941,
+          7714,
+          97,
+          2384
+        ]
+      },
+      "per_meeting": [
+        {
+          "meeting": "ES2016a",
+          "precision": 0.35434782608695653,
+          "recall": 0.9644970414201184,
+          "f1": 0.5182829888712241,
+          "positive_support": 169,
+          "average_precision": 0.43895902952380017,
+          "confusion_matrix_tn_fp_fn_tp": [
+            32,
+            297,
+            6,
+            163
+          ]
+        },
+        {
+          "meeting": "ES2016b",
+          "precision": 0.14050822122571002,
+          "recall": 0.9494949494949495,
+          "f1": 0.24479166666666666,
+          "positive_support": 99,
+          "average_precision": 0.15416065637505535,
+          "confusion_matrix_tn_fp_fn_tp": [
+            59,
+            575,
+            5,
+            94
+          ]
+        },
+        {
+          "meeting": "ES2016c",
+          "precision": 0.2595419847328244,
+          "recall": 0.9927007299270073,
+          "f1": 0.4114977307110439,
+          "positive_support": 137,
+          "average_precision": 0.3402139054114399,
+          "confusion_matrix_tn_fp_fn_tp": [
+            41,
+            388,
+            1,
+            136
+          ]
+        },
+        {
+          "meeting": "ES2016d",
+          "precision": 0.16753926701570682,
+          "recall": 0.96,
+          "f1": 0.2852897473997028,
+          "positive_support": 100,
+          "average_precision": 0.25683627966407624,
+          "confusion_matrix_tn_fp_fn_tp": [
+            75,
+            477,
+            4,
+            96
+          ]
+        },
+        {
+          "meeting": "IS1006a",
+          "precision": 0.5266272189349113,
+          "recall": 0.956989247311828,
+          "f1": 0.6793893129770993,
+          "positive_support": 186,
+          "average_precision": 0.6101944234692316,
+          "confusion_matrix_tn_fp_fn_tp": [
+            47,
+            160,
+            8,
+            178
+          ]
+        },
+        {
+          "meeting": "IS1006b",
+          "precision": 0.11771995043370508,
+          "recall": 0.9134615384615384,
+          "f1": 0.20856201975850713,
+          "positive_support": 104,
+          "average_precision": 0.15205544891916023,
+          "confusion_matrix_tn_fp_fn_tp": [
+            76,
+            712,
+            9,
+            95
+          ]
+        },
+        {
+          "meeting": "IS1006c",
+          "precision": 0.21337946943483277,
+          "recall": 0.9685863874345549,
+          "f1": 0.3497164461247637,
+          "positive_support": 191,
+          "average_precision": 0.31227601543379846,
+          "confusion_matrix_tn_fp_fn_tp": [
+            56,
+            682,
+            6,
+            185
+          ]
+        },
+        {
+          "meeting": "IS1006d",
+          "precision": 0.12617702448210924,
+          "recall": 0.9852941176470589,
+          "f1": 0.22370617696160267,
+          "positive_support": 136,
+          "average_precision": 0.13210755312450934,
+          "confusion_matrix_tn_fp_fn_tp": [
+            127,
+            928,
+            2,
+            134
+          ]
+        },
+        {
+          "meeting": "TS3005a",
+          "precision": 0.002127659574468085,
+          "recall": 1.0,
+          "f1": 0.004246284501061571,
+          "positive_support": 1,
+          "average_precision": 0.05,
+          "confusion_matrix_tn_fp_fn_tp": [
+            97,
+            469,
+            0,
+            1
+          ]
+        },
+        {
+          "meeting": "TS3005b",
+          "precision": 0.6396761133603239,
+          "recall": 0.9575757575757575,
+          "f1": 0.7669902912621359,
+          "positive_support": 825,
+          "average_precision": 0.7210782118714438,
+          "confusion_matrix_tn_fp_fn_tp": [
+            82,
+            445,
+            35,
+            790
+          ]
+        },
+        {
+          "meeting": "TS3005c",
+          "precision": 0.2572202166064982,
+          "recall": 0.9726962457337884,
+          "f1": 0.4068522483940043,
+          "positive_support": 293,
+          "average_precision": 0.32873399296519357,
+          "confusion_matrix_tn_fp_fn_tp": [
+            69,
+            823,
+            8,
+            285
+          ]
+        },
+        {
+          "meeting": "TS3005d",
+          "precision": 0.11435768261964735,
+          "recall": 0.9458333333333333,
+          "f1": 0.20404494382022473,
+          "positive_support": 240,
+          "average_precision": 0.1800601287972608,
+          "confusion_matrix_tn_fp_fn_tp": [
+            180,
+            1758,
+            13,
+            227
+          ]
+        }
+      ],
+      "fit_selection_seconds": 0.7032465950032929,
+      "test_classification_seconds": 0.0011015179989044555,
+      "timing_scope": "Classifier only; excludes vectorizer fitting/transforms and file I/O"
+    },
+    {
+      "method": "word_char",
+      "features": [
+        "word",
+        "char"
+      ],
+      "C": 3,
+      "threshold": 0.2,
+      "dev": {
+        "precision": 0.3262364886996397,
+        "recall": 0.891674127126231,
+        "f1": 0.4776978417266187,
+        "positive_support": 1117,
+        "average_precision": 0.361283260539951,
+        "confusion_matrix_tn_fp_fn_tp": [
+          565,
+          2057,
+          121,
+          996
+        ]
+      },
+      "test": {
+        "precision": 0.2428173241852487,
+        "recall": 0.9129383313180169,
+        "f1": 0.38360572444745533,
+        "positive_support": 2481,
+        "average_precision": 0.30156556240856314,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1592,
+          7063,
+          216,
+          2265
+        ]
+      },
+      "per_meeting": [
+        {
+          "meeting": "ES2016a",
+          "precision": 0.36470588235294116,
+          "recall": 0.9171597633136095,
+          "f1": 0.5218855218855218,
+          "positive_support": 169,
+          "average_precision": 0.4540843895359128,
+          "confusion_matrix_tn_fp_fn_tp": [
+            59,
+            270,
+            14,
+            155
+          ]
+        },
+        {
+          "meeting": "ES2016b",
+          "precision": 0.14772727272727273,
+          "recall": 0.9191919191919192,
+          "f1": 0.2545454545454545,
+          "positive_support": 99,
+          "average_precision": 0.15845049053407007,
+          "confusion_matrix_tn_fp_fn_tp": [
+            109,
+            525,
+            8,
+            91
+          ]
+        },
+        {
+          "meeting": "ES2016c",
+          "precision": 0.2669404517453799,
+          "recall": 0.948905109489051,
+          "f1": 0.4166666666666667,
+          "positive_support": 137,
+          "average_precision": 0.30391531904689295,
+          "confusion_matrix_tn_fp_fn_tp": [
+            72,
+            357,
+            7,
+            130
+          ]
+        },
+        {
+          "meeting": "ES2016d",
+          "precision": 0.1702127659574468,
+          "recall": 0.88,
+          "f1": 0.2852512155591572,
+          "positive_support": 100,
+          "average_precision": 0.2584222604893763,
+          "confusion_matrix_tn_fp_fn_tp": [
+            123,
+            429,
+            12,
+            88
+          ]
+        },
+        {
+          "meeting": "IS1006a",
+          "precision": 0.53125,
+          "recall": 0.9139784946236559,
+          "f1": 0.6719367588932806,
+          "positive_support": 186,
+          "average_precision": 0.6139804933923385,
+          "confusion_matrix_tn_fp_fn_tp": [
+            57,
+            150,
+            16,
+            170
+          ]
+        },
+        {
+          "meeting": "IS1006b",
+          "precision": 0.12205270457697642,
+          "recall": 0.8461538461538461,
+          "f1": 0.21333333333333335,
+          "positive_support": 104,
+          "average_precision": 0.16465723099380103,
+          "confusion_matrix_tn_fp_fn_tp": [
+            155,
+            633,
+            16,
+            88
+          ]
+        },
+        {
+          "meeting": "IS1006c",
+          "precision": 0.22139303482587064,
+          "recall": 0.9319371727748691,
+          "f1": 0.3577889447236181,
+          "positive_support": 191,
+          "average_precision": 0.28641974458098907,
+          "confusion_matrix_tn_fp_fn_tp": [
+            112,
+            626,
+            13,
+            178
+          ]
+        },
+        {
+          "meeting": "IS1006d",
+          "precision": 0.12448979591836734,
+          "recall": 0.8970588235294118,
+          "f1": 0.21863799283154123,
+          "positive_support": 136,
+          "average_precision": 0.1348563776051628,
+          "confusion_matrix_tn_fp_fn_tp": [
+            197,
+            858,
+            14,
+            122
+          ]
+        },
+        {
+          "meeting": "TS3005a",
+          "precision": 0.002352941176470588,
+          "recall": 1.0,
+          "f1": 0.004694835680751174,
+          "positive_support": 1,
+          "average_precision": 0.027777777777777776,
+          "confusion_matrix_tn_fp_fn_tp": [
+            142,
+            424,
+            0,
+            1
+          ]
+        },
+        {
+          "meeting": "TS3005b",
+          "precision": 0.647008547008547,
+          "recall": 0.9175757575757576,
+          "f1": 0.7588972431077694,
+          "positive_support": 825,
+          "average_precision": 0.7063518586172975,
+          "confusion_matrix_tn_fp_fn_tp": [
+            114,
+            413,
+            68,
+            757
+          ]
+        },
+        {
+          "meeting": "TS3005c",
+          "precision": 0.26258637709772953,
+          "recall": 0.9078498293515358,
+          "f1": 0.40735068912710565,
+          "positive_support": 293,
+          "average_precision": 0.3261461384571691,
+          "confusion_matrix_tn_fp_fn_tp": [
+            145,
+            747,
+            27,
+            266
+          ]
+        },
+        {
+          "meeting": "TS3005d",
+          "precision": 0.11837837837837838,
+          "recall": 0.9125,
+          "f1": 0.20956937799043063,
+          "positive_support": 240,
+          "average_precision": 0.17443715403647844,
+          "confusion_matrix_tn_fp_fn_tp": [
+            307,
+            1631,
+            21,
+            219
+          ]
+        }
+      ],
+      "fit_selection_seconds": 1.0887890989979496,
+      "test_classification_seconds": 0.0013165049967938103,
+      "timing_scope": "Classifier only; excludes vectorizer fitting/transforms and file I/O"
+    },
+    {
+      "method": "word_char_context",
+      "features": [
+        "word",
+        "char",
+        "context"
+      ],
+      "C": 0.3,
+      "threshold": 0.35,
+      "dev": {
+        "precision": 0.3647469458987784,
+        "recall": 0.7484333034914951,
+        "f1": 0.490466412437665,
+        "positive_support": 1117,
+        "average_precision": 0.4029813297187934,
+        "confusion_matrix_tn_fp_fn_tp": [
+          1166,
+          1456,
+          281,
+          836
+        ]
+      },
+      "test": {
+        "precision": 0.28184607176203813,
+        "recall": 0.8516727126158807,
+        "f1": 0.4235317698937663,
+        "positive_support": 2481,
+        "average_precision": 0.36795540581165703,
+        "confusion_matrix_tn_fp_fn_tp": [
+          3271,
+          5384,
+          368,
+          2113
+        ]
+      },
+      "per_meeting": [
+        {
+          "meeting": "ES2016a",
+          "precision": 0.39655172413793105,
+          "recall": 0.8165680473372781,
+          "f1": 0.5338491295938105,
+          "positive_support": 169,
+          "average_precision": 0.4854725572238321,
+          "confusion_matrix_tn_fp_fn_tp": [
+            119,
+            210,
+            31,
+            138
+          ]
+        },
+        {
+          "meeting": "ES2016b",
+          "precision": 0.1693548387096774,
+          "recall": 0.8484848484848485,
+          "f1": 0.2823529411764706,
+          "positive_support": 99,
+          "average_precision": 0.16774561658381887,
+          "confusion_matrix_tn_fp_fn_tp": [
+            222,
+            412,
+            15,
+            84
+          ]
+        },
+        {
+          "meeting": "ES2016c",
+          "precision": 0.2968036529680365,
+          "recall": 0.948905109489051,
+          "f1": 0.45217391304347826,
+          "positive_support": 137,
+          "average_precision": 0.35660271015143225,
+          "confusion_matrix_tn_fp_fn_tp": [
+            121,
+            308,
+            7,
+            130
+          ]
+        },
+        {
+          "meeting": "ES2016d",
+          "precision": 0.1937984496124031,
+          "recall": 0.75,
+          "f1": 0.3080082135523614,
+          "positive_support": 100,
+          "average_precision": 0.31698002688559,
+          "confusion_matrix_tn_fp_fn_tp": [
+            240,
+            312,
+            25,
+            75
+          ]
+        },
+        {
+          "meeting": "IS1006a",
+          "precision": 0.624031007751938,
+          "recall": 0.8655913978494624,
+          "f1": 0.7252252252252253,
+          "positive_support": 186,
+          "average_precision": 0.6735615450908609,
+          "confusion_matrix_tn_fp_fn_tp": [
+            110,
+            97,
+            25,
+            161
+          ]
+        },
+        {
+          "meeting": "IS1006b",
+          "precision": 0.14564831261101244,
+          "recall": 0.7884615384615384,
+          "f1": 0.24587706146926536,
+          "positive_support": 104,
+          "average_precision": 0.17740986560306848,
+          "confusion_matrix_tn_fp_fn_tp": [
+            307,
+            481,
+            22,
+            82
+          ]
+        },
+        {
+          "meeting": "IS1006c",
+          "precision": 0.25595238095238093,
+          "recall": 0.900523560209424,
+          "f1": 0.3986095017381228,
+          "positive_support": 191,
+          "average_precision": 0.37517678907403934,
+          "confusion_matrix_tn_fp_fn_tp": [
+            238,
+            500,
+            19,
+            172
+          ]
+        },
+        {
+          "meeting": "IS1006d",
+          "precision": 0.13802435723951287,
+          "recall": 0.75,
+          "f1": 0.23314285714285715,
+          "positive_support": 136,
+          "average_precision": 0.1533758630959262,
+          "confusion_matrix_tn_fp_fn_tp": [
+            418,
+            637,
+            34,
+            102
+          ]
+        },
+        {
+          "meeting": "TS3005a",
+          "precision": 0.0037735849056603774,
+          "recall": 1.0,
+          "f1": 0.007518796992481203,
+          "positive_support": 1,
+          "average_precision": 0.02702702702702703,
+          "confusion_matrix_tn_fp_fn_tp": [
+            302,
+            264,
+            0,
+            1
+          ]
+        },
+        {
+          "meeting": "TS3005b",
+          "precision": 0.6944444444444444,
+          "recall": 0.8787878787878788,
+          "f1": 0.7758159443552702,
+          "positive_support": 825,
+          "average_precision": 0.7911361758837777,
+          "confusion_matrix_tn_fp_fn_tp": [
+            208,
+            319,
+            100,
+            725
+          ]
+        },
+        {
+          "meeting": "TS3005c",
+          "precision": 0.28782707622298065,
+          "recall": 0.863481228668942,
+          "f1": 0.431740614334471,
+          "positive_support": 293,
+          "average_precision": 0.34468079117895145,
+          "confusion_matrix_tn_fp_fn_tp": [
+            266,
+            626,
+            40,
+            253
+          ]
+        },
+        {
+          "meeting": "TS3005d",
+          "precision": 0.13494318181818182,
+          "recall": 0.7916666666666666,
+          "f1": 0.23058252427184467,
+          "positive_support": 240,
+          "average_precision": 0.18719020792625066,
+          "confusion_matrix_tn_fp_fn_tp": [
+            720,
+            1218,
+            50,
+            190
+          ]
+        }
+      ],
+      "fit_selection_seconds": 1.4110334500001045,
+      "test_classification_seconds": 0.0019314789969939739,
+      "timing_scope": "Classifier only; excludes vectorizer fitting/transforms and file I/O"
+    }
+  ],
+  "baselines": [
+    {
+      "method": "always_positive",
+      "test": {
+        "precision": 0.22279094827586207,
+        "recall": 1.0,
+        "f1": 0.36439744437100685,
+        "positive_support": 2481,
+        "average_precision": null,
+        "confusion_matrix_tn_fp_fn_tp": [
+          0,
+          8655,
+          0,
+          2481
+        ]
+      }
+    },
+    {
+      "method": "always_negative",
+      "test": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "positive_support": 2481,
+        "average_precision": null,
+        "confusion_matrix_tn_fp_fn_tp": [
+          8655,
+          0,
+          2481,
+          0
+        ]
+      }
+    },
+    {
+      "method": "current_explicit_decision_rule",
+      "test": {
+        "precision": 0.3076923076923077,
+        "recall": 0.0016122531237404273,
+        "f1": 0.0032076984763432237,
+        "positive_support": 2481,
+        "average_precision": null,
+        "confusion_matrix_tn_fp_fn_tp": [
+          8646,
+          9,
+          2477,
+          4
+        ]
+      },
+      "scope": "Explicit decision cue used for broader discussion-membership task; lexical models are stronger same-task baselines"
+    }
+  ],
+  "dev_selected_variant": "word_char_context",
+  "test_prevalence": 0.22279094827586207,
+  "source_sha256": {
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2002a.decision.xml": "78af8fb82670b9c3bb0c06adb1337a5d718368e53c986673d86d7a87b7fb4b8a",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2002d.decision.xml": "aa6e840bb9f5fc75e1900dcce096962c21ded7c8ec791905ca64dafd1b6b7e6c",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2006a.decision.xml": "7b520a79850f1e05f6981be9a5cdd6f543d6166f7fe1c30a75143eace03512fa",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2006c.decision.xml": "033f06038cf72cb24e1b682436f5c2693b101a3c4b647ade13da7c6fd57b35a6",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2009a.decision.xml": "062c5746f4fa83a05708ee9ba7ac0cd5396f4bb52da5abbc3fa14937fcb7dcbc",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2009b.decision.xml": "0c2b04fe3443b0a4e9b506d071a29029c5aa9f94779769d91c6e0dc1a6c8144b",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2009c.decision.xml": "c335b049b31ae5996b5459fb8cf96c06f792eceeeb2bd40addc63852d9eb079a",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2010b.decision.xml": "c63594391ca39c36c8c100c29b99ec3acf54be008ce55d44896f1e6ac6f93cd6",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2010c.decision.xml": "13f2f7dccd644e02deab0dec227e2219563b16b2a0852dc1a7802647127a7caf",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2010d.decision.xml": "acf1650f3f79e0738aaa553412cc762185fea041320e53e7bdd8ac29a0bb7b39",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2012c.decision.xml": "b38b4a6c912100a4e1f7b0262cb3f9f16f8c91c0d4173ae65c871c75260f969b",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2012d.decision.xml": "4dbe859d2ab4f6f45244a3571938e105273bc6c2b1826ce32327d2529c34dc3a",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2015a.decision.xml": "0e6474b5d1d9e1331837e295fc51dd2095507d361213e3a8d63e2f2fbd9cf262",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2015b.decision.xml": "76d3071f643c2c5d77dc9b5c32e47d794bfd6ca1bade4ef899d2620d65357132",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2015c.decision.xml": "b5d2065239e92ce3f657b2fc74c4669489d8469666c64c39c0eeb2bf9831dd24",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2015d.decision.xml": "43e5a366c9e1d3b816db8b34e98b1ccd46c29062dee8510b907742bcad93e572",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2016a.decision.xml": "25c09c7f46cae79b50f3d0113ca9cdae0a908e0f98afca2f0100d79e00c4467e",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2016b.decision.xml": "9854db253d7fac2b310929e75938c90a53ea2a4da226d132b813373071fb9d30",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2016c.decision.xml": "c25fc4ba8204f7ed24c8e9a75354f321272ce055a784057d518f964d88a1617e",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/ES2016d.decision.xml": "f9ff2c2d2f68b956aa021b3aceca4d578cfbd76ce48737275c318321626ae3cd",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1000a.decision.xml": "aa766c606c28e4c3d54d7800f25ed41eeba0aec2ca68715d8df646bff361c020",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1001b.decision.xml": "615173f213ef3caa4b523960b7b381a5c6e572cf0d10f1763f4dff1022a6c05f",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1001c.decision.xml": "956085905d5cfe4aa570180b978b303cb8aafb90285cee55f16c6e7003efe9d0",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1001d.decision.xml": "66efd630e610f8c5b671e6c8b238cdfa445f8a0da556d415ec1cf5b1c193fe91",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1003a.decision.xml": "d0832eba2af976b71328221244172e92fe98ba684655514cb441701f85413b46",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1003b.decision.xml": "16db8965d8795dd4e276ffcaf1e81a3c500c1de5cef29d49bd4fe2fb970d80a1",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1003c.decision.xml": "2e85347009302207fd3c15ae1237b6efd85d9f34d5a7bd38443f3f4128078920",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1004a.decision.xml": "d97fe48eeb000e2cd82f707c581900c3783495aa0b99e978a44df6da46568d6e",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1004b.decision.xml": "80bdabc28ff5a8f2db2dbfb32fb91ba7d39cf5374ebf6007db35ed05d4e1e0ce",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1004c.decision.xml": "ab485cb257cdeecbe642faee72c025fcdebe558572a694a65229e8dd218b9c94",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1004d.decision.xml": "b99d497557bf5937034de7fe9cec12bc1cc61bc2734b655a37fd0bc8fa8e5083",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1005a.decision.xml": "0df9b101035c0593ff70770afacaebd073a7b6a2461fe3331651646d8370945f",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1006a.decision.xml": "2753ebd94c497adf99be3ae071395eb711e31044eb548130d7d00c585efdce84",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1006b.decision.xml": "dde90c96760551d235c672b816447583f609713798a6f8fe95c3227697de4411",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1006c.decision.xml": "7baf14df0d862eba804beba9376ff8e5a40e0f192e930694a0f7eb71d37e2c47",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1006d.decision.xml": "a21ea95fece177366d4ead7d371db5a6e89aa44be270552c8eb061a6bb83ba0e",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1008a.decision.xml": "9450457772aafd15156a2c7ba47b96d6ca3916cf5e82e262b315a55cfd193dd1",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1008b.decision.xml": "63f9bcce14e81bea922da10e10f859ed21dd6214469a495994c7afaf810dfa1b",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1008c.decision.xml": "05313212de1ab758d479f1142df90e60021910716ac70e9ad0d4aff570d87c34",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/IS1008d.decision.xml": "0de1c112ee6684019f0d08858a8018338191607b48de7791e7b230b173a559d1",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/TS3004a.decision.xml": "67291aaa275e3c9a0d8fe796026a77309428da8ddd49164c27dd4450e2e219b9",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/TS3004b.decision.xml": "1134c73cf0ee0a9ae4b103b5ab037e534cf97bd504cb1f547c3597706553aa1e",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/TS3005a.decision.xml": "6226cdf38c4b7903bf0eb120123f251af6255248e11ba4729c105948ed5e4b13",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/TS3005b.decision.xml": "e5640e3122b76e381e1c5a7c3e1687902fcc85f3f82159939edc4c7cd71d080f",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/TS3005c.decision.xml": "6ffb59cce966ce8146048ec34805e38423aaba7b0e35c60c4afa76f02f984fed",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/TS3005d.decision.xml": "b347157d575a18e26a3787e8da9eb5aa27e22d7e734278aacdbfa318928d74f8",
+    "AMI_dataset/annotations/ami_public_manual_1.6.2/decision/manual/TS3007a.decision.xml": "9b7678635866277788eba37030dca0c5a6a39df6bbe438c4c8fd016ddea39025"
+  },
+  "research_status": "Exploratory supervised English decision-discussion classification; no influence or full-pipeline claim"
+}

@@ -30,7 +30,7 @@ English AMI held-out WER: IS1001b 41.59%; TS3007d 81.00%. Distant audio, overlap
 
 ## Functional evidence
 
-Final complete suite: 560 passed, seven dependency warnings. Earlier focused metric tests: 89 passed. Final regression log is `evaluation/final_pytest.log`. Browser test verifies synthetic microphone previews, recovery, pause/resume, uploads, search, edits, evidence and responsive layouts. Real local preview inference is recorded separately in `evaluation/live_preview_real_model.json`. Android Java tests and APK build completed; no physical-phone accuracy or thermal certification is implied.
+The earlier audio-pilot software regression passed 563 tests with seven dependency warnings. Focused comparative metric checks are recorded in `evaluation/comparative_metric_tests.log`; that regression log is `evaluation/final_pytest.log`. Browser tests verify synthetic microphone previews, recovery, pause/resume, uploads, search, edits, evidence and responsive layouts. Real local preview inference is recorded separately in `evaluation/live_preview_real_model.json`. Android Java tests and APK build completed; no physical-phone accuracy or thermal certification is implied. Later pipeline validation is recorded separately with the new experiment.
 
 ## Downstream evaluation
 
@@ -38,4 +38,20 @@ Eight ablation variants ran against the existing long meeting. Human influence r
 
 ## Limits
 
-No training/fine-tuning was performed. Public dataset provenance and SHA-256 values are in the two manifests. Neither benchmark contamination nor generalisation to Indian meetings has been ruled out. Timing with concurrent evaluation jobs is not a controlled latency comparison. Full recordings, additional languages, independent human labels, physical Android tests and confidence intervals remain future validation.
+No speech-model training/fine-tuning was performed in this audio pilot; a separately reported linear decision-discussion classifier has now been trained on manual AMI annotations. Public dataset provenance and SHA-256 values are in the two manifests. Neither benchmark contamination nor generalisation to Indian meetings has been ruled out. Timing with concurrent evaluation jobs is not a controlled latency comparison. Full recordings, additional languages, independent human labels, physical Android tests and confidence intervals remain future validation.
+
+## Decision-discussion continued development
+
+The dev-selected `context_40` configuration scores 34.13% precision, 90.12% recall and 49.51% F1 on the same historical cohort as the initial 42.35% F1 pilot. This is exploratory continued development with oracle transcripts/act boundaries, not independent confirmation or app accuracy. See `DECISION_DISCUSSION_IMPROVEMENTS.md` and `evaluation/decision_discussion_v2/` for all variants, the smoothing ablation, frozen selection and provenance. Production rules are unchanged.
+
+## Matched classifier comparison
+
+Four classifier families were trained with both current-act and context-40 features, using the same split and development selection rule. All eight results are reported in `CLASSIFIER_COMPARISON.md` and Table 10 of the manuscript. The new development-selected pipeline, `random_forest__context_40`, scores 52.08% historical F1. This task-level exploratory study does not benchmark complete meeting assistants or establish general superiority.
+
+## Pipeline integration
+
+The development-selected forest/linear combination scores 53.54% historical discussion-membership F1, with 39.94% precision and 81.18% recall. It is installed locally for English discussion review and included in new report exports and the decision-review screen. See `PIPELINE_IMPROVEMENTS.md` for measured comparisons, runtime checks and limits. Actual recording/ASR-passage accuracy remains unmeasured.
+
+## Further quality experiments and complete scorecard
+
+The local speech default is `small` after fixed-sample evaluation. `QUALITY_IMPROVEMENTS.md` reports all recognition cohorts, the installed discussion model's accuracy/balanced accuracy/precision/recall/F1/AP and other metrics, negative NLP trials, and missing ground truth. No new NLP candidate met the release criteria; the installed forest/linear model is retained. Unrounded values and reference denominators are in `evaluation/quality_scorecard/`. These are exploratory task scores, not complete application accuracy.

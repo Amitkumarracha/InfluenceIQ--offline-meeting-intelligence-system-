@@ -1,0 +1,11 @@
+{
+  "python": "3.11.17",
+  "platform": "Linux-7.2.8-arch1-2-x86_64-with-glibc2.44",
+  "numpy": "1.26.4",
+  "scipy": "1.15.3",
+  "scikit_learn": "1.6.1",
+  "joblib": "1.6.0",
+  "OPENBLAS_NUM_THREADS": "2",
+  "OMP_NUM_THREADS": "2",
+  "dependencies_added": false
+}

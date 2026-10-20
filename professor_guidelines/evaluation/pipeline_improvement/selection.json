@@ -1,0 +1,20 @@
+{
+  "linear_weight": 0.25,
+  "smoothing_radius": 5,
+  "threshold": 0.3577398635496262,
+  "dev": {
+    "precision": 0.5091252359974827,
+    "recall": 0.7242614145031334,
+    "f1": 0.597930524759793,
+    "positive_support": 1117,
+    "average_precision": 0.5422205203957804,
+    "confusion_matrix_tn_fp_fn_tp": [
+      1842,
+      780,
+      308,
+      809
+    ]
+  },
+  "model_sha256": "9a76d232338132897375083e68081c29920fd9d0f19731ad75fb6bdc4d93b7ed",
+  "protocol_sha256": "c06850307441c0fdfe8e9c8e961160efd78e44d6f2b2549d187a0cfb4ecfa7b2"
+}

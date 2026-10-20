@@ -1,0 +1,20 @@
+{
+  "index": 100,
+  "segment_id": "103725_UO5ZLDtkc8QMi9Hk_0023",
+  "speaker_id": "103725",
+  "sha256": "2a60fe6eb0e8ccb462663f4afaced6c519dbcf111cdafd31ee6793765778db32",
+  "reference": "अब अपने keyboard पर एक साथ ctrl alt t कीज़ दबाकर terminal खोलते हैं",
+  "hypothesis": "अब अपने की बोड़ पर एक सात कंट्रोल अल्ट ती की जबा कर तमिनल खोलते हैं ताए",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.785714,
+    "substitutions": 8,
+    "deletions": 0,
+    "insertions": 3,
+    "reference_length": 14,
+    "hypothesis_length": 17
+  },
+  "seconds": 8.55,
+  "processing_seconds": 18.31734087500081
+}

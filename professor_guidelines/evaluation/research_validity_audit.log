@@ -1,0 +1,127 @@
+{
+  "active_features": {
+    "decision_contribution": {
+      "nonzero_clusters": 8,
+      "raw_total": 11.0
+    },
+    "evidence_contribution": {
+      "nonzero_clusters": 0,
+      "raw_total": 0.0
+    },
+    "interaction_contribution": {
+      "nonzero_clusters": 0,
+      "raw_total": 0.0
+    },
+    "objection_contribution": {
+      "nonzero_clusters": 0,
+      "raw_total": 0.0
+    },
+    "proposal_contribution": {
+      "nonzero_clusters": 0,
+      "raw_total": 0.0
+    },
+    "revision_contribution": {
+      "nonzero_clusters": 0,
+      "raw_total": 0.0
+    },
+    "slide_grounded_contribution": {
+      "nonzero_clusters": 0,
+      "raw_total": 0.0
+    }
+  },
+  "score_residual_checks": {
+    "proposed_vs_decision_count_scaled": 0.0,
+    "evidence_ablation_vs_pure_rescaling": 0.0,
+    "interaction_ablation_vs_pure_rescaling": 3.684210526239129e-07
+  },
+  "slide_count": 34,
+  "slides_with_recorded_timestamps": 0,
+  "ami_coverage_sensitivity": {
+    "status": "post_hoc_sensitivity_only_not_replacement_score",
+    "first_segment_absolute_seconds": 99.5,
+    "first_word_absolute_seconds": 100.08,
+    "reference_uncovered_prefix_seconds_within_excerpt": 39.5,
+    "reported_original_wer": {
+      "status": "ok",
+      "metric": "wer",
+      "wer": 0.809955,
+      "substitutions": 155,
+      "deletions": 21,
+      "insertions": 3,
+      "reference_length": 221,
+      "hypothesis_length": 203
+    },
+    "raw_word_observation_wer": {
+      "status": "ok",
+      "metric": "wer",
+      "wer": 0.80543,
+      "substitutions": 151,
+      "deletions": 20,
+      "insertions": 7,
+      "reference_length": 221,
+      "hypothesis_length": 208
+    },
+    "prefix_exclusion_wer": {
+      "status": "ok",
+      "metric": "wer",
+      "wer": 0.529412,
+      "substitutions": 21,
+      "deletions": 95,
+      "insertions": 1,
+      "reference_length": 221,
+      "hypothesis_length": 127
+    },
+    "median_matching_word_offset_seconds": 0.04999999999999716,
+    "matched_words_for_offset": 44,
+    "warning": "The standard BUT/pyannote UEM covers the whole recording. Excluding this prefix is post-hoc sensitivity, not official scoring or proven reference repair.",
+    "0.5": {
+      "original_der": {
+        "status": "ok",
+        "metric": "der",
+        "der": 0.835409,
+        "missed_speech_rate": 0.143889,
+        "false_alarm_rate": 0.383775,
+        "speaker_error_rate": 0.307745,
+        "total_reference_duration": 86.64200000000004,
+        "collar_s": 0.25,
+        "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+      },
+      "prefix_exclusion_der": {
+        "status": "ok",
+        "metric": "der",
+        "der": 0.46545,
+        "missed_speech_rate": 0.143889,
+        "false_alarm_rate": 0.013815,
+        "speaker_error_rate": 0.307745,
+        "total_reference_duration": 86.64200000000004,
+        "collar_s": 0.25,
+        "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+      }
+    },
+    "0.9": {
+      "original_der": {
+        "status": "ok",
+        "metric": "der",
+        "der": 0.560056,
+        "missed_speech_rate": 0.146816,
+        "false_alarm_rate": 0.38767,
+        "speaker_error_rate": 0.02557,
+        "total_reference_duration": 86.64200000000004,
+        "collar_s": 0.25,
+        "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+      },
+      "prefix_exclusion_der": {
+        "status": "ok",
+        "metric": "der",
+        "der": 0.184058,
+        "missed_speech_rate": 0.146816,
+        "false_alarm_rate": 0.011673,
+        "speaker_error_rate": 0.02557,
+        "total_reference_duration": 86.64200000000004,
+        "collar_s": 0.25,
+        "note": "pyannote.metrics DER with optimal label mapping and overlap included."
+      }
+    }
+  },
+  "scope": "Forensic diagnostics of saved pilot; no original metrics, model configuration or user meeting overwritten"
+}

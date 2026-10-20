@@ -1,0 +1,17 @@
+2026-10-19 17:45:40 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 17:45:40 [INFO] src.audio.asr: Loading faster-whisper model: size=small device=cpu compute_type=int8
+2026-10-19 17:45:58 [INFO] src.audio.asr: ASR checkpoint 1: 8.6 / 8.6 seconds
+2026-10-19 17:45:58 [INFO] src.audio.asr: Transcript saved: 2 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/research-evaluation/public_extension/extension_100_transcript.json
+100 {'status': 'ok', 'metric': 'wer', 'wer': 0.785714, 'substitutions': 8, 'deletions': 0, 'insertions': 3, 'reference_length': 14, 'hypothesis_length': 17}
+2026-10-19 17:46:00 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 17:46:05 [INFO] src.audio.asr: ASR checkpoint 1: 4.5 / 4.5 seconds
+2026-10-19 17:46:05 [INFO] src.audio.asr: Transcript saved: 1 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/research-evaluation/public_extension/extension_400_transcript.json
+400 {'status': 'ok', 'metric': 'wer', 'wer': 0.5, 'substitutions': 4, 'deletions': 0, 'insertions': 0, 'reference_length': 8, 'hypothesis_length': 8}
+2026-10-19 17:46:06 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 17:46:13 [INFO] src.audio.asr: ASR checkpoint 1: 7.5 / 7.5 seconds
+2026-10-19 17:46:13 [INFO] src.audio.asr: Transcript saved: 2 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/research-evaluation/public_extension/extension_800_transcript.json
+800 {'status': 'ok', 'metric': 'wer', 'wer': 0.777778, 'substitutions': 8, 'deletions': 2, 'insertions': 4, 'reference_length': 18, 'hypothesis_length': 20}
+2026-10-19 17:46:15 [INFO] src.audio.asr: Loaded 0 diarization segments (0 speakers)
+2026-10-19 17:46:30 [INFO] src.audio.asr: ASR checkpoint 1: 4.5 / 4.5 seconds
+2026-10-19 17:46:30 [INFO] src.audio.asr: Transcript saved: 2 segments, 0 speakers — /home/amitkumar/Music/MAI Project/.runtime/research-evaluation/public_extension/extension_1200_transcript.json
+1200 {'status': 'ok', 'metric': 'wer', 'wer': 1.142857, 'substitutions': 5, 'deletions': 0, 'insertions': 3, 'reference_length': 7, 'hypothesis_length': 10}

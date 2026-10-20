@@ -1,0 +1,64 @@
+<html><head><meta charset="utf-8"><style>@page {size:A4;margin:2cm} body {font-family:"Liberation Serif";font-size:11pt} table {border-collapse:collapse;width:100%;font-size:9pt} td,th {border:1px solid #888;padding:4px} img {max-width:100%;width:650px} pre {white-space:pre-wrap;font-size:9pt} h1,h2,h3 {page-break-after:avoid}</style></head><body><h1>IEEE manuscript: format and reproduction</h1>
+<p>The main manuscript has been rewritten as <strong>InfluenceIQ: Offline Decision-Discussion Detection with Source-Linked Meeting Review</strong>. It uses a standard IEEE <strong>conference</strong> layout because a specific conference or journal has not been selected. The user's IEEE-format request takes precedence over the earlier MTAP draft instructions. The previous expanded manuscript remains in <code>RESEARCH_SUPPLEMENT.*</code>; raw experiments and negative results remain in their original supplements.</p>
+<h2>Files</h2>
+<ul>
+<li><code>RESEARCH_PAPER.md</code>: authored manuscript; edit this source first.</li>
+<li><code>RESEARCH_PAPER.tex</code>: generated LaTeX using <code>\documentclass[conference,a4paper]{IEEEtran}</code>.</li>
+<li><code>RESEARCH_PAPER.pdf</code>: canonical typeset paper, compiled with IEEEtran.</li>
+<li><code>RESEARCH_PAPER.docx</code>: editable Word version with a full-width title/author block followed by two columns, Times New Roman styles, A4 geometry, numbered headings and embedded figures. Word pagination depends on installed fonts and can differ from LaTeX.</li>
+<li><code>RESEARCH_PAPER.doc</code>: legacy Word companion generated from the editable Word file.</li>
+<li><code>RESEARCH_PAPER.html</code>: self-contained reading copy with embedded figures and a two-column desktop layout.</li>
+<li><code>IEEEtran.cls</code>: unmodified class from CTAN; original support and license information is retained in the file and <code>templates/README</code>.</li>
+</ul>
+<p>The rewritten paper contains seven numbered sections, a single-paragraph abstract, five index terms, four numbered tables, two figures, two displayed equations and fifteen references ordered by first citation. The initial implementation report's thirteen overlapping result tables and eight figures remain in the supplement. No experiment was rerun, removed or relabelled for this formatting change.</p>
+<h2>Build</h2>
+<p>From the project root:</p>
+<pre><code class="language-bash">MPLCONFIGDIR=/tmp/influenceiq-mpl OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 \
+  .venv/bin/python scripts/build_ieee_paper.py --pdf
+.venv/bin/python scripts/check_ieee_paper.py
+</code></pre>
+<p>The local compiler is pinned to Tectonic 0.15.0 under <code>.runtime/ieee-tools/tectonic</code>. Its initial build downloads standard TeX packages/fonts; subsequent builds reuse the compiler cache. No system package installation is required. To compile on another machine with a standard TeX installation, run <code>pdflatex RESEARCH_PAPER.tex</code> twice inside <code>professor_guidelines/</code>, with the included IEEEtran class and <code>figures/</code> assets present. The <code>scripts/build_research_documents.py</code> package build regenerates the supplementary reader formats and then calls the IEEE renderer; it preserves the authored main Markdown instead of replacing it with the older report.</p>
+<p>Checks in <code>scripts/check_ieee_paper.py</code> compare every table with saved measurements, check citation order and layout structure, verify embedded Word figures, and inspect PDF text/fonts. The original application regression results remain separate from document validation.</p>
+<h2>Author details and remaining input</h2>
+<p>The supplied project-cover screenshot, <code>Screenshot_20261019_231611.png</code>, identifies the authors in this order: Anushka Chatterjee (23070126015), Amitkumar Racha (24070126501), Sahil Awatramani (23070126112) and Shriyans Sahoo (23070126125). Their affiliation is the Department of Artificial Intelligence &amp; Machine Learning, Symbiosis Institute of Technology, Pune, Pune 412115, Maharashtra, India; institutional website: https://www.sitpune.edu.in/. The work is a B.Tech project by Group 12 in academic year 2026–27.</p>
+<p>Dr. Nivedita Mishra is credited as faculty guide in the author-area guidance line and acknowledgment. The screenshot lists her under guidance, so she has not been automatically added as a coauthor. Student identifiers, degree, group and academic year are retained in the acknowledgment rather than crowding the IEEE author-name line. The user supplied these contact emails:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anushka Chatterjee</td>
+<td>anushkac2311@gmail.com</td>
+</tr>
+<tr>
+<td>Amitkumar Racha</td>
+<td>rachaamitkumar@gmail.com</td>
+</tr>
+<tr>
+<td>Sahil Awatramani</td>
+<td>sahilawatramani@gmail.com</td>
+</tr>
+<tr>
+<td>Shriyans Sahoo</td>
+<td>shriyanssahoo2005@gmail.com</td>
+</tr>
+<tr>
+<td>Dr. Nivedita Mishra, faculty guide</td>
+<td>nivedita.mishra@sitpune.edu.in</td>
+</tr>
+</tbody>
+</table>
+<p>No corresponding author has been designated and no ORCID was supplied. Funding, contribution and applicable consent/ethics statements still need author confirmation. AI assistance remains disclosed in the acknowledgment.</p>
+<p>A selected venue can impose its own page limit, anonymity policy, paper size and required declarations. IEEE PDF eXpress certification and a plagiarism/similarity check have not been performed. The new format does not resolve the study's independent-evaluation gaps or establish broad superiority.</p>
+<h2>Format sources</h2>
+<ul>
+<li><a href="https://cai.ieee.org/2025/manuscript-templates-for-conference-proceedings/">IEEE conference template guidance</a>.</li>
+<li><a href="https://conferences.ieeeauthorcenter.ieee.org/write-your-paper/structure-your-paper/">IEEE Author Center: paper structure</a>.</li>
+<li><a href="https://ctan.org/pkg/ieeetran">IEEEtran distribution</a>.</li>
+</ul>
+<p>The official Word-template download returned an empty response, so the Word version is generated with matching conference geometry and styles. The canonical PDF uses the actual IEEEtran class. No IEEE logo, conference name, copyright assignment or acceptance statement is added.</p>
+</body></html>

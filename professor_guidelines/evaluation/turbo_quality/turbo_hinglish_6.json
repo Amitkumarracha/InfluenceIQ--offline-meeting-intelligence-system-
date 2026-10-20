@@ -1,0 +1,32 @@
+{
+  "model": "large-v3-turbo",
+  "corpus": "hinglish",
+  "sample": "turbo_hinglish_6",
+  "source_sha256": "a326f68bfea6f40daec8252a9ed60adbff7377d44ff04ddd9e28365e561f274b",
+  "reference": "जैसे कि आप देख सकते हैं workspace में 5 tabs हैं जिन्हें view buttons कहते हैं",
+  "hypothesis": "हम काम करेंगे जैसे कि आप देख सकते हैं वर्क स्पेस में पांच टैब्स हैं जिने",
+  "wer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.75,
+    "substitutions": 4,
+    "deletions": 4,
+    "insertions": 4,
+    "reference_length": 16,
+    "hypothesis_length": 16
+  },
+  "cer": {
+    "status": "ok",
+    "metric": "wer",
+    "wer": 0.777778,
+    "substitutions": 21,
+    "deletions": 17,
+    "insertions": 11,
+    "reference_length": 63,
+    "hypothesis_length": 57
+  },
+  "elapsed_seconds": 26.992692945997987,
+  "detected_languages": [
+    "hi"
+  ]
+}

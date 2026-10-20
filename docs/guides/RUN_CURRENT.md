@@ -33,7 +33,7 @@ After **Analyse meeting**, the page shows upload progress, measured audio-stage 
 
 Leave **Expected speakers** empty if unknown. Review automatic clusters before interpreting influence; an unusually high count is flagged. Use automatic rerun if the count is unknown. When the actual number is known, use **Overview → Review speaker separation** to reanalyse with that count. Groups may change, so review names and roles again. Edit names/roles in **Participants**; the transcript and evidence use those labels too. Explicit self-introductions can suggest names, which still need review.
 
-Upload one `.pptx` with the audio. Use **Replace PPT** or **Remove PPT** to change it; convert binary `.ppt` to `.pptx` first. The backend checks presentations before audio inference. Audio accepts WAV, MP3, M4A, MP4, FLAC, OGG, WebM, AAC, OPUS, WMA, AIFF/AIF, AMR and 3GP when FFmpeg can decode them.
+Select or add multiple audio files and up to 32 `.pptx` presentations. Reorder or remove them before analysis; audio parts join into one meeting and presentation slides combine in the listed order. Convert binary `.ppt` to `.pptx` first. The backend checks presentations before audio inference. Audio accepts WAV, MP3, M4A, MP4, FLAC, OGG, WebM, AAC, OPUS, WMA, AIFF/AIF, AMR and 3GP when FFmpeg can decode them.
 
 The updated backend is running on port 8001, with logs in `.runtime/backend-web.log`. Do not start a second backend. For a later source update, let current jobs finish, stop the existing backend, then run Terminal 1's command. The frontend development server updates source changes automatically.
 
@@ -126,3 +126,9 @@ adb -s PHONE_SERIAL logcat -s AndroidRuntime:E
 Current implementation, measurements and the outstanding physical-phone/Hinglish checks are in the [readiness report](../validation/23_READINESS_2026_10_18.md).
 
 Current research results, measured Hindi/Hinglish errors and Word report files: [research package](../../professor_guidelines/README.md).
+
+## Latest speech-model comparison
+
+`large-v3-turbo` is now provisioned locally and appears in the website's **Speech model** selector. Select it before analysing to try its output; saved model preferences still apply. The shared default remains `small` because stronger recognition did not improve every evaluated cohort. Compare the fixed English, Hindi and Hinglish results in [the quality scorecard](../../professor_guidelines/QUALITY_IMPROVEMENTS.md). Existing meetings require reanalysis to obtain another model's transcript. This laptop model does not change Android's native speech model.
+
+On the unchanged eight-sample Hindi pilot, Turbo reduced WER from 50.96% to 28.85% and character error from 20.09% to 9.41%. On the eight Hinglish samples, WER decreased from 66.13% to 57.26%. These small pilots support trying Turbo for those languages; they do not establish full-recording accuracy.

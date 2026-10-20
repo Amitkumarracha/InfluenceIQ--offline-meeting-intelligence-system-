@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "pipelines": 8,
+  "test_acts_per_pipeline": 11136,
+  "positive_acts_per_pipeline": 2481,
+  "selection_and_code_hashes_verified": true,
+  "confusion_counts_verified": true,
+  "focused_tests_passed": 101,
+  "test_log": "tests.log",
+  "document_exports_verified": true,
+  "research_package_checks_passed": true
+}

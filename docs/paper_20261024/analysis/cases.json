@@ -1,0 +1,49 @@
+{
+  "selection": "Three purposive explanatory examples, not a random accuracy sample",
+  "source_sha256": "163e2a233500d106934d0602d00712d6249d46bf9b9e1726a5f4232820fc3a99",
+  "events_source_sha256": "52f5f0d5d8fdd497909f632895cc4e709022d894ddb680ad52b3b3761a787228",
+  "cases": [
+    {
+      "utterance_id": "12.Pink.38",
+      "speaker": "12.Pink",
+      "start": 170.5,
+      "end": 172.3,
+      "text": "Okay yeah that makes sense",
+      "manual_role": "Agreement",
+      "raw_candidate": "agreement",
+      "match_density": 0.375,
+      "emitted_event": "agreement",
+      "threshold": 0.3,
+      "illustration": "Role retrieval example",
+      "scope": "Manual role reference only; no adopted-idea, final-decision, or person-impact ground truth"
+    },
+    {
+      "utterance_id": "17.Orange.34",
+      "speaker": "17.Orange",
+      "start": 189.4,
+      "end": 191.5,
+      "text": "I think we should put that next then $",
+      "manual_role": "Proposal",
+      "raw_candidate": "proposal",
+      "match_density": 0.2727,
+      "emitted_event": null,
+      "threshold": 0.3,
+      "illustration": "Threshold omission",
+      "scope": "Manual role reference only; no adopted-idea, final-decision, or person-impact ground truth"
+    },
+    {
+      "utterance_id": "13.Yellow.60",
+      "speaker": "13.Yellow",
+      "start": 133.7,
+      "end": 136.4,
+      "text": "How about we split the ten and the eight make it a nine",
+      "manual_role": "Proposal",
+      "raw_candidate": "question",
+      "match_density": 0.4286,
+      "emitted_event": "question",
+      "threshold": 0.3,
+      "illustration": "Role competition",
+      "scope": "Manual role reference only; no adopted-idea, final-decision, or person-impact ground truth"
+    }
+  ]
+}

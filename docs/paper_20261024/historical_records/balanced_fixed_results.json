@@ -1,0 +1,315 @@
+{
+  "status": "Exploratory fixed-weight downstream evaluation; no new ranker fitted",
+  "cohorts": {
+    "dev": {
+      "contextual_roles_fixed_influence": {
+        "meetings": [
+          {
+            "meeting_id": "15",
+            "participants": 4,
+            "spearman": -0.39999999999999997,
+            "kendall_tau": -0.3333333333333334,
+            "comparable_pairs": 6,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.3333333333333333,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "21",
+            "participants": 3,
+            "spearman": 0.5,
+            "kendall_tau": 0.33333333333333337,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.6666666666666666,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "27",
+            "participants": 3,
+            "spearman": 1.0,
+            "kendall_tau": 1.0,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 1.0,
+            "top_set_correct": true,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "4",
+            "participants": 3,
+            "spearman": 0.5,
+            "kendall_tau": 0.33333333333333337,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.6666666666666666,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "6",
+            "participants": 4,
+            "spearman": 0.316227766016838,
+            "kendall_tau": 0.18257418583505539,
+            "comparable_pairs": 5,
+            "human_tied_pairs": 1,
+            "pairwise_accuracy": 0.6,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "8",
+            "participants": 3,
+            "spearman": 1.0,
+            "kendall_tau": 1.0,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 1.0,
+            "top_set_correct": true,
+            "rank_status": "ok"
+          }
+        ],
+        "meeting_macro_pairwise_accuracy": 0.7111111111111111,
+        "top_set_accuracy": 0.3333333333333333,
+        "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+        "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+        "mean_spearman": 0.48603796100280633
+      },
+      "word_count": {
+        "meetings": [
+          {
+            "meeting_id": "15",
+            "participants": 4,
+            "spearman": 0.0,
+            "kendall_tau": 0.0,
+            "comparable_pairs": 6,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.5,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "21",
+            "participants": 3,
+            "spearman": 1.0,
+            "kendall_tau": 1.0,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 1.0,
+            "top_set_correct": true,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "27",
+            "participants": 3,
+            "spearman": 1.0,
+            "kendall_tau": 1.0,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 1.0,
+            "top_set_correct": true,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "4",
+            "participants": 3,
+            "spearman": 0.5,
+            "kendall_tau": 0.33333333333333337,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.6666666666666666,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "6",
+            "participants": 4,
+            "spearman": 0.632455532033676,
+            "kendall_tau": 0.5477225575051662,
+            "comparable_pairs": 5,
+            "human_tied_pairs": 1,
+            "pairwise_accuracy": 0.8,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "8",
+            "participants": 3,
+            "spearman": 1.0,
+            "kendall_tau": 1.0,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 1.0,
+            "top_set_correct": true,
+            "rank_status": "ok"
+          }
+        ],
+        "meeting_macro_pairwise_accuracy": 0.8277777777777778,
+        "top_set_accuracy": 0.5,
+        "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+        "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+        "mean_spearman": 0.6887425886722793
+      }
+    },
+    "test": {
+      "contextual_roles_fixed_influence": {
+        "meetings": [
+          {
+            "meeting_id": "12",
+            "participants": 4,
+            "spearman": -0.19999999999999998,
+            "kendall_tau": 0.0,
+            "comparable_pairs": 6,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.5,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "17",
+            "participants": 4,
+            "spearman": 0.39999999999999997,
+            "kendall_tau": 0.3333333333333334,
+            "comparable_pairs": 6,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.6666666666666666,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "26",
+            "participants": 3,
+            "spearman": 0.0,
+            "kendall_tau": 0.0,
+            "comparable_pairs": 2,
+            "human_tied_pairs": 1,
+            "pairwise_accuracy": 0.5,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "3",
+            "participants": 2,
+            "spearman": -0.9999999999999999,
+            "kendall_tau": -1.0,
+            "comparable_pairs": 1,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.0,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "7",
+            "participants": 3,
+            "spearman": -0.5,
+            "kendall_tau": -0.33333333333333337,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.3333333333333333,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "9",
+            "participants": 3,
+            "spearman": -0.5,
+            "kendall_tau": -0.33333333333333337,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.3333333333333333,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          }
+        ],
+        "meeting_macro_pairwise_accuracy": 0.38888888888888884,
+        "top_set_accuracy": 0.0,
+        "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+        "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+        "mean_spearman": -0.3
+      },
+      "word_count": {
+        "meetings": [
+          {
+            "meeting_id": "12",
+            "participants": 4,
+            "spearman": 0.39999999999999997,
+            "kendall_tau": 0.3333333333333334,
+            "comparable_pairs": 6,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.6666666666666666,
+            "top_set_correct": true,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "17",
+            "participants": 4,
+            "spearman": 0.7999999999999999,
+            "kendall_tau": 0.6666666666666669,
+            "comparable_pairs": 6,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.8333333333333334,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "26",
+            "participants": 3,
+            "spearman": -0.8660254037844387,
+            "kendall_tau": -0.816496580927726,
+            "comparable_pairs": 2,
+            "human_tied_pairs": 1,
+            "pairwise_accuracy": 0.0,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "3",
+            "participants": 2,
+            "spearman": 0.9999999999999999,
+            "kendall_tau": 1.0,
+            "comparable_pairs": 1,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 1.0,
+            "top_set_correct": true,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "7",
+            "participants": 3,
+            "spearman": 0.5,
+            "kendall_tau": 0.33333333333333337,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.6666666666666666,
+            "top_set_correct": false,
+            "rank_status": "ok"
+          },
+          {
+            "meeting_id": "9",
+            "participants": 3,
+            "spearman": 0.5,
+            "kendall_tau": 0.33333333333333337,
+            "comparable_pairs": 3,
+            "human_tied_pairs": 0,
+            "pairwise_accuracy": 0.6666666666666666,
+            "top_set_correct": true,
+            "rank_status": "ok"
+          }
+        ],
+        "meeting_macro_pairwise_accuracy": 0.6388888888888888,
+        "top_set_accuracy": 0.5,
+        "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+        "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+        "mean_spearman": 0.38899576603592684
+      }
+    }
+  },
+  "source_sha256": {
+    "outputs/training/contextual_roles_balanced_20261024/source_snapshot/scripts/evaluate_fixed_influence.py": "5b0333394b52a0d4f9b416b505a81e09a5e757e3d38aa37b9babfa80f3fcf7ec",
+    "src/meeting/learned_events.py": "cc6e795c1a246be539768ee8782950a7cbe71a4db3e4c9b6207b7dac5ad5ef8f",
+    "src/meeting/decisions.py": "6c009a0ce0f8588e88d7a8e6817ad2714a6d921dd0c40dd05386a30e44fd11c8",
+    "src/meeting/influence.py": "05f79c26e6f3fc1546ea1d1e97a003fd60688bcb440a74b2d2b183facb9e1d9b"
+  }
+}

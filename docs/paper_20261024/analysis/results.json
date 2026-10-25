@@ -1,0 +1,2026 @@
+{
+  "status": "Exploratory, review-motivated analysis; all corpus groups previously available to development",
+  "protocol_sha256": "0917e757b801103bbd3f6fd6d5d0138eb9a02072766a1233fe3bbefb30c39031",
+  "participants": 84,
+  "meetings": 28,
+  "scores": {
+    "participation": {
+      "pairwise_accuracy": 0.6178571428571428,
+      "top_set_accuracy": 0.4642857142857143,
+      "constant_meetings": 0,
+      "comparable_pairs": 87,
+      "per_meeting": [
+        {
+          "meeting_id": "1",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "2",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "4",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "5",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "6",
+          "participants": 4,
+          "comparable_pairs": 5,
+          "pairwise_accuracy": 0.8,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "8",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "10",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "11",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "13",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "14",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "15",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "16",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "18",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "19",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "20",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "21",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "22",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "23",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "24",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "25",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "27",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "28",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        }
+      ],
+      "descriptive_bootstrap_95_ci": [
+        0.4761904761904762,
+        0.75
+      ]
+    },
+    "contribution": {
+      "pairwise_accuracy": 0.5339285714285714,
+      "top_set_accuracy": 0.07142857142857142,
+      "constant_meetings": 22,
+      "comparable_pairs": 87,
+      "per_meeting": [
+        {
+          "meeting_id": "1",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "2",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "4",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "5",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "6",
+          "participants": 4,
+          "comparable_pairs": 5,
+          "pairwise_accuracy": 0.7,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "8",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "10",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "11",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "13",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "14",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5833333333333334,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "15",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "16",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "18",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "19",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "20",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "21",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "22",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "23",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "24",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "25",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 2,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "27",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "28",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 2,
+          "constant_prediction": true,
+          "top_set_correct": false
+        }
+      ],
+      "descriptive_bootstrap_95_ci": [
+        0.4732142857142857,
+        0.5976339285714284
+      ]
+    },
+    "combined": {
+      "pairwise_accuracy": 0.6892857142857143,
+      "top_set_accuracy": 0.5,
+      "constant_meetings": 0,
+      "comparable_pairs": 87,
+      "per_meeting": [
+        {
+          "meeting_id": "1",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "2",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "4",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "5",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "6",
+          "participants": 4,
+          "comparable_pairs": 5,
+          "pairwise_accuracy": 0.8,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "8",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "10",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "11",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.8333333333333334,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "13",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "14",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "15",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "16",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "18",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "19",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "20",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "21",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "22",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "23",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "24",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "25",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "27",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "28",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        }
+      ],
+      "descriptive_bootstrap_95_ci": [
+        0.5809523809523809,
+        0.7904761904761906
+      ]
+    },
+    "word_count": {
+      "pairwise_accuracy": 0.6654761904761904,
+      "top_set_accuracy": 0.5,
+      "constant_meetings": 0,
+      "comparable_pairs": 87,
+      "per_meeting": [
+        {
+          "meeting_id": "1",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "2",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "4",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "5",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "6",
+          "participants": 4,
+          "comparable_pairs": 5,
+          "pairwise_accuracy": 0.8,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "8",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "10",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "11",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "13",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "14",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "15",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "16",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.8333333333333334,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "18",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "19",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "20",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "21",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "22",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "23",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "24",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "25",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "27",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "28",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        }
+      ],
+      "descriptive_bootstrap_95_ci": [
+        0.5285714285714286,
+        0.7916666666666667
+      ]
+    },
+    "speaking_duration": {
+      "pairwise_accuracy": 0.6785714285714286,
+      "top_set_accuracy": 0.4642857142857143,
+      "constant_meetings": 0,
+      "comparable_pairs": 87,
+      "per_meeting": [
+        {
+          "meeting_id": "1",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "2",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "4",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "5",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "6",
+          "participants": 4,
+          "comparable_pairs": 5,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "8",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "10",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "11",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "13",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "14",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "15",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "16",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.8333333333333334,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "18",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "19",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "20",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "21",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "22",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "23",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "24",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.3333333333333333,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "25",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "27",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "28",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": false
+        }
+      ],
+      "descriptive_bootstrap_95_ci": [
+        0.5476190476190476,
+        0.7976190476190476
+      ]
+    },
+    "constant_ties": {
+      "pairwise_accuracy": 0.5,
+      "top_set_accuracy": 0.0,
+      "constant_meetings": 28,
+      "comparable_pairs": 87,
+      "per_meeting": [
+        {
+          "meeting_id": "1",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "2",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "4",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "5",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "6",
+          "participants": 4,
+          "comparable_pairs": 5,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 5,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "8",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "10",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "11",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "13",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "14",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "15",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "16",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "18",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "19",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "20",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "21",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "22",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "23",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "24",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "25",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 2,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "27",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "28",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 2,
+          "constant_prediction": true,
+          "top_set_correct": false
+        }
+      ],
+      "descriptive_bootstrap_95_ci": [
+        0.5,
+        0.5
+      ]
+    },
+    "prototype_fixed_weights": {
+      "pairwise_accuracy": 0.5577380952380951,
+      "top_set_accuracy": 0.14285714285714285,
+      "constant_meetings": 22,
+      "comparable_pairs": 87,
+      "per_meeting": [
+        {
+          "meeting_id": "1",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "2",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "4",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "5",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "6",
+          "participants": 4,
+          "comparable_pairs": 5,
+          "pairwise_accuracy": 0.7,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "8",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.6666666666666666,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "10",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "11",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "13",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "14",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5833333333333334,
+          "predicted_tied_pairs": 1,
+          "constant_prediction": false,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "15",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "16",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "comparable_pairs": 6,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 6,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "18",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "19",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "20",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "21",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "22",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "23",
+          "participants": 2,
+          "comparable_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "predicted_tied_pairs": 0,
+          "constant_prediction": false,
+          "top_set_correct": true
+        },
+        {
+          "meeting_id": "24",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "25",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 2,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "27",
+          "participants": 3,
+          "comparable_pairs": 3,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 3,
+          "constant_prediction": true,
+          "top_set_correct": false
+        },
+        {
+          "meeting_id": "28",
+          "participants": 3,
+          "comparable_pairs": 2,
+          "pairwise_accuracy": 0.5,
+          "predicted_tied_pairs": 2,
+          "constant_prediction": true,
+          "top_set_correct": false
+        }
+      ],
+      "descriptive_bootstrap_95_ci": [
+        0.5148809523809523,
+        0.6130952380952381
+      ]
+    }
+  },
+  "primary_contrast": {
+    "difference": 0.07142857142857142,
+    "descriptive_paired_bootstrap_95_ci": [
+      -0.017857142857142856,
+      0.17857142857142858
+    ],
+    "meetings_better": 6,
+    "meetings_same": 19,
+    "meetings_worse": 3
+  },
+  "contrasts": {
+    "combined_minus_participation": {
+      "difference": 0.07142857142857142,
+      "descriptive_paired_bootstrap_95_ci": [
+        -0.017857142857142856,
+        0.17857142857142858
+      ],
+      "meetings_better": 6,
+      "meetings_same": 19,
+      "meetings_worse": 3
+    },
+    "combined_minus_word_count": {
+      "difference": 0.023809523809523805,
+      "descriptive_paired_bootstrap_95_ci": [
+        -0.05357142857142859,
+        0.10714285714285716
+      ],
+      "meetings_better": 6,
+      "meetings_same": 17,
+      "meetings_worse": 5
+    },
+    "contribution_minus_participation": {
+      "difference": -0.0839285714285714,
+      "descriptive_paired_bootstrap_95_ci": [
+        -0.244047619047619,
+        0.08395833333333291
+      ],
+      "meetings_better": 10,
+      "meetings_same": 2,
+      "meetings_worse": 16
+    }
+  },
+  "feature_coverage": [
+    {
+      "feature": "influence_proposal",
+      "active_participants": 0,
+      "active_meetings": 0,
+      "participants": 84,
+      "meetings": 28
+    },
+    {
+      "feature": "influence_evidence",
+      "active_participants": 0,
+      "active_meetings": 0,
+      "participants": 84,
+      "meetings": 28
+    },
+    {
+      "feature": "influence_objection",
+      "active_participants": 2,
+      "active_meetings": 2,
+      "participants": 84,
+      "meetings": 28
+    },
+    {
+      "feature": "influence_revision",
+      "active_participants": 0,
+      "active_meetings": 0,
+      "participants": 84,
+      "meetings": 28
+    },
+    {
+      "feature": "influence_decision",
+      "active_participants": 14,
+      "active_meetings": 6,
+      "participants": 84,
+      "meetings": 28
+    },
+    {
+      "feature": "influence_interaction",
+      "active_participants": 4,
+      "active_meetings": 3,
+      "participants": 84,
+      "meetings": 28
+    },
+    {
+      "feature": "influence_slide_grounding",
+      "active_participants": 0,
+      "active_meetings": 0,
+      "participants": 84,
+      "meetings": 28
+    }
+  ],
+  "participants_without_contribution_features": 70,
+  "meetings_without_contribution_features": 22,
+  "fixed_weight_deletions": [
+    {
+      "deleted_feature": "influence_proposal",
+      "pairwise_accuracy": 0.5577380952380951,
+      "constant_meetings": 22
+    },
+    {
+      "deleted_feature": "influence_evidence",
+      "pairwise_accuracy": 0.5577380952380951,
+      "constant_meetings": 22
+    },
+    {
+      "deleted_feature": "influence_objection",
+      "pairwise_accuracy": 0.5577380952380951,
+      "constant_meetings": 22
+    },
+    {
+      "deleted_feature": "influence_revision",
+      "pairwise_accuracy": 0.5577380952380951,
+      "constant_meetings": 22
+    },
+    {
+      "deleted_feature": "influence_decision",
+      "pairwise_accuracy": 0.5029761904761905,
+      "constant_meetings": 24
+    },
+    {
+      "deleted_feature": "influence_interaction",
+      "pairwise_accuracy": 0.5696428571428571,
+      "constant_meetings": 22
+    },
+    {
+      "deleted_feature": "influence_slide_grounding",
+      "pairwise_accuracy": 0.5577380952380951,
+      "constant_meetings": 22
+    }
+  ],
+  "role_diagnostic": {
+    "scope": "Corpus-wide descriptive diagnostic; manual role annotations are not contribution/outcome links",
+    "utterances": 8009,
+    "threshold": 0.3,
+    "rows": [
+      {
+        "reference_role": "Proposal",
+        "event_type": "proposal",
+        "reference_positive": 537,
+        "predicted_positive": 0,
+        "true_positive": 0,
+        "false_positive": 0,
+        "false_negative": 537,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "reference_role": "Agreement",
+        "event_type": "agreement",
+        "reference_positive": 684,
+        "predicted_positive": 80,
+        "true_positive": 24,
+        "false_positive": 56,
+        "false_negative": 660,
+        "precision": 0.3,
+        "recall": 0.03508771929824561,
+        "f1": 0.06282722513089005
+      }
+    ],
+    "events_source_sha256": "52f5f0d5d8fdd497909f632895cc4e709022d894ddb680ad52b3b3761a787228"
+  },
+  "limitations": [
+    "Previously inspected corpus; exploratory only, not fresh independent confirmation.",
+    "AII is outcome alignment, not annotated individual contribution.",
+    "CV training sets overlap; intervals are descriptive conditional on these predictions.",
+    "Reference transcripts/speakers; no slides or complete audio pipeline evaluation."
+  ]
+}

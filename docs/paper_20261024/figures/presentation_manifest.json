@@ -1,0 +1,15 @@
+{
+  "inputs": {
+    "analysis/results.json": "854265bf31a20c3a692bb92a6766877d9a5aa1b1889594fbf262f407d9080ca2",
+    "analysis/comparison_table_manifest.json": "38216fc35d13a20366ed5b9f064f234edb0803c172c040185a6ef50b6241f42c"
+  },
+  "generator_sha256": "b22592275378ec0f7de0ea2799aa57841dd5880d0e5b7d873c63ca09a3165091",
+  "figures": [
+    "architecture",
+    "controlled_results",
+    "feature_coverage",
+    "paired_differences",
+    "ablation_results"
+  ],
+  "note": "No new training; all numerical figures use frozen stored measurements."
+}

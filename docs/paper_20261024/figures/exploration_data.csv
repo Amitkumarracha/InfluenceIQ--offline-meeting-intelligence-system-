@@ -1,0 +1,7 @@
+method,feature_version,development_pairwise_accuracy,historical_pairwise_accuracy,artifact_directory,historical_status
+Structure Extra Trees (initial primary),initial snapshot,0.8333333333333334,0.611111111111111,outputs/training/gap_influence_20261024,initial frozen scoring
+Word-count baseline,participation baseline,0.8277777777777778,0.6388888888888888,outputs/training/gap_influence_20261024,initial frozen scoring
+Semantic uptake (ridge),pre-correction snapshot,0.7444444444444445,0.3055555555555555,outputs/training/gap_influence_semantic_20261024,exploratory reuse of historical cohort
+Learned role summaries (ridge),pre-correction snapshot,0.7444444444444445,0.3611111111111111,outputs/training/gap_influence_semantic_20261024,exploratory reuse of historical cohort
+XGBoost ranker,corrected snapshot,0.8611111111111112,0.49999999999999994,outputs/training/xgb_influence_20261024_v2,exploratory reuse of historical cohort
+Balanced contextual roles (fixed contribution score),corrected snapshot,0.7111111111111111,0.38888888888888884,outputs/training/contextual_roles_balanced_20261024,exploratory reuse of historical cohort

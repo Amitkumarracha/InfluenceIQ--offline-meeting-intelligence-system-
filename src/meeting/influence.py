@@ -366,13 +366,11 @@ def extract_features(
     # ---- Feature A: proposal_contribution ----
     # A proposal counts if it is part of a decision cluster.
     for d in decisions:
-        if d.proposal:
-            sp = d.proposal.get("speaker")
-            if sp and sp in vectors:
-                vectors[sp].proposal_contribution += 1.0
-                # Extra credit if it became the final decision
-                if d.final_decision and d.status == "confirmed":
-                    vectors[sp].proposal_contribution += 1.0
+        for event_id in _decision_event_ids(d):
+            event = ev_index.get(event_id)
+            if event is not None and event.event_type == "proposal" and event.speaker in vectors:
+                # Count observed proposals; a confirmed cluster does not establish adoption.
+                vectors[event.speaker].proposal_contribution += 1.0
 
     # ---- Feature B: evidence_contribution ----
     # Evidence events that are decision-linked; extra if grounded to a slide.
@@ -607,7 +605,7 @@ def compute_decision_contributions(
 
         # Roles in this decision
         roles: list[str] = []
-        if d.proposal and d.proposal.get("speaker") == speaker:
+        if any(ev.event_type == "proposal" for ev in speaker_events):
             roles.append("proposer")
         for r in d.revisions:
             rev_ev = ev_index.get(r["event_id"])
@@ -625,7 +623,7 @@ def compute_decision_contributions(
         for ev in speaker_events:
             if ev.event_type in ("objection", "disagreement") and "objector" not in roles:
                 roles.append("objector")
-        if d.proposal and any(ev.event_type == "evidence" for ev in speaker_events):
+        if any(ev.event_type == "evidence" for ev in speaker_events):
             if "evidence_provider" not in roles:
                 roles.append("evidence_provider")
 
@@ -1093,8 +1091,8 @@ def run_influence_analysis(
     logger.info(
         "Influence complete | participants=%d | top_speaker=%s | score=%.4f | %.2fs",
         len(result.participants),
-        result.participants[0].participant if result.participants else "N/A",
-        result.participants[0].influence_score if result.participants else 0.0,
+        result.by_rank()[0].participant if result.participants else "N/A",
+        result.by_rank()[0].influence_score if result.participants else 0.0,
         elapsed,
     )
 

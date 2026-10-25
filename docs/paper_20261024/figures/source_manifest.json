@@ -1,0 +1,20 @@
+{
+  "sources_sha256": {
+    "outputs/training/gap_influence_20261024/test_results.json": "84299290d0a63f783ab8b8131821331f12fa84ddc0e21608005e94a6d69e7df4",
+    "outputs/training/gap_influence_20261024/selection.json": "7e2cdc2c97904a23718abce917d5e604f15a3062c3da2a88d2f3d50177623db7",
+    "outputs/training/gap_influence_20261024/development_search.json": "a226ac355817828da46383f1d5cc65a8a1f661e8bac5dd89c5db049445d99763",
+    "outputs/training/gap_influence_semantic_20261024/historical_results.json": "d94304623e317b3c3e140c3627950d83c0e14bb727b6769739d5cc11d2c03baf",
+    "outputs/training/gap_influence_semantic_20261024/development_search.json": "70d4669fdf530f04f97ccec048738351c7e511064e9462c6dc676fef463d9e88",
+    "outputs/training/xgb_influence_20261024_v2/historical_evaluation.json": "2e12ec31946f81a07630888c67b0a677075ffe8a8ed36f496a1bd1f4748220fe",
+    "outputs/training/xgb_influence_20261024_v2/ranker.json": "f2a885a6cad0ecc912082e674f27f23b5192ba7297d32c660c7d8a86f5e01b12",
+    "outputs/training/contextual_roles_balanced_20261024/fixed_influence_evaluation.json": "754a6d27a0c4c1710cab506a656b86cc35f6bbecdfee529ec043e0b69eb26e38",
+    "outputs/training/gap_influence_20261024/protocol.json": "8ac3597e5d9dcb8eec8a1de7ec586e157ec3d740db7a3f1c2ac170116096ef0a"
+  },
+  "generator_sha256": "9a4016197cbeabe25a78e8b8186f26b22f76b0799a4806d637924cb6d0200b5f",
+  "notes": [
+    "All numerical plotting inputs are loaded from the listed frozen JSON artifacts.",
+    "Individual GAP points are meetings; displayed means weight meetings equally.",
+    "No confidence interval is implied by lines between development and historical scores.",
+    "Architecture documents implementation and input conditions, not end-to-end validity."
+  ]
+}

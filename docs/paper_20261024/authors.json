@@ -1,0 +1,14 @@
+{
+  "department": "Department of Artificial Intelligence & Machine Learning",
+  "institution": "Symbiosis Institute of Technology, Pune",
+  "university": "Symbiosis International (Deemed University)",
+  "address": "Pune 412115, Maharashtra, India",
+  "authors": [
+    {"name": "Anushka Chatterjee", "email": "anushkac2311@gmail.com"},
+    {"name": "Amitkumar Racha", "email": "rachaamitkumar@gmail.com"},
+    {"name": "Sahil Awatramani", "email": "sahilawatramani@gmail.com"},
+    {"name": "Shriyans Sahoo", "email": "shriyanssahoo2005@gmail.com"}
+  ],
+  "faculty_guide": {"name": "Dr. Nivedita Mishra", "email": "nivedita.mishra@sitpune.edu.in"},
+  "note": "Author order and emails follow the supplied project records. Guide remains acknowledged; no new coauthorship, corresponding-author designation, membership or ORCID is inferred."
+}

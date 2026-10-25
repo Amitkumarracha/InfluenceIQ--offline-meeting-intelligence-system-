@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="513.9648pt" height="163.98pt" viewBox="0 0 513.9648 163.98" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-24T02:47:43.864023</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 163.98 
+L 513.9648 163.98 
+L 513.9648 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 13.85028 72.7236 
+L 127.97352 72.7236 
+Q 132.58098 72.7236 132.58098 68.0904 
+L 132.58098 26.748 
+Q 132.58098 22.1148 127.97352 22.1148 
+L 13.85028 22.1148 
+Q 9.24282 22.1148 9.24282 26.748 
+L 9.24282 68.0904 
+Q 9.24282 72.7236 13.85028 72.7236 
+z
+" clip-path="url(#pba586013c8)" style="fill: #edf4fa; stroke: #175b87; stroke-width: 0.85; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 164.12436 64.17 
+L 252.02052 64.17 
+Q 256.62798 64.17 256.62798 59.5368 
+L 256.62798 29.5992 
+Q 256.62798 24.966 252.02052 24.966 
+L 164.12436 24.966 
+Q 159.5169 24.966 159.5169 29.5992 
+L 159.5169 59.5368 
+Q 159.5169 64.17 164.12436 64.17 
+z
+" clip-path="url(#pba586013c8)" style="fill: #edf4fa; stroke: #175b87; stroke-width: 0.85; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 281.7918 64.17 
+L 369.68796 64.17 
+Q 374.29542 64.17 374.29542 59.5368 
+L 374.29542 29.5992 
+Q 374.29542 24.966 369.68796 24.966 
+L 281.7918 24.966 
+Q 277.18434 24.966 277.18434 29.5992 
+L 277.18434 59.5368 
+Q 277.18434 64.17 281.7918 64.17 
+z
+" clip-path="url(#pba586013c8)" style="fill: #edf4fa; stroke: #175b87; stroke-width: 0.85; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 400.16808 64.17 
+L 496.57032 64.17 
+Q 501.17778 64.17 501.17778 59.5368 
+L 501.17778 29.5992 
+Q 501.17778 24.966 496.57032 24.966 
+L 400.16808 24.966 
+Q 395.56062 24.966 395.56062 29.5992 
+L 395.56062 59.5368 
+Q 395.56062 64.17 400.16808 64.17 
+z
+" clip-path="url(#pba586013c8)" style="fill: #edf4fa; stroke: #175b87; stroke-width: 0.85; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 136.354999 44.568 
+Q 145.694503 44.568 154.027776 44.568 
+" clip-path="url(#pba586013c8)" style="fill: none; stroke: #175b87; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 150.427776 42.768 
+L 154.027776 44.568 
+L 150.427776 46.368 
+z
+" clip-path="url(#pba586013c8)" style="fill: #175b87; stroke: #175b87; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 260.402172 44.568 
+Q 266.552468 44.568 271.696534 44.568 
+" clip-path="url(#pba586013c8)" style="fill: none; stroke: #175b87; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 268.096534 42.768 
+L 271.696534 44.568 
+L 268.096534 46.368 
+z
+" clip-path="url(#pba586013c8)" style="fill: #175b87; stroke: #175b87; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 378.065286 44.568 
+Q 384.573601 44.568 390.075685 44.568 
+" clip-path="url(#pba586013c8)" style="fill: none; stroke: #175b87; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 386.475685 42.768 
+L 390.075685 44.568 
+L 386.475685 46.368 
+z
+" clip-path="url(#pba586013c8)" style="fill: #175b87; stroke: #175b87; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 7.5px; font-family: 'DejaVu Sans'; fill: #202b33" transform="translate(20.484947 39.363731)">GAP group-decision corpus</text>
+    <text style="font-size: 7.5px; font-family: 'DejaVu Sans'; fill: #202b33" transform="translate(15.532603 49.488731)">28 meetings / 84 participants</text>
+    <text style="font-size: 7.5px; font-family: 'DejaVu Sans'; fill: #202b33" transform="translate(15.942173 59.613731)">Reference text + speaker IDs</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans'; fill: #202b33" transform="translate(192.881784 41.495219)">Training</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans'; fill: #202b33" transform="translate(169.554995 51.890219)">16 complete groups</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans'; fill: #202b33" transform="translate(299.820958 41.495219)">Development</text>
+    <text style="font-size: 7.7px; font-family: 'DejaVu Sans'; fill: #202b33" transform="translate(289.671997 51.890219)">6 complete groups</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 7.3px; font-family: 'DejaVu Sans'; fill: #202b33" transform="translate(410.913927 42.362031)">Historical evaluation</text>
+    <text style="font-size: 7.3px; font-family: 'DejaVu Sans'; fill: #202b33" transform="translate(414.174973 51.509844)">6 complete groups</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #202b33" x="208.07244" y="80.208" transform="rotate(-0 208.07244 80.208)">Fit features and models</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #202b33" x="325.73988" y="80.208" transform="rotate(-0 325.73988 80.208)">Select primary</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #202b33" x="448.3692" y="80.208" transform="rotate(-0 448.3692 80.208)">Initial frozen comparison</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #175b87" x="12.4326" y="105.156" transform="rotate(-0 12.4326 105.156)">TARGET</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 7.6px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202b33" x="72.684" y="107.130516" transform="rotate(-0 72.684 107.130516)">Individual-to-group ranking distance (AII): outcome alignment, not causal attribution.</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 7.8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #175b87" x="12.4326" y="131.5296" transform="rotate(-0 12.4326 131.5296)">METRIC</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202b33" x="72.684" y="133.478135" transform="rotate(-0 72.684 133.478135)">Pairwise ordering within each meeting; reference ties excluded; prediction ties = ½ credit.</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7.2px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #737d85" x="256.9824" y="155.7648" transform="rotate(-0 256.9824 155.7648)">Splits are disjoint by meeting. Later studies reuse the historical groups and remain exploratory.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pba586013c8">
+   <rect x="1.8" y="1.8" width="510.3648" height="160.38"/>
+  </clipPath>
+ </defs>
+</svg>

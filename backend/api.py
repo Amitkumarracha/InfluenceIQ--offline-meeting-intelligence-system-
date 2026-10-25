@@ -180,7 +180,8 @@ def run_pipeline_background(user_id, meeting_id):
         db.commit()
     try:
         progress('decoding')
-        final_audio = decode_parts(state['audio'], DATA_DIR / f'{meeting_id}.wav')
+        final_audio = decode_parts(state['audio'], DATA_DIR / f'{meeting_id}.wav',
+            progress=lambda details: progress('decoding', {**details, 'total_seconds': state.get('audio_duration_seconds', 0)}))
         report_path = run_meeting(final_audio, meeting_id, state.get('ppt'),
                                   state.get('diarization', 'auto'), progress, state.get('options'))
         with SessionLocal() as db:
@@ -236,6 +237,16 @@ app = FastAPI(title='Meet IQ — Offline Meeting Intelligence', lifespan=lifespa
 app.add_middleware(CORSMiddleware,
     allow_origins=os.environ.get('MAI_ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174').split(','),
     allow_methods=['GET', 'POST'], allow_headers=['Authorization', 'Content-Type'])
+
+
+@app.middleware('http')
+async def fresh_application_state(request, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith('/api/'):
+        response.headers['Cache-Control'] = 'private, no-store'
+    elif request.url.path in {'/', '/index.html'}:
+        response.headers['Cache-Control'] = 'no-cache'
+    return response
 
 
 def get_db():

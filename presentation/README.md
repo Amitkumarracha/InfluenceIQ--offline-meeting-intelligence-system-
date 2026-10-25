@@ -1,5 +1,7 @@
 # InfluenceIQ — MAI presentation
 
+**25 October preparation:** start with the [one-page rehearsal card](PRESENTATION_ONE_PAGE_20261025.pdf), then the [current spoken script, backend/frontend reference, and 80 viva answers](PRESENTATION_CRASH_PACK_20261025.pdf). Editable sources: [rehearsal card](PRESENTATION_ONE_PAGE_20261025.md) and [full preparation pack](PRESENTATION_CRASH_PACK_20261025.md). These handouts retain historical metric scopes and incorporate the latest 656-test website validation; the existing slide deck is unchanged.
+
 The final PowerPoint has **exactly 18 slides**, with **no backup slides**. Headings and slide order match the teammate's original PPT. The cover follows the supplied reference and reads **MAI Project AY 2026–27**.
 
 - [Final PowerPoint](InfluenceIQ_ESE_Final.pptx) — editable text, tables, result chart and detailed architecture; notes on all 18 slides.

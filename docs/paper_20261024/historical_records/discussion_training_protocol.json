@@ -1,0 +1,43 @@
+{
+  "task": "discussion",
+  "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+  "fine_tuning": "All encoder layers plus new classification head",
+  "epochs": 2,
+  "batch_size": 24,
+  "max_length": 96,
+  "learning_rate": 2e-05,
+  "seed": 42,
+  "context_radius": 2,
+  "training_groups": [
+    "ES2002",
+    "ES2006",
+    "ES2009",
+    "ES2010",
+    "ES2012",
+    "ES2015",
+    "IS1000",
+    "IS1001",
+    "IS1003",
+    "IS1004",
+    "IS1005",
+    "TS3007"
+  ],
+  "dev_groups": [
+    "IS1008",
+    "TS3004"
+  ],
+  "training_examples": 20339,
+  "development_examples": 3739,
+  "input_sha256": {
+    "/home/amitkumar/Music/MAI Project/.runtime/research-decision-model/train.jsonl": "80f242d94b8d2a9c6d5b936da87628b7293202adb61e365006e181328297039a",
+    "/home/amitkumar/Music/MAI Project/.runtime/research-decision-model/dev.jsonl": "0097c9441aa0f24b0423c6844d16e9632317c5d0d9de7fecaf0cb9bf0f019fa8"
+  },
+  "source_sha256": {
+    "scripts/train_contextual_model.py": "6101b684d47a793f38066c9f94c54abbc246c7687018aacb633512f2aefa1a44",
+    "src/meeting/contextual.py": "31b459bb2c6a170e15815f1de123ed532e96192ac23ef8f6e6ea493a0f6952ac"
+  },
+  "selection": "Development F1; historical evaluation separate after freezing",
+  "status": "Exploratory development; earlier historical cohorts already examined",
+  "installed_in_application": false,
+  "language": "en"
+}

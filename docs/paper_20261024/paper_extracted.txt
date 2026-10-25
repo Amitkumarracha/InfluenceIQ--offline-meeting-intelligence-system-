@@ -1,0 +1,632 @@
+                                                                                                                                         1
+
+
+
+
+        InﬂuenceIQ: A Multimodal Framework for
+       Assessing Participant Contributions to Meeting
+                          Decisions
+                        Anushka Chatterjee, Amitkumar Racha, Sahil Awatramani, Shriyans Sahoo
+
+
+
+   Abstract—Assessing individual contributions to meeting deci-          to a decision. Inﬂuence analysis itself is not a new task
+sions requires distinguishing participation, observable conver-          introduced here.
+sational roles, and relationships to ﬁnal outcomes. This paper              InﬂuenceIQ is an ofﬂine framework for inspecting speaker-
+presents InﬂuenceIQ, an ofﬂine framework that retains source
+references across speaker-attributed utterances, optional presen-        attributed contribution candidates and their sources. Audio-
+tation links, candidate decisions, and transparent participant           derived passages can be associated with presentation text,
+scores. Its empirical contribution is a controlled diagnostic study      while candidate events, evidence relations, decision clusters,
+of the contribution representation, rather than a claim of causal        and interactions provide seven transparent score features. This
+attribution. The study uses 28 public group-decision meetings            design creates an inspectable record, but does not establish
+containing 84 participants and 8,009 reference utterances. Four
+of seven implemented contribution categories are inactive in this        that a proposal was adopted merely because it occurred near
+setting, including the unavailable slide category; 70 participants       a decision. This paper therefore treats the score as a hypoth-
+have no extracted contribution features. A ﬁxed-rule diagnostic          esis to diagnose rather than a validated measure of personal
+recovers none of 537 manually tagged proposal utterances. A              inﬂuence.
+protocol-frozen exploratory nested group comparison evaluates               The Group Affect and Performance (GAP) corpus supplies
+participation-only, contribution-only, and combined representa-
+tions using the same ridge-regression family and tuning budget.          initial preferences and ﬁnal group choices for a survival-
+Combined features obtain 68.93% meeting-average pairwise                 planning task [3]. Its evaluated release contains 28 meetings
+accuracy, versus 61.79% for participation features and 66.55%            and 84 participants [4]. Absolute Individual Inﬂuence (AII),
+for word count. The combined-minus-participation difference is           an initial-to-ﬁnal preference distance, is a bounded outcome-
+7.14 percentage points, with a descriptive paired interval of -1.79      alignment proxy rather than a direct contribution annotation.
+to 17.86 points. The interval includes zero, and prior examination
+of the corpus prevents a fresh-test interpretation. Source-linked        The AMI corpus supports separate historical component and
+cases expose threshold and role-selection failures. The results          outcome-link pilots [5]; those do not substitute for participant-
+identify a concrete extraction-coverage limitation while leaving         contribution references.
+independent contribution validity and end-to-end multimodal                 We ask: RQ1, what source-linked representation does the
+beneﬁt unestablished.
+                                                                         framework retain, and what can be checked from it? RQ2,
+   Index Terms—participant inﬂuence; meeting analysis; decision          do extracted contribution features add predictive information
+attribution; multimodal systems; interpretable scoring.                  beyond participation under a matched group-separated com-
+                                                                         parison? RQ3, what extraction and coverage failures constrain
+                                                                         score interpretation?
+                        I. I NTRODUCTION
+                                                                            The contributions are an explicit separation of participation,
+   Meeting decisions emerge from distributed contributions.              utterance roles, candidate decision relations, and outcome-
+One participant introduces an alternative, another supplies              alignment targets in an implemented framework; a controlled
+evidence, and a third identiﬁes a constraint that changes the            exploratory feature comparison with identical estimator and
+choice. The person who speaks longest or announces the                   tuning procedures; and a corpus-wide coverage audit con-
+conclusion need not have contributed most to its formation.              nected to manually tagged roles and source-checked cases.
+Assessing such contributions requires evidence about what                The study’s empirical value is a reproducible diagnosis of a
+was proposed, how it was received, and how it relates to the             representation whose apparent interpretability otherwise risks
+outcome.                                                                 concealing missing evidence. A new speech model or algo-
+   Meeting behavior and inﬂuence have established research               rithmic superiority is not claimed.
+precedents. Rienks, Nijholt, and Heylen related argumentation
+and dialogue behavior to perceived inﬂuence [1]. Mayﬁeld                                      II. R ELATED W ORK
+and Black separated stance classiﬁcation, outcome prediction,
+and individual impact assessment [2]. These studies motivate a           A. Inﬂuence and Decision Attribution
+distinction between observable participation and contribution               Perceived inﬂuence and contribution to an outcome require
+                                                                         different references. Rienks et al. use participants’ experienced
+   Department of Artiﬁcial Intelligence & Machine Learning Symbio-       inﬂuence, while Mayﬁeld and Black study stance, consensus,
+sis Institute of Technology, Pune, Pune 412115, Maharashtra, India (e-
+mail: anushkac2311@gmail.com; rachaamitkumar@gmail.com; sahilawatra-     and impact in online decisions. GAP supplies a third construct:
+mani@gmail.com; shriyanssahoo2005@gmail.com).                            distance between initial individual preferences and a ﬁnal
+                                                                                                                                    2
+
+
+
+group ranking. A person who already agrees with the eventual        the next. Agreement may acknowledge understanding, and a
+choice can obtain favorable AII without changing anyone’s           correctly identiﬁed proposal may be rejected. The framework
+view. These measures are not interchangeable labels.                retains speaker, time, verbatim text, event identiﬁers, relation
+   The CALO Meeting Assistant integrated transcription and          endpoints, and available slide identiﬁers. Its score is meeting-
+interpretation within a meeting-assistance architecture [6].        relative, not a correctness probability or a cross-meeting mea-
+Fernández et al. investigated decision modeling in multiparty       sure of ability. The learned discussion detector is a parallel
+dialogue [7]. These precedents make two distinctions essential:     review aid rather than an adoption-label source.
+an integrated application is not automatically a new attribution
+method, and membership in decision-related discussion is not        B. Events, Associations, and Canonical Version
+proof of adoption. Table I compares relevant constructs and
+evidence units.                                                        Phrase rules select one candidate role per passage from
+                                                                    the enabled taxonomy, subject to a match-density threshold.
+                                                                    Evidence and interaction rules apply type and temporal con-
+B. Grounding, Models, and Evaluation
+                                                                    straints; anchor-based reconstruction forms candidate decision
+   ExplainMeetSum aligns summaries with evidence [8]. QM-           clusters. These mechanisms do not independently resolve
+Sum studies query-focused meeting summarization [9], and            coreference or determine adoption. The canonical version
+MeetingBank provides a related benchmark [10]. Dialogue-            analyzed here is the corrected keyword pipeline preserved
+factuality analysis [11], meeting-summary error reﬁnement           with the v2 ranking experiment, identiﬁed by hashes in the
+[12], and long-context evidence attribution [13] further moti-      supplement.
+vate checking source support. Their generation and attribution         That version retains secondary proposals, credits each ob-
+scores are not participant-ranking baselines. Source references     served proposer, preserves evidence-edge direction, and re-
+likewise permit inspection without validating an inferred de-       moves an unsupported bonus for the ﬁrst proposal in a
+cision relationship.                                                conﬁrmed cluster. The new comparison uses its stored features.
+   The framework uses pretrained Whisper recognition [14]           Earlier experiments retain a pre-correction snapshot and are
+and optional sentence representations motivated by Sentence-        explicitly separated from this method. Cluster membership
+BERT [15] and MiniLM [16], speciﬁcally all-MiniLM-L6-               remains an inferred association, not veriﬁed uptake.
+v2 [17]. Historical comparisons include random forests [18],
+Extra Trees [19], and XGBoost [20]; complete results remain
+in the supplement. These established model families are not         C. Transparent Score
+presented as novel architectures.                                      Let x(p,k) be participant p’s nonnegative feature in category
+   The controlled revision uses scikit-learn ridge regression       k. Maximum normalization within a meeting leaves an inactive
+[21] to isolate features under a common ﬁtting procedure.           category at zero, and the participant score is a weighted sum.
+Nested selection separates parameter choice from outer predic-                        {
+tion, addressing one source of selection bias [22]. It does not                         xpk / maxq xqk , maxq xqk > 0,
+                                                                               zpk =                                             (1)
+remove prior researcher exposure to the corpus. Uncertainty                             0,                otherwise,
+must also respect the group structure of the observations [23].
+                                                                                   ∑
+                                                                                   7                           ∑
+                                                                                                               7
+                                                                            Sp =         wk zpk ,   wk ≥ 0,          wk = 1.     (2)
+    III. F RAMEWORK AND O PERATIONAL D EFINITIONS
+                                                                                   k=1                         k=1
+A. Inputs, Outputs, and Evidence Levels
+                                                                    Table II speciﬁes the rules and conﬁgurable prototype weights.
+   Fig. 1 depicts the architecture. Audio is standardized to 16     The weights are not independently validated contribution val-
+kHz mono and processed locally by faster-whisper recognition        ues. Scores are serialized to six decimals; categories can credit
+and Sherpa-ONNX diarization. Anonymous clusters remain              the same event, so the sum does not represent independent
+distinct from veriﬁed identities; a display-name edit does not      evidence. With transcript segments supplied, non-unknown
+repair an acoustic assignment. Recognition and attribution are      transcript speakers are retained even when event extraction
+cached separately. Local inference is available after provision-    yields no features.
+ing, without a formal privacy guarantee.                               The objection bonus represents temporal association rather
+   Optional PPTX processing extracts native text, tables, and       than causation. A zero vector can mean failed extraction rather
+notes. Semantic similarity and supplied display times support       than negligible contribution. The coverage audit measures this
+passage-to-slide links; missing times remain unavailable. This      possibility explicitly. The application’s distinct decision-level
+is audio-derived text to document-text alignment, not a jointly     display allocation is speciﬁed in the supplement and is not
+trained acoustic-image network. GAP supplies transcripts and        validated as an alternative impact measure.
+speaker identities without slides, bypassing these branches.
+The title describes framework capabilities; a multimodal
+contribution-assessment beneﬁt is not established.                  D. Source-Checked Role Cases
+   We distinguish four evidence levels: participation statistics;     Fig. 2 contains three purposively selected GAP utterances
+utterance roles such as proposal or agreement; candidate            with existing manual role tags. Utterance 12.Pink.38, “Okay
+relations between acts and decisions; and participant contri-       yeah that makes sense,” is tagged Agreement and emits an
+bution judgments. Correctness at one level does not validate        agreement event. Utterance 17.Orange.34, “I think we should
+                                                                                                                                                                3
+
+
+
+                                                                TABLE I
+                                    R EFERENCE CONSTRUCTS AND RELATIONSHIP TO PARTICIPANT ASSESSMENT.
+
+ Work                         Reference construct                     Attribution or evidence unit            Boundary relevant to this study
+
+
+ Rienks et al.                Perceived inﬂuence                      Annotated behavior and                  Perception differs from veriﬁed adoption
+                                                                      argumentation
+
+ Mayﬁeld and Black            Stance, consensus, individual           Online group-decision contributions Different interaction setting and impact
+                              impact                                                                      deﬁnition
+
+ GAP                          Initial-to-ﬁnal preference alignment    Individual and group item rankings      Alignment can exist without observed
+                                                                                                              persuasion
+
+ Fernández et al. / CALO      Decisions and meeting                   Dialogue segments and system            Decision detection does not establish personal
+                              interpretation                          analyses                                impact
+
+ Evidence-grounded            Support for an answer or summary        Source-to-output passages               Supporting a statement differs from originating
+ summarization                                                                                                a decision
+
+ InﬂuenceIQ                   Source-linked contribution proxies      Events, candidate relations,            This study evaluates role coverage and
+                                                                      participant features                    outcome alignment
+
+
+
+                                                                 TABLE II
+                                          C ANONICAL CONTRIBUTION FEATURES AND PROTOTYPE WEIGHTS .
+
+  Category             Extracted feature rule                                                                                                     Weight
+
+
+  Proposal             One per observed proposal in a decision cluster                                                                            0.15
+
+  Evidence             One per linked evidence event, plus 0.5 if slide-grounded                                                                  0.20
+
+  Objection            0.5 per linked objection/disagreement, plus one if a revision in its cluster starts later                                  0.15
+
+  Revision             One per revision in a conﬁrmed or probable cluster                                                                         0.20
+
+  Decision             One per participant event in a conﬁrmed cluster, or 0.5 in a probable cluster                                              0.15
+
+  Interaction          One per outgoing decision-linked interaction                                                                               0.05
+
+  Slide grounding      One per decision-linked event with a slide association                                                                     0.10
+
+
+
+
+put that next then $,” is tagged Proposal, but its density                       ranking distance, is an alignment proxy, not an independent
+of 0.2727 falls below the 0.3 emission threshold. Utterance                      contribution judgment.
+13.Yellow.60 proposes a compromise between rankings, yet                            The regression target is the average-tie rank of negative AII
+the rule selector emits a question. The records retain original                  within a meeting, minus one, divided by the participant count
+identiﬁers and times.                                                            minus one. Higher targets denote greater alignment. AII, ﬁnal
+   These cases demonstrate trace availability and mechanisms                     rankings, questionnaires, demographics, and manual role tags
+of role failure. They are not a random accuracy sample,                          do not enter automatic features. Role tags enter only the ﬁxed-
+contribution ratings, or proof of adoption. They show what                       rule diagnostic. Independent contribution validation requires
+an inspectable processing path can expose without turning a                      source-supported judgments separate from the system’s scores.
+source pointer into a validated inﬂuence explanation.
+                                                                                 B. Controlled Representations and Nested Selection
+                    IV. E VALUATION P ROTOCOL                                       The review-motivated protocol was recorded before ﬁtting
+                                                                                 and reuses the corrected snapshot’s meeting-normalized fea-
+A. Data and Target                                                               tures. Participation has six variables: speaking duration, word
+   The evaluated GAP release contains 28 English meetings,                       count, utterance count, mean words per utterance, and early-
+84 people, and 8,009 utterances. Groups of two to four                           and late-meeting word counts. Contribution has the seven
+rank survival items individually and then jointly. Release                       categories in Table II. Combined concatenates the 13 variables
+documentation is cited separately because its size differs from                  without extra semantic or lexical event features. The same
+the original publication. Text, speaker identities, and times-                   estimator, tuning grid, and group assignments apply to every
+tamps are supplied reference inputs. AII, the initial-to-ﬁnal                    family.
+                                                                                                                                                    4
+
+
+
+
+  A. IMPLEMENTED INPUT PROCESSING                                                                                    Not tested end-to-end in GAP
+
+
+
+                                                                                                           Timed, speaker-labelled
+        Meeting audio                            Offline ASR + diarization                                    source passages
+
+
+
+
+                                                   Slide text + semantic /                                Optional passage-to-slide
+        Optional slides
+                                                    temporal association                                     source references
+
+
+
+
+    B. CONTRIBUTION ANALYSIS                                                          GAP: supplied English transcript + speaker IDs; no slides
+
+
+
+                 Source passages                                 Contribution events                           Candidate evidence
+             (text, speaker, time, IDs)                   (proposal, evidence, objection, …)                      relationships
+
+
+
+
+           Seven contribution features                         Participant interactions                       Decision reconstruction
+           within-meeting normalization                    from events, relations, decisions                  + source-linked lineage
+
+
+
+
+          Weighted contribution estimate                     Per-person scores / rankings                 Source review + feature rationale
+
+
+
+
+                        Source references support inspection; inferred links and scores do not establish causal influence.
+
+
+Fig. 1. Implemented pipeline and reference-input evaluation boundary.
+
+
+
+   Fig. 3 shows the procedure. Seven outer group folds each                  C. Metrics, Coverage, and Uncertainty
+hold out four meetings while retaining 24 for ﬁtting. Three
+                                                                                Let P be a meeting’s unordered participant pairs with
+inner group folds select ridge regularization from 0.1, 1,
+                                                                             unequal reference AII a(p). Deﬁne delta(p,q) as predicted
+10, and 100 by pooled inner out-of-fold meeting-average
+                                                                             S(p) minus S(q), where larger predictions indicate greater
+pairwise accuracy; the ﬁrst grid value wins ties. Standard-
+                                                                             alignment. Correct orderings receive one, exact predicted ties
+Scaler is ﬁtted within each inner ﬁt. The selected pipeline
+                                                                             one-half, and reversals zero.
+is reﬁtted on the 24 outer ﬁtting meetings and predicts the
+four outer meetings. Each participant receives exactly one
+                                                                                                 P = {(p, q) : p < q, ap ̸= aq },
+outer prediction, with complete meetings separated in every                                          
+ﬁt/development/evaluation role.                                                                      
+                                                                                                     1,       δpq (aq − ap ) > 0,
+                                                                                                hpq = 0.5, δpq = 0,
+  The declared main contrast is combined minus participation.                                        
+                                                                                                                                                 (3)
+Word count, speaking duration, the ﬁxed prototype score, and                                           0,      otherwise,
+constant ties supply baselines. Constant ties receive half credit                                     1    ∑
+                                                                                               PAm =               hpq .
+on every comparable pair. The analysis ﬁts small ridge models,                                       |P |
+                                                                                                           (p,q)∈P
+requires no new neural epochs, and installs no application
+model.                                                                                                          1 ∑
+                                                                                                 MacroPA =          PAm .                         (4)
+   This procedure controls ﬁtting and parameter selection                                                      |M|
+                                                                                                                     m∈M
+within the analysis. All 28 meetings were previously available
+during development, and the comparison was designed after                    The evaluable meeting set in (4) contains meetings with at least
+reviewing earlier results. It therefore remains exploratory                  one comparable pair; all 28 qualify. Exact top-set accuracy
+rather than a fresh test. The original 16/6/6 split and pre-                 requires equality of the complete predicted and reference
+correction selection remain separately reported historical evi-              winner sets. An all-tied prediction cannot win by including ev-
+dence.                                                                       eryone. Constant-output meetings and comparable-pair counts
+                                                                                                                                       5
+
+
+
+
+                                                                          Candidate: agreement
+                12.Pink.38 | Agreement
+                                                                             Density 0.3750                   Agreement captured
+             “Okay yeah that makes sense”
+                                                                           Output: agreement
+
+
+
+                                                                            Candidate: proposal
+               17.Orange.34 | Proposal
+                                                                              Density 0.2727                  Proposal suppressed
+      “I think we should put that next then $”
+                                                                             Output: no event
+
+
+
+                13.Yellow.60 | Proposal                                     Candidate: question
+                                                                                                              Proposal becomes
+            “How about we split the ten and                                   Density 0.4286
+                                                                                                              question
+               the eight make it a nine”                                     Output: question
+
+
+
+       Human corpus labels validate these roles only; they do not establish adoption or causal influence.
+
+
+Fig. 2. A captured role and two source-checked proposal failures.
+
+
+
+
+    28 GAP meetings                         7 outer group folds              3 inner group folds                   Refit on 24
+     84 participants                         24 fit / 4 evaluate             Select ridge alpha                     predict 4
+
+
+
+             Matched estimator and tuning grid                                     One outer prediction per person
+              Participation (6); contribution (7)                                Scaler fitted in its training partition
+                       Combined (13)                                           Paired scores; predicted ties: half credit
+
+
+       Exploratory reuse of a previously examined corpus; nested fitting does not create a fresh test set.
+
+
+Fig. 3. Matched comparison with nested complete-meeting separation.
+
+
+
+accompany aggregates. Rank correlations are omitted where             for prior researcher exposure.
+constant predictions make coverage misleading.
+   Feature coverage counts people and meetings with positive                   V. R ESULTS AND D IAGNOSTIC A NALYSIS
+normalized contribution values; normalization preserves zero          A. Coverage and Extraction
+activity. Fixed-weight deletions set one weight to zero without          Table III shows that proposal, evidence, revision, and slide-
+renormalization or reﬁtting. A separate corpus-wide diagnostic        grounding features are zero for all participants. Slide inactivity
+compares unchanged proposal and agreement rules with sup-             is expected without slides; the other three inactive categories
+plied Proposal and Agreement tags, including mixed-role la-           reveal limitations of this automatic pipeline in GAP. Seventy
+bels. These references validate roles, not contribution/outcome       of 84 people have all-zero contribution vectors, and 22 of 28
+relationships.                                                        meetings contain no contribution features.
+   Ten thousand paired meeting bootstrap draws, seed                     The ﬁxed-rule diagnostic ﬁnds 537 manually tagged pro-
+20261024, describe variation in the observed outer-prediction         posal utterances but no emitted proposal events. Proposal
+differences. Both methods use identical resampled meeting             precision, recall, and F1 are zero under the declared conven-
+indices. These are conditional descriptive intervals: outer           tion. Agreement has 684 reference-positive utterances and 80
+training sets overlap and the corpus has previously informed          emitted events: 24 true positives, 56 false positives, and 660
+development. They do not guarantee generalization or correct          false negatives. Precision is 30.00%, recall 3.51%, and F1
+                                                                                                                                       6
+
+
+
+                             TABLE III                                     Contribution-only predictions are constant wherever all
+    C ONTRIBUTION - FEATURE COVERAGE ACROSS THE GAP CORPUS .            seven inputs are zero. The ﬁxed score is constant in 22
+                                                                        meetings. Half-credit ties alone yield 50%, without discrim-
+  Feature                               Active people / Active
+                                        84              meetings / 28   inating participants, so this coverage must accompany the
+                                                                        score. A higher combined point estimate cannot be attributed
+  Proposal                              0                 0             to veriﬁed decision relationships when no such reference has
+                                                                        been supplied.
+  Evidence                              0                 0                Table V reports paired differences. Combined improves on
+                                                                        participation ridge in six meetings, ties in 19, and worsens in
+  Objection                             2                 2
+                                                                        three. The mean difference is 7.14 points, with an interval of
+  Revision                              0                 0             -1.79 to 17.86 points. The interval includes zero; the compari-
+                                                                        son with word count is also inconclusive. These summaries
+  Decision                              14                6             describe the declared exploratory protocol rather than new
+  Interaction                           4                 3             independent conﬁrmation.
+
+  Slide grounding                       0                 0             C. Sensitivity and Historical Context
+                                                                           Deleting the decision category without renormalization low-
+                                                                        ers the ﬁxed score from 55.77% to 50.30%. Removing inter-
+                          Exploratory nested group evaluation           action raises its point estimate to 56.96%; removing objection
+                                                                        leaves it unchanged. Deleting an inactive category likewise has
+            Combined ridge                                    68.93
+                                                                        no effect. These are sensitivity observations for an unvalidated
+                                                              61.79
+                                                                        score, not evidence that decision counts cause inﬂuence or
+       Participation ridge
+                                                                        interaction information is generally harmful.
+       Contribution ridge                                     53.39
+                                                                           Table VI retains the original six-meeting comparison under
+                                                                        its earlier source version. The development-selected struc-
+                 Word count                                   66.55     tural Extra Trees model scores 61.11%, below word count’s
+                                                                        63.89%. That cohort has 19 participants and 21 comparable
+       Speaking duration                                      67.86     pairs. The two methods have identical pairwise accuracy
+                                                                        on four meetings, with one favorable and one unfavorable
+Fixed contribution score                                      55.77     difference. The selected model’s interval is 33.33%–83.33%.
+                                                                        This protocol and feature version differ from Table IV; their
+                Constant ties                                 50.00     percentages must not be pooled into an improvement trajec-
+                                                                        tory.
+                            40    50    60    70     80
+                                                                           The original combined Extra Trees candidate’s 66.67% was
+                         Meeting-average pairwise accuracy (%)
+                                                                        not the development-selected primary; it remains a nonprimary
+Fig. 4. Exploratory outer-prediction means across 28 meetings.
+                                                                        result in the supplement. Later semantic, role, and boosted-
+                                                                        ranking searches reuse historical groups. Discussion classiﬁ-
+                                                                        cation and the AI-labelled link pilot retain their own targets
+6.28%. This is a descriptive corpus audit, not held-out role-           and metrics; none supplies participant-contribution accuracy.
+model accuracy.
+   These observations localize a failure upstream of ranking:             VI. I NTERPRETATION , R EPRODUCIBILITY, AND L IMITS
+several intended evidence categories never reach the scorer.            A. Answers and Scope
+Fig. 2 illustrates a conﬁdence cutoff and role-pattern competi-            For RQ1, references and processing records permit inspec-
+tion. It does not establish that lowering the cutoff would create       tion of candidate contributions. The cases show how to check
+valid outcome relations. Earlier lower-cutoff and learned-role          a role label or locate a missing event. This establishes trace
+experiments remain in the supplement rather than replacing              availability, not explanation faithfulness, adoption, or reduced
+the conﬁgured pipeline after inspection.                                review effort. Those beneﬁts require independent judgments
+                                                                        and appropriate evaluation.
+                                                                           For RQ2, combined features have a higher point estimate
+B. Matched Representation Comparison
+                                                                        than the matched participation model, but the paired interval
+   Table IV and Fig. 4 summarize outer predictions across               includes zero and simple activity baselines remain close. A
+all 28 meetings. Combined ridge reaches 68.93% pairwise                 reliable gain is not demonstrated. The comparison isolates
+accuracy, participation ridge 61.79%, and contribution ridge            representation more directly than changing model and features
+53.39%. Word count reaches 66.55% and speaking duration                 simultaneously.
+67.86%. The combined point estimate is close to both simple                For RQ3, coverage reveals sparsity before ranking, and
+activity baselines and does not establish an operational advan-         public role tags expose complete proposal-recall failure at
+tage.                                                                   the default threshold. These support a concrete diagnosis of
+                                                                                                                                               7
+
+
+
+                                                                  TABLE IV
+                                       E XPLORATORY NESTED GROUP RESULTS WITH MATCHED RIDGE SELECTION .
+
+ Method                                                                            Pairwise (%)     Exact top set (%)      Constant meetings
+
+
+ Participation ridge, 6 features                                                   61.79            46.43                  0
+
+ Contribution ridge, 7 features                                                    53.39            7.14                   22
+
+ Combined ridge, 13 features                                                       68.93            50.00                  0
+
+ Word count                                                                        66.55            50.00                  0
+
+ Speaking duration                                                                 67.86            46.43                  0
+
+ Fixed contribution score                                                          55.77            14.29                  22
+
+ Constant ties                                                                     50.00            0.00                   28
+
+
+
+                                                                        TABLE V
+                                                   PAIRED DIFFERENCES WITH DESCRIPTIVE 95% INTERVALS .
+
+  Contrast                                                                 Difference (points)      Descriptive interval (points)
+
+
+  Combined minus participation ridge                                       7.14                     -1.79 to 17.86
+
+  Combined minus word count                                                2.38                     -5.36 to 10.71
+
+  Contribution minus participation ridge                                   -8.39                    -24.40 to 8.40
+
+
+
+
+                           TABLE VI                                              The supplement supplies a version matrix, complete histori-
+   O RIGINAL HISTORICAL COMPARISON , PRE - CORRECTION VERSION .               cal results, class supports, and component-training provenance.
+                                                                              The AI link pilot’s labels remain AI-generated: its paired
+  Method                                   Pairwise (%)    Exact top set
+                                                           (%)
+                                                                              model agrees with 54.55% of 11 historical labels, below
+                                                                              the majority baseline’s 63.64%, with no revised examples in
+  Word count                               63.89           50.00
+                                                                              development or evaluation. It remains an annotation feasibility
+                                                                              study. The package excludes full corpora, private recordings,
+  Selected structural Extra Trees          61.11           33.33              and pretrained binaries.
+  Original prototype contribution score 52.78              16.67
+                                                                              C. Construct and Generalization Limits
+                                                                                 The central unresolved issue is independent contribution va-
+                                                                              lidity. AII reﬂects alignment, and an initially aligned member
+this implementation in GAP. They do not show that aggre-                      need not have shaped the decision. Manual role tags validate
+gate features are fundamentally inadequate, role information                  an earlier stage, not adoption, shared credit, or person-level
+is useless, or a larger model would necessarily solve the                     impact. Source traceability and normalization do not repair
+problem. Target mismatch, extraction quality, corpus diversity,               this distinction.
+and model selection remain interacting factors.                                  All GAP meetings have previously been available during
+                                                                              development. Nested group ﬁtting does not remove that prior
+                                                                              exposure, and overlapping training partitions limit bootstrap
+B. Conﬁguration and Research Records                                          interpretation. Short English survival-planning discussions do
+                                                                              not represent every workplace, presentation, culture, language,
+   Table VII states canonical settings. The research package                  or long recording. The 28-meeting analysis is not a new
+provides frozen derived features, group assignments, protocol,                external dataset.
+parameter selections, outer predictions, coverage and case                       The multimodal branches remain unvalidated on
+records, evaluation code, and ﬁgure sources. It reproduces                    the     participant-contribution    outcome.      A     stronger
+the new analysis from supplied features. Regenerating extrac-                 study would compare checked transcripts with actual
+tion additionally requires the original corpus and identiﬁed                  recognition/diarization outputs and then add matched
+code/conﬁguration version; complete audio inference also re-                  presentation information. Speaker identity, timing, relevance,
+quires provisioned models.                                                    and outcome references would require checking. An alignment
+                                                                                                                                                   8
+
+
+
+                                                                 TABLE VII
+                                             C ANONICAL SETTINGS AND EXPERIMENTAL BOUNDARIES .
+
+  Component                        Setting                                 Interpretation
+
+
+  Audio                            16 kHz mono; local recognition and      Implemented; bypassed by GAP reference inputs
+                                   diarization
+
+  Slide representation             all-MiniLM-L6-v2                        Optional component; no measured contribution gain
+
+  Slide association                Semantic/temporal weights 0.5/0.5;      Missing timing uses the conﬁgured fallback; GAP has no slides
+                                   threshold 0.3; top 3
+
+  Event emission                   Density threshold 0.3                   Fixed heuristic, not a calibrated probability
+
+  Decision association             120 s anchor window                     Candidate association, not veriﬁed adoption
+
+  Evidence / interaction windows   60 s / 60 s                             Temporal heuristics
+
+  Controlled ranker                StandardScaler plus Ridge; alpha        Same grid and folds across feature families
+                                   0.1/1/10/100
+
+  Resampling                       10,000 paired meeting draws; seed       Conditional descriptive intervals
+                                   20261024
+
+
+
+
+ﬁxture or untimed-slide fallback cannot substitute for that             participants have no contribution features, and ﬁxed rules miss
+experiment.                                                             all 537 supplied proposal tags. Source-checked cases expose
+                                                                        threshold and role-selection failures. These ﬁndings support a
+                                                                        reproducible coverage-and-representation audit while leaving
+D. Responsible Interpretation and Next Evidence
+                                                                        independent participant contribution validity and end-to-end
+   Scores should support inspection rather than automatic               multimodal beneﬁt for further study.
+judgments of employee competence, authority, or decision
+quality. Inﬂuence may be shared and may lead to poor choices.                                    ACKNOWLEDGMENT
+Missing extraction should remain visible rather than become a
+conﬁdent zero-impact judgment. Fairness, formal privacy, and               The authors acknowledge Dr. Nivedita Mishra, Department
+organizational effectiveness are not evaluated.                         of Artiﬁcial Intelligence & Machine Learning, Symbiosis
+                                                                        Institute of Technology, Pune, for project guidance. This work
+   The study reuses existing public corpora without new re-
+                                                                        developed from the Group 12 B.Tech project in academic year
+cruitment. Original terms apply, including GAP’s noncommer-
+                                                                        2026–2027. An AI assistant supported code inspection, ex-
+cial attribution license. Applicable institutional determinations
+                                                                        ploratory analysis, manuscript drafting, and ﬁgure-generation
+and venue declarations require author conﬁrmation. The pack-
+                                                                        code, and produced the explicitly identiﬁed outcome-link pilot
+age provides locally auditable materials; a public archival DOI
+                                                                        labels described in the supplement.
+has not been assigned.
+   The next priority is a representative contribution/outcome
+reference, independently assessed before adjudication, with                                          R EFERENCES
+agreement, uncertainty, and unjudgeable cases reported. New             [1] R. J. Rienks, A. Nijholt, and D. K. J. Heylen, “Verbal behavior of the
+                                                                            more and the less inﬂuential meeting participant,” in Proceedings of the
+complete teams or project series should be reserved for                     Workshop on Tagging, Mining and Retrieval of Human Related Activity
+conﬁrmation. Relationship quality should be measured before                 Information, 2007. doi: 10.1145/1330588.1330589.
+ranking, distinguishing adopted, rejected, revised, and unre-           [2] E. Mayﬁeld and A. Black, “Stance Classiﬁcation, Outcome Prediction,
+                                                                            and Impact Assessment: NLP Tasks for Studying Group Decision-
+solved contributions where observable. Stronger contribution                Making,” in Proceedings of the Third Workshop on Natural Language
+and multimodal claims require that evidence.                                Processing and Computational Social Science, pp. 65–77, 2019. doi:
+                                                                            10.18653/v1/W19-2108.
+                                                                        [3] M. Braley and G. Murray, “The Group Affect and Performance (GAP)
+                         VII. C ONCLUSION                                   Corpus,” in Proceedings of the Group Interaction Frontiers in Technol-
+                                                                            ogy, Article 2, 9 pages, 2018. doi: 10.1145/3279981.3279985.
+   InﬂuenceIQ provides an ofﬂine, source-linked framework               [4] Cornell Conversational Analysis Toolkit, “Group Affect and Per-
+for inspecting participant contribution candidates. A controlled            formance (GAP) Corpus,” ConvoKit dataset documentation. Ac-
+exploratory analysis separates six participation features from              cessed: Oct. 24, 2026. [Online]. Available: https://convokit.cornell.edu/
+                                                                            documentation/gap.html
+seven decision-linked features under an identical nested group          [5] J. Carletta et al., “The AMI Meeting Corpus: A Pre-announcement,”
+procedure. Combined ridge obtains 68.93% pairwise accuracy                  in Machine Learning for Multimodal Interaction, vol. 3869, pp. 28–39,
+across 28 meetings, but its paired advantage over participa-                2006. doi: 10.1007/11677482_3.
+                                                                        [6] G. Tur et al., “The CALO Meeting Assistant System,” IEEE Transactions
+tion ridge remains uncertain and is not conﬁrmed on fresh                   on Audio, Speech, and Language Processing, vol. 18, no. 6, pp. 1601–
+data. The central diagnostic is extraction sparsity: 70 of 84               1611, 2010. doi: 10.1109/TASL.2009.2038810.
+                                                                                                                                                           9
+
+
+
+ [7] R. Fernández, M. Frampton, P. Ehlen, M. Purver, and S. Peters, “Mod-      [15] N. Reimers and I. Gurevych, “Sentence-BERT: Sentence Embeddings
+     elling and Detecting Decisions in Multi-party Dialogue,” in Proceedings        using Siamese BERT-Networks,” in Proceedings of the 2019 Conference
+     of the 9th SIGdial Workshop on Discourse and Dialogue, pp. 156–163,            on Empirical Methods in Natural Language Processing and the 9th
+     2008. [Online]. Available: https://aclanthology.org/W08-0125/                  International Joint Conference on Natural Language Processing, pp.
+ [8] H. Kim, M. Cho, and S.-H. Na, “ExplainMeetSum: A Dataset for                   3982–3992, 2019. doi: 10.18653/v1/D19-1410.
+     Explainable Meeting Summarization Aligned with Human Intent,” in          [16] W. Wang, F. Wei, L. Dong, H. Bao, N. Yang, and M. Zhou, “MiniLM:
+     Proceedings of the 61st Annual Meeting of the Association for Compu-           Deep Self-Attention Distillation for Task-Agnostic Compression of Pre-
+     tational Linguistics (Volume 1: Long Papers), pp. 13079–13098, 2023.           Trained Transformers,” in Advances in Neural Information Processing
+     doi: 10.18653/v1/2023.acl-long.731.                                            Systems, vol. 33, 2020. [Online]. Available: https://proceedings.neurips.
+ [9] M. Zhong et al., “QMSum: A New Benchmark for Query-based                       cc/paper/2020/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html
+     Multi-domain Meeting Summarization,” in Proceedings of the 2021           [17] Sentence Transformers, “all-MiniLM-L6-v2,” Model card. Accessed:
+     Conference of the North American Chapter of the Association for                Oct. 24, 2026. [Online]. Available: https://huggingface.co/
+     Computational Linguistics: Human Language Technologies, pp. 5905–              sentence-transformers/all-MiniLM-L6-v2
+     5921, 2021. doi: 10.18653/v1/2021.naacl-main.472.                         [18] L. Breiman, “Random Forests,” Machine Learning, vol. 45, no. 1, pp.
+[10] Y. Hu, T. Ganter, H. Deilamsalehy, F. Dernoncourt, H. Foroosh, and F.          5–32, 2001. doi: 10.1023/A:1010933404324.
+     Liu, “MeetingBank: A Benchmark Dataset for Meeting Summarization,”        [19] P. Geurts, D. Ernst, and L. Wehenkel, “Extremely randomized trees,”
+     in Proceedings of the 61st Annual Meeting of the Association for               Machine Learning, vol. 63, pp. 3–42, 2006. doi: 10.1007/s10994-006-
+     Computational Linguistics (Volume 1: Long Papers), pp. 16409–16423,            6226-1.
+     2023. doi: 10.18653/v1/2023.acl-long.906.                                 [20] T. Chen and C. Guestrin, “XGBoost: A Scalable Tree Boosting System,”
+[11] S. She, S. Huang, X. Wang, Y. Zhou, and J. Chen, “Exploring the Factual        in Proceedings of the 22nd ACM SIGKDD International Conference
+     Consistency in Dialogue Comprehension of Large Language Models,”               on Knowledge Discovery and Data Mining, pp. 785–794, 2016. doi:
+     in Proceedings of the 2024 Conference of the North American Chapter            10.1145/2939672.2939785.
+     of the Association for Computational Linguistics: Human Language          [21] F. Pedregosa et al., “Scikit-learn: Machine Learning in Python,” Journal
+     Technologies (Volume 1: Long Papers), pp. 6087–6100, 2024. doi:                of Machine Learning Research, vol. 12, pp. 2825–2830, 2011. [Online].
+     10.18653/v1/2024.naacl-long.338.                                               Available: https://www.jmlr.org/papers/v12/pedregosa11a.html
+[12] F. Kirstein, T. Ruas, and B. Gipp, “What’s Wrong? Reﬁning Meeting         [22] G. C. Cawley and N. L. C. Talbot, “On Over-ﬁtting in Model Selection
+     Summaries with LLM Feedback,” in Proceedings of the 31st Interna-              and Subsequent Selection Bias in Performance Evaluation,” Journal of
+     tional Conference on Computational Linguistics, pp. 2100–2120, 2025.           Machine Learning Research, vol. 11, pp. 2079–2107, 2010. [Online].
+     [Online]. Available: https://aclanthology.org/2025.coling-main.143/            Available: https://jmlr.org/papers/v11/cawley10a.html
+[13] D. Wright, Z. M. Mujahid, L. Wang, I. Augenstein, and D. Jurgens,         [23] R. Dror, G. Baumer, S. Shlomov, and R. Reichart, “The Hitchhiker’s
+     “Unstructured Evidence Attribution for Long Context Query Focused              Guide to Testing Statistical Signiﬁcance in Natural Language Process-
+     Summarization,” in Proceedings of the 2025 Conference on Empirical             ing,” in Proceedings of the 56th Annual Meeting of the Association for
+     Methods in Natural Language Processing, pp. 1839–1867, 2025. doi:              Computational Linguistics (Volume 1: Long Papers), pp. 1383–1392,
+     10.18653/v1/2025.emnlp-main.95.                                                2018. doi: 10.18653/v1/P18-1128.
+[14] A. Radford, J. W. Kim, T. Xu, G. Brockman, C. McLeavey, and I.
+     Sutskever, “Robust Speech Recognition via Large-Scale Weak Super-
+     vision,” in Proceedings of the 40th International Conference on Ma-
+     chine Learning, vol. 202, pp. 28492–28518, 2023. [Online]. Available:
+     https://proceedings.mlr.press/v202/radford23a.html
+

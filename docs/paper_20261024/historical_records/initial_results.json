@@ -1,0 +1,1469 @@
+{
+  "primary_selected_on_development": "structure__extra_trees",
+  "test_meetings": 6,
+  "test_participants": 19,
+  "results": {
+    "speaking_time": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": -0.39999999999999997,
+          "kendall_tau": -0.3333333333333334,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.3333333333333333,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 0.7999999999999999,
+          "kendall_tau": 0.6666666666666669,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.8333333333333334,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": 0.9999999999999999,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": -0.5,
+          "kendall_tau": -0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.3333333333333333,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.5277777777777778,
+      "top_set_accuracy": 0.3333333333333333,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.08899576603592685
+    },
+    "word_count": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": 0.39999999999999997,
+          "kendall_tau": 0.3333333333333334,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 0.7999999999999999,
+          "kendall_tau": 0.6666666666666669,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.8333333333333334,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": 0.9999999999999999,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.6388888888888888,
+      "top_set_accuracy": 0.5,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.38899576603592684
+    },
+    "utterance_count": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": -0.19999999999999998,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 1.0,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": -0.9999999999999999,
+          "kendall_tau": -1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": -0.5,
+          "kendall_tau": -0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.3333333333333333,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.4166666666666667,
+      "top_set_accuracy": 0.3333333333333333,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": -0.17767090063073976
+    },
+    "decision_count": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.5277777777777778,
+      "top_set_accuracy": 0.16666666666666666,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.5
+    },
+    "prototype_influence": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": null,
+          "kendall_tau": null,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "insufficient_or_tied_ratings"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.5277777777777778,
+      "top_set_accuracy": 0.16666666666666666,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.5
+    },
+    "structure__ridge": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": 0.0,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 0.7999999999999999,
+          "kendall_tau": 0.6666666666666669,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.8333333333333334,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": 0.9999999999999999,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": -0.5,
+          "kendall_tau": -0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.3333333333333333,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.5555555555555556,
+      "top_set_accuracy": 0.16666666666666666,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.1556624327025935
+    },
+    "structure__pairwise_logistic": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": -0.39999999999999997,
+          "kendall_tau": -0.3333333333333334,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.3333333333333333,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 0.0,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": 0.9999999999999999,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": -0.5,
+          "kendall_tau": -0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.3333333333333333,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.47222222222222227,
+      "top_set_accuracy": 0.16666666666666666,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": -0.044337567297406476
+    },
+    "structure__extra_trees": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": 0.7999999999999999,
+          "kendall_tau": 0.6666666666666669,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.8333333333333334,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": -0.19999999999999998,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": 0.9999999999999999,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.611111111111111,
+      "top_set_accuracy": 0.3333333333333333,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.28899576603592686
+    },
+    "text__ridge": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": -0.7999999999999999,
+          "kendall_tau": -0.6666666666666669,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.16666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 0.19999999999999998,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": 0.0,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": -0.9999999999999999,
+          "kendall_tau": -1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.4166666666666666,
+      "top_set_accuracy": 0.16666666666666666,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": -0.09999999999999998
+    },
+    "text__pairwise_logistic": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": -0.7999999999999999,
+          "kendall_tau": -0.6666666666666669,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.16666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 0.7999999999999999,
+          "kendall_tau": 0.6666666666666669,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.8333333333333334,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": 0.0,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": -0.9999999999999999,
+          "kendall_tau": -1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.47222222222222215,
+      "top_set_accuracy": 0.16666666666666666,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 1.850371707708594e-17
+    },
+    "text__extra_trees": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": 1.0,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 0.19999999999999998,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": -0.9999999999999999,
+          "kendall_tau": -1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 1.0,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 1.0,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.5833333333333334,
+      "top_set_accuracy": 0.5,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.22232909936926024
+    },
+    "combined__ridge": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": 0.0,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 0.7999999999999999,
+          "kendall_tau": 0.6666666666666669,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.8333333333333334,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": 0.9999999999999999,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": -0.5,
+          "kendall_tau": -0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.3333333333333333,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.5555555555555556,
+      "top_set_accuracy": 0.16666666666666666,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.1556624327025935
+    },
+    "combined__pairwise_logistic": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": -0.39999999999999997,
+          "kendall_tau": -0.3333333333333334,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.3333333333333333,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": 0.0,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": 0.9999999999999999,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": -0.5,
+          "kendall_tau": -0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.3333333333333333,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.47222222222222227,
+      "top_set_accuracy": 0.16666666666666666,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": -0.044337567297406476
+    },
+    "combined__extra_trees": {
+      "meetings": [
+        {
+          "meeting_id": "12",
+          "participants": 4,
+          "spearman": 0.7999999999999999,
+          "kendall_tau": 0.6666666666666669,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.8333333333333334,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "17",
+          "participants": 4,
+          "spearman": -0.19999999999999998,
+          "kendall_tau": 0.0,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.5,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "26",
+          "participants": 3,
+          "spearman": -0.8660254037844387,
+          "kendall_tau": -0.816496580927726,
+          "comparable_pairs": 2,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 0.0,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "3",
+          "participants": 2,
+          "spearman": 0.9999999999999999,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 1,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "7",
+          "participants": 3,
+          "spearman": 1.0,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "9",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.6666666666666666,
+      "top_set_accuracy": 0.5,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.37232909936926023
+    }
+  },
+  "primary_pairwise_meeting_bootstrap_95_ci": [
+    0.3333333333333333,
+    0.8333333333333334
+  ],
+  "predictions": [
+    {
+      "meeting_id": "12",
+      "participant": "12.Blue",
+      "aii": 26.0,
+      "scores": {
+        "speaking_time": 90.60000000000007,
+        "word_count": 342.0,
+        "utterance_count": 55.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.4818175369995969,
+        "structure__pairwise_logistic": -1.0165851540497537,
+        "structure__extra_trees": 0.509255210838544,
+        "text__ridge": 0.4945540483989353,
+        "text__pairwise_logistic": 0.0011986975446210831,
+        "text__extra_trees": 0.475462962962963,
+        "combined__ridge": 0.4817423513629417,
+        "combined__pairwise_logistic": -0.9996445364897074,
+        "combined__extra_trees": 0.3510185185185185
+      }
+    },
+    {
+      "meeting_id": "12",
+      "participant": "12.Green",
+      "aii": 40.0,
+      "scores": {
+        "speaking_time": 35.89999999999998,
+        "word_count": 113.0,
+        "utterance_count": 18.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.43208439976688595,
+        "structure__pairwise_logistic": -0.13739146743683484,
+        "structure__extra_trees": 0.4219365680615676,
+        "text__ridge": 0.49871798590282007,
+        "text__pairwise_logistic": 0.0016099406331801119,
+        "text__extra_trees": 0.36194444444444446,
+        "combined__ridge": 0.43236370984667266,
+        "combined__pairwise_logistic": -0.14048713832243648,
+        "combined__extra_trees": 0.31203703703703706
+      }
+    },
+    {
+      "meeting_id": "12",
+      "participant": "12.Orange",
+      "aii": 32.0,
+      "scores": {
+        "speaking_time": 95.1000000000001,
+        "word_count": 290.0,
+        "utterance_count": 36.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.5412537220300611,
+        "structure__pairwise_logistic": 0.8259855216427288,
+        "structure__extra_trees": 0.6428661616161615,
+        "text__ridge": 0.49123688126240683,
+        "text__pairwise_logistic": 0.001138447695837329,
+        "text__extra_trees": 0.407962962962963,
+        "combined__ridge": 0.5405593735264219,
+        "combined__pairwise_logistic": 0.7988553000518157,
+        "combined__extra_trees": 0.4740740740740741
+      }
+    },
+    {
+      "meeting_id": "12",
+      "participant": "12.Pink",
+      "aii": 52.0,
+      "scores": {
+        "speaking_time": 101.00000000000007,
+        "word_count": 307.0,
+        "utterance_count": 65.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.5105011375328546,
+        "structure__pairwise_logistic": 0.08648235768840788,
+        "structure__extra_trees": 0.41466468253968275,
+        "text__ridge": 0.5044523079126321,
+        "text__pairwise_logistic": 0.002303778851583424,
+        "text__extra_trees": 0.32416666666666666,
+        "combined__ridge": 0.5110364500853317,
+        "combined__pairwise_logistic": 0.09641858008320753,
+        "combined__extra_trees": 0.30231481481481487
+      }
+    },
+    {
+      "meeting_id": "17",
+      "participant": "17.Blue",
+      "aii": 54.0,
+      "scores": {
+        "speaking_time": 343.8999999999999,
+        "word_count": 982.0,
+        "utterance_count": 114.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.5606482828448992,
+        "structure__pairwise_logistic": 0.5480992983337951,
+        "structure__extra_trees": 0.7484740860990853,
+        "text__ridge": 0.507615352549977,
+        "text__pairwise_logistic": 0.003925027090110082,
+        "text__extra_trees": 0.5208333333333331,
+        "combined__ridge": 0.5609908714541767,
+        "combined__pairwise_logistic": 0.5428385942854297,
+        "combined__extra_trees": 0.5815740740740741
+      }
+    },
+    {
+      "meeting_id": "17",
+      "participant": "17.Orange",
+      "aii": 48.0,
+      "scores": {
+        "speaking_time": 237.90000000000023,
+        "word_count": 694.0,
+        "utterance_count": 127.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.4524830088949451,
+        "structure__pairwise_logistic": -0.7169216108822782,
+        "structure__extra_trees": 0.4037988616321951,
+        "text__ridge": 0.5048333037253,
+        "text__pairwise_logistic": 0.003445091523605869,
+        "text__extra_trees": 0.5137037037037037,
+        "combined__ridge": 0.4529405801035286,
+        "combined__pairwise_logistic": -0.6898614594722424,
+        "combined__extra_trees": 0.4089814814814815
+      }
+    },
+    {
+      "meeting_id": "17",
+      "participant": "17.Pink",
+      "aii": 58.0,
+      "scores": {
+        "speaking_time": 141.3999999999997,
+        "word_count": 337.0,
+        "utterance_count": 99.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.39394344994115393,
+        "structure__pairwise_logistic": -0.969324606671804,
+        "structure__extra_trees": 0.41528755812089124,
+        "text__ridge": 0.5081354315927565,
+        "text__pairwise_logistic": 0.0030358000453353175,
+        "text__extra_trees": 0.5757407407407407,
+        "combined__ridge": 0.39481202166258644,
+        "combined__pairwise_logistic": -0.9423053717234389,
+        "combined__extra_trees": 0.5727777777777778
+      }
+    },
+    {
+      "meeting_id": "17",
+      "participant": "17.Yellow",
+      "aii": 78.0,
+      "scores": {
+        "speaking_time": 16.500000000000092,
+        "word_count": 52.0,
+        "utterance_count": 6.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.39204426162681905,
+        "structure__pairwise_logistic": -0.44500845943195966,
+        "structure__extra_trees": 0.41109687997187966,
+        "text__ridge": 0.49229932075211597,
+        "text__pairwise_logistic": 0.0009524630465626376,
+        "text__extra_trees": 0.4494444444444446,
+        "combined__ridge": 0.39186625849189133,
+        "combined__pairwise_logistic": -0.4550678103356823,
+        "combined__extra_trees": 0.5397222222222223
+      }
+    },
+    {
+      "meeting_id": "26",
+      "participant": "26.Blue",
+      "aii": 36.0,
+      "scores": {
+        "speaking_time": 47.60000000000004,
+        "word_count": 119.0,
+        "utterance_count": 33.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.32899847939459553,
+        "structure__pairwise_logistic": -1.390355922903782,
+        "structure__extra_trees": 0.21493706756206754,
+        "text__ridge": 0.48827867342000014,
+        "text__pairwise_logistic": -0.0004348975506363284,
+        "text__extra_trees": 0.32240740740740736,
+        "combined__ridge": 0.32918593020427267,
+        "combined__pairwise_logistic": -1.373238179677789,
+        "combined__extra_trees": 0.19953703703703704
+      }
+    },
+    {
+      "meeting_id": "26",
+      "participant": "26.Orange",
+      "aii": 36.0,
+      "scores": {
+        "speaking_time": 128.9999999999999,
+        "word_count": 373.0,
+        "utterance_count": 65.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.5508740024543625,
+        "structure__pairwise_logistic": 0.6400015464354496,
+        "structure__extra_trees": 0.5737081128747795,
+        "text__ridge": 0.5004094013830249,
+        "text__pairwise_logistic": 0.0022310305091082045,
+        "text__extra_trees": 0.4607407407407407,
+        "combined__ridge": 0.5507230531255874,
+        "combined__pairwise_logistic": 0.6309038690709102,
+        "combined__extra_trees": 0.46388888888888885
+      }
+    },
+    {
+      "meeting_id": "26",
+      "participant": "26.Pink",
+      "aii": 61.0,
+      "scores": {
+        "speaking_time": 156.19999999999996,
+        "word_count": 459.0,
+        "utterance_count": 73.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.583782473718762,
+        "structure__pairwise_logistic": 1.0039049798745985,
+        "structure__extra_trees": 0.6481721180054508,
+        "text__ridge": 0.49705585309860456,
+        "text__pairwise_logistic": 0.0021373631841683856,
+        "text__extra_trees": 0.5097222222222222,
+        "combined__ridge": 0.5835778310123805,
+        "combined__pairwise_logistic": 0.987130113236025,
+        "combined__extra_trees": 0.46712962962962973
+      }
+    },
+    {
+      "meeting_id": "3",
+      "participant": "3.Green",
+      "aii": 32.0,
+      "scores": {
+        "speaking_time": 235.69999999999987,
+        "word_count": 731.0,
+        "utterance_count": 98.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.5792956181763801,
+        "structure__pairwise_logistic": 0.6954381398572371,
+        "structure__extra_trees": 0.5900572590989254,
+        "text__ridge": 0.49467961436311414,
+        "text__pairwise_logistic": 0.0016285328878156394,
+        "text__extra_trees": 0.42870370370370364,
+        "combined__ridge": 0.5784376006993639,
+        "combined__pairwise_logistic": 0.6822775313362742,
+        "combined__extra_trees": 0.510462962962963
+      }
+    },
+    {
+      "meeting_id": "3",
+      "participant": "3.Pink",
+      "aii": 56.0,
+      "scores": {
+        "speaking_time": 221.89999999999992,
+        "word_count": 526.0,
+        "utterance_count": 106.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.4978756289850636,
+        "structure__pairwise_logistic": -0.11534605204043329,
+        "structure__extra_trees": 0.4026476871893539,
+        "text__ridge": 0.49880820301940837,
+        "text__pairwise_logistic": 0.002121095660545723,
+        "text__extra_trees": 0.45166666666666666,
+        "combined__ridge": 0.4977261531398157,
+        "combined__pairwise_logistic": -0.10532443108566693,
+        "combined__extra_trees": 0.38787037037037037
+      }
+    },
+    {
+      "meeting_id": "7",
+      "participant": "7.Blue",
+      "aii": 17.0,
+      "scores": {
+        "speaking_time": 159.59999999999962,
+        "word_count": 543.0,
+        "utterance_count": 83.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.4886913360221541,
+        "structure__pairwise_logistic": 0.12162805627562472,
+        "structure__extra_trees": 0.5508312289562286,
+        "text__ridge": 0.5089534839225183,
+        "text__pairwise_logistic": 0.0036803720735005363,
+        "text__extra_trees": 0.5921296296296297,
+        "combined__ridge": 0.4893761626944665,
+        "combined__pairwise_logistic": 0.12067584695166665,
+        "combined__extra_trees": 0.5593518518518519
+      }
+    },
+    {
+      "meeting_id": "7",
+      "participant": "7.Green",
+      "aii": 26.0,
+      "scores": {
+        "speaking_time": 385.40000000000026,
+        "word_count": 1085.0,
+        "utterance_count": 188.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.5667577341877561,
+        "structure__pairwise_logistic": 0.45037478153641713,
+        "structure__extra_trees": 0.6318313692480355,
+        "text__ridge": 0.5094942384718555,
+        "text__pairwise_logistic": 0.0040961344528685694,
+        "text__extra_trees": 0.5046296296296297,
+        "combined__ridge": 0.5669470226260128,
+        "combined__pairwise_logistic": 0.45352670782806187,
+        "combined__extra_trees": 0.5568518518518518
+      }
+    },
+    {
+      "meeting_id": "7",
+      "participant": "7.Orange",
+      "aii": 38.0,
+      "scores": {
+        "speaking_time": 162.79999999999956,
+        "word_count": 420.0,
+        "utterance_count": 94.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.4176288117292231,
+        "structure__pairwise_logistic": -0.45108273318773756,
+        "structure__extra_trees": 0.36423420715087346,
+        "text__ridge": 0.49035007285402815,
+        "text__pairwise_logistic": 0.0005887957224557343,
+        "text__extra_trees": 0.35435185185185186,
+        "combined__ridge": 0.41694025501002224,
+        "combined__pairwise_logistic": -0.457617553697298,
+        "combined__extra_trees": 0.3437037037037038
+      }
+    },
+    {
+      "meeting_id": "9",
+      "participant": "9.Blue",
+      "aii": 24.0,
+      "scores": {
+        "speaking_time": 45.000000000000085,
+        "word_count": 120.0,
+        "utterance_count": 47.0,
+        "decision_count": 0.0,
+        "prototype_influence": 0.0,
+        "structure__ridge": 0.32018872396166664,
+        "structure__pairwise_logistic": -1.4079750199201342,
+        "structure__extra_trees": 0.2408091815591814,
+        "text__ridge": 0.49189205055790186,
+        "text__pairwise_logistic": 0.00010151497231063403,
+        "text__extra_trees": 0.3635185185185185,
+        "combined__ridge": 0.32035702833547286,
+        "combined__pairwise_logistic": -1.3916218123157578,
+        "combined__extra_trees": 0.2823148148148148
+      }
+    },
+    {
+      "meeting_id": "9",
+      "participant": "9.Green",
+      "aii": 20.0,
+      "scores": {
+        "speaking_time": 209.50000000000003,
+        "word_count": 664.0,
+        "utterance_count": 115.0,
+        "decision_count": 3.0,
+        "prototype_influence": 0.2,
+        "structure__ridge": 0.40662109459273077,
+        "structure__pairwise_logistic": -1.1885607316392872,
+        "structure__extra_trees": 0.7810617484367475,
+        "text__ridge": 0.5109795263340831,
+        "text__pairwise_logistic": 0.0036306513958822887,
+        "text__extra_trees": 0.5712962962962961,
+        "combined__ridge": 0.4078798299792217,
+        "combined__pairwise_logistic": -1.170807496752813,
+        "combined__extra_trees": 0.5875925925925927
+      }
+    },
+    {
+      "meeting_id": "9",
+      "participant": "9.Pink",
+      "aii": 38.0,
+      "scores": {
+        "speaking_time": 129.49999999999977,
+        "word_count": 420.0,
+        "utterance_count": 103.0,
+        "decision_count": 1.0,
+        "prototype_influence": 0.05,
+        "structure__ridge": 0.590463111542933,
+        "structure__pairwise_logistic": 0.38346602801576163,
+        "structure__extra_trees": 0.3938732563732565,
+        "text__ridge": 0.5048210293259042,
+        "text__pairwise_logistic": 0.0025902848778907076,
+        "text__extra_trees": 0.33592592592592585,
+        "combined__ridge": 0.5905372753064921,
+        "combined__pairwise_logistic": 0.3870199509200415,
+        "combined__extra_trees": 0.2845370370370371
+      }
+    }
+  ],
+  "limitations": [
+    "Six test groups; wide uncertainty and no significance claim.",
+    "AII measures outcome alignment, not causal influence or independent human judgments.",
+    "Oracle English text/speakers; no ASR, slides or app deployment accuracy established.",
+    "Only 28 groups overall; fresh groups required after further test-informed development."
+  ],
+  "installed_in_application": false
+}

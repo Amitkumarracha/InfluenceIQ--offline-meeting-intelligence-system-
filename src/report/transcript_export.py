@@ -13,7 +13,13 @@ def render_export(data, title, format, meeting_id=None):
     if format == 'ics':
         return calendar_export(data, title, meeting_id or data.get('meeting_id', 'meeting')), 'text/calendar'
     segments = data.get('transcript_segments', [])
-    names = data.get('speaker_names', {})
+    speakers = dict.fromkeys([s.get('speaker') for s in segments] +
+                             [p.get('speaker_id') for p in data.get('participants', [])])
+    names = {speaker: f'Speaker {index}' for index, speaker in
+             enumerate((speaker for speaker in speakers if speaker and speaker != 'UNKNOWN'), 1)}
+    if 'UNKNOWN' in speakers:
+        names['UNKNOWN'] = 'Speaker not identified'
+    names.update({speaker: name for speaker, name in data.get('speaker_names', {}).items() if name})
     roles = data.get('speaker_roles', {})
     estimated = {p['speaker_id']: ', '.join(p.get('roles', [])).replace('_', ' ') for p in data.get('participants', [])}
     def label(speaker):

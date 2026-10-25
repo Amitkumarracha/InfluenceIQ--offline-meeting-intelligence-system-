@@ -6,6 +6,12 @@ The [cumulative final CA4 report](submitted/Group12_Multimodal_AI_Final_Report_C
 
 This project analyses meetings locally: audio becomes a speaker-attributed transcript; optional PPT content is matched to passages; NLP rules extract candidate actions, decisions, evidence, interactions and influence. Users can correct speaker names/roles and revisit results in history. There is no generative notes/chat feature. Influence scores and inferred roles are analytical estimates requiring review against the recording.
 
+The [presenter-influence study guide](research/PRESENTER_INFLUENCE_STUDY.md), added 24 October 2026, keeps outcome influence as the research objective and covers blind annotation preparation, contribution-attribution corrections and ranking evaluation.
+
+The [contextual-model experiments](research/CONTEXTUAL_INFLUENCE_UPGRADE.md) record optional transformer, topic, outcome-link, speaker-margin and XGBoost paths, with measured results and remaining independent-annotation requirements.
+
+The [AI-annotated outcome-link pilot](research/AI_OUTCOME_PILOT.md) records the completed assistant review, separate weak-supervision experiment and paper-reporting limits.
+
 The canonical workspace is `/home/amitkumar/Music/MAI Project`. The old nested repository has been retired to `waste/InfluenceIQ--offline-meeting-intelligence-system-/`; useful missing historical records were preserved separately. See the [complete inventory and cleanup record](validation/26_LEGACY_CLEANUP_2026_10_19.md). Launch the application from the canonical workspace.
 
 The [Read.ai comparison and repository review](validation/27_READ_AI_COMPARISON_AND_FOLLOWUPS_2026_10_19.md) records current feature gaps and candidate model tradeoffs. [Reviewed task owners, deadlines, completion status and offline calendar export](guides/FOLLOW_UPS.md) now work on web and Android without new models.

@@ -1,0 +1,31 @@
+{
+  "status": "Exploratory development; earlier historical cohorts already examined",
+  "examples": 11136,
+  "metrics": {
+    "per_label": {
+      "discussion": {
+        "precision": 0.32140065655776145,
+        "recall": 0.8286981056025796,
+        "f1": 0.4631673800405497
+      }
+    },
+    "macro_f1": 0.4631673800405497,
+    "frozen_blend": {
+      "accuracy": 0.6861530172413793,
+      "precision": 0.3994446648155494,
+      "recall": 0.8117694478033051,
+      "f1": 0.5354246975940449,
+      "average_precision": 0.533985450486222,
+      "neural_weight": 0.0,
+      "smoothing_radius": 0,
+      "threshold": 0.3577398635496262,
+      "metrics": {
+        "threshold": 0.3577398635496262,
+        "precision": 0.5091252359974827,
+        "recall": 0.7242614145031334,
+        "f1": 0.597930524759793
+      }
+    }
+  },
+  "installed_in_application": false
+}

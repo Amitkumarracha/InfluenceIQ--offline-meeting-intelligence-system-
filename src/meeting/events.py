@@ -268,13 +268,14 @@ def _match_event_type(
     """
     Match text against keyword patterns and return (event_type, confidence).
 
-    Confidence is based on the number of matching patterns relative to the
-    number available for that type — a rough heuristic, NOT a calibrated
-    probability.  Returns (None, None) when no type matches.
+    Match density selects the role. Confidence also credits observed English
+    cues independently of the number of alternative patterns in the bank.
+    Neither score is a calibrated probability.
     """
     text = normalize_text(text).strip()
     best_type: str | None = None
     best_score: float = 0.0
+    best_confidence: float = 0.0
 
     for etype in active_types:
         patterns = _PATTERNS.get(etype, [])
@@ -293,10 +294,12 @@ def _match_event_type(
         if score > best_score:
             best_score = score
             best_type = etype
+            # Additional alternative patterns must not suppress an observed cue.
+            best_confidence = max(score, min(1.0, hits * 0.3))
 
     if best_type is None:
         return None, None
-    return best_type, round(best_score, 4)
+    return best_type, round(best_confidence, 4)
 
 
 # ---------------------------------------------------------------------------

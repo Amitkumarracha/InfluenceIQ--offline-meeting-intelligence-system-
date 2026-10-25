@@ -7,7 +7,7 @@ import soundfile as sf
 from src.utils.cache import atomic_json, fingerprint, read_cache
 
 
-def decode_parts(paths, destination):
+def decode_parts(paths, destination, progress=None):
     paths = [Path(path) for path in paths]
     if not paths:
         raise ValueError('No audio parts supplied')
@@ -17,11 +17,14 @@ def decode_parts(paths, destination):
     manifest = destination.with_suffix('.decode.json')
     saved = read_cache(manifest, key)
     if saved and destination.is_file() and fingerprint([destination]) == saved.get('output_hash'):
+        if progress:
+            progress({'completed_seconds': sf.info(destination).duration, 'parts_completed': len(paths),
+                      'parts_total': len(paths), 'cached': True})
         return destination
     temporary = destination.with_suffix('.partial.wav')
     try:
         with sf.SoundFile(temporary, 'w', samplerate=16000, channels=1, subtype='PCM_16') as output:
-            for path in paths:
+            for index, path in enumerate(paths):
                 command = ['ffmpeg', '-nostdin', '-v', 'error', '-protocol_whitelist', 'file,pipe',
                            '-i', str(path), '-map', '0:a:0', '-vn', '-ar', '16000', '-ac', '1',
                            '-f', 's16le', '-c:a', 'pcm_s16le', 'pipe:1']
@@ -35,6 +38,9 @@ def decode_parts(paths, destination):
                             length = len(block) // 2 * 2
                             output.write(np.frombuffer(block[:length], dtype='<i2'))
                             pending = block[length:]
+                            if progress:
+                                progress({'completed_seconds': output.frames / 16000,
+                                          'parts_completed': index, 'parts_total': len(paths), 'cached': False})
                         if process.wait(timeout=60) or pending:
                             raise ValueError('Audio part decoding failed')
                     finally:
@@ -42,6 +48,9 @@ def decode_parts(paths, destination):
                         if process.poll() is None:
                             process.kill()
                         process.wait()
+                if progress:
+                    progress({'completed_seconds': output.frames / 16000, 'parts_completed': index + 1,
+                              'parts_total': len(paths), 'cached': False})
             if output.frames == 0:
                 raise ValueError('Recording contains no audio')
         temporary.replace(destination)

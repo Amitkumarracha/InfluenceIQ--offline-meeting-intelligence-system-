@@ -1,0 +1,94 @@
+{
+  "primary": {
+    "name": "structure__extra_trees",
+    "kind": "learned",
+    "features": "structure",
+    "family": "extra_trees",
+    "parameter": 5,
+    "development": {
+      "meetings": [
+        {
+          "meeting_id": "15",
+          "participants": 4,
+          "spearman": 0.39999999999999997,
+          "kendall_tau": 0.3333333333333334,
+          "comparable_pairs": 6,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "21",
+          "participants": 3,
+          "spearman": 1.0,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "27",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "4",
+          "participants": 3,
+          "spearman": 0.5,
+          "kendall_tau": 0.33333333333333337,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 0.6666666666666666,
+          "top_set_correct": false,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "6",
+          "participants": 4,
+          "spearman": 0.9486832980505139,
+          "kendall_tau": 0.912870929175277,
+          "comparable_pairs": 5,
+          "human_tied_pairs": 1,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        },
+        {
+          "meeting_id": "8",
+          "participants": 3,
+          "spearman": 1.0,
+          "kendall_tau": 1.0,
+          "comparable_pairs": 3,
+          "human_tied_pairs": 0,
+          "pairwise_accuracy": 1.0,
+          "top_set_correct": true,
+          "rank_status": "ok"
+        }
+      ],
+      "meeting_macro_pairwise_accuracy": 0.8333333333333334,
+      "top_set_accuracy": 0.6666666666666666,
+      "pairwise_policy": "Human ties excluded; predicted ties receive half credit; equal meeting weighting",
+      "top_policy": "Predicted top set must exactly match human top set; all-human-tied meetings excluded",
+      "mean_spearman": 0.7247805496750855
+    }
+  },
+  "model_sha256": "b9f409b6af8933789aeda012c707c366e8868952281f7610db184628d99b2c43",
+  "development_groups": [
+    "6",
+    "21",
+    "15",
+    "8",
+    "27",
+    "4"
+  ],
+  "test_evaluated": false
+}

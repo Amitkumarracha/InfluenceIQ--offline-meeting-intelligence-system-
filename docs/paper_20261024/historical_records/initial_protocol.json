@@ -1,0 +1,153 @@
+{
+  "task": "Within-meeting ranking of GAP outcome influence; lower AII is more influence",
+  "status": "Exploratory external-corpus pilot; reference transcripts and speaker IDs",
+  "sources": [
+    "https://convokit.cornell.edu/documentation/gap.html",
+    "https://zissou.infosci.cornell.edu/convokit/datasets/gap-corpus/gap-corpus.zip",
+    "https://doi.org/10.1145/3279981.3279985"
+  ],
+  "license": "CC BY-NC 4.0",
+  "seed": 20261024,
+  "splits": {
+    "train": [
+      "11",
+      "18",
+      "13",
+      "25",
+      "2",
+      "19",
+      "1",
+      "24",
+      "16",
+      "23",
+      "28",
+      "10",
+      "14",
+      "5",
+      "20",
+      "22"
+    ],
+    "development": [
+      "6",
+      "21",
+      "15",
+      "8",
+      "27",
+      "4"
+    ],
+    "test": [
+      "3",
+      "26",
+      "9",
+      "12",
+      "17",
+      "7"
+    ]
+  },
+  "input_sha256": {
+    "speakers.json": "a3211e408ceceee73f00e8f39341aa83c3bbab5ca73cc9ed2a40a41ad655dc74",
+    "conversations.json": "b547a42ec6a8495b5db283eb297e864419151d791e160fd014e0a1e681058298",
+    "utterances.jsonl": "163e2a233500d106934d0602d00712d6249d46bf9b9e1726a5f4232820fc3a99"
+  },
+  "script_sha256": "0fc6beae3e156007e36d129c1011057fcbf648fb4980b5b6d57e0bb23b4cf56b",
+  "source_sha256": {
+    "src/meeting/events.py": "52f5f0d5d8fdd497909f632895cc4e709022d894ddb680ad52b3b3761a787228",
+    "src/meeting/decisions.py": "24a326658ed6a464a5ff66093309439b8540423ff86136e6cfdee6d0954de22f",
+    "src/meeting/influence.py": "95d5f453c4de0f825990bf27f164c0feb74fd610bc056946812c6eca3ada2809",
+    "src/meeting/evidence.py": "1e5a4461fc6c6531bc8dc70212e9d51fe8a3c0bcc2fa0ae307dbdfb70b9111d0",
+    "src/meeting/interaction.py": "ed430ce82ecfa055dd5b5c6992bc063e5d7d417b8c2ba96a88fe106c73632392",
+    "scripts/train_influence_weights.py": "664122da688890c0672e555b0c9e726b1fab06b5a90422018ee2176db0478e91",
+    "config/config.yaml": "8c1eae3cf894720350c25f9aa5b734f1f3dc8a47fba36b7914dca0996f27f996"
+  },
+  "features": [
+    "duration",
+    "words",
+    "utterances",
+    "mean_words",
+    "early_words",
+    "late_words",
+    "reason_markers",
+    "suggestion_markers",
+    "first_person",
+    "inclusive_pronouns",
+    "proposal",
+    "question",
+    "objection",
+    "evidence",
+    "correction",
+    "clarification",
+    "agreement",
+    "disagreement",
+    "revision",
+    "decision",
+    "action_item",
+    "proposal",
+    "evidence",
+    "objection",
+    "revision",
+    "decision",
+    "interaction",
+    "slide_grounding"
+  ],
+  "grid": [
+    [
+      "ridge",
+      0.1
+    ],
+    [
+      "ridge",
+      1.0
+    ],
+    [
+      "ridge",
+      10.0
+    ],
+    [
+      "ridge",
+      100.0
+    ],
+    [
+      "pairwise_logistic",
+      0.01
+    ],
+    [
+      "pairwise_logistic",
+      0.1
+    ],
+    [
+      "pairwise_logistic",
+      1.0
+    ],
+    [
+      "pairwise_logistic",
+      10.0
+    ],
+    [
+      "extra_trees",
+      2
+    ],
+    [
+      "extra_trees",
+      5
+    ]
+  ],
+  "feature_sets": [
+    "structure",
+    "text",
+    "combined"
+  ],
+  "selection": "Maximum development meeting-macro pairwise accuracy; fixed loop order breaks ties",
+  "forbidden_inputs": [
+    "AII as feature",
+    "AIS",
+    "AGS",
+    "demographics",
+    "questionnaires",
+    "manual Decision/Sentiment/Private/Survival Item annotations"
+  ],
+  "aii_definition": "Distance between individual pre-meeting and final group item rankings; lower is more aligned",
+  "test_access": "Separate --evaluate after development selection and artifact hashes are frozen",
+  "python": "3.11.17",
+  "sklearn": "1.6.1",
+  "installed_in_application": false
+}

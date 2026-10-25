@@ -1,0 +1,20 @@
+{
+  "main_result_table": "IV",
+  "main_pairwise_accuracy": 0.6892857142857143,
+  "matched_methods": [
+    "combined",
+    "speaking_duration",
+    "word_count",
+    "participation",
+    "prototype_fixed_weights",
+    "contribution",
+    "constant_ties"
+  ],
+  "original_methods": 14,
+  "later_pipelines": 24,
+  "supporting_models": 12,
+  "ablation_rows": 11,
+  "inventory_rows": 61,
+  "development_search_records": 121,
+  "scope": "Cross-protocol or cross-task superiority is not established."
+}

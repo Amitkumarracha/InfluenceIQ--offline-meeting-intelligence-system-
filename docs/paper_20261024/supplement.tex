@@ -1,0 +1,189 @@
+\documentclass[journal,onecolumn]{IEEEtran}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx,booktabs,url}
+\urlstyle{same}
+\setlength{\textfloatsep}{10pt}\setlength{\intextsep}{10pt}\setlength{\floatsep}{10pt}
+\begin{document}
+\title{InfluenceIQ: Supplementary Research Records}
+\author{Anushka Chatterjee, Amitkumar Racha, Sahil Awatramani, Shriyans Sahoo\thanks{The authors are with the Department of Artificial Intelligence \& Machine Learning, Symbiosis Institute of Technology, Pune, Symbiosis International (Deemed University), Pune 412115, Maharashtra, India. E-mail: Anushka Chatterjee: \mbox{anushkac2311@gmail.com}; Amitkumar Racha: \mbox{rachaamitkumar@gmail.com}; Sahil Awatramani: \mbox{sahilawatramani@gmail.com}; Shriyans Sahoo: \mbox{shriyanssahoo2005@gmail.com}.}}
+\maketitle
+This supplement preserves complete earlier comparisons, provenance, and scope distinctions for the revised manuscript. Main-paper Tables III--V describe the new controlled exploratory analysis. Numbers below retain their original splits and feature versions. No historical score is promoted to a fresh final result.
+
+\section*{S1. Version and target matrix}
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{Version and target matrix}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.350\textwidth}p{0.295\textwidth}p{0.295\textwidth}}
+\toprule
+{\raggedright Record\par} & {\raggedright Features and labels\par} & {\raggedright Evaluation role\par} \\
+\midrule
+{\raggedright A: initial GAP snapshot\par} & {\raggedright Pre-correction events and contribution definitions; average-tie AII rank target\par} & {\raggedright 16 training / 6 development / 6 original evaluation meetings; selected structure Extra Trees\par} \\
+{\raggedright B: semantic/role snapshot\par} & {\raggedright Earlier attribution definitions; semantic uptake and group-cross-fitted role features\par} & {\raggedright Same historical GAP groups, already examined\par} \\
+{\raggedright C: corrected v2 snapshot\par} & {\raggedright Corrected proposal credit, evidence direction, and reconstruction; XGBoost uses dense unique-AII ranks\par} & {\raggedright Stored full features of all 84 people; original v2 historical ranker comparison\par} \\
+{\raggedright D: controlled revision\par} & {\raggedright C's six normalized activity and seven contribution features; average-tie target recomputed from AII\par} & {\raggedright Seven outer / three inner group folds; exploratory prior-corpus reuse\par} \\
+{\raggedright E: AMI discussion\par} & {\raggedright Binary discussion-membership labels on manual acts\par} & {\raggedright Separate component task, not participant contribution\par} \\
+{\raggedright F: AI outcome-link pilot\par} & {\raggedright Single-assistant relationship labels and supplied outcome passages\par} & {\raggedright AI-label agreement, not human-validated influence\par} \\
+\bottomrule
+\end{tabular}
+\end{table}
+The canonical decision and influence source SHA-256 values are 6c009a0c\allowbreak{}e0f8588e\allowbreak{}88d7a8e6\allowbreak{}817ad271\allowbreak{}4a6d921d\allowbreak{}d0c40dd0\allowbreak{}5386a30e\allowbreak{}44fd11c8 and 05f79c26\allowbreak{}e6f3fc15\allowbreak{}46ea1d1e\allowbreak{}97a003fd\allowbreak{}60688bcb\allowbreak{}440a74b2\allowbreak{}d2b183fa\allowbreak{}cb9e1d9b, respectively. All relevant hashes and the original feature-source digest are retained in analysis/protocol.json and historical\_\allowbreak{}records. Names that previously repeated in positional feature arrays are not confused with the separately invalidated first XGBoost schema.
+
+The initial learned target used average-tie participant ranks. The corrected XGBoost feature export used dense unique-AII ranks; the controlled Ridge study recomputes its declared average-tie target from supplied AII. An explicit preflight assertion caught this distinction before fitting; the aborted preparation was archived. A later serialization-only failure was corrected without changing the protocol's models, folds, features, or selection criteria. No successful scientific result was overwritten.
+
+\section*{S2. Original group splits and full ranking comparison}
+The GAP split seed is 20261024. Training comprises meetings 11,18,13,25,2,19,1,24,16,23,28,10,14,5,20,22; development 6,21,15,8,27,4; original evaluation 3,26,9,12,17,7. These are complete meetings, with 45/20/19 people respectively. Reference English transcripts and identities are supplied. No slides or speech-recognition outputs enter this task.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{Historical cohorts}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.350\textwidth}p{0.197\textwidth}p{0.197\textwidth}p{0.197\textwidth}}
+\toprule
+{\raggedright Branch\par} & {\raggedright Training\par} & {\raggedright Development\par} & {\raggedright Historical evaluation\par} \\
+\midrule
+{\raggedright GAP participant ordering\par} & {\raggedright 16 meetings / 45 people\par} & {\raggedright 6 meetings / 20 people\par} & {\raggedright 6 meetings / 19 people\par} \\
+{\raggedright AMI discussion membership\par} & {\raggedright 29 meetings / 20,339 acts\par} & {\raggedright 6 meetings / 3,739 acts\par} & {\raggedright 12 meetings / 11,136 acts\par} \\
+{\raggedright AI-labelled AMI outcome links\par} & {\raggedright 8 project series / 31 pairs\par} & {\raggedright 3 series / 8 pairs\par} & {\raggedright 3 series / 11 pairs\par} \\
+\bottomrule
+\end{tabular}
+\end{table}
+The initial selection compares 30 learned configurations and five fixed baselines using development meeting-average pairwise accuracy. Structural Extra Trees with 150 trees and minimum leaf size five is selected. Its development score is 83.33\% versus 82.78\% for word count. The table retains all finalists, including the nonselected combined Extra Trees candidate.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{Original GAP comparison}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.350\textwidth}p{0.295\textwidth}p{0.295\textwidth}}
+\toprule
+{\raggedright Method\par} & {\raggedright Pairwise accuracy (\%)\par} & {\raggedright Exact top-set accuracy (\%)\par} \\
+\midrule
+{\raggedright Speaking duration\par} & {\raggedright 52.78\par} & {\raggedright 33.33\par} \\
+{\raggedright Word count\par} & {\raggedright 63.89\par} & {\raggedright 50.00\par} \\
+{\raggedright Utterance count\par} & {\raggedright 41.67\par} & {\raggedright 33.33\par} \\
+{\raggedright Decision-event count\par} & {\raggedright 52.78\par} & {\raggedright 16.67\par} \\
+{\raggedright Prototype influence score\par} & {\raggedright 52.78\par} & {\raggedright 16.67\par} \\
+{\raggedright Structure: ridge\par} & {\raggedright 55.56\par} & {\raggedright 16.67\par} \\
+{\raggedright Structure: pairwise logistic\par} & {\raggedright 47.22\par} & {\raggedright 16.67\par} \\
+{\raggedright Structure: Extra Trees, selected primary\par} & {\raggedright 61.11\par} & {\raggedright 33.33\par} \\
+{\raggedright Text: ridge\par} & {\raggedright 41.67\par} & {\raggedright 16.67\par} \\
+{\raggedright Text: pairwise logistic\par} & {\raggedright 47.22\par} & {\raggedright 16.67\par} \\
+{\raggedright Text: Extra Trees\par} & {\raggedright 58.33\par} & {\raggedright 50.00\par} \\
+{\raggedright Combined: ridge\par} & {\raggedright 55.56\par} & {\raggedright 16.67\par} \\
+{\raggedright Combined: pairwise logistic\par} & {\raggedright 47.22\par} & {\raggedright 16.67\par} \\
+{\raggedright Combined: Extra Trees\par} & {\raggedright 66.67\par} & {\raggedright 50.00\par} \\
+\bottomrule
+\end{tabular}
+\end{table}
+The primary model has a 33.33--83.33\% interval from 10,000 resamples of six complete meetings. Only 21 reference-comparable participant pairs exist, clustered within those meetings. The prototype and decision-count predictions are constant in five meetings. A mean Spearman value over only the single nonconstant meeting is not a valid general ranking summary.
+
+\section*{S3. Later exploratory feature and model comparisons}
+All later GAP trials reuse historical groups. Semantic uptake features use a fixed 90-second window and frozen sentence representations; participant-text embeddings are not acoustic identity embeddings. Four logistic role detectors use group cross-fitting on training meetings. The 50-candidate round selects word count overall.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{Historical exploratory comparisons}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.350\textwidth}p{0.295\textwidth}p{0.295\textwidth}}
+\toprule
+{\raggedright Method\par} & {\raggedright Development pairwise (\%)\par} & {\raggedright Historical pairwise (\%)\par} \\
+\midrule
+{\raggedright Word-count baseline\par} & {\raggedright 82.78\par} & {\raggedright 63.89\par} \\
+{\raggedright Lower keyword threshold, earlier source\par} & {\raggedright 80.00\par} & {\raggedright 52.78\par} \\
+{\raggedright Semantic uptake, earlier source\par} & {\raggedright 74.44\par} & {\raggedright 30.56\par} \\
+{\raggedright Uptake plus participant-text embeddings, earlier source\par} & {\raggedright 65.00\par} & {\raggedright 50.00\par} \\
+{\raggedright Learned-role summaries, earlier source\par} & {\raggedright 74.44\par} & {\raggedright 36.11\par} \\
+{\raggedright Roles plus embeddings, earlier source\par} & {\raggedright 62.78\par} & {\raggedright 41.67\par} \\
+{\raggedright Corrected keyword fixed score\par} & {\raggedright 56.11\par} & {\raggedright 52.78\par} \\
+{\raggedright Corrected score plus semantic topics\par} & {\raggedright 58.33\par} & {\raggedright 47.22\par} \\
+{\raggedright Balanced contextual roles, corrected fixed score\par} & {\raggedright 71.11\par} & {\raggedright 38.89\par} \\
+{\raggedright Selected XGBoost, corrected features\par} & {\raggedright 86.11\par} & {\raggedright 50.00\par} \\
+\bottomrule
+\end{tabular}
+\end{table}
+The corrected XGBoost grid has 36 candidates: seven/full/topic features, depths 1/2/3, 50/150 trees, and regularization 1/10. Its selected full-feature candidate uses depth one, 50 trees, regularization one, learning rate 0.05, and seed 42. A schema-invalid earlier trial was not historically evaluated. The privileged manual-role diagnostic reaches 80.00\% development pairwise accuracy among tested settings, below word count; this is neither an automatic system score nor a mathematical upper bound.
+
+\section*{S4. Discussion and contextual-role components}
+The discussion target is membership in a manually annotated decision-discussion span, not the adoption of a proposal. Acts with at least half of their lexical word IDs inside a span are positive. The training/development/historical counts are 20,339/3,739/11,136 acts and 29/6/12 meetings. Historical meetings belong to only three project series. The installed combination is 75\% Random Forest and 25\% Logistic Regression, with context radius 40, smoothing radius five, and threshold 0.3577398635496262. Historical accuracy is 68.62\%, positive precision 39.94\%, recall 81.18\%, F1 53.54\%, and average precision 53.40\%. An all-negative predictor has 77.72\% accuracy and zero positive F1.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{Supporting component results}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.350\textwidth}p{0.295\textwidth}p{0.295\textwidth}}
+\toprule
+{\raggedright Component or variant\par} & {\raggedright Historical metric\par} & {\raggedright Score (\%)\par} \\
+\midrule
+{\raggedright Existing discussion combination\par} & {\raggedright Positive F1\par} & {\raggedright 53.54\par} \\
+{\raggedright Neural discussion candidate\par} & {\raggedright Positive F1\par} & {\raggedright 46.32\par} \\
+{\raggedright Unweighted neural roles\par} & {\raggedright Four-role macro F1\par} & {\raggedright 11.24\par} \\
+{\raggedright Balanced neural roles\par} & {\raggedright Four-role macro F1\par} & {\raggedright 21.25\par} \\
+{\raggedright Balanced roles: proposal\par} & {\raggedright Role F1\par} & {\raggedright 29.31\par} \\
+{\raggedright Balanced roles: agreement\par} & {\raggedright Role F1\par} & {\raggedright 22.34\par} \\
+{\raggedright Balanced roles: disagreement\par} & {\raggedright Role F1\par} & {\raggedright 0.00\par} \\
+{\raggedright Balanced roles: confirmation\par} & {\raggedright Role F1\par} & {\raggedright 33.33\par} \\
+\bottomrule
+\end{tabular}
+\end{table}
+The neural discussion, unweighted-role, and balanced-role runs each last two epochs. They fine-tune all MiniLM layers and a new head, with two neighboring turns on either side and a 96-token limit. Discussion selects epoch one and no neural blend weight; balanced roles select epoch two. Confirmation is mapped to agreement in the downstream fixed-score experiment, not converted into a final decision. The role and participant-ranking percentages remain distinct. The recorded protocols specify batch size 24, learning rate 0.00002, seed 42, and two epochs. The preserved trainer uses AdamW, weight decay 0.01, gradient clipping at one, and its recorded warmup/decay schedule. Complete effective protocols are included in historical\_\allowbreak{}records; unavailable checkpoint revision details are not invented.
+
+\section*{S5. AI-labelled outcome-link feasibility pilot}
+A single assistant inspected all 38 original candidates across 21 meetings: six were judged repairable and 32 unsuitable or ambiguous. It purposively curated 53 source-linked judgments, excluded three uncertain pairs, and fitted 50. This is not extraction precision/recall or independent human annotation. Some outcome inputs are human-written meeting summaries rather than automatically extracted decisions. Rationales, speaker IDs, reference IDs, and labels are excluded from model features.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{AI-label agreement pilot}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.350\textwidth}p{0.295\textwidth}p{0.295\textwidth}}
+\toprule
+{\raggedright Method\par} & {\raggedright Agreement (\%)\par} & {\raggedright Four-class macro F1 (\%)\par} \\
+\midrule
+{\raggedright Training-majority baseline\par} & {\raggedright 63.64\par} & {\raggedright 19.44\par} \\
+{\raggedright Source-only control\par} & {\raggedright 63.64\par} & {\raggedright 19.44\par} \\
+{\raggedright Outcome-only control\par} & {\raggedright 36.36\par} & {\raggedright 13.33\par} \\
+{\raggedright Paired source/outcome model, selected primary\par} & {\raggedright 54.55\par} & {\raggedright 17.65\par} \\
+\bottomrule
+\end{tabular}
+\end{table}
+Training classes adopted/rejected/revised/unresolved have counts 19/5/2/5; development 5/1/0/2; historical evaluation 7/3/0/1. The missing revised class prevents four-class validation. Macro F1 includes all four declared classes, assigning zero as specified. Class-balanced paired Logistic Regression selects C=1 from 0.1/1/10 using development macro F1. Development agreement is 6/8 (75\%), not a final influence score. Historical agreement is 6/11 (54.55\%), below majority 7/11 (63.64\%). Source-only and outcome-only controls use C=1.
+
+The group allocation seed is 20261024, separate from the model seed 42. Eight/three/three project series supply training/development/evaluation pairs. Labels retain ai\_\allowbreak{}generated provenance and independent\_\allowbreak{}human\_\allowbreak{}review=false. This pilot supplies no human influence ratings, independent adjudication, inter-annotator agreement, or causal reference. It is retained as feasibility evidence only.
+
+\section*{S6. Decision-display definition and weight sensitivity}
+The meeting score is the weighted sum in the main paper. A distinct decision-level display uses the participant share of events in that cluster multiplied by the unweighted mean of that participant's seven meeting-normalized features, rounded to four decimals. It is not a separately learned per-decision contribution model. Both definitions retain source IDs but lack independent personal-impact validation.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{Fixed-weight deletion sensitivity}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{p{0.350\textwidth}p{0.295\textwidth}p{0.295\textwidth}}
+\toprule
+{\raggedright Deleted fixed-score feature\par} & {\raggedright Pairwise (\%)\par} & {\raggedright Constant meetings / 28\par} \\
+\midrule
+{\raggedright proposal\par} & {\raggedright 55.77\par} & {\raggedright 22\par} \\
+{\raggedright evidence\par} & {\raggedright 55.77\par} & {\raggedright 22\par} \\
+{\raggedright objection\par} & {\raggedright 55.77\par} & {\raggedright 22\par} \\
+{\raggedright revision\par} & {\raggedright 55.77\par} & {\raggedright 22\par} \\
+{\raggedright decision\par} & {\raggedright 50.30\par} & {\raggedright 24\par} \\
+{\raggedright interaction\par} & {\raggedright 56.96\par} & {\raggedright 22\par} \\
+{\raggedright slide\_\allowbreak{}grounding\par} & {\raggedright 55.77\par} & {\raggedright 22\par} \\
+\bottomrule
+\end{tabular}
+\end{table}
+Deletion sets only the chosen weight to zero, with no renormalization or model fitting. No gain is claimed from uniform score rescaling. Inactive slide features reflect absent inputs, while missing proposals/evidence/revisions may reflect extraction or relation failures.
+
+\section*{S7. New analysis reproducibility and inference limits}
+The frozen protocol and derived input records are in analysis/. Each of seven outer folds evaluates four complete meetings; three inner group folds select among four Ridge alphas. The three feature families share fold assignments, estimator family, and tuning budget. Scalers fit inside their relevant training partitions. Every participant receives one outer prediction. Group identities, selected parameters, per-meeting scores, and paired resampling results are retained. Constant-prediction metrics have explicit scoring self-checks.
+
+This is review-motivated exploratory reuse of previously examined data. Group-disjoint fitting does not create independent construct labels or reverse prior researcher exposure. Overlapping outer training sets make intervals conditional descriptive summaries rather than formal population guarantees. A new corpus and independent outcome-contribution references remain needed for confirmation. The analysis does not fit neural models, replace application defaults, or claim a multimodal gain.
+
+The source-linked case records use existing manual GAP role labels; their selection is purposive and their influence/outcome relationships are unlabelled. A correct role match is not a complete-system success. No private recording or full corpus is distributed. Derived GAP records remain subject to the original CC BY-NC 4.0 terms, with citation to Braley and Murray (2018) and the ConvoKit GAP release. AMI records are referenced rather than redistributed.
+
+\end{document}

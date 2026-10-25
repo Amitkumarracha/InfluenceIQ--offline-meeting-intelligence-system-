@@ -1,0 +1,62 @@
+experiment,task,model_id,method,development_score,evaluation_metric,evaluation_score,status
+Nested group GAP (28 meetings),AII outcome-alignment ordering,combined,Latest combined ridge,not a single dev cohort,meeting-average pairwise accuracy (%),68.93,Exploratory corpus reuse; comparable within this experiment
+Nested group GAP (28 meetings),AII outcome-alignment ordering,speaking_duration,Speaking-duration baseline,not a single dev cohort,meeting-average pairwise accuracy (%),67.86,Exploratory corpus reuse; comparable within this experiment
+Nested group GAP (28 meetings),AII outcome-alignment ordering,word_count,Word-count baseline,not a single dev cohort,meeting-average pairwise accuracy (%),66.55,Exploratory corpus reuse; comparable within this experiment
+Nested group GAP (28 meetings),AII outcome-alignment ordering,participation,Participation-only ridge,not a single dev cohort,meeting-average pairwise accuracy (%),61.79,Exploratory corpus reuse; comparable within this experiment
+Nested group GAP (28 meetings),AII outcome-alignment ordering,prototype_fixed_weights,Fixed contribution-score baseline,not a single dev cohort,meeting-average pairwise accuracy (%),55.77,Exploratory corpus reuse; comparable within this experiment
+Nested group GAP (28 meetings),AII outcome-alignment ordering,contribution,Contribution-only ridge,not a single dev cohort,meeting-average pairwise accuracy (%),53.39,Exploratory corpus reuse; comparable within this experiment
+Nested group GAP (28 meetings),AII outcome-alignment ordering,constant_ties,Constant-tie reference,not a single dev cohort,meeting-average pairwise accuracy (%),50.00,Exploratory corpus reuse; comparable within this experiment
+Original GAP (6 historical meetings),AII outcome-alignment ordering,speaking_time,Speaking duration,80.56,meeting-average pairwise accuracy (%),52.78,Fixed baseline; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,word_count,Word count,82.78,meeting-average pairwise accuracy (%),63.89,Fixed baseline; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,utterance_count,Utterance count,64.72,meeting-average pairwise accuracy (%),41.67,Fixed baseline; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,decision_count,Decision-event count,61.67,meeting-average pairwise accuracy (%),52.78,Fixed baseline; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,prototype_influence,Original weighted score,56.11,meeting-average pairwise accuracy (%),52.78,Fixed baseline; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,structure__ridge,Structural features / Ridge,80.00,meeting-average pairwise accuracy (%),55.56,Nonprimary finalist; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,structure__pairwise_logistic,Structural features / Pairwise logistic regression,82.78,meeting-average pairwise accuracy (%),47.22,Nonprimary finalist; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,structure__extra_trees,Structural features / Extra Trees,83.33,meeting-average pairwise accuracy (%),61.11,Selected primary; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,text__ridge,Participant text / Ridge,74.44,meeting-average pairwise accuracy (%),41.67,Nonprimary finalist; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,text__pairwise_logistic,Participant text / Pairwise logistic regression,74.44,meeting-average pairwise accuracy (%),47.22,Nonprimary finalist; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,text__extra_trees,Participant text / Extra Trees,68.33,meeting-average pairwise accuracy (%),58.33,Nonprimary finalist; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,combined__ridge,Structural + text / Ridge,80.00,meeting-average pairwise accuracy (%),55.56,Nonprimary finalist; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,combined__pairwise_logistic,Structural + text / Pairwise logistic regression,82.78,meeting-average pairwise accuracy (%),47.22,Nonprimary finalist; earlier source snapshot
+Original GAP (6 historical meetings),AII outcome-alignment ordering,combined__extra_trees,Structural + text / Extra Trees,71.67,meeting-average pairwise accuracy (%),66.67,Nonprimary finalist; earlier source snapshot
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_0,Lower event threshold / Ridge,80.00,meeting-average pairwise accuracy (%),52.78,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_1,Lower event threshold / Pairwise logistic regression,80.00,meeting-average pairwise accuracy (%),52.78,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_2,Lower event threshold / Extra Trees,73.89,meeting-average pairwise accuracy (%),58.33,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_3,Lower event threshold / Rank ensemble,74.44,meeting-average pairwise accuracy (%),52.78,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_4,Semantic uptake / Ridge,74.44,meeting-average pairwise accuracy (%),30.56,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_5,Semantic uptake / Pairwise logistic regression,74.44,meeting-average pairwise accuracy (%),52.78,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_6,Semantic uptake / Extra Trees,66.11,meeting-average pairwise accuracy (%),41.67,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_7,Semantic uptake / Rank ensemble,71.67,meeting-average pairwise accuracy (%),36.11,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_8,Semantic uptake + text embeddings / Ridge,65.00,meeting-average pairwise accuracy (%),50.00,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_9,Semantic uptake + text embeddings / Pairwise logistic regression,62.78,meeting-average pairwise accuracy (%),41.67,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_10,Semantic uptake + text embeddings / Extra Trees,60.56,meeting-average pairwise accuracy (%),58.33,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_11,Semantic uptake + text embeddings / Rank ensemble,61.11,meeting-average pairwise accuracy (%),50.00,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_12,Learned roles / Ridge,74.44,meeting-average pairwise accuracy (%),36.11,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_13,Learned roles / Pairwise logistic regression,74.44,meeting-average pairwise accuracy (%),55.56,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_14,Learned roles / Extra Trees,66.11,meeting-average pairwise accuracy (%),38.89,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_15,Learned roles / Rank ensemble,71.67,meeting-average pairwise accuracy (%),37.50,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_16,Learned roles + text embeddings / Ridge,60.00,meeting-average pairwise accuracy (%),58.33,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_17,Learned roles + text embeddings / Pairwise logistic regression,62.78,meeting-average pairwise accuracy (%),41.67,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_18,Learned roles + text embeddings / Extra Trees,60.56,meeting-average pairwise accuracy (%),52.78,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_19,Learned roles + text embeddings / Rank ensemble,58.89,meeting-average pairwise accuracy (%),50.00,B: earlier snapshot; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_20,Corrected fixed keyword pipeline,56.11,meeting-average pairwise accuracy (%),52.78,C: corrected fixed score; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_21,Corrected pipeline + semantic topics,58.33,meeting-average pairwise accuracy (%),47.22,C: topic feature toggle; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_22,Balanced contextual roles + fixed score,71.11,meeting-average pairwise accuracy (%),38.89,C: learned role replacement; exploratory
+Later GAP (6 historical meetings),AII outcome-alignment ordering,pipeline_23,Selected XGBoost ranker,86.11,meeting-average pairwise accuracy (%),50.00,C: development-selected ranker; exploratory
+AMI discussion,AMI discussion,component_0,Logistic Regression / local,55.04,positive F1 (%),48.89,Supporting task; not ranking accuracy
+AMI discussion,AMI discussion,component_1,Complement NB / local,55.65,positive F1 (%),48.08,Supporting task; not ranking accuracy
+AMI discussion,AMI discussion,component_2,Calibrated linear SVM / local,55.24,positive F1 (%),48.33,Supporting task; not ranking accuracy
+AMI discussion,AMI discussion,component_3,Random Forest / local,54.16,positive F1 (%),50.26,Supporting task; not ranking accuracy
+AMI discussion,AMI discussion,component_4,Logistic Regression / context 40,57.05,positive F1 (%),50.60,Supporting task; not ranking accuracy
+AMI discussion,AMI discussion,component_5,Complement NB / context 40,55.71,positive F1 (%),47.12,Supporting task; not ranking accuracy
+AMI discussion,AMI discussion,component_6,Calibrated linear SVM / context 40,55.78,positive F1 (%),50.48,Supporting task; not ranking accuracy
+AMI discussion,AMI discussion,component_7,Random Forest / context 40,59.72,positive F1 (%),52.08,Supporting task; not ranking accuracy
+AMI discussion,AMI discussion,component_8,75% forest + 25% logistic / Installed combination,59.79,positive F1 (%),53.54,Supporting task; not ranking accuracy
+AMI discussion,AMI discussion,component_9,Fine-tuned MiniLM / Neural candidate,53.10,positive F1 (%),46.32,Supporting task; not ranking accuracy
+GAP role macro F1,GAP role macro F1,component_10,Unweighted MiniLM / Four-role classification,See frozen protocol,four-role macro F1 (%),11.24,Supporting task; not ranking accuracy
+GAP role macro F1,GAP role macro F1,component_11,Balanced MiniLM / Four-role classification,See frozen protocol,four-role macro F1 (%),21.25,Supporting task; not ranking accuracy
+AI-labelled relationship pilot,Relationship agreement with AI labels,majority,majority,See frozen pilot protocol,AI-label agreement (%),63.64,11 historical pairs; no independent human validation
+AI-labelled relationship pilot,Relationship agreement with AI labels,source_only,source only,See frozen pilot protocol,AI-label agreement (%),63.64,11 historical pairs; no independent human validation
+AI-labelled relationship pilot,Relationship agreement with AI labels,outcome_only,outcome only,See frozen pilot protocol,AI-label agreement (%),36.36,11 historical pairs; no independent human validation
+AI-labelled relationship pilot,Relationship agreement with AI labels,paired,paired,See frozen pilot protocol,AI-label agreement (%),54.55,11 historical pairs; no independent human validation

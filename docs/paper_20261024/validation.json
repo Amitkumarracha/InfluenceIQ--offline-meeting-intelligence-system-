@@ -1,0 +1,2782 @@
+{
+  "status": "passed",
+  "passed": 692,
+  "total": 692,
+  "pdf_pages": 15,
+  "supplement_pages": 5,
+  "scope": "Document, provenance and numerical consistency; not a certification of contribution validity or acceptance.",
+  "notes": [
+    "Word XML checked; rendered pagination not certified.",
+    "Bootstrap intervals are descriptive; corpus reuse is exploratory."
+  ],
+  "checks": [
+    {
+      "check": "approved title",
+      "passed": true
+    },
+    {
+      "check": "ten main tables and seven figures",
+      "passed": true
+    },
+    {
+      "check": "four equations",
+      "passed": true
+    },
+    {
+      "check": "generated source current",
+      "passed": true
+    },
+    {
+      "check": "23 references",
+      "passed": true
+    },
+    {
+      "check": "first citations numbered 1 through 23",
+      "passed": true
+    },
+    {
+      "check": "no citations in Abstract",
+      "passed": true
+    },
+    {
+      "check": "abstract 150 to 250 words",
+      "passed": true
+    },
+    {
+      "check": "no citations in Conclusion",
+      "passed": true
+    },
+    {
+      "check": "Fig. 1 referenced",
+      "passed": true
+    },
+    {
+      "check": "Fig. 2 referenced",
+      "passed": true
+    },
+    {
+      "check": "Fig. 3 referenced",
+      "passed": true
+    },
+    {
+      "check": "Fig. 4 referenced",
+      "passed": true
+    },
+    {
+      "check": "Fig. 5 referenced",
+      "passed": true
+    },
+    {
+      "check": "Fig. 6 referenced",
+      "passed": true
+    },
+    {
+      "check": "Fig. 7 referenced",
+      "passed": true
+    },
+    {
+      "check": "Table I referenced",
+      "passed": true
+    },
+    {
+      "check": "Table II referenced",
+      "passed": true
+    },
+    {
+      "check": "Table III referenced",
+      "passed": true
+    },
+    {
+      "check": "Table IV referenced",
+      "passed": true
+    },
+    {
+      "check": "Table V referenced",
+      "passed": true
+    },
+    {
+      "check": "Table VI referenced",
+      "passed": true
+    },
+    {
+      "check": "Table VII referenced",
+      "passed": true
+    },
+    {
+      "check": "Table VIII referenced",
+      "passed": true
+    },
+    {
+      "check": "Table IX referenced",
+      "passed": true
+    },
+    {
+      "check": "Table X referenced",
+      "passed": true
+    },
+    {
+      "check": "frozen protocol script hash",
+      "passed": true
+    },
+    {
+      "check": "frozen derived feature hash",
+      "passed": true
+    },
+    {
+      "check": "not represented as fresh evaluation",
+      "passed": true
+    },
+    {
+      "check": "84 people and 28 meetings",
+      "passed": true
+    },
+    {
+      "check": "outer fold 1 complete separation",
+      "passed": true
+    },
+    {
+      "check": "inner groups 1/0",
+      "passed": true
+    },
+    {
+      "check": "inner groups 1/1",
+      "passed": true
+    },
+    {
+      "check": "inner groups 1/2",
+      "passed": true
+    },
+    {
+      "check": "inner coverage 1",
+      "passed": true
+    },
+    {
+      "check": "outer fold 2 complete separation",
+      "passed": true
+    },
+    {
+      "check": "inner groups 2/0",
+      "passed": true
+    },
+    {
+      "check": "inner groups 2/1",
+      "passed": true
+    },
+    {
+      "check": "inner groups 2/2",
+      "passed": true
+    },
+    {
+      "check": "inner coverage 2",
+      "passed": true
+    },
+    {
+      "check": "outer fold 3 complete separation",
+      "passed": true
+    },
+    {
+      "check": "inner groups 3/0",
+      "passed": true
+    },
+    {
+      "check": "inner groups 3/1",
+      "passed": true
+    },
+    {
+      "check": "inner groups 3/2",
+      "passed": true
+    },
+    {
+      "check": "inner coverage 3",
+      "passed": true
+    },
+    {
+      "check": "outer fold 4 complete separation",
+      "passed": true
+    },
+    {
+      "check": "inner groups 4/0",
+      "passed": true
+    },
+    {
+      "check": "inner groups 4/1",
+      "passed": true
+    },
+    {
+      "check": "inner groups 4/2",
+      "passed": true
+    },
+    {
+      "check": "inner coverage 4",
+      "passed": true
+    },
+    {
+      "check": "outer fold 5 complete separation",
+      "passed": true
+    },
+    {
+      "check": "inner groups 5/0",
+      "passed": true
+    },
+    {
+      "check": "inner groups 5/1",
+      "passed": true
+    },
+    {
+      "check": "inner groups 5/2",
+      "passed": true
+    },
+    {
+      "check": "inner coverage 5",
+      "passed": true
+    },
+    {
+      "check": "outer fold 6 complete separation",
+      "passed": true
+    },
+    {
+      "check": "inner groups 6/0",
+      "passed": true
+    },
+    {
+      "check": "inner groups 6/1",
+      "passed": true
+    },
+    {
+      "check": "inner groups 6/2",
+      "passed": true
+    },
+    {
+      "check": "inner coverage 6",
+      "passed": true
+    },
+    {
+      "check": "outer fold 7 complete separation",
+      "passed": true
+    },
+    {
+      "check": "inner groups 7/0",
+      "passed": true
+    },
+    {
+      "check": "inner groups 7/1",
+      "passed": true
+    },
+    {
+      "check": "inner groups 7/2",
+      "passed": true
+    },
+    {
+      "check": "inner coverage 7",
+      "passed": true
+    },
+    {
+      "check": "each group evaluated once",
+      "passed": true
+    },
+    {
+      "check": "84 unique outer predictions",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 1.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 1.Green",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 1.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 10.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 10.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 11.Green",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 11.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 12.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 12.Green",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 12.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 12.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 13.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 13.Yellow",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 14.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 14.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 14.Red",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 14.Yellow",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 15.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 15.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 15.Purple",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 15.Yellow",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 16.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 16.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 16.Yellow",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 17.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 17.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 17.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 17.Yellow",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 18.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 18.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 18.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 19.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 19.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 19.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 2.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 2.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 20.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 20.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 20.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 21.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 21.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 21.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 22.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 22.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 22.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 23.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 23.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 24.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 24.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 24.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 25.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 25.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 25.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 26.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 26.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 26.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 27.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 27.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 27.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 28.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 28.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 28.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 3.Green",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 3.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 4.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 4.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 4.Yellow",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 5.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 5.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 5.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 5.Yellow",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 6.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 6.Green",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 6.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 6.Pink",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 7.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 7.Green",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 7.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 8.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 8.Green",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 8.Orange",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 9.Blue",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 9.Green",
+      "passed": true
+    },
+    {
+      "check": "prediction identity 9.Pink",
+      "passed": true
+    },
+    {
+      "check": "recomputed accuracy participation",
+      "passed": true
+    },
+    {
+      "check": "recomputed top set participation",
+      "passed": true
+    },
+    {
+      "check": "recomputed constants participation",
+      "passed": true
+    },
+    {
+      "check": "recomputed accuracy contribution",
+      "passed": true
+    },
+    {
+      "check": "recomputed top set contribution",
+      "passed": true
+    },
+    {
+      "check": "recomputed constants contribution",
+      "passed": true
+    },
+    {
+      "check": "recomputed accuracy combined",
+      "passed": true
+    },
+    {
+      "check": "recomputed top set combined",
+      "passed": true
+    },
+    {
+      "check": "recomputed constants combined",
+      "passed": true
+    },
+    {
+      "check": "recomputed accuracy word_count",
+      "passed": true
+    },
+    {
+      "check": "recomputed top set word_count",
+      "passed": true
+    },
+    {
+      "check": "recomputed constants word_count",
+      "passed": true
+    },
+    {
+      "check": "recomputed accuracy speaking_duration",
+      "passed": true
+    },
+    {
+      "check": "recomputed top set speaking_duration",
+      "passed": true
+    },
+    {
+      "check": "recomputed constants speaking_duration",
+      "passed": true
+    },
+    {
+      "check": "recomputed accuracy constant_ties",
+      "passed": true
+    },
+    {
+      "check": "recomputed top set constant_ties",
+      "passed": true
+    },
+    {
+      "check": "recomputed constants constant_ties",
+      "passed": true
+    },
+    {
+      "check": "recomputed accuracy prototype_fixed_weights",
+      "passed": true
+    },
+    {
+      "check": "recomputed top set prototype_fixed_weights",
+      "passed": true
+    },
+    {
+      "check": "recomputed constants prototype_fixed_weights",
+      "passed": true
+    },
+    {
+      "check": "main Table IV pairwise combined",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top count combined",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top percent combined",
+      "passed": true
+    },
+    {
+      "check": "main Table IV nonconstant combined",
+      "passed": true
+    },
+    {
+      "check": "main Table IV interval combined",
+      "passed": true
+    },
+    {
+      "check": "main Table IV pairwise speaking_duration",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top count speaking_duration",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top percent speaking_duration",
+      "passed": true
+    },
+    {
+      "check": "main Table IV nonconstant speaking_duration",
+      "passed": true
+    },
+    {
+      "check": "main Table IV interval speaking_duration",
+      "passed": true
+    },
+    {
+      "check": "main Table IV pairwise word_count",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top count word_count",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top percent word_count",
+      "passed": true
+    },
+    {
+      "check": "main Table IV nonconstant word_count",
+      "passed": true
+    },
+    {
+      "check": "main Table IV interval word_count",
+      "passed": true
+    },
+    {
+      "check": "main Table IV pairwise participation",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top count participation",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top percent participation",
+      "passed": true
+    },
+    {
+      "check": "main Table IV nonconstant participation",
+      "passed": true
+    },
+    {
+      "check": "main Table IV interval participation",
+      "passed": true
+    },
+    {
+      "check": "main Table IV pairwise prototype_fixed_weights",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top count prototype_fixed_weights",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top percent prototype_fixed_weights",
+      "passed": true
+    },
+    {
+      "check": "main Table IV nonconstant prototype_fixed_weights",
+      "passed": true
+    },
+    {
+      "check": "main Table IV interval prototype_fixed_weights",
+      "passed": true
+    },
+    {
+      "check": "main Table IV pairwise contribution",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top count contribution",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top percent contribution",
+      "passed": true
+    },
+    {
+      "check": "main Table IV nonconstant contribution",
+      "passed": true
+    },
+    {
+      "check": "main Table IV interval contribution",
+      "passed": true
+    },
+    {
+      "check": "main Table IV pairwise constant_ties",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top count constant_ties",
+      "passed": true
+    },
+    {
+      "check": "main Table IV top percent constant_ties",
+      "passed": true
+    },
+    {
+      "check": "main Table IV nonconstant constant_ties",
+      "passed": true
+    },
+    {
+      "check": "main Table IV interval constant_ties",
+      "passed": true
+    },
+    {
+      "check": "latest 68.93 prominent in Table IV",
+      "passed": true
+    },
+    {
+      "check": "presentation input hash analysis/results.json",
+      "passed": true
+    },
+    {
+      "check": "presentation input hash analysis/comparison_table_manifest.json",
+      "passed": true
+    },
+    {
+      "check": "presentation generator hash",
+      "passed": true
+    },
+    {
+      "check": "coverage people Proposal",
+      "passed": true
+    },
+    {
+      "check": "coverage meetings Proposal",
+      "passed": true
+    },
+    {
+      "check": "coverage people Evidence",
+      "passed": true
+    },
+    {
+      "check": "coverage meetings Evidence",
+      "passed": true
+    },
+    {
+      "check": "coverage people Objection",
+      "passed": true
+    },
+    {
+      "check": "coverage meetings Objection",
+      "passed": true
+    },
+    {
+      "check": "coverage people Revision",
+      "passed": true
+    },
+    {
+      "check": "coverage meetings Revision",
+      "passed": true
+    },
+    {
+      "check": "coverage people Decision",
+      "passed": true
+    },
+    {
+      "check": "coverage meetings Decision",
+      "passed": true
+    },
+    {
+      "check": "coverage people Interaction",
+      "passed": true
+    },
+    {
+      "check": "coverage meetings Interaction",
+      "passed": true
+    },
+    {
+      "check": "coverage people Slide Grounding",
+      "passed": true
+    },
+    {
+      "check": "coverage meetings Slide Grounding",
+      "passed": true
+    },
+    {
+      "check": "zero-vector diagnosis",
+      "passed": true
+    },
+    {
+      "check": "paired mean combined_minus_participation",
+      "passed": true
+    },
+    {
+      "check": "paired interval combined_minus_participation",
+      "passed": true
+    },
+    {
+      "check": "paired better/same/worse combined_minus_participation",
+      "passed": true
+    },
+    {
+      "check": "paired mean combined_minus_word_count",
+      "passed": true
+    },
+    {
+      "check": "paired interval combined_minus_word_count",
+      "passed": true
+    },
+    {
+      "check": "paired better/same/worse combined_minus_word_count",
+      "passed": true
+    },
+    {
+      "check": "paired mean contribution_minus_participation",
+      "passed": true
+    },
+    {
+      "check": "paired interval contribution_minus_participation",
+      "passed": true
+    },
+    {
+      "check": "paired better/same/worse contribution_minus_participation",
+      "passed": true
+    },
+    {
+      "check": "all fourteen original finalists",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise speaking_time",
+      "passed": true
+    },
+    {
+      "check": "original development speaking_time",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise word_count",
+      "passed": true
+    },
+    {
+      "check": "original development word_count",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise utterance_count",
+      "passed": true
+    },
+    {
+      "check": "original development utterance_count",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise decision_count",
+      "passed": true
+    },
+    {
+      "check": "original development decision_count",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise prototype_influence",
+      "passed": true
+    },
+    {
+      "check": "original development prototype_influence",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise structure__ridge",
+      "passed": true
+    },
+    {
+      "check": "original development structure__ridge",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise structure__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "original development structure__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise structure__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "original development structure__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise text__ridge",
+      "passed": true
+    },
+    {
+      "check": "original development text__ridge",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise text__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "original development text__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise text__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "original development text__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise combined__ridge",
+      "passed": true
+    },
+    {
+      "check": "original development combined__ridge",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise combined__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "original development combined__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "historical pairwise combined__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "original development combined__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "all twenty semantic/role finalists and four corrected variants",
+      "passed": true
+    },
+    {
+      "check": "later historical lower_threshold__ridge",
+      "passed": true
+    },
+    {
+      "check": "later development lower_threshold__ridge",
+      "passed": true
+    },
+    {
+      "check": "later historical lower_threshold__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later development lower_threshold__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later historical lower_threshold__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later development lower_threshold__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later historical lower_threshold__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "later development lower_threshold__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "later historical semantic__ridge",
+      "passed": true
+    },
+    {
+      "check": "later development semantic__ridge",
+      "passed": true
+    },
+    {
+      "check": "later historical semantic__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later development semantic__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later historical semantic__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later development semantic__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later historical semantic__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "later development semantic__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "later historical semantic_embeddings__ridge",
+      "passed": true
+    },
+    {
+      "check": "later development semantic_embeddings__ridge",
+      "passed": true
+    },
+    {
+      "check": "later historical semantic_embeddings__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later development semantic_embeddings__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later historical semantic_embeddings__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later development semantic_embeddings__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later historical semantic_embeddings__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "later development semantic_embeddings__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "later historical learned_roles__ridge",
+      "passed": true
+    },
+    {
+      "check": "later development learned_roles__ridge",
+      "passed": true
+    },
+    {
+      "check": "later historical learned_roles__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later development learned_roles__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later historical learned_roles__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later development learned_roles__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later historical learned_roles__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "later development learned_roles__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "later historical learned_roles_embeddings__ridge",
+      "passed": true
+    },
+    {
+      "check": "later development learned_roles_embeddings__ridge",
+      "passed": true
+    },
+    {
+      "check": "later historical learned_roles_embeddings__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later development learned_roles_embeddings__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "later historical learned_roles_embeddings__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later development learned_roles_embeddings__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "later historical learned_roles_embeddings__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "later development learned_roles_embeddings__rank_ensemble",
+      "passed": true
+    },
+    {
+      "check": "corrected development Corrected fixed keyword pipeline",
+      "passed": true
+    },
+    {
+      "check": "corrected historical Corrected fixed keyword pipeline",
+      "passed": true
+    },
+    {
+      "check": "corrected development Corrected pipeline + semantic topics",
+      "passed": true
+    },
+    {
+      "check": "corrected historical Corrected pipeline + semantic topics",
+      "passed": true
+    },
+    {
+      "check": "corrected development Balanced contextual roles + fixed score",
+      "passed": true
+    },
+    {
+      "check": "corrected historical Balanced contextual roles + fixed score",
+      "passed": true
+    },
+    {
+      "check": "corrected development Selected XGBoost ranker",
+      "passed": true
+    },
+    {
+      "check": "corrected historical Selected XGBoost ranker",
+      "passed": true
+    },
+    {
+      "check": "eleven ablation rows",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Ridge: all 13 features",
+      "passed": true
+    },
+    {
+      "check": "ablation change Ridge: all 13 features",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Ridge: all 13 features",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Ridge: remove 7 contribution inputs",
+      "passed": true
+    },
+    {
+      "check": "ablation change Ridge: remove 7 contribution inputs",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Ridge: remove 7 contribution inputs",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Ridge: remove 6 participation inputs",
+      "passed": true
+    },
+    {
+      "check": "ablation change Ridge: remove 6 participation inputs",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Ridge: remove 6 participation inputs",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Fixed score: all 7 categories",
+      "passed": true
+    },
+    {
+      "check": "ablation change Fixed score: all 7 categories",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Fixed score: all 7 categories",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Fixed score: remove proposal",
+      "passed": true
+    },
+    {
+      "check": "ablation change Fixed score: remove proposal",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Fixed score: remove proposal",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Fixed score: remove evidence",
+      "passed": true
+    },
+    {
+      "check": "ablation change Fixed score: remove evidence",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Fixed score: remove evidence",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Fixed score: remove objection",
+      "passed": true
+    },
+    {
+      "check": "ablation change Fixed score: remove objection",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Fixed score: remove objection",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Fixed score: remove revision",
+      "passed": true
+    },
+    {
+      "check": "ablation change Fixed score: remove revision",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Fixed score: remove revision",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Fixed score: remove decision",
+      "passed": true
+    },
+    {
+      "check": "ablation change Fixed score: remove decision",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Fixed score: remove decision",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Fixed score: remove interaction",
+      "passed": true
+    },
+    {
+      "check": "ablation change Fixed score: remove interaction",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Fixed score: remove interaction",
+      "passed": true
+    },
+    {
+      "check": "ablation PA Fixed score: remove slide grounding",
+      "passed": true
+    },
+    {
+      "check": "ablation change Fixed score: remove slide grounding",
+      "passed": true
+    },
+    {
+      "check": "ablation constants Fixed score: remove slide grounding",
+      "passed": true
+    },
+    {
+      "check": "twelve supporting models",
+      "passed": true
+    },
+    {
+      "check": "classifier development logistic_regression__local",
+      "passed": true
+    },
+    {
+      "check": "classifier historical logistic_regression__local",
+      "passed": true
+    },
+    {
+      "check": "classifier development complement_nb__local",
+      "passed": true
+    },
+    {
+      "check": "classifier historical complement_nb__local",
+      "passed": true
+    },
+    {
+      "check": "classifier development linear_svm__local",
+      "passed": true
+    },
+    {
+      "check": "classifier historical linear_svm__local",
+      "passed": true
+    },
+    {
+      "check": "classifier development random_forest__local",
+      "passed": true
+    },
+    {
+      "check": "classifier historical random_forest__local",
+      "passed": true
+    },
+    {
+      "check": "classifier development logistic_regression__context_40",
+      "passed": true
+    },
+    {
+      "check": "classifier historical logistic_regression__context_40",
+      "passed": true
+    },
+    {
+      "check": "classifier development complement_nb__context_40",
+      "passed": true
+    },
+    {
+      "check": "classifier historical complement_nb__context_40",
+      "passed": true
+    },
+    {
+      "check": "classifier development linear_svm__context_40",
+      "passed": true
+    },
+    {
+      "check": "classifier historical linear_svm__context_40",
+      "passed": true
+    },
+    {
+      "check": "classifier development random_forest__context_40",
+      "passed": true
+    },
+    {
+      "check": "classifier historical random_forest__context_40",
+      "passed": true
+    },
+    {
+      "check": "installed blend historical F1",
+      "passed": true
+    },
+    {
+      "check": "neural discussion historical F1",
+      "passed": true
+    },
+    {
+      "check": "role historical unweighted_roles_results.json",
+      "passed": true
+    },
+    {
+      "check": "role historical balanced_roles_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash initial_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash initial_selection.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash initial_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash semantic_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash semantic_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash corrected_ranker_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash corrected_ranker_selection.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash corrected_ranker_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash discussion_training_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash roles_training_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash balanced_roles_training_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash discussion_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash balanced_roles_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash ai_pilot_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash ai_pilot_summary.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash ai_pilot_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash initial_development.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash semantic_development.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash corrected_fixed_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash balanced_fixed_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash unweighted_roles_results.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash discussion_classifier_comparison.json",
+      "passed": true
+    },
+    {
+      "check": "historical source hash corrected_ranker_development.json",
+      "passed": true
+    },
+    {
+      "check": "complete final-method inventory",
+      "passed": true
+    },
+    {
+      "check": "all 121 ranking development records",
+      "passed": true
+    },
+    {
+      "check": "development search complete Original GAP",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/1",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/2",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/3",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/4",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/5",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/6",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/7",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/8",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/9",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/10",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/11",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/12",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/13",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/14",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/15",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/16",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/17",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/18",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/19",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/20",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/21",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/22",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/23",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/24",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/25",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/26",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/27",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/28",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/29",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/30",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/31",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/32",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/33",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/34",
+      "passed": true
+    },
+    {
+      "check": "development search Original GAP/35",
+      "passed": true
+    },
+    {
+      "check": "development search complete Semantic/role GAP",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/1",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/2",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/3",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/4",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/5",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/6",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/7",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/8",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/9",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/10",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/11",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/12",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/13",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/14",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/15",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/16",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/17",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/18",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/19",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/20",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/21",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/22",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/23",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/24",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/25",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/26",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/27",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/28",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/29",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/30",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/31",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/32",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/33",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/34",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/35",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/36",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/37",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/38",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/39",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/40",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/41",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/42",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/43",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/44",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/45",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/46",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/47",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/48",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/49",
+      "passed": true
+    },
+    {
+      "check": "development search Semantic/role GAP/50",
+      "passed": true
+    },
+    {
+      "check": "development search complete Corrected XGBoost",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/1",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/2",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/3",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/4",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/5",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/6",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/7",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/8",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/9",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/10",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/11",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/12",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/13",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/14",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/15",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/16",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/17",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/18",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/19",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/20",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/21",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/22",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/23",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/24",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/25",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/26",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/27",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/28",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/29",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/30",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/31",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/32",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/33",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/34",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/35",
+      "passed": true
+    },
+    {
+      "check": "development search Corrected XGBoost/36",
+      "passed": true
+    },
+    {
+      "check": "three role cases",
+      "passed": true
+    },
+    {
+      "check": "case disclosure",
+      "passed": true
+    },
+    {
+      "check": "source-checked role outcomes",
+      "passed": true
+    },
+    {
+      "check": "proposal diagnostic recorded",
+      "passed": true
+    },
+    {
+      "check": "agreement confusion arithmetic",
+      "passed": true
+    },
+    {
+      "check": "seven supplement tables",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise speaking_time",
+      "passed": true
+    },
+    {
+      "check": "supplement original top speaking_time",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise word_count",
+      "passed": true
+    },
+    {
+      "check": "supplement original top word_count",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise utterance_count",
+      "passed": true
+    },
+    {
+      "check": "supplement original top utterance_count",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise decision_count",
+      "passed": true
+    },
+    {
+      "check": "supplement original top decision_count",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise prototype_influence",
+      "passed": true
+    },
+    {
+      "check": "supplement original top prototype_influence",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise structure__ridge",
+      "passed": true
+    },
+    {
+      "check": "supplement original top structure__ridge",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise structure__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "supplement original top structure__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise structure__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "supplement original top structure__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise text__ridge",
+      "passed": true
+    },
+    {
+      "check": "supplement original top text__ridge",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise text__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "supplement original top text__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise text__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "supplement original top text__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise combined__ridge",
+      "passed": true
+    },
+    {
+      "check": "supplement original top combined__ridge",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise combined__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "supplement original top combined__pairwise_logistic",
+      "passed": true
+    },
+    {
+      "check": "supplement original pairwise combined__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "supplement original top combined__extra_trees",
+      "passed": true
+    },
+    {
+      "check": "supplement AI agreement majority",
+      "passed": true
+    },
+    {
+      "check": "supplement AI F1 majority",
+      "passed": true
+    },
+    {
+      "check": "supplement AI agreement source_only",
+      "passed": true
+    },
+    {
+      "check": "supplement AI F1 source_only",
+      "passed": true
+    },
+    {
+      "check": "supplement AI agreement outcome_only",
+      "passed": true
+    },
+    {
+      "check": "supplement AI F1 outcome_only",
+      "passed": true
+    },
+    {
+      "check": "supplement AI agreement paired",
+      "passed": true
+    },
+    {
+      "check": "supplement AI F1 paired",
+      "passed": true
+    },
+    {
+      "check": "AI labels remain independent-human=false",
+      "passed": true
+    },
+    {
+      "check": "source manifest current",
+      "passed": true
+    },
+    {
+      "check": "paper no overflow/missing glyph/citation error",
+      "passed": true
+    },
+    {
+      "check": "paper embedded fonts",
+      "passed": true
+    },
+    {
+      "check": "supplement no overflow/missing glyph/citation error",
+      "passed": true
+    },
+    {
+      "check": "supplement embedded fonts",
+      "passed": true
+    },
+    {
+      "check": "PDF approved title",
+      "passed": true
+    },
+    {
+      "check": "Word ten editable tables",
+      "passed": true
+    },
+    {
+      "check": "Word seven figures",
+      "passed": true
+    },
+    {
+      "check": "Word current images",
+      "passed": true
+    },
+    {
+      "check": "Word inline bold rendered",
+      "passed": true
+    },
+    {
+      "check": "Word author Anushka Chatterjee",
+      "passed": true
+    },
+    {
+      "check": "Word author Amitkumar Racha",
+      "passed": true
+    },
+    {
+      "check": "Word author Sahil Awatramani",
+      "passed": true
+    },
+    {
+      "check": "Word author Shriyans Sahoo",
+      "passed": true
+    },
+    {
+      "check": "PDF author Anushka Chatterjee",
+      "passed": true
+    },
+    {
+      "check": "PDF author Amitkumar Racha",
+      "passed": true
+    },
+    {
+      "check": "PDF author Sahil Awatramani",
+      "passed": true
+    },
+    {
+      "check": "PDF author Shriyans Sahoo",
+      "passed": true
+    },
+    {
+      "check": "PDF affiliation institution",
+      "passed": true
+    },
+    {
+      "check": "PDF affiliation university",
+      "passed": true
+    },
+    {
+      "check": "PDF affiliation address",
+      "passed": true
+    },
+    {
+      "check": "PDF guide contact",
+      "passed": true
+    },
+    {
+      "check": "PDF main result present",
+      "passed": true
+    },
+    {
+      "check": "fresh named PDF matches canonical",
+      "passed": true
+    },
+    {
+      "check": "tables precede bibliography",
+      "passed": true
+    },
+    {
+      "check": "LaTeX package current",
+      "passed": true
+    },
+    {
+      "check": "research package attribution",
+      "passed": true
+    },
+    {
+      "check": "research archive README.md",
+      "passed": true
+    },
+    {
+      "check": "research archive manuscript.md",
+      "passed": true
+    },
+    {
+      "check": "research archive paper.md",
+      "passed": true
+    },
+    {
+      "check": "research archive paper.tex",
+      "passed": true
+    },
+    {
+      "check": "research archive paper.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive InfluenceIQ_comparative_revision.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive paper.docx",
+      "passed": true
+    },
+    {
+      "check": "research archive paper.html",
+      "passed": true
+    },
+    {
+      "check": "research archive SUPPLEMENT.md",
+      "passed": true
+    },
+    {
+      "check": "research archive supplement.tex",
+      "passed": true
+    },
+    {
+      "check": "research archive supplement.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive supplement.html",
+      "passed": true
+    },
+    {
+      "check": "research archive IEEEtran.cls",
+      "passed": true
+    },
+    {
+      "check": "research archive references.bib",
+      "passed": true
+    },
+    {
+      "check": "research archive references.json",
+      "passed": true
+    },
+    {
+      "check": "research archive REFERENCES_VERIFIED.md",
+      "passed": true
+    },
+    {
+      "check": "research archive EVIDENCE_AUDIT.md",
+      "passed": true
+    },
+    {
+      "check": "research archive REVISION_RESPONSE.md",
+      "passed": true
+    },
+    {
+      "check": "research archive run_revision_analysis.py",
+      "passed": true
+    },
+    {
+      "check": "research archive reproduce_controlled.py",
+      "passed": true
+    },
+    {
+      "check": "research archive build_paper.py",
+      "passed": true
+    },
+    {
+      "check": "research archive build_figures.py",
+      "passed": true
+    },
+    {
+      "check": "research archive build_revision_figures.py",
+      "passed": true
+    },
+    {
+      "check": "research archive build_research_package.py",
+      "passed": true
+    },
+    {
+      "check": "research archive check_paper.py",
+      "passed": true
+    },
+    {
+      "check": "research archive check_revision.py",
+      "passed": true
+    },
+    {
+      "check": "research archive authors.json",
+      "passed": true
+    },
+    {
+      "check": "research archive update_comparisons.py",
+      "passed": true
+    },
+    {
+      "check": "research archive build_presentation_figures.py",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/presentation_manifest.json",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/README.md",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/model_pipeline_inventory.csv",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/development_search_inventory.csv",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/per_meeting.csv",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/features.json",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/cases.json",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/predictions.csv",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/selections.json",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/comparison_table_manifest.json",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/protocol.json",
+      "passed": true
+    },
+    {
+      "check": "research archive analysis/feature_coverage.csv",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/corrected_ranker_development.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/corrected_ranker_results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/corrected_ranker_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/roles_training_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/source_manifest.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/semantic_results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/ai_pilot_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/initial_selection.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/corrected_fixed_results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/discussion_training_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/discussion_classifier_comparison.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/initial_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/initial_results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/semantic_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/corrected_ranker_selection.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/ai_pilot_results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/balanced_fixed_results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/ai_pilot_summary.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/discussion_results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/balanced_roles_training_protocol.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/initial_development.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/balanced_roles_results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/semantic_development.json",
+      "passed": true
+    },
+    {
+      "check": "research archive historical_records/unweighted_roles_results.json",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/initial/src/meeting/decisions.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/initial/src/meeting/interaction.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/initial/src/meeting/influence.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/initial/src/meeting/evidence.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/initial/src/meeting/events.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/initial/scripts/train_influence_weights.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/initial/scripts/benchmark_gap_influence.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/initial/config/config.yaml",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/src/meeting/decisions.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/src/meeting/interaction.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/src/meeting/topics.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/src/meeting/influence.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/src/meeting/evidence.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/src/meeting/events.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/src/meeting/ranking.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/scripts/train_influence_weights.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/scripts/benchmark_gap_influence.py",
+      "passed": true
+    },
+    {
+      "check": "research archive snapshot_sources/canonical/scripts/train_influence_ranker.py",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/architecture.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/architecture.png",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/architecture.svg",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/trace_examples.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/trace_examples.png",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/trace_examples.svg",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/nested_design.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/nested_design.png",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/nested_design.svg",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/controlled_results.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/controlled_results.png",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/controlled_results.svg",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/feature_coverage.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/feature_coverage.png",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/feature_coverage.svg",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/paired_differences.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/paired_differences.png",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/paired_differences.svg",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/ablation_results.pdf",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/ablation_results.png",
+      "passed": true
+    },
+    {
+      "check": "research archive figures/ablation_results.svg",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "status": "Exploratory development; earlier historical cohorts already examined",
+  "examples": 1525,
+  "metrics": {
+    "per_label": {
+      "Proposal": {
+        "precision": 0.19154929577464788,
+        "recall": 0.6238532110091743,
+        "f1": 0.29310344827586204
+      },
+      "Agreement": {
+        "precision": 0.19339622641509435,
+        "recall": 0.2645161290322581,
+        "f1": 0.22343324250681199
+      },
+      "Disagreement": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "Confirmation": {
+        "precision": 0.4117647058823529,
+        "recall": 0.28,
+        "f1": 0.3333333333333333
+      }
+    },
+    "macro_f1": 0.21246750602900183
+  },
+  "installed_in_application": false
+}

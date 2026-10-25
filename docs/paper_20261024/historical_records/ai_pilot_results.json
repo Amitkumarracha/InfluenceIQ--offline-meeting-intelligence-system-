@@ -1,0 +1,376 @@
+{
+  "status": "AI-generated weak-supervision pilot; no independent human accuracy measured",
+  "examples": 11,
+  "project_groups": [
+    "ES2005",
+    "IS1003",
+    "IS1007"
+  ],
+  "primary_selected_on_development": "paired",
+  "methods": {
+    "majority": {
+      "ai_label_agreement": 0.6363636363636364,
+      "macro_f1_four_classes": 0.19444444444444445,
+      "per_class": {
+        "adopted": {
+          "precision": 0.6363636363636364,
+          "recall": 1.0,
+          "f1": 0.7777777777777778,
+          "reference_support": 7
+        },
+        "rejected": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 3
+        },
+        "revised": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 0
+        },
+        "unresolved": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 1
+        }
+      },
+      "absent_reference_classes": [
+        "revised"
+      ],
+      "confusion_matrix_label_order": [
+        "adopted",
+        "rejected",
+        "revised",
+        "unresolved"
+      ],
+      "confusion_matrix": [
+        [
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "source_only": {
+      "ai_label_agreement": 0.6363636363636364,
+      "macro_f1_four_classes": 0.19444444444444445,
+      "per_class": {
+        "adopted": {
+          "precision": 0.6363636363636364,
+          "recall": 1.0,
+          "f1": 0.7777777777777778,
+          "reference_support": 7
+        },
+        "rejected": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 3
+        },
+        "revised": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 0
+        },
+        "unresolved": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 1
+        }
+      },
+      "absent_reference_classes": [
+        "revised"
+      ],
+      "confusion_matrix_label_order": [
+        "adopted",
+        "rejected",
+        "revised",
+        "unresolved"
+      ],
+      "confusion_matrix": [
+        [
+          7,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "outcome_only": {
+      "ai_label_agreement": 0.36363636363636365,
+      "macro_f1_four_classes": 0.13333333333333333,
+      "per_class": {
+        "adopted": {
+          "precision": 0.5,
+          "recall": 0.5714285714285714,
+          "f1": 0.5333333333333333,
+          "reference_support": 7
+        },
+        "rejected": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 3
+        },
+        "revised": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 0
+        },
+        "unresolved": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 1
+        }
+      },
+      "absent_reference_classes": [
+        "revised"
+      ],
+      "confusion_matrix_label_order": [
+        "adopted",
+        "rejected",
+        "revised",
+        "unresolved"
+      ],
+      "confusion_matrix": [
+        [
+          4,
+          0,
+          0,
+          3
+        ],
+        [
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "paired": {
+      "ai_label_agreement": 0.5454545454545454,
+      "macro_f1_four_classes": 0.17647058823529413,
+      "per_class": {
+        "adopted": {
+          "precision": 0.6,
+          "recall": 0.8571428571428571,
+          "f1": 0.7058823529411765,
+          "reference_support": 7
+        },
+        "rejected": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 3
+        },
+        "revised": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 0
+        },
+        "unresolved": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "reference_support": 1
+        }
+      },
+      "absent_reference_classes": [
+        "revised"
+      ],
+      "confusion_matrix_label_order": [
+        "adopted",
+        "rejected",
+        "revised",
+        "unresolved"
+      ],
+      "confusion_matrix": [
+        [
+          6,
+          0,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "predictions": [
+    {
+      "pair_id": "ai_pair_043",
+      "group": "ES2005",
+      "ai_reference": "adopted",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "adopted",
+      "paired": "adopted"
+    },
+    {
+      "pair_id": "ai_pair_044",
+      "group": "ES2005",
+      "ai_reference": "adopted",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "unresolved",
+      "paired": "adopted"
+    },
+    {
+      "pair_id": "ai_pair_045",
+      "group": "ES2005",
+      "ai_reference": "rejected",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "adopted",
+      "paired": "adopted"
+    },
+    {
+      "pair_id": "ai_pair_046",
+      "group": "ES2005",
+      "ai_reference": "adopted",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "unresolved",
+      "paired": "unresolved"
+    },
+    {
+      "pair_id": "ai_pair_047",
+      "group": "IS1007",
+      "ai_reference": "rejected",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "adopted",
+      "paired": "adopted"
+    },
+    {
+      "pair_id": "ai_pair_048",
+      "group": "IS1007",
+      "ai_reference": "adopted",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "adopted",
+      "paired": "adopted"
+    },
+    {
+      "pair_id": "ai_pair_049",
+      "group": "IS1007",
+      "ai_reference": "unresolved",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "adopted",
+      "paired": "adopted"
+    },
+    {
+      "pair_id": "ai_pair_050",
+      "group": "IS1007",
+      "ai_reference": "adopted",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "unresolved",
+      "paired": "adopted"
+    },
+    {
+      "pair_id": "ai_pair_051",
+      "group": "IS1003",
+      "ai_reference": "adopted",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "adopted",
+      "paired": "adopted"
+    },
+    {
+      "pair_id": "ai_pair_052",
+      "group": "IS1003",
+      "ai_reference": "adopted",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "adopted",
+      "paired": "adopted"
+    },
+    {
+      "pair_id": "ai_pair_053",
+      "group": "IS1003",
+      "ai_reference": "rejected",
+      "majority": "adopted",
+      "source_only": "adopted",
+      "outcome_only": "adopted",
+      "paired": "adopted"
+    }
+  ],
+  "independent_human_accuracy_measured": false,
+  "presenter_influence_accuracy_measured": false,
+  "installed_in_application": false
+}

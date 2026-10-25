@@ -28,10 +28,15 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
     root = PROJECT_ROOT / 'data' / 'processed'
     warnings = []
     options = options or {}
+    if options.get('ranker_model') and options.get('event_model'):
+        raise ValueError('Current research rankers require keyword events; evaluate contextual roles separately')
     stage = None
     started = stage_started = time.perf_counter()
     stage_timings = {}
     asr_progress = {}
+    contextual_events = False
+    outcome_analysis = None
+    experimental_ranking = None
     preview_path = root / 'audio' / f'{meeting_id}_preview.json'
 
     def update(name):
@@ -51,6 +56,9 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
             progress(stage, details)
 
     def preview(segments, details):
+        # Keep the complete draft visible while earlier words are being re-attributed.
+        if stage == 'attribution' and details['completed_seconds'] < details['total_seconds']:
+            return
         completed = [asdict(segment) for segment in segments]
         recent = completed[-50:]
         events = KeywordEventExtractor().extract(recent, meeting_id)
@@ -116,19 +124,49 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
             _, _, _, source = run_alignment(transcript_path, slides_path, emb_path,
                                              meeting_id, root / 'alignment')
         update('events')
-        _, events = run_event_extraction(source, meeting_id, root / 'events')
+        if options.get('event_model') and transcript.language == 'en' and not (set(transcript.detected_languages)-{'en'}):
+            from src.meeting.learned_events import ContextualRoleExtractor
+            _, events = run_event_extraction(source, meeting_id, root/'events', extractor=ContextualRoleExtractor(options['event_model']))
+            contextual_events = True
+        else:
+            _, events = run_event_extraction(source, meeting_id, root / 'events')
+            if options.get('event_model'):
+                warnings.append('The contextual contribution model supports English only; event rules were used for this recording.')
         _, evidence = run_evidence_extraction(events, meeting_id, root / 'events',
                                               window_s=float(get('meeting_analysis.evidence_window_s', 60)))
         update('decisions')
         from src.meeting.discussions import run_discussion_review
         discussion_language = transcript.language if not (set(transcript.detected_languages) - {'en'}) else None
-        discussion_review = run_discussion_review([asdict(s) for s in transcript.segments],
-            meeting_id, discussion_language, root)
-        _, decisions, _ = run_decision_reconstruction(events, evidence, meeting_id, root / 'decisions')
+        if options.get('discussion_model'):
+            discussion_review = run_discussion_review([asdict(s) for s in transcript.segments],
+                meeting_id, discussion_language, root, model_override=options['discussion_model'])
+        else:
+            discussion_review = run_discussion_review([asdict(s) for s in transcript.segments],
+                meeting_id, discussion_language, root)
+        if options.get('topic_aware'):
+            _, decisions, _ = run_decision_reconstruction(events, evidence, meeting_id, root / 'decisions', topic_aware=True)
+        else:
+            _, decisions, _ = run_decision_reconstruction(events, evidence, meeting_id, root / 'decisions')
+        if options.get('outcome_links') or options.get('outcome_model'):
+            from src.meeting.events import load_events_json
+            from src.meeting.decisions import load_decisions_json
+            from src.meeting.outcomes import save_outcome_analysis
+            outcome_analysis = save_outcome_analysis(load_events_json(events), load_decisions_json(decisions),
+                                  root/'outcomes'/f'{meeting_id}_outcomes.json', options.get('outcome_model'))
         update('interactions')
         _, interactions, _ = run_interaction_analysis(events, evidence, decisions, meeting_id, root / 'interactions')
         update('influence')
-        _, influence, _ = run_influence_analysis(events, evidence, decisions, interactions, meeting_id, root / 'influence')
+        influence_result, influence, _ = run_influence_analysis(events, evidence, decisions, interactions, meeting_id, root / 'influence')
+        scored = sum(person.influence_score > 0 for person in influence_result.participants)
+        identified = len(influence_result.participants)
+        if identified and scored < identified:
+            warnings.append(f'{identified - scored} of {identified} speaker groups have no scored decision-linked contributions. This can reflect missed events or incorrect speaker grouping; it does not establish no influence. Review the sources and speaker count.')
+        if options.get('ranker_model'):
+            from src.meeting.events import load_events_json
+            from src.meeting.ranking import participant_features, rank_participants
+            features = participant_features(load_events_json(events), influence_result, [asdict(s) for s in transcript.segments])
+            experimental_ranking = rank_participants(options['ranker_model'], features, bool(options.get('topic_aware')))
+            atomic_json(root/'rankings'/f'{meeting_id}_ranking.json', experimental_ranking)
         payload = json.loads(influence.read_text())
         payload['participants'] = [p for p in payload.get('participants', []) if p.get('participant') != 'UNKNOWN']
         if not speaker_identified:
@@ -147,8 +185,10 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
             'language': transcript.language, 'recording_quality': transcript.recording_quality, 'asr_model': options.get('model_size') or get('asr.model_size'),
             'options': options, 'alignment_method': get('alignment.method', 'embeddings') if ppt_path else None,
             'slide_ocr_enabled': bool(ppt_path and get('ppt.ocr_enabled', False)),
-            'analysis_method': ('Learned English discussion review plus ' if discussion_review['status'] == 'ready' else '') + 'English/Hindi/Hinglish event rules; review against source audio',
+            'analysis_method': ('Learned English discussion review plus ' if discussion_review['status'] == 'ready' else '') + ('Contextual English contributions with supplementary event rules' if contextual_events else 'English/Hindi/Hinglish event rules') + '; review against source audio',
             'discussion_review_status': discussion_review['status'],
+            'keyword_event_scoring_version': 2 if not contextual_events else None,
+            'contribution_coverage': {'identified_speakers': identified, 'speakers_with_scored_contributions': scored},
             'accuracy_measured': False,
             'stage_timings_seconds': stage_timings,
             'asr_requested_device': get('asr.device', 'cpu'),
@@ -160,6 +200,10 @@ def run_meeting(audio_path, meeting_id, ppt_path=None, diarization='auto', progr
         report_path = PROJECT_ROOT / 'outputs' / 'reports' / f'{meeting_id}_report.json'
         payload = json.loads(report_path.read_text())
         payload['transcript_segments'] = [vars(s) for s in transcript.segments]
+        if outcome_analysis is not None:
+            payload['outcome_links'] = outcome_analysis
+        if experimental_ranking is not None:
+            payload['experimental_ranking'] = experimental_ranking
         from src.meeting.participants import self_introductions
         payload['speaker_name_sources'] = self_introductions(payload['transcript_segments'])
         payload['speaker_names'] = {speaker: source['name'] for speaker, source in payload['speaker_name_sources'].items()}

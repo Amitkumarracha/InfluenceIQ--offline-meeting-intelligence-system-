@@ -2,6 +2,8 @@
 import logging
 import math
 import time
+import hashlib
+import json
 from functools import lru_cache
 from pathlib import Path
 
@@ -71,7 +73,7 @@ def review_discussions(segments, meeting_id, language, model_path):
     if language != 'en':
         return {**result, 'status': 'unsupported_language'}
     path = Path(model_path)
-    if not path.is_file():
+    if not path.is_file() and not path.is_dir():
         return {**result, 'status': 'model_unavailable'}
     rows = []
     ids = set()
@@ -87,10 +89,31 @@ def review_discussions(segments, meeting_id, language, model_path):
         if text.strip():
             rows.append({'meeting': meeting_id, 'start': start, 'end': end, 'text': text,
                          'source_segment_id': source_id, 'speaker': segment.get('speaker', 'UNKNOWN')})
-    stat = path.stat()
-    bundle = _load_model(str(path.resolve()), stat.st_mtime_ns, stat.st_size)
-    components = component_scores(rows, bundle) if rows else {'linear': np.array([]), 'forest': np.array([])}
-    scores = combine_scores(rows, components, bundle['linear_weight'], bundle['smoothing_radius'])
+    if path.is_dir():
+        from src.meeting.contextual import context_pairs, predict_pairs
+        protocol = json.loads((path/'protocol.json').read_text())
+        selection = json.loads((path/'selection.json').read_text())
+        if protocol.get('task') != 'discussion' or hashlib.sha256((path/'model/model.safetensors').read_bytes()).hexdigest() != selection['model_sha256']:
+            raise ValueError('Unsupported or changed contextual discussion model')
+        baseline_path = PROJECT_ROOT/'models/discussion/model.joblib'
+        baseline_meta = json.loads((path/'baseline.json').read_text())
+        if hashlib.sha256(baseline_path.read_bytes()).hexdigest() != baseline_meta['model_sha256']:
+            raise ValueError('Discussion comparison baseline changed')
+        stat = baseline_path.stat()
+        baseline = _load_model(str(baseline_path.resolve()), stat.st_mtime_ns, stat.st_size)
+        components = component_scores(rows, baseline) if rows else {'linear': np.array([]), 'forest': np.array([])}
+        base_scores = combine_scores(rows, components, baseline['linear_weight'], baseline['smoothing_radius'])
+        raw = predict_pairs(path/'model', context_pairs(rows), protocol['max_length']).reshape(-1)
+        blend = selection['development']['blend']
+        neural = combine_scores(rows, {'linear': raw, 'forest': raw}, 1., blend['smoothing_radius'])
+        scores = blend['neural_weight']*neural+(1-blend['neural_weight'])*base_scores
+        bundle = {'threshold': blend['threshold'], 'method': 'experimental_contextual_discussion_review',
+                  'selection_sha256': hashlib.sha256((path/'selection.json').read_bytes()).hexdigest()}
+    else:
+        stat = path.stat()
+        bundle = _load_model(str(path.resolve()), stat.st_mtime_ns, stat.st_size)
+        components = component_scores(rows, bundle) if rows else {'linear': np.array([]), 'forest': np.array([])}
+        scores = combine_scores(rows, components, bundle['linear_weight'], bundle['smoothing_radius'])
     for row, score in zip(rows, scores):
         if score >= bundle['threshold']:
             result['passages'].append({key: row[key] for key in
@@ -101,12 +124,12 @@ def review_discussions(segments, meeting_id, language, model_path):
             'limitations': 'English research model applied to ASR passages; these are review suggestions, not final decisions. Scores are not calibrated correctness probabilities; recording-level accuracy has not been measured.'}
 
 
-def run_discussion_review(segments, meeting_id, language, output_root):
+def run_discussion_review(segments, meeting_id, language, output_root, model_override=None):
     started = time.perf_counter()
     if not get('discussion_review.enabled', True):
         result = {'status': 'disabled', 'passages': [], 'requires_review': True}
     else:
-        path = PROJECT_ROOT / get('discussion_review.model', 'models/discussion/model.joblib')
+        path = Path(model_override) if model_override else PROJECT_ROOT / get('discussion_review.model', 'models/discussion/model.joblib')
         try:
             result = review_discussions(segments, meeting_id, language, path)
         except Exception:

@@ -63,7 +63,8 @@ def test_optional_stage_failure_is_explicit_and_does_not_break_rule_pipeline(tmp
     assert json.loads((tmp_path/'discussions/m_discussions.json').read_text())['status'] == 'error'
 
 
-def test_learned_stage_reaches_complete_pipeline_and_all_report_formats(tmp_path, monkeypatch):
+@pytest.mark.parametrize('research_options', [False, 'roles', 'ranking'])
+def test_learned_stage_reaches_complete_pipeline_and_all_report_formats(tmp_path, monkeypatch, research_options):
     from src.pipeline import orchestrator
     from src.audio.asr import TranscriptResult, TranscriptSegment
     from dataclasses import asdict
@@ -89,12 +90,28 @@ def test_learned_stage_reaches_complete_pipeline_and_all_report_formats(tmp_path
             'speaker': 'UNKNOWN', 'text': segments[0].text, 'score': .8}], 'requires_review': True}
 
     monkeypatch.setattr(discussions, 'review_discussions', review)
-    report_path = orchestrator.run_meeting(tmp_path/'audio.wav', 'm', diarization='off')
+    options = {}
+    if research_options:
+        from src.meeting.events import KeywordEventExtractor
+        monkeypatch.setattr('src.meeting.learned_events.ContextualRoleExtractor', lambda directory: KeywordEventExtractor())
+        monkeypatch.setattr('src.meeting.topics.infer_event_topics', lambda events, *args: {event.event_id: 0 for event in events})
+        monkeypatch.setattr('src.meeting.ranking.rank_participants', lambda *args:
+                            {'status': 'experimental_outcome_alignment_ranking', 'participants': [], 'accuracy_measured': False})
+        options = {'discussion_model': 'mock', 'topic_aware': True, 'outcome_links': True}
+        options['event_model' if research_options == 'roles' else 'ranker_model'] = 'mock'
+    report_path = orchestrator.run_meeting(tmp_path/'audio.wav', 'm', diarization='off', options=options)
     data = json.loads(report_path.read_text())
     assert seen[0][:2] == ('m', 'en') and seen[0][2][0]['segment_id'] == 1
     assert data['processing']['discussion_review_status'] == 'ready'
     assert data['discussion_review']['passages'][0]['text'] == segments[0].text
     assert data['processing']['accuracy_measured'] is False
+    if research_options:
+        assert data['outcome_links']['status'] == 'independent_annotations_required'
+        assert (tmp_path/'data/processed/outcomes/m_outcomes.json').exists()
+        if research_options == 'roles':
+            assert 'Contextual English contributions' in data['processing']['analysis_method']
+        else:
+            assert data['experimental_ranking']['accuracy_measured'] is False
     html = report_path.with_suffix('.html').read_text()
     markdown = report_path.with_suffix('.md').read_text()
     assert '&lt;source&gt;' in html and '<source>' not in html

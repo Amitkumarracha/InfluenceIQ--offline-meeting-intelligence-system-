@@ -17,7 +17,7 @@ const http = require('node:http');
     const context = await browser.newContext({ permissions: ['microphone'], viewport: { width: 390, height: 844 }, serviceWorkers: 'block', acceptDownloads: true });
     const page = await context.newPage(), errors = [];
     page.on('pageerror', e => errors.push(e.message));
-    let title = 'Planning meeting', profile = { name: '', role: '', organization: '' }, uploaded = false, polls = 0;
+    let title = 'Planning meeting', profile = { name: '', role: '', organization: '' }, uploaded = false, polls = 0, loginAttempts = 0;
     const transcript = Array.from({ length: 215 }, (_, i) => ({ segment_id: i + 1, start: 7200 + i * 5, end: 7204 + i * 5, speaker: 'SPEAKER_00', text: `Report passage ${i + 1}. Asha will send Friday.` }));
     const data = { transcript_segments: transcript, vocabulary: '', vocabulary_suggestions: ['budget', 'हिंदी'], participants: [{ speaker_id: 'SPEAKER_00', roles: ['evidence_provider'], influence_score: .7 }], action_items: [{ event_id: 'e1', text: 'I will send the report Friday.', speaker: 'SPEAKER_00', timestamp: '02:00:00', timestamp_s: 7200 }], decisions: [{ decision_id: 'd1', status: 'confirmed', final_decision_text: 'We decided to approve the budget.', supporting_segments: [1] }], processing: { speaker_separation: true }, language_analysis: { label: 'Possible Hindi–English mix', asr_languages: ['en', 'hi'] }, influence: [{ participant: 'SPEAKER_00', influence_score: .7, features: { evidence_contribution: 1 }, raw_features: { evidence_contribution: 2 }, explanation: ['Provided observed evidence.'], supporting_events: ['e1'] }], influence_method: { weights: { evidence: .2 } }, event_timeline: [{ event_id: 'e1', source_segment_id: 1, event_type: 'evidence', start: 7200, speaker: 'SPEAKER_00', text: 'Source budget evidence', slide_id: 'slide_01' }], slides: [{ slide_id: 'slide_01', slide_number: 1, title: 'Budget', text: ['Budget facts'], tables: [] }], aligned_segments: [{ segment_id: 1, speaker: 'SPEAKER_00', slide_id: 'slide_01', start: 7200, text: 'Linked slide discussion', alignment_score: .8 }], consistency_checks: { flags: [{ slide_id: 'slide_01', statement: 'Latency 120 ms', slide_text: 'Latency 100 ms', start: 7200, spoken_value: '120', slide_value: '100', unit: 'ms' }] }, meeting_overview: { duration_s: 8275 } };
     data.discussion_review = { status: 'ready', requires_review: true, passages: [{ source_segment_id: 1, start: transcript[0].start, end: transcript[0].end, speaker: transcript[0].speaker, text: transcript[0].text, score: .8 }] };
@@ -25,9 +25,14 @@ const http = require('node:http');
       const url = new URL(route.request().url());
       if (url.hostname !== '127.0.0.1') throw new Error('Unexpected external request');
       const json = body => route.fulfill({ json: body });
-      if (url.pathname === '/api/recording/preview') return json({ segments: [{start: 0, end: 1, text: 'Live नमस्ते team', speaker: 'UNKNOWN'}], language: 'hi', draft: true });
+      if (url.pathname === '/api/recording/preview') return json({ segments: Array.from({ length: 105 }, (_, i) => ({ start: i / 10, end: i / 10 + .1, text: i === 0 ? 'Live नमस्ते team' : `Live draft passage ${i + 1}`, speaker: 'UNKNOWN' })), language: 'hi', draft: true });
       if (url.pathname === '/api/health') return json({ asr_ready: true, asr_model: 'small', asr_models: ['small', 'medium'], diarization: { ready: true, message: 'Local speaker models are ready.' }, generative_ai: false });
       if (url.pathname === '/api/auth/register') return json({ token: 'fixture-token', email: 'local@example.invalid' });
+      if (url.pathname === '/api/auth/login') {
+        loginAttempts++;
+        if (loginAttempts === 1) return route.fulfill({ status: 401, json: { detail: 'Invalid email or password' } });
+        return route.abort('failed');
+      }
       if (url.pathname === '/api/auth/me') return json({ user_id: 'fixture-user', email: 'local@example.invalid' });
       if (url.pathname === '/api/profile') { if (route.request().method() === 'POST') profile = route.request().postDataJSON(); return json(profile); }
       if (url.pathname === '/api/meetings') return json({ meetings: [{ id: 'demo', title, status: 'completed', created_at: '2026-10-07T12:00:00' }] });
@@ -37,7 +42,12 @@ const http = require('node:http');
         assert.equal((body.match(/name="audio";/g) || []).length, 3); assert.equal((body.match(/name="ppt";/g) || []).length, 2);
         uploaded = true; return route.fulfill({ status: 202, json: { meeting_id: 'demo' } });
       }
-      if (url.pathname === '/api/meetings/demo' && uploaded && polls++ < 1) return json({ id: 'demo', title, status: 'processing', stage: 'transcription', progress: { completed_seconds: 120, total_seconds: 600, elapsed_seconds: 42, stage_elapsed_seconds: 40, overall_percent: 11, stage_percent: 20, estimated_remaining_seconds: 300 }, preview: { transcript_segments: Array.from({ length: 75 }, (_, i) => ({ segment_id: i + 1, start: i * 5, text: i === 0 ? 'हमने बजट फाइनल कर दिया।' : `Saved draft passage ${i + 1}` })) } });
+      if (url.pathname === '/api/meetings/demo' && uploaded) {
+        polls++;
+        if (polls === 1) return route.fulfill({ status: 503, json: { detail: 'Temporary connection error' } });
+        if (polls === 2) return json({ id: 'demo', title, status: 'processing', stage: 'transcription', progress: { completed_seconds: 120, total_seconds: 600, elapsed_seconds: 42, stage_elapsed_seconds: 40, overall_percent: 11, stage_percent: 20, estimated_remaining_seconds: 300 }, preview: { transcript_segments: Array.from({ length: 75 }, (_, i) => ({ segment_id: i + 1, start: i * 5, text: i === 0 ? 'हमने बजट फाइनल कर दिया।' : `Saved draft passage ${i + 1}` })) } });
+        if (polls === 3) return json({ id: 'demo', title, status: 'completed', data: null });
+      }
       if (url.pathname === '/api/meetings/demo') return json({ id: 'demo', title, status: 'completed', data: { speaker_names: { SPEAKER_00: 'Imported Asha' }, ...data }, audio_url: null });
       if (url.pathname === '/api/meetings/demo/edit') { const changes = route.request().postDataJSON(); title = changes.title || title; Object.assign(data, changes); return json({ status: 'saved' }); }
       if (url.pathname === '/api/meetings/demo/export') return route.fulfill({ contentType: 'text/markdown', body: '# Planning meeting\nAsha: Reviewer\nReport passage 215.', headers: { 'Content-Disposition': 'attachment; filename="meeting.md"' } });
@@ -47,6 +57,19 @@ const http = require('node:http');
     });
     const screenshots = path.join(__dirname, '../.runtime/validation/minimal-ui'); await fs.mkdir(screenshots, { recursive: true });
     await page.goto(`http://127.0.0.1:${server.address().port}`);
+    await page.getByLabel('Email', { exact: true }).fill('local@example.invalid');
+    await page.getByLabel('Password', { exact: true }).fill('wrong-password');
+    await page.getByRole('button', { name: 'Show password', exact: true }).click();
+    assert.equal(await page.getByLabel('Password', { exact: true }).getAttribute('type'), 'text');
+    await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+    await page.getByRole('alert').filter({ hasText: 'Invalid email or password' }).waitFor();
+    await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+    await page.getByRole('alert').filter({ hasText: 'Could not connect' }).waitFor();
+    for (const width of [360, 390, 960, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    }
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.getByRole('button', { name: 'Register', exact: true }).click();
     await page.getByLabel('Email', { exact: true }).fill('local@example.invalid'); await page.getByLabel('Password', { exact: true }).fill('test-password');
     await page.getByLabel('Confirm password', { exact: true }).fill('different-password');
@@ -76,6 +99,11 @@ const http = require('node:http');
     await page.getByText('2 file(s) ready · parts play in the order below', { exact: true }).waitFor();
     await page.getByLabel('Upload audio', { exact: true }).setInputFiles({ name: 'part3.wav', mimeType: 'audio/wav', buffer: Buffer.from('audio part three') });
     await page.getByText('3 file(s) ready · parts play in the order below', { exact: true }).waitFor();
+    await page.getByRole('button', { name: 'Move part2.wav up', exact: true }).click();
+    await page.getByRole('button', { name: 'Remove part3.wav', exact: true }).click();
+    await page.getByText('2 file(s) ready · parts play in the order below', { exact: true }).waitFor();
+    await page.getByLabel('Upload audio', { exact: true }).setInputFiles({ name: 'part3.wav', mimeType: 'audio/wav', buffer: Buffer.from('audio part three') });
+    await page.getByText('3 file(s) ready · parts play in the order below', { exact: true }).waitFor();
     await page.getByLabel('Upload PPT', { exact: true }).setInputFiles({ name: 'slides.pptx', mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', buffer: Buffer.from('presentation fixture') });
     assert.equal(await page.getByText('slides.pptx', { exact: true }).count(), 1);
     await page.getByLabel('Upload PPT', { exact: true }).setInputFiles({ name: 'additional.pptx', mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', buffer: Buffer.from('additional presentation') });
@@ -84,7 +112,8 @@ const http = require('node:http');
     const presentationRows = page.locator('.attachment li');
     assert((await presentationRows.first().innerText()).includes('additional.pptx'));
 
-    assert(await page.getByLabel('Upload PPT', { exact: true }).evaluate(element => element.classList.contains('visually-hidden')));
+    assert(await page.getByLabel('Upload PPT', { exact: true }).evaluate(element => getComputedStyle(element).display === 'none'));
+    await page.getByRole('button', { name: 'Add more PPTs', exact: true }).waitFor();
     await page.locator('summary').filter({ hasText: 'Vocabulary hints' }).click(); await page.getByLabel('Vocabulary hints', { exact: true }).fill('Asha');
     await page.getByRole('button', { name: 'Analyse meeting', exact: true }).click();
     await page.getByText(/हमने बजट फाइनल कर दिया।/).waitFor();
@@ -94,6 +123,7 @@ const http = require('node:http');
     await page.getByText('11%', { exact: true }).waitFor();
     await page.screenshot({ path: path.join(screenshots, 'processing.png'), fullPage: true });
     await page.getByRole('button', { name: 'Transcript', exact: true }).waitFor(); assert(uploaded);
+    assert(polls >= 4, 'Automatically recover from failed initial load and wait for the complete report');
     await page.getByRole('button', { name: 'Transcript', exact: true }).click();
     await page.locator('.passage-heading strong').filter({ hasText: 'Imported Asha' }).first().waitFor();
     await page.getByRole('button', { name: 'Overview', exact: true }).click();
@@ -110,6 +140,7 @@ const http = require('node:http');
     await page.getByRole('button', { name: 'History', exact: true }).click(); await page.getByRole('button', { name: /^Planning meeting/ }).click();
     await page.getByRole('button', { name: 'Participants', exact: true }).click(); await page.getByText('Your role label: Reviewer', { exact: true }).waitFor();
     await page.getByRole('button', { name: 'Home', exact: true }).click(); await page.getByRole('heading', { name: 'Capture the conversation.' }).waitFor();
+    assert.equal(await page.getByRole('button', { name: 'Recover recording', exact: true }).count(), 0, 'Uploading a reordered recording must clear its saved draft');
     await page.getByRole('button', { name: 'History', exact: true }).click(); await page.getByRole('button', { name: /^Planning meeting/ }).click();
     await page.getByRole('button', { name: 'Transcript', exact: true }).click(); await page.getByRole('button', { name: 'Next', exact: true }).click(); await page.getByRole('button', { name: 'Next', exact: true }).click(); await page.getByText(transcript[214].text, { exact: true }).waitFor();
     await page.getByLabel('Search transcript', { exact: true }).fill('Report passage 215.'); await page.locator('mark').filter({ hasText: 'Report passage 215.' }).waitFor(); assert.equal(await page.getByRole('button', { name: 'Play this transcript passage', exact: true }).count(), 1);
@@ -129,6 +160,21 @@ const http = require('node:http');
     await page.screenshot({ path: path.join(screenshots, 'desktop-report.png'), fullPage: true });
     await page.getByRole('button', { name: 'Home', exact: true }).click();
     await page.screenshot({ path: path.join(screenshots, 'desktop-home.png'), fullPage: true });
+    transcript.forEach((segment, i) => { segment.speaker = i === 1 ? 'SPEAKER_03' : 'SPEAKER_42'; });
+    data.participants = [{ speaker_id: 'SPEAKER_03' }, { speaker_id: 'SPEAKER_42' }];
+    data.speaker_names = {}; data.speaker_roles = {};
+    await page.getByRole('button', { name: 'History', exact: true }).click();
+    await page.getByRole('button', { name: /^Planning meeting/ }).click();
+    await page.getByRole('button', { name: 'Transcript', exact: true }).click();
+    await page.locator('.passage-heading strong').filter({ hasText: /^Speaker 1$/ }).first().waitFor();
+    await page.locator('.passage-heading strong').filter({ hasText: /^Speaker 2$/ }).waitFor();
+    assert.equal(await page.getByText('Speaker 43', { exact: true }).count(), 0);
+    await page.getByRole('button', { name: 'Settings', exact: true }).click();
+    await page.getByRole('button', { name: 'Sign out', exact: true }).click();
+    await page.getByRole('heading', { name: 'Welcome back', exact: true }).waitFor();
+    assert.equal(await page.getByLabel('Email', { exact: true }).inputValue(), '');
+    assert.equal(await page.getByLabel('Password', { exact: true }).inputValue(), '');
+    assert.equal(await page.locator('.report-page').count(), 0);
     assert.deepEqual(errors, []);
     console.log(JSON.stringify({ browser: 'passed', microphone: 'synthetic', recordingRecovery: true, liveMicrophonePreview: true, settingsPersistence: true, profile: true, pptUpload: true, multipleAudioAndPresentations: true, fullDraftFromBeginning: true, vocabularyEdits: true, speakerEditsAndHistory: true, resultTabs: true, paginationAndPrint: true, generativeFeaturesRemoved: true, transcriptRoleLabels: true, influenceEvidence: true, presentationAlignment: true, export: true, widths: [360, 390, 960, 1440], progressAndAutomaticResults: true, importedSpeakerNames: true, searchHighlight: true, passwordConfirmation: true, errors }));
   } finally { await browser.close(); server.close(); }

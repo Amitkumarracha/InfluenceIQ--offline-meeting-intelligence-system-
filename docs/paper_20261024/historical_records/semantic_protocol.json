@@ -1,0 +1,163 @@
+{
+  "status": "Continued exploratory development after prior test-cohort inspection",
+  "splits": {
+    "train": [
+      "11",
+      "18",
+      "13",
+      "25",
+      "2",
+      "19",
+      "1",
+      "24",
+      "16",
+      "23",
+      "28",
+      "10",
+      "14",
+      "5",
+      "20",
+      "22"
+    ],
+    "development": [
+      "6",
+      "21",
+      "15",
+      "8",
+      "27",
+      "4"
+    ],
+    "test": [
+      "3",
+      "26",
+      "9",
+      "12",
+      "17",
+      "7"
+    ]
+  },
+  "grid": [
+    [
+      "ridge",
+      1.0
+    ],
+    [
+      "ridge",
+      10.0
+    ],
+    [
+      "ridge",
+      100.0
+    ],
+    [
+      "pairwise_logistic",
+      0.03
+    ],
+    [
+      "pairwise_logistic",
+      0.3
+    ],
+    [
+      "pairwise_logistic",
+      3.0
+    ],
+    [
+      "extra_trees",
+      3
+    ],
+    [
+      "extra_trees",
+      6
+    ]
+  ],
+  "feature_sets": [
+    "lower_threshold",
+    "semantic",
+    "semantic_embeddings",
+    "learned_roles",
+    "learned_roles_embeddings"
+  ],
+  "primary_selection": "Maximum development meeting-macro pairwise accuracy; fixed tie order",
+  "ensemble": "Mean within-meeting predicted ranks from ridge=10, pairwise_C=.3 and extra_trees_leaf=6",
+  "roles": "Train-only GAP manual dialogue labels; four-fold group-cross-fitted training features",
+  "encoder": "Frozen local all-MiniLM-L6-v2; no encoder fine-tuning",
+  "keyword_candidate_threshold": 0.25,
+  "semantic_window_s": 90,
+  "semantic_similarity_gate": 0.4,
+  "summary_features": [
+    "semantic_proposal",
+    "semantic_evidence",
+    "semantic_objection",
+    "semantic_revision",
+    "semantic_agreement",
+    "semantic_decision",
+    "semantic_question",
+    "novelty_sum",
+    "later_uptake_sum",
+    "proposal_uptake_sum",
+    "acknowledgment_replies",
+    "echo_of_others_sum",
+    "mean_novelty",
+    "mean_later_uptake",
+    "proposal_uptake_ratio",
+    "distinct_adopters"
+  ],
+  "role_anchor_texts": {
+    "proposal": [
+      "I suggest choosing this option.",
+      "We should do it this way.",
+      "My proposal is to use this approach."
+    ],
+    "evidence": [
+      "The evidence supports this choice.",
+      "This is the reason it would work.",
+      "The data shows an important advantage."
+    ],
+    "objection": [
+      "I disagree with this proposal.",
+      "This option has a serious problem.",
+      "That will not work because of this concern."
+    ],
+    "revision": [
+      "Let us change the original proposal.",
+      "Instead, we could use this alternative.",
+      "We should revise that choice."
+    ],
+    "agreement": [
+      "Yes, I agree with your suggestion.",
+      "That is a good idea.",
+      "Okay, that makes sense."
+    ],
+    "decision": [
+      "We have decided to choose this option.",
+      "Our final choice is this.",
+      "Let us settle on that decision."
+    ],
+    "question": [
+      "What should we choose?",
+      "Why do you think that?",
+      "Can you explain your reasoning?"
+    ]
+  },
+  "target": "Within-meeting ranking of GAP outcome influence; lower AII is more influence",
+  "input_sha256": {
+    "speakers.json": "a3211e408ceceee73f00e8f39341aa83c3bbab5ca73cc9ed2a40a41ad655dc74",
+    "conversations.json": "b547a42ec6a8495b5db283eb297e864419151d791e160fd014e0a1e681058298",
+    "utterances.jsonl": "163e2a233500d106934d0602d00712d6249d46bf9b9e1726a5f4232820fc3a99"
+  },
+  "source_sha256": {
+    "scripts/optimize_gap_influence.py": "82530cdbc144f730f0d36f52c6c400c0c38799b211342753405488a7df636696",
+    "scripts/benchmark_gap_influence.py": "0fc6beae3e156007e36d129c1011057fcbf648fb4980b5b6d57e0bb23b4cf56b",
+    "scripts/train_influence_weights.py": "664122da688890c0672e555b0c9e726b1fab06b5a90422018ee2176db0478e91",
+    "src/meeting/outcome_features.py": "3c20183500b77d5cf57276f302554687e92f5576d898f0a72185ae27065b1da6",
+    "src/meeting/outcome_roles.py": "c74a9c819e7476497dc128cc219de2b4d51cb415865bc1756d15195b568845db",
+    "src/meeting/events.py": "52f5f0d5d8fdd497909f632895cc4e709022d894ddb680ad52b3b3761a787228",
+    "src/meeting/decisions.py": "24a326658ed6a464a5ff66093309439b8540423ff86136e6cfdee6d0954de22f",
+    "src/meeting/influence.py": "95d5f453c4de0f825990bf27f164c0feb74fd610bc056946812c6eca3ada2809",
+    "src/meeting/evidence.py": "1e5a4461fc6c6531bc8dc70212e9d51fe8a3c0bcc2fa0ae307dbdfb70b9111d0",
+    "src/meeting/interaction.py": "ed430ce82ecfa055dd5b5c6992bc063e5d7d417b8c2ba96a88fe106c73632392",
+    "config/config.yaml": "8c1eae3cf894720350c25f9aa5b734f1f3dc8a47fba36b7914dca0996f27f996"
+  },
+  "encoder_weights_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+  "installed_in_application": false
+}

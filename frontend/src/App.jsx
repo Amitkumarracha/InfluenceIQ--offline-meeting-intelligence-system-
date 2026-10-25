@@ -26,7 +26,6 @@ function App() {
   const [authEmail, setAuthEmail] = useState('');
   const [authPassword, setAuthPassword] = useState('');
   const [authError, setAuthError] = useState('');
-  const [authSuccess, setAuthSuccess] = useState('');
   const [authBusy, setAuthBusy] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -49,6 +48,7 @@ function App() {
   const [error, setError] = useState('');
   const [meetingTitle, setMeetingTitle] = useState('');
   const [speechModel, setSpeechModel] = useState('');
+  const [defaultSpeechModel, setDefaultSpeechModel] = useState('');
   const [speechModels, setSpeechModels] = useState([]);
   const [language, setLanguage] = useState('auto');
   const [vocabulary, setVocabulary] = useState('');
@@ -62,6 +62,7 @@ function App() {
   const selectedRef = React.useRef(null);
 
   const [reportData, setReportData] = useState(null);
+  const reportLoaded = reportData !== null;
   const [meetingRevision, setMeetingRevision] = useState('');
   const [meetingStatus, setMeetingStatus] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
@@ -89,6 +90,7 @@ function App() {
   const [recordingTime, setRecordingTime] = useState(0);
   const mediaRecorderRef = React.useRef(null);
   const recordingWriteRef = React.useRef(Promise.resolve());
+  const recoveredFileRef = React.useRef(null);
   const [hasDraft, setHasDraft] = useState(null);
   const [processingStage, setProcessingStage] = useState(null);
   const [modelReady, setModelReady] = useState(null);
@@ -101,34 +103,26 @@ function App() {
   const handleAuthSubmit = async (e) => {
     e.preventDefault();
     if (authBusy) return;
-    setAuthError(''); setAuthSuccess('');
+    setAuthError('');
     if (authView === 'register' && authPassword !== confirmPassword) { setAuthError('Passwords do not match.'); return; }
     if (new TextEncoder().encode(authPassword).length > 72) { setAuthError('Use a password of at most 72 UTF-8 bytes.'); return; }
     setAuthBusy(true);
     try {
-      if (authView === 'login') {
-        const res = await axios.post(`${API_URL}/auth/login`, { email: authEmail, password: authPassword });
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('userEmail', res.data.email);
-        setToken(res.data.token);
-        setEmail(res.data.email);
-      } else if (authView === 'register') {
-        const res = await axios.post(`${API_URL}/auth/register`, { email: authEmail, password: authPassword });
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('userEmail', res.data.email);
-        setToken(res.data.token);
-        setEmail(res.data.email);
-      }
+      const res = await axios.post(`${API_URL}/auth/${authView}`, { email: authEmail.trim(), password: authPassword }, { timeout: 15000 });
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('userEmail', res.data.email);
+      setEmail(res.data.email); setToken(res.data.token);
+      setAuthPassword(''); setConfirmPassword(''); setShowPassword(false);
     } catch (err) {
       if (err.response?.status === 422) {
         const errors = err.response.data.detail;
         if (Array.isArray(errors)) {
           setAuthError("Validation Error: " + errors.map(e => `${e.loc[1]}: ${e.msg}`).join(', '));
         } else {
-          setAuthError("Invalid input format.");
+          setAuthError(typeof errors === 'string' ? errors : 'Check your email and password.');
         }
       } else {
-        setAuthError(err.response?.data?.detail || "Authentication failed. Server error.");
+        setAuthError(err.response?.data?.detail || 'Could not connect to the meeting workspace. Please try again.');
       }
     } finally { setAuthBusy(false); }
   };
@@ -138,9 +132,13 @@ function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('userEmail');
     setToken(null);
+    setAuthView('login'); setAuthEmail(''); setAuthPassword(''); setConfirmPassword(''); setShowPassword(false); setAuthError('');
     setEmail(''); setAccountId(''); setScreen('home'); setProfile({}); setNotice('');
-    selectedRef.current = null;
+    selectedRef.current = null; meetingRequest.current++;
     setSelectedMeetingId(null); setReportData(null); setMeetingStatus(null); setMeetings([]);
+    setAudioUrl(null); setPreview(null); setJobProgress(null); setSpeakerNames({}); setSpeakerRoles({});
+    setAudioFiles(null); setPptFiles(null); setMeetingTitle(''); setError('');
+    recoveredFileRef.current = null;
   };
 
   // --- Data Fetching ---
@@ -164,9 +162,11 @@ function App() {
   const applyMeeting = snapshot => {
     setMeetingStatus(snapshot.status); setMeetingRevision(snapshot.revision || '');
     setProcessingStage(snapshot.stage); setMeetingTitle(snapshot.title);
-    setJobProgress({ ...snapshot.progress, received_at: Date.now() }); setPreview(snapshot.preview);
+    setJobProgress({ ...snapshot.progress, received_at: Date.now() });
+    if (snapshot.preview) setPreview(snapshot.preview);
+    else if (snapshot.status === 'completed' && snapshot.data) setPreview(null);
     setCanAnalyzeSpeakers(snapshot.can_analyze_speakers); setConnectionError(false);
-    if (snapshot.status === 'completed') {
+    if (snapshot.status === 'completed' && snapshot.data) {
       setReportData(snapshot.data); setAudioUrl(snapshot.audio_url);
       setSpeakerNames(snapshot.data?.speaker_names || {}); setSpeakerRoles(snapshot.data?.speaker_roles || {});
       setMeetingVocabulary(snapshot.data?.vocabulary || '');
@@ -174,28 +174,29 @@ function App() {
   };
 
   useEffect(() => {
-    if (!token || !selectedMeetingId || !['queued', 'processing'].includes(meetingStatus)) return;
+    if (!token || !selectedMeetingId || meetingStatus === 'failed' || meetingStatus === 'completed' && reportLoaded) return;
     let active = true, timer;
     const controller = new AbortController();
     const generation = meetingRequest.current;
     const poll = async () => {
       let finished = false;
       try {
-        const res = await axios.get(`${API_URL}/meetings/${selectedMeetingId}`, { signal: controller.signal });
+        const res = await axios.get(`${API_URL}/meetings/${selectedMeetingId}`, { signal: controller.signal, timeout: 10000 });
         if (!active || selectedRef.current !== selectedMeetingId || generation !== meetingRequest.current) return;
         applyMeeting(res.data);
-        finished = !['queued', 'processing'].includes(res.data.status);
+        finished = res.data.status === 'failed' || res.data.status === 'completed' && !!res.data.data;
         if (finished) fetchMeetings();
       } catch (err) {
         if (!active || axios.isCancel(err)) return;
         if (err.response?.status === 401) { handleLogout(); return; }
+        if (err.response?.status === 404) { setMeetingStatus('failed'); setError('This meeting is no longer available.'); return; }
         setConnectionError(true);
       }
       if (active && !finished) timer = setTimeout(poll, 1500);
     };
     timer = setTimeout(poll, 1000);
     return () => { active = false; clearTimeout(timer); controller.abort(); };
-  }, [selectedMeetingId, meetingStatus, token]);
+  }, [selectedMeetingId, meetingStatus, token, reportLoaded]);
 
   useEffect(() => {
     if (!token || !email) return;
@@ -205,14 +206,14 @@ function App() {
       try {
         const stored = JSON.parse(localStorage.getItem(`preferences:${email}`) || '{}');
         setLanguage(stored.language || 'auto'); setDiarization(stored.diarization || 'auto');
-        if (stored.speechModel) setSpeechModel(stored.speechModel);
+        setSpeechModel(speechModels.includes(stored.speechModel) ? stored.speechModel : defaultSpeechModel);
       } catch { /* Use defaults if saved preferences cannot be read. */ }
     });
     Promise.all([axios.get(`${API_URL}/auth/me`), axios.get(`${API_URL}/profile`)]).then(([identity, saved]) => {
       if (active) { setEmail(identity.data.email); setAccountId(identity.data.user_id); setProfile(saved.data); }
     }).catch(err => { if (active && err.response?.status === 401) handleLogout(); });
     return () => { active = false; };
-  }, [token, email]);
+  }, [token, email, defaultSpeechModel, speechModels]);
 
   // --- App Actions ---
   const loadMeeting = async (id) => {
@@ -229,10 +230,15 @@ function App() {
     setTranscriptPage(0); setJobProgress(null);
     try { setSpeakerNames(JSON.parse(localStorage.getItem(`speakerNames:${email}:${id}`) || '{}')); } catch { setSpeakerNames({}); }
     try {
-      const res = await axios.get(`${API_URL}/meetings/${id}`);
+      const res = await axios.get(`${API_URL}/meetings/${id}`, { timeout: 10000 });
       if (selectedRef.current !== id || generation !== meetingRequest.current) return;
       applyMeeting(res.data);
-    } catch { if (selectedRef.current === id && generation === meetingRequest.current) setError("Failed to load meeting."); }
+    } catch (err) {
+      if (selectedRef.current !== id || generation !== meetingRequest.current) return;
+      if (err.response?.status === 401) handleLogout();
+      else if (err.response?.status === 404) { setMeetingStatus('failed'); setError('This meeting is no longer available.'); }
+      else setConnectionError(true);
+    }
   };
 
   const addFiles = (event, kind) => {
@@ -240,12 +246,15 @@ function App() {
     event.target.value = '';
     if (!selected.length) return;
     const existing = kind === 'audio' ? audioFiles || [] : pptFiles || [];
-    const files = [...existing];
-    for (const file of selected) {
-      if (!files.some(item => item.name === file.name && item.size === file.size && item.lastModified === file.lastModified)) files.push(file);
-    }
-    if (files.length > 32) { setError(`Select at most 32 ${kind === 'audio' ? 'audio files' : 'presentations'}.`); return; }
-    if (kind === 'audio') setAudioFiles(files); else setPptFiles(files);
+    const append = previous => {
+      const files = [...(previous || [])];
+      for (const file of selected) {
+        if (!files.some(item => item.name === file.name && item.size === file.size && item.lastModified === file.lastModified)) files.push(file);
+      }
+      return files;
+    };
+    if (append(existing).length > 32) { setError(`Select at most 32 ${kind === 'audio' ? 'audio files' : 'presentations'}.`); return; }
+    if (kind === 'audio') setAudioFiles(append); else setPptFiles(append);
     setError('');
   };
 
@@ -263,13 +272,13 @@ function App() {
     try {
       const res = await axios.post(`${API_URL}/analyze`, formData, { onUploadProgress: event => setUploadPercent(event.total ? Math.round(event.loaded / event.total * 100) : null) });
       fetchMeetings(); await loadMeeting(res.data.meeting_id); setAudioFiles(null); setPptFiles(null); if (pptInput.current) pptInput.current.value = '';
-      if (targetAudio[0]?.name.startsWith("meeting-recording")) { await clearRecording(); setHasDraft(false); }
+      if (targetAudio.includes(recoveredFileRef.current)) { await clearRecording(); recoveredFileRef.current = null; setHasDraft(false); }
     } catch (err) { const detail = err.response?.data?.detail; setError(typeof detail === 'string' ? detail : 'Upload failed. Check meeting settings; your saved recording is still available.'); } finally { setUploading(false); setUploadPercent(null); }
   };
 
   useEffect(() => {
     recordingExists().then(count => setHasDraft(count > 0)).catch(() => setError('Recording storage is unavailable. You can still upload audio.'));
-    axios.get(`${API_URL}/health`).then(res => { setModelReady(res.data.asr_ready); setSpeechModels(res.data.asr_models || []); let stored = {}; try { stored = JSON.parse(localStorage.getItem(`preferences:${localStorage.getItem('userEmail')}`) || '{}'); } catch {} setSpeechModel(res.data.asr_models?.includes(stored.speechModel) ? stored.speechModel : res.data.asr_model || ''); setSpeakerSetup(res.data.diarization); }).catch(() => setModelReady(false));
+    axios.get(`${API_URL}/health`).then(res => { setModelReady(res.data.asr_ready); setDefaultSpeechModel(res.data.asr_model || ''); setSpeechModels(res.data.asr_models || []); let stored = {}; try { stored = JSON.parse(localStorage.getItem(`preferences:${localStorage.getItem('userEmail')}`) || '{}'); } catch {} setSpeechModel(res.data.asr_models?.includes(stored.speechModel) ? stored.speechModel : res.data.asr_model || ''); setSpeakerSetup(res.data.diarization); }).catch(() => setModelReady(false));
     navigator.mediaDevices?.enumerateDevices().then(list => setDevices(list.filter(d => d.kind === 'audioinput'))).catch(() => {});
     return () => {
       clearInterval(timerRef.current);
@@ -294,7 +303,14 @@ function App() {
   }, []);
 
   const recoverDraft = async () => {
-    try { const file = await restoreRecording(); if (file) setAudioFiles([file]); }
+    try {
+      const file = await restoreRecording();
+      if (file) {
+        const previousRecovery = recoveredFileRef.current;
+        recoveredFileRef.current = file;
+        setAudioFiles(previous => [file, ...(previous || []).filter(item => item !== previousRecovery)]);
+      }
+    }
     catch { setError('Could not recover the saved recording.'); }
   };
 
@@ -368,7 +384,7 @@ function App() {
           form.append('model_size', speechModel); form.append('language', language); form.append('vocabulary', vocabulary);
           return (await axios.post(`${API_URL}/recording/preview`, form, { timeout: 120000 })).data;
         }, update => setLiveDraft(previous => ({ ...previous, ...update,
-          segments: [...previous.segments, ...(update.segments || [])].slice(-100) })));
+          segments: [...previous.segments, ...(update.segments || [])] })));
       } catch (err) { setLiveDraft({ segments: [], status: err.message }); }
       recorder.start(5000);
       setIsRecording(true);
@@ -452,8 +468,10 @@ function App() {
 
   const filteredMeetings = meetings.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase()));
   const segments = reportData?.transcript_segments || [];
+  const participants = reportData?.participants || [];
+  const speakerIds = [...new Set([...segments.map(s => s.speaker), ...participants.map(p => p.speaker_id)])].filter(s => s && s !== 'UNKNOWN');
   const normalizeSearch = value => String(value || '').normalize('NFKC').toLocaleLowerCase();
-  const speakerLabel = speaker => speakerNames[speaker] || (speaker === 'UNKNOWN' || !speaker ? 'Speaker not identified' : /^SPEAKER_\d+$/.test(speaker) ? `Speaker ${Number(speaker.slice(8)) + 1}` : speaker);
+  const speakerLabel = speaker => speakerNames[speaker] || (speaker === 'UNKNOWN' || !speaker ? 'Speaker not identified' : speakerIds.includes(speaker) ? `Speaker ${speakerIds.indexOf(speaker) + 1}` : speaker);
   const visibleSegments = segments.filter(s => printing || ((!speakerFilter || s.speaker === speakerFilter) && [s.text, speakerLabel(s.speaker), speakerRoles[s.speaker]].some(value => normalizeSearch(value).includes(normalizeSearch(transcriptSearch)))));
   const highlightText = text => {
     if (!transcriptSearch.trim()) return text;
@@ -462,7 +480,6 @@ function App() {
   };
   const decisions = reportData?.decisions || [];
   const actions = (reportData?.action_items || []).map(item => ({ ...item, timestamp: item.timestamp_s ?? (typeof item.timestamp === 'number' ? item.timestamp : /^\d+:\d+:\d+$/.test(item.timestamp || '') ? item.timestamp.split(':').reduce((total, part) => total * 60 + Number(part), 0) : null) }));
-  const participants = reportData?.participants || [];
   const influence = (reportData?.influence || []).map(person => ({ ...person, speaker_id: person.participant || person.speaker_id, score: person.influence_score ?? person.score }));
   const eventTimeline = reportData?.event_timeline || [];
   const panelVisible = name => printing || reportViewTab === name;
@@ -488,18 +505,17 @@ function App() {
   if (!token) return <div className="auth-shell"><section className="auth-card"><span className="privacy-badge"><ShieldCheck aria-hidden="true" /> Offline meeting workspace</span>
     <div className="brand"><Mic2 aria-hidden="true" /> InfluenceIQ</div>
     <h1>{authView === 'register' ? 'Create your account' : 'Welcome back'}</h1>
-    <p className="muted">Use the same account in the Android app. Published meetings are saved on this server.</p>
+    <p className="muted">{authView === 'register' ? 'Create an account to save and review your meetings.' : 'Sign in to your saved meetings and recordings.'}</p>
     {authError && <p role="alert" className="notice error">{authError}</p>}
-    {authSuccess && <p role="status" className="notice">{authSuccess}</p>}
     <form onSubmit={handleAuthSubmit} className="stack" aria-busy={authBusy}>
-      <label>Email<input type="email" autoComplete="username" required disabled={authBusy} value={authEmail} onChange={e => setAuthEmail(e.target.value)} placeholder="you@example.com" /></label>
-      <label>Password<input type={showPassword ? 'text' : 'password'} autoComplete={authView === 'register' ? 'new-password' : 'current-password'} required disabled={authBusy} minLength={authView === 'register' ? 8 : 1} maxLength={64} value={authPassword} onChange={e => setAuthPassword(e.target.value)} /></label>
+      <label>Email<input name="email" type="email" autoComplete="username" autoCapitalize="none" spellCheck={false} required disabled={authBusy} value={authEmail} onChange={e => setAuthEmail(e.target.value)} placeholder="you@example.com" /></label>
+      <label>Password<input name="password" type={showPassword ? 'text' : 'password'} autoComplete={authView === 'register' ? 'new-password' : 'current-password'} required disabled={authBusy} minLength={authView === 'register' ? 8 : 1} maxLength={64} value={authPassword} onChange={e => setAuthPassword(e.target.value)} /></label>
       <button className="text-button password-toggle" type="button" aria-pressed={showPassword} onClick={() => setShowPassword(value => !value)}>{showPassword ? 'Hide password' : 'Show password'}</button>
       {authView === 'register' && <><label>Confirm password<input type={showPassword ? 'text' : 'password'} autoComplete="new-password" required disabled={authBusy} maxLength={64} value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} /></label><p className="small muted">Use at least 8 characters. This account works on this server and the connected Android app.</p></>}
       <button className="primary" disabled={authBusy} type="submit">{authBusy ? 'Please wait…' : authView === 'register' ? 'Create Account' : 'Sign in'}</button>
     </form>
     <button disabled={authBusy} className="text-button" onClick={() => { setAuthPassword(''); setConfirmPassword(''); setShowPassword(false); setAuthView(authView === 'login' ? 'register' : 'login'); setAuthError(''); }}>{authView === 'login' ? 'Register' : 'I already have an account'}</button>
-    {authView === 'login' && <details className="muted small"><summary>Account recovery</summary><p>On this laptop, run the password-recovery command in the README. No email is sent.</p></details>}
+    {authView === 'login' && <details className="muted small"><summary>Account recovery</summary><p>Ask the person who manages this workspace to reset your password. No recovery email is sent.</p></details>}
   </section></div>;
 
   return <div className="meeting-app">
@@ -556,7 +572,7 @@ function App() {
             {isRecording && <section className="notice" aria-label="Live transcription"><div><strong>Live transcription draft</strong><p role="status" className="small muted">{liveDraft.status}</p><p className="small muted">Preview uses 15-second windows. Full analysis after saving includes the entire recording, including any skipped windows. Speakers are not assigned in the live draft.</p>{liveDraft.segments.map((s, i) => <p key={`${s.start}:${i}`}><span className="muted">{formatTime(s.start)} · </span>{s.text}</p>)}</div></section>}
             {audioFiles?.length > 0 && !isRecording && <div><p className="small muted">{audioFiles.length} file(s) ready · parts play in the order below</p><ol className="stack">{Array.from(audioFiles).map((file, i) => <li key={`${file.name}:${i}`} className="file-row"><span>{file.name}</span><button aria-label={`Move ${file.name} up`} disabled={i === 0 || uploading} onClick={() => { const parts = Array.from(audioFiles); [parts[i - 1], parts[i]] = [parts[i], parts[i - 1]]; setAudioFiles(parts); }}>↑</button><button aria-label={`Remove ${file.name}`} disabled={uploading} onClick={() => setAudioFiles(Array.from(audioFiles).filter((_, j) => j !== i))}>Remove</button></li>)}</ol></div>}
             <label>Meeting title (optional)<input value={meetingTitle} maxLength={200} disabled={uploading} onChange={e => setMeetingTitle(e.target.value)} placeholder="Weekly planning…" /></label>
-            <div className="attachment"><div className="section-heading"><div className="attachment-title"><FileSliders aria-hidden="true" /><div><strong>Presentations</strong><p className="small muted">Optional · multiple PowerPoint files (.pptx)</p></div></div><label className="file-picker" htmlFor="meeting-ppt">{pptFiles?.length ? 'Add more PPTs' : 'Upload PPT'}</label><input className="visually-hidden" id="meeting-ppt" ref={pptInput} aria-label="Upload PPT" type="file" multiple accept=".pptx" disabled={uploading || isRecording} onChange={e => addFiles(e, 'ppt')} /></div>{!!pptFiles?.length && <><p className="small muted">{pptFiles.length} presentation(s) · slides are combined in this order</p><ol className="stack">{pptFiles.map((file, i) => <li className="file-row" key={`${file.name}:${i}`}><span>{file.name}</span><button aria-label={`Move presentation ${file.name} up`} disabled={i === 0 || uploading || isRecording} onClick={() => { const files = [...pptFiles]; [files[i - 1], files[i]] = [files[i], files[i - 1]]; setPptFiles(files); }}>↑</button><button type="button" aria-label={`Remove presentation ${file.name}`} disabled={uploading || isRecording} onClick={() => setPptFiles(pptFiles.filter((_, j) => j !== i))}>Remove</button></li>)}</ol></>}</div>
+            <div className="attachment"><div className="section-heading"><div className="attachment-title"><FileSliders aria-hidden="true" /><div><strong>Presentations</strong><p className="small muted">Optional · multiple PowerPoint files (.pptx)</p></div></div><button type="button" className="file-picker" disabled={uploading || isRecording} onClick={() => pptInput.current?.click()}>{pptFiles?.length ? 'Add more PPTs' : 'Upload PPT'}</button><input style={{ display: 'none' }} id="meeting-ppt" ref={pptInput} aria-label="Upload PPT" type="file" multiple accept=".pptx" disabled={uploading || isRecording} onChange={e => addFiles(e, 'ppt')} /></div>{!!pptFiles?.length && <><p className="small muted">{pptFiles.length} presentation(s) · slides are combined in this order</p><ol className="stack">{pptFiles.map((file, i) => <li className="file-row" key={`${file.name}:${i}`}><span>{file.name}</span><button aria-label={`Move presentation ${file.name} up`} disabled={i === 0 || uploading || isRecording} onClick={() => { const files = [...pptFiles]; [files[i - 1], files[i]] = [files[i], files[i - 1]]; setPptFiles(files); }}>↑</button><button type="button" aria-label={`Remove presentation ${file.name}`} disabled={uploading || isRecording} onClick={() => setPptFiles(pptFiles.filter((_, j) => j !== i))}>Remove</button></li>)}</ol></>}</div>
             <div className="meeting-options"><label>Language<select aria-label="Meeting language" disabled={uploading} value={language} onChange={e => setLanguage(e.target.value)}><option value="auto">Auto · Hindi / English / Hinglish</option><option value="en">English</option><option value="hi">Hindi</option></select></label><label>Expected speakers (optional)<input aria-label="Expected speakers" type="number" min="1" max="50" placeholder="Auto-detect" disabled={uploading || diarization === 'off'} value={numSpeakers} onChange={e => setNumSpeakers(e.target.value)} /></label></div><p className="small muted">If you know the number of speakers, enter it to reduce incorrect speaker splits. Automatic detection needs review.</p>
             <details><summary>Vocabulary hints <span className="muted small">optional</span></summary><label className="stack small">Names and technical terms<textarea aria-label="Vocabulary hints" maxLength={1000} value={vocabulary} onChange={e => setVocabulary(e.target.value)} placeholder="Names, acronyms, unusual spellings…" /><span className="muted">You can leave this empty. Editable suggestions appear after analysis.</span></label></details>
             {!isRecording && <button className="primary" onClick={() => handleAnalyze()} disabled={uploading || !audioFiles?.length || modelReady === false}>{uploading ? uploadPercent === 100 ? 'Validating upload…' : `Uploading${uploadPercent != null ? ` ${uploadPercent}%` : '…'}` : 'Analyse meeting'}</button>}
@@ -568,7 +584,7 @@ function App() {
         </div>}
         {selectedMeetingId && <div className="stack report-page">
           <div className="section-heading"><div><button className="text-button print:hidden" onClick={newMeeting}>← Home</button><h1>{meetingTitle || 'Your meeting'}</h1><p className="muted small">Saved in History</p></div><details className="meeting-menu print:hidden"><summary>Meeting options</summary><div className="stack"><button onClick={async () => { const title = window.prompt('Meeting title', meetingTitle); if (!title?.trim()) return; try { const saved = await axios.post(`${API_URL}/meetings/${selectedMeetingId}/edit`, { title }); setMeetingRevision(saved.data.revision); setMeetingTitle(title.trim()); fetchMeetings(); } catch { setError('Could not save the title.'); } }}>Rename meeting</button><button disabled={meetingStatus !== 'completed'} onClick={() => window.print()}>Print / save PDF</button><label>Export format<select aria-label="Export format" value={exportFormat} onChange={e => setExportFormat(e.target.value)}>{[['md', 'Meeting report'], ['txt', 'Plain text'], ['srt', 'Subtitles (SRT)'], ['vtt', 'Subtitles (VTT)'], ['csv', 'Transcript table'], ['ics', 'Reviewed task calendar (.ics)'], ['json', 'Data (JSON)']].map(([value, text]) => <option key={value} value={value}>{text}</option>)}</select></label><button disabled={meetingStatus !== 'completed'} onClick={exportReport}>Export</button></div></details></div>
-          {['queued', 'processing'].includes(meetingStatus) && <ProcessingPanel status={meetingStatus} stage={processingStage} progress={jobProgress} preview={preview} connectionError={connectionError} />}
+          {(meetingStatus == null || ['queued', 'processing'].includes(meetingStatus) || meetingStatus === 'completed' && !reportLoaded) && <ProcessingPanel status={meetingStatus === 'completed' ? 'loading' : meetingStatus || 'loading'} stage={processingStage} progress={jobProgress} preview={preview} connectionError={connectionError} />}
           {meetingStatus === 'failed' && <section className="panel"><h2>Your recording is saved</h2><p className="muted">Analysis stopped. Retry to continue from saved progress.</p><button className="primary" onClick={async () => { try { await axios.post(`${API_URL}/meetings/${selectedMeetingId}/retry`); setMeetingStatus('queued'); setError(''); } catch { setError('Could not restart analysis.'); } }}>Retry analysis</button></section>}
           {meetingStatus === 'completed' && reportData && <>
             <nav className="result-tabs print:hidden" aria-label="Meeting results">{[['overview', 'Overview'], ['transcript', 'Transcript'], ['participants', 'Participants'], ['actions', 'Action items'], ['decisions', 'Decisions'], ['influence', 'Influence'], ['events', 'Events'], ['presentation', 'Presentation']].map(([key, label]) => <button key={key} aria-current={reportViewTab === key ? 'page' : undefined} onClick={() => { setReportViewTab(key); setNotice(''); }}>{label}</button>)}</nav>

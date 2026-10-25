@@ -161,12 +161,15 @@ def attribute_speaker(
     asr_end: float,
     diar_segments: list[dict[str, Any]],
     min_overlap_ratio: float = 0.3,
+    min_speaker_margin: float = 0.0,
 ) -> str:
     """Assign the speaker whose diarization segment has the greatest overlap.
 
     Returns "UNKNOWN" when no segment covers at least *min_overlap_ratio*
     of the ASR segment duration.
     """
+    if not 0 <= min_speaker_margin <= 1:
+        raise ValueError("Speaker margin must lie in [0, 1]")
     asr_duration = max(asr_end - asr_start, 1e-6)
     # Union intervals per speaker: split diarization turns must not undercount,
     # and overlapping tracks from the same speaker must not double-count.
@@ -186,7 +189,7 @@ def attribute_speaker(
     ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)
     if not ranked or ranked[0][1] / asr_duration < min_overlap_ratio:
         return "UNKNOWN"
-    if len(ranked) > 1 and abs(ranked[0][1] - ranked[1][1]) < 1e-6:
+    if len(ranked) > 1 and (abs(ranked[0][1] - ranked[1][1]) < 1e-6 or (ranked[0][1]-ranked[1][1])/asr_duration < min_speaker_margin):
         return "UNKNOWN"
     return ranked[0][0]
 
@@ -247,6 +250,9 @@ def run_asr(
     vocabulary = options.get("vocabulary", "").strip()
     beam_size: int = int(get("asr.beam_size", 5))
     min_overlap_ratio: float = float(get("asr.min_overlap_ratio", 0.3))
+    speaker_margin = float(options.get("speaker_margin", get("asr.min_speaker_margin", 0.0)))
+    if not 0 <= speaker_margin <= 1:
+        raise ValueError("Speaker margin must lie in [0, 1]")
 
     diar_segments = sorted(_load_diarization_json(diarization_path), key=lambda item: item["start"])
     diar_starts = [item["start"] for item in diar_segments]
@@ -269,6 +275,8 @@ def run_asr(
     settings = dict(get("asr", {}))
     settings.update({key: get("asr." + key) for key in ("model_size", "device", "compute_type", "chunk_seconds")})
     settings.update(model_size=model_size, language=language, vocabulary=vocabulary, chunk_seconds=chunk_seconds, pipeline_version=6)
+    if speaker_margin:
+        settings["min_speaker_margin"] = speaker_margin
     key = fingerprint([audio_path, diarization_path], settings)
     cached = read_cache(json_path, key)
     if cached is not None:
@@ -284,7 +292,7 @@ def run_asr(
 
     # Speech observations do not depend on speaker clustering. Re-attribution
     # reuses the exact original words/times instead of running Whisper again.
-    speech_settings = {k: v for k, v in settings.items() if k != "min_overlap_ratio"}
+    speech_settings = {k: v for k, v in settings.items() if k not in {"min_overlap_ratio", "min_speaker_margin"}}
     speech_settings.update(cache_kind="word_observations", word_cache_version=1)
     speech_key = fingerprint([audio_path], speech_settings)
     speech_dir = out_dir / f"{meeting_id}_asr_words" / speech_key
@@ -367,6 +375,10 @@ def run_asr(
                     raw_segments.append(dict(start=segment.start, end=segment.end, text=segment.text,
                         avg_logprob=getattr(segment, "avg_logprob", None),
                         words=[dict(start=word.start, end=word.end, word=word.word) for word in word_items]))
+                    if progress:
+                        progress({"completed_seconds": max(first / sr, min(duration,
+                            first / sr + chunk_seconds, offset / sr + float(segment.end))),
+                            "total_seconds": duration, "cached": False, "phase": "decoding_chunk"})
                 atomic_json(word_path, {"cache_key": speech_key, "language": chunk_language, "segments": raw_segments})
                 segments_iter = [SimpleNamespace(**{**item, "words": [SimpleNamespace(**word) for word in item["words"]]})
                                  for item in raw_segments]
@@ -391,7 +403,7 @@ def run_asr(
                     if not isinstance(text, str) or not text.strip() or b <= a:
                         continue
                     candidates = diar_segments[bisect_right(diar_end_prefix, a):bisect_left(diar_starts, b)]
-                    speaker = attribute_speaker(a, b, candidates, min_overlap_ratio)
+                    speaker = attribute_speaker(a, b, candidates, min_overlap_ratio, speaker_margin)
                     logprob = getattr(seg, "avg_logprob", None)
                     confidence = round(min(1.0, math.exp(float(logprob))), 4) if isinstance(logprob, (int, float)) else None
                     if group is not None and group.speaker == speaker and a - group.end < 1.0:

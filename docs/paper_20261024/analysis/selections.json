@@ -1,0 +1,485 @@
+[
+  {
+    "family": "participation",
+    "outer_fold": 1,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.623611111111111
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.623611111111111
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.5888888888888889
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.6013888888888889
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "participation",
+    "outer_fold": 2,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.625
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.6180555555555555
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.6319444444444444
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.5763888888888888
+      }
+    ],
+    "selected_alpha": 10.0
+  },
+  {
+    "family": "participation",
+    "outer_fold": 3,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.6791666666666666
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.6791666666666666
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.6777777777777777
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.6430555555555556
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "participation",
+    "outer_fold": 4,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.7083333333333334
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.6999999999999998
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.6944444444444443
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.7083333333333334
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "participation",
+    "outer_fold": 5,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.5902777777777778
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.5902777777777778
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.611111111111111
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.6527777777777778
+      }
+    ],
+    "selected_alpha": 100.0
+  },
+  {
+    "family": "participation",
+    "outer_fold": 6,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.6999999999999998
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.686111111111111
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.6583333333333333
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.6180555555555555
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "participation",
+    "outer_fold": 7,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.6722222222222222
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.6722222222222222
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.6944444444444443
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.7277777777777779
+      }
+    ],
+    "selected_alpha": 100.0
+  },
+  {
+    "family": "contribution",
+    "outer_fold": 1,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.5048611111111111
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.5048611111111111
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.5048611111111111
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.5048611111111111
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "contribution",
+    "outer_fold": 2,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.4756944444444445
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.4756944444444445
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.4756944444444445
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.4756944444444445
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "contribution",
+    "outer_fold": 3,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.5187499999999999
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.5187499999999999
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.5187499999999999
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.5187499999999999
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "contribution",
+    "outer_fold": 4,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.5361111111111111
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.5361111111111111
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.5361111111111111
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.5361111111111111
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "contribution",
+    "outer_fold": 5,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.4909722222222223
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.4909722222222223
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.4909722222222223
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.4909722222222223
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "contribution",
+    "outer_fold": 6,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.5395833333333334
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.5395833333333334
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.5395833333333334
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.5534722222222223
+      }
+    ],
+    "selected_alpha": 100.0
+  },
+  {
+    "family": "contribution",
+    "outer_fold": 7,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.5604166666666667
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.5604166666666667
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.5604166666666667
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.5604166666666667
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "combined",
+    "outer_fold": 1,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.5944444444444444
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.6152777777777777
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.5666666666666665
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.5944444444444444
+      }
+    ],
+    "selected_alpha": 1.0
+  },
+  {
+    "family": "combined",
+    "outer_fold": 2,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.611111111111111
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.6041666666666666
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.6180555555555555
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.5902777777777778
+      }
+    ],
+    "selected_alpha": 10.0
+  },
+  {
+    "family": "combined",
+    "outer_fold": 3,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.6583333333333333
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.7055555555555556
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.7124999999999999
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.6375000000000001
+      }
+    ],
+    "selected_alpha": 10.0
+  },
+  {
+    "family": "combined",
+    "outer_fold": 4,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.7347222222222222
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.7277777777777777
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.7347222222222222
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.7000000000000001
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "combined",
+    "outer_fold": 5,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.6027777777777777
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.5472222222222222
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.575
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.5888888888888889
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "combined",
+    "outer_fold": 6,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.6999999999999998
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.6999999999999998
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.686111111111111
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.6444444444444445
+      }
+    ],
+    "selected_alpha": 0.1
+  },
+  {
+    "family": "combined",
+    "outer_fold": 7,
+    "candidates": [
+      {
+        "alpha": 0.1,
+        "inner_pairwise_accuracy": 0.7069444444444445
+      },
+      {
+        "alpha": 1.0,
+        "inner_pairwise_accuracy": 0.6999999999999998
+      },
+      {
+        "alpha": 10.0,
+        "inner_pairwise_accuracy": 0.7347222222222222
+      },
+      {
+        "alpha": 100.0,
+        "inner_pairwise_accuracy": 0.7277777777777779
+      }
+    ],
+    "selected_alpha": 10.0
+  }
+]

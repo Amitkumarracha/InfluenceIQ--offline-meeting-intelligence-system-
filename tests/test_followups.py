@@ -115,7 +115,7 @@ def test_reanalysis_keeps_manual_history_but_does_not_apply_it_to_changed_eviden
     import json
     path.write_text(json.dumps(next_report))
     api.atomic_json(api.job_path(mid), {'audio': ['preserved.wav']})
-    monkeypatch.setattr(parts, 'decode_parts', lambda *args: 'preserved.wav')
+    monkeypatch.setattr(parts, 'decode_parts', lambda *args, **kwargs: 'preserved.wav')
     monkeypatch.setattr(orchestrator, 'run_meeting', lambda *args: path)
     api.run_pipeline_background(user_id, mid)
     after = client.get('/api/meetings/' + mid, headers=auth).json()

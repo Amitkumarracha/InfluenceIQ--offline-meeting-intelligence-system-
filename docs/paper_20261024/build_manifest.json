@@ -1,0 +1,39 @@
+{
+  "format": "IEEEtran journal; two columns; US Letter",
+  "abstract_words": 199,
+  "references": 23,
+  "tables": 10,
+  "figures": 7,
+  "equations": 4,
+  "citation_order": [
+    "rienks2007",
+    "mayfield2019",
+    "gap2018",
+    "gaprelease",
+    "ami2006",
+    "calo2010",
+    "fernandez2008",
+    "explainmeetsum2023",
+    "qmsum2021",
+    "meetingbank2023",
+    "she2024",
+    "kirstein2025",
+    "wright2025",
+    "whisper2023",
+    "sbert2019",
+    "minilm2020",
+    "minilmcheckpoint",
+    "rf2001",
+    "extratrees2006",
+    "xgboost2016",
+    "sklearn2011",
+    "cawley2010",
+    "dror2018"
+  ],
+  "source_sha256": "f88785738cce1d3c32ae50c98aa72dea0f957f80829271a1218bb4628bd1129e",
+  "limitations": [
+    "No target journal selected; venue-specific requirements remain.",
+    "Word is an editable companion; the IEEEtran PDF is canonical.",
+    "Independent influence validation remains incomplete."
+  ]
+}

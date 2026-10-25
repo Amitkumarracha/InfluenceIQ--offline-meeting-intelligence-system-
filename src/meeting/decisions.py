@@ -341,7 +341,7 @@ def _build_lineage(
 
     # Evidence-relation edges (only for events in this cluster)
     rel_map = {
-        "supports":    "supported_by",  # reversed: target supported_by source
+        "supports":    "supports",  # source supports target; preserve the evidence direction
         "contradicts": "challenges",
         "modifies":    "modifies",
         "clarifies":   "leads_to",
@@ -391,6 +391,7 @@ def reconstruct_decisions(
     evidence_result: EvidenceExtractionResult,
     temporal_window: float = 120.0,
     require_final_decision: bool = False,
+    topic_ids: dict[str, int] | None = None,
 ) -> DecisionResult:
     """
     Reconstruct structured decisions from events and evidence.
@@ -410,6 +411,20 @@ def reconstruct_decisions(
     -------
     DecisionResult
     """
+    if topic_ids is not None:
+        event_ids = {event.event_id for event in event_result.events}
+        if set(topic_ids) != event_ids or any(isinstance(value, bool) or not isinstance(value, int) or value < 0 for value in topic_ids.values()):
+            raise ValueError("Topic IDs must cover every event with a nonnegative integer")
+        result = DecisionResult(meeting_id=event_result.meeting_id)
+        for topic in sorted(set(topic_ids.values())):
+            subset = EventExtractionResult(event_result.meeting_id, [event for event in event_result.events if topic_ids[event.event_id] == topic])
+            result.decisions.extend(reconstruct_decisions(subset, evidence_result, temporal_window, require_final_decision).decisions)
+        index = _event_index(event_result.events)
+        result.decisions.sort(key=lambda decision: min((index[item.event_id].start for item in decision.event_impacts), default=0))
+        for number, decision in enumerate(result.decisions, 1):
+            decision.decision_id = f"decision_{number:03d}"
+        return result
+
     events = sorted(event_result.events, key=lambda e: e.start)
     relations = evidence_result.relations
     ev_index = _event_index(events)
@@ -474,10 +489,6 @@ def reconstruct_decisions(
         revisions_ev  = [e for e in cluster if e.event_type == "revision"]
         agreements_ev = [e for e in cluster if e.event_type == "agreement"]
         decision_ev   = [e for e in cluster if e.event_type == "decision"]
-        discussion_ev = [
-            e for e in cluster
-            if e.event_type not in {"proposal", "decision"}
-        ]
 
         # Anchor-based final decision
         final_event = (
@@ -485,6 +496,10 @@ def reconstruct_decisions(
             else (anchor if anchor.event_type == "decision" else None)
         )
         has_final = final_event is not None and final_event.event_type == "decision"
+
+        # Preserve secondary proposals/decisions so their speakers retain contribution credit.
+        primary_ids = {e.event_id for e in [*proposals_ev[:1], final_event] if e is not None}
+        discussion_ev = [e for e in cluster if e.event_id not in primary_ids]
 
         # ---- Step 4: status ----
         status = _infer_status(cluster, has_final)
@@ -741,6 +756,7 @@ def run_decision_reconstruction(
     evidence_path: Path,
     meeting_id: str | None = None,
     output_dir: Path | None = None,
+    topic_aware: bool = False,
 ) -> tuple[DecisionResult, Path, Path]:
     """
     Reconstruct decisions from Phase 8 outputs.
@@ -783,11 +799,16 @@ def run_decision_reconstruction(
         temporal_window,
     )
 
+    topic_ids = None
+    if topic_aware:
+        from src.meeting.topics import infer_event_topics
+        topic_ids = infer_event_topics(event_result.events, float(get("decision_analysis.semantic_threshold", .5)))
     result = reconstruct_decisions(
         event_result,
         evidence_result,
         temporal_window=temporal_window,
         require_final_decision=require_final,
+        topic_ids=topic_ids,
     )
 
     elapsed = time.time() - t0

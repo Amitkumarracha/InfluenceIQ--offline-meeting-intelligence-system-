@@ -1,0 +1,79 @@
+{
+  "status": "Exploratory GAP outcome-alignment ranking; historical cohort previously examined",
+  "splits": {
+    "train": [
+      "11",
+      "18",
+      "13",
+      "25",
+      "2",
+      "19",
+      "1",
+      "24",
+      "16",
+      "23",
+      "28",
+      "10",
+      "14",
+      "5",
+      "20",
+      "22"
+    ],
+    "development": [
+      "6",
+      "21",
+      "15",
+      "8",
+      "27",
+      "4"
+    ],
+    "test": [
+      "3",
+      "26",
+      "9",
+      "12",
+      "17",
+      "7"
+    ]
+  },
+  "feature_sets": [
+    "seven",
+    "full",
+    "topic"
+  ],
+  "grid": {
+    "max_depth": [
+      1,
+      2,
+      3
+    ],
+    "n_estimators": [
+      50,
+      150
+    ],
+    "reg_lambda": [
+      1,
+      10
+    ]
+  },
+  "objective": "rank:pairwise",
+  "learning_rate": 0.05,
+  "seed": 42,
+  "source_sha256": {
+    "scripts/train_influence_ranker.py": "ea353096e2d576b47e8bfd83de74c358f6afa770d09f522e0b72d28043585094",
+    "src/meeting/ranking.py": "8078c91d65d3b12cfa30ea6298441bfdf0ea7cd30dcf99094b1beb1d0022427f",
+    "src/meeting/topics.py": "8c243c4a5faaa570263d2c3b9b3f80fd4a822930089ade345ffd426b5a561660",
+    "src/meeting/decisions.py": "6c009a0ce0f8588e88d7a8e6817ad2714a6d921dd0c40dd05386a30e44fd11c8",
+    "src/meeting/influence.py": "05f79c26e6f3fc1546ea1d1e97a003fd60688bcb440a74b2d2b183facb9e1d9b",
+    "src/meeting/events.py": "52f5f0d5d8fdd497909f632895cc4e709022d894ddb680ad52b3b3761a787228",
+    "src/meeting/evidence.py": "1e5a4461fc6c6531bc8dc70212e9d51fe8a3c0bcc2fa0ae307dbdfb70b9111d0",
+    "src/meeting/interaction.py": "ed430ce82ecfa055dd5b5c6992bc063e5d7d417b8c2ba96a88fe106c73632392",
+    "scripts/benchmark_gap_influence.py": "0fc6beae3e156007e36d129c1011057fcbf648fb4980b5b6d57e0bb23b4cf56b",
+    "scripts/train_influence_weights.py": "664122da688890c0672e555b0c9e726b1fab06b5a90422018ee2176db0478e91"
+  },
+  "input_sha256": {
+    "speakers.json": "a3211e408ceceee73f00e8f39341aa83c3bbab5ca73cc9ed2a40a41ad655dc74",
+    "utterances.jsonl": "163e2a233500d106934d0602d00712d6249d46bf9b9e1726a5f4232820fc3a99"
+  },
+  "installed_in_application": false
+}

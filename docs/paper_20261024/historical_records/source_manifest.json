@@ -1,0 +1,94 @@
+{
+  "initial_protocol.json": {
+    "original_path": "outputs/training/gap_influence_20261024/protocol.json",
+    "sha256": "8ac3597e5d9dcb8eec8a1de7ec586e157ec3d740db7a3f1c2ac170116096ef0a"
+  },
+  "initial_selection.json": {
+    "original_path": "outputs/training/gap_influence_20261024/selection.json",
+    "sha256": "7e2cdc2c97904a23718abce917d5e604f15a3062c3da2a88d2f3d50177623db7"
+  },
+  "initial_results.json": {
+    "original_path": "outputs/training/gap_influence_20261024/test_results.json",
+    "sha256": "84299290d0a63f783ab8b8131821331f12fa84ddc0e21608005e94a6d69e7df4"
+  },
+  "semantic_protocol.json": {
+    "original_path": "outputs/training/gap_influence_semantic_20261024/protocol.json",
+    "sha256": "2eb193458f448a53f278e8c39ad618e5ed96831eccc2f6dfa71e82dd410824fc"
+  },
+  "semantic_results.json": {
+    "original_path": "outputs/training/gap_influence_semantic_20261024/historical_results.json",
+    "sha256": "d94304623e317b3c3e140c3627950d83c0e14bb727b6769739d5cc11d2c03baf"
+  },
+  "corrected_ranker_protocol.json": {
+    "original_path": "outputs/training/xgb_influence_20261024_v2/protocol.json",
+    "sha256": "0f9f46b658dd7a5fcfb1b7cde6ab497fc7bf150af6190556c4771b2ad6641683"
+  },
+  "corrected_ranker_selection.json": {
+    "original_path": "outputs/training/xgb_influence_20261024_v2/ranker.json",
+    "sha256": "f2a885a6cad0ecc912082e674f27f23b5192ba7297d32c660c7d8a86f5e01b12"
+  },
+  "corrected_ranker_results.json": {
+    "original_path": "outputs/training/xgb_influence_20261024_v2/historical_evaluation.json",
+    "sha256": "2e12ec31946f81a07630888c67b0a677075ffe8a8ed36f496a1bd1f4748220fe"
+  },
+  "discussion_training_protocol.json": {
+    "original_path": "outputs/training/contextual_discussion_20261024/protocol.json",
+    "sha256": "48e6eedf1bf179378387d3e4e670c0cdf0fbd9eba2dde7913ba6249c8abdb926"
+  },
+  "roles_training_protocol.json": {
+    "original_path": "outputs/training/contextual_roles_20261024/protocol.json",
+    "sha256": "039f87de275ee0cf3f4bc8e79804ca270ab287af10b648b41ce0803b1d40c848"
+  },
+  "balanced_roles_training_protocol.json": {
+    "original_path": "outputs/training/contextual_roles_balanced_20261024/protocol.json",
+    "sha256": "152b61f8c8c0dc368334ea230676e93e512df047b248b3ac4a225142f3891c50"
+  },
+  "discussion_results.json": {
+    "original_path": "outputs/training/contextual_discussion_20261024/historical_evaluation.json",
+    "sha256": "c0ac27c5223efcea622df94c8d6552b23a061fb06f6bb2744b5dbef4a4dc0545"
+  },
+  "balanced_roles_results.json": {
+    "original_path": "outputs/training/contextual_roles_balanced_20261024/historical_evaluation.json",
+    "sha256": "1260af98277379186017a4fdb4cd55e7ccca15d481215af1cedad665e6391c97"
+  },
+  "ai_pilot_protocol.json": {
+    "original_path": "outputs/training/outcome_ai_model_20261024/protocol.json",
+    "sha256": "d39f8501fdd47832648458ee4cda25cdb681254fcdbc7329e611589ed71f1ee3"
+  },
+  "ai_pilot_summary.json": {
+    "original_path": "outputs/training/outcome_ai_model_20261024/summary.json",
+    "sha256": "8738f13b2eac562ce17222a34a05cedf3dd290eea813e63735f6112d01e37229"
+  },
+  "ai_pilot_results.json": {
+    "original_path": "outputs/training/outcome_ai_model_20261024/ai_agreement_evaluation.json",
+    "sha256": "eee788cf536fc5cd4133ba5b8cdc9a9e9f84a918a1f99779905a38a4e6b744e7"
+  },
+  "initial_development.json": {
+    "original_path": "outputs/training/gap_influence_20261024/development_search.json",
+    "sha256": "a226ac355817828da46383f1d5cc65a8a1f661e8bac5dd89c5db049445d99763"
+  },
+  "semantic_development.json": {
+    "original_path": "outputs/training/gap_influence_semantic_20261024/development_search.json",
+    "sha256": "70d4669fdf530f04f97ccec048738351c7e511064e9462c6dc676fef463d9e88"
+  },
+  "corrected_fixed_results.json": {
+    "original_path": "outputs/training/xgb_influence_20261024_v2/corrected_pipeline_baselines.json",
+    "sha256": "36ce830f30bccfd1cc63ffbbabe1a064391f0e9fb76feee3b0e59c0bdae89460"
+  },
+  "balanced_fixed_results.json": {
+    "original_path": "outputs/training/contextual_roles_balanced_20261024/fixed_influence_evaluation.json",
+    "sha256": "754a6d27a0c4c1710cab506a656b86cc35f6bbecdfee529ec043e0b69eb26e38"
+  },
+  "unweighted_roles_results.json": {
+    "original_path": "outputs/training/contextual_roles_20261024/historical_evaluation.json",
+    "sha256": "ef60377a42c63b0b929c8546abc754642ec8bdd85e044525cfb97d2a5ea4d87a"
+  },
+  "discussion_classifier_comparison.json": {
+    "original_path": "professor_guidelines/evaluation/classifier_comparison/summary.json",
+    "sha256": "4e593570db27d574fe1a1f8fc2d4a637d1728f44f2a199c4f2c771a465773ccd"
+  },
+  "corrected_ranker_development.json": {
+    "original_path": "outputs/training/xgb_influence_20261024_v2/development_search.json",
+    "sha256": "ae2facf402d9c981915ee1a1279fc9e551b207eef1b491bb3caffde91ddd43c7"
+  }
+}

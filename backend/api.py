@@ -42,6 +42,7 @@ if not secret_file.exists():
     except FileExistsError:
         pass
 SECRET_KEY = os.environ.get('MAI_SECRET_KEY') or secret_file.read_text().strip()
+PUBLIC_URL = os.environ.get('MAI_PUBLIC_URL', '').rstrip('/')
 DATA_DIR = Path(os.environ.get('MAI_DATA_DIR', PROJECT_ROOT / 'data' / 'custom_test'))
 REPORTS_DIR = PROJECT_ROOT / 'outputs' / 'reports'
 DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -520,7 +521,7 @@ def get_meeting(meeting_id: str, db=Depends(get_db), current_user: User = Depend
             'data': data, 'stage': state.get('stage'), 'error': state.get('error'),
             'progress': job_progress(state, m.status), 'preview': preview,
             'can_analyze_speakers': bool(state.get('audio') or (DATA_DIR / f'{meeting_id}.wav').is_file()),
-            'audio_url': f'/api/meetings/{meeting_id}/audio?token={media_token}' if data else None}
+            'audio_url': f'{PUBLIC_URL}/api/meetings/{meeting_id}/audio?token={media_token}' if data else None}
 
 
 @app.get('/api/meetings/{meeting_id}/audio')

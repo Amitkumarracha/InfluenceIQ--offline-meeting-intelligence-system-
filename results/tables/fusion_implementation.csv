@@ -1,0 +1,10 @@
+method,operation,status
+Word + speaker intervals,Temporal overlap association,Implemented; audio-derived information
+Temporal + semantic evidence,Weighted score-level fusion,Implemented; optional timing; 0.5 / 0.5
+Word + character + context TF-IDF,Feature concatenation,Implemented inside text classifier
+Forest + logistic probabilities,Classifier-output ensemble,Implemented inside text; 0.75 / 0.25
+MiniLM versus TF-IDF,Alternative representations,Selectable; not fused together
+Participation + contribution features,Research feature combination,Implemented in GAP ranking; no slide input
+Early / intermediate audio–document network,Joint learned multimodal fusion,Not deployed; separate toy prototypes exist
+Cross-attention / tensor / learned graph fusion,Learned interaction mechanisms,Not implemented
+Learned reliability gating,Input-dependent weighting,Not implemented; fixed missing-cue rule only

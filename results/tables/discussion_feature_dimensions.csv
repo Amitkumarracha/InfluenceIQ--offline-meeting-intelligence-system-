@@ -1,0 +1,4 @@
+feature_space,dimensions
+word,12000
+char,18220
+context_40,12000

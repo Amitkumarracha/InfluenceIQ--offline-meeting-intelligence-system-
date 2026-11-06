@@ -1,0 +1,4 @@
+method,passages,linked_passages,coverage,accuracy_status
+temporal_only,1008,0,0.0,unavailable: independent labels missing
+semantic_only,1008,39,0.03869047619047619,unavailable: independent labels missing
+temporal_semantic_hybrid,1008,39,0.03869047619047619,unavailable: independent labels missing

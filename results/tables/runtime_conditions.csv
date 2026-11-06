@@ -1,0 +1,4 @@
+condition,input_seconds,processing_seconds
+90s warm-model fresh-input laptop,90,41.840682
+same 90s cached repeat,90,0.602751
+30s isolated Docker 2 CPUs 4 GiB,30,33.821

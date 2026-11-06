@@ -1,0 +1,7 @@
+metric,value
+pooled_der,0.4091163815075802
+pooled_jer,0.6045105758869135
+speech_precision,0.8169535095152735
+speech_recall,0.9072933428707703
+speech_f1,0.859756802910687
+speaker_count_mae,1.5

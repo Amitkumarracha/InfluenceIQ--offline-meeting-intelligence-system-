@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="504pt" viewBox="0 0 936 504" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-26T11:58:12.557320</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 504 
+L 936 504 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 38.935385 167.117437 
+L 390.627692 167.117437 
+Q 395.551385 167.117437 395.551385 163.771875 
+L 395.551385 111.19875 
+Q 395.551385 107.853187 390.627692 107.853187 
+L 38.935385 107.853187 
+Q 34.011692 107.853187 34.011692 111.19875 
+L 34.011692 163.771875 
+Q 34.011692 167.117437 38.935385 167.117437 
+z
+" clip-path="url(#pcdb17428a5)" style="fill: #edf6f7; stroke: #087f8c; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 38.935385 267.484312 
+L 390.627692 267.484312 
+Q 395.551385 267.484312 395.551385 264.13875 
+L 395.551385 211.565625 
+Q 395.551385 208.220062 390.627692 208.220062 
+L 38.935385 208.220062 
+Q 34.011692 208.220062 34.011692 211.565625 
+L 34.011692 264.13875 
+Q 34.011692 267.484312 38.935385 267.484312 
+z
+" clip-path="url(#pcdb17428a5)" style="fill: #edf6f7; stroke: #087f8c; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 38.935385 367.851188 
+L 390.627692 367.851188 
+Q 395.551385 367.851188 395.551385 364.505625 
+L 395.551385 311.9325 
+Q 395.551385 308.586937 390.627692 308.586937 
+L 38.935385 308.586937 
+Q 34.011692 308.586937 34.011692 311.9325 
+L 34.011692 364.505625 
+Q 34.011692 367.851188 38.935385 367.851188 
+z
+" clip-path="url(#pcdb17428a5)" style="fill: #edf6f7; stroke: #087f8c; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 531.304615 257.925562 
+L 890.030769 257.925562 
+Q 894.954462 257.925562 894.954462 254.58 
+L 894.954462 158.9925 
+Q 894.954462 155.646937 890.030769 155.646937 
+L 531.304615 155.646937 
+Q 526.380923 155.646937 526.380923 158.9925 
+L 526.380923 254.58 
+Q 526.380923 257.925562 531.304615 257.925562 
+z
+" clip-path="url(#pcdb17428a5)" style="fill: #edf6f7; stroke: #087f8c; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 531.304615 382.189313 
+L 890.030769 382.189313 
+Q 894.954462 382.189313 894.954462 378.84375 
+L 894.954462 319.101562 
+Q 894.954462 315.756 890.030769 315.756 
+L 531.304615 315.756 
+Q 526.380923 315.756 526.380923 319.101562 
+L 526.380923 378.84375 
+Q 526.380923 382.189313 531.304615 382.189313 
+z
+" clip-path="url(#pcdb17428a5)" style="fill: #edf6f7; stroke: #087f8c; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(183.744351 133.74166)">Semantic S</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(106.426382 146.944668)">MiniLM passage / slide cosine similarity</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(184.491148 234.108535)">Temporal T</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(93.090601 247.311543)">Overlap with supplied slide-display intervals</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(162.655288 334.47541)">Timing unavailable</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(125.141851 347.678418)">Use semantic score alone: C = S</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(614.925583 196.441523)">With timing: weighted score fusion</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(626.742849 209.643672)">C = (0.5T + 0.5S) / (0.5 + 0.5)</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(650.841442 222.84668)">Without timing: C = S</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(649.151052 338.6275)">Keep top 3 candidates</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(629.358786 351.830508)">Best score ≥ 0.3: assign slide</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(617.086911 365.033516)">Otherwise: NO_CONFIDENT_SLIDE</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 399.558668 140.519533 
+Q 460.96895 161.383137 521.320624 181.887089 
+" style="fill: none; stroke: #526675; stroke-linecap: round"/>
+    <path d="M 518.1766 178.706662 
+L 521.320624 181.887089 
+L 516.889868 182.494051 
+" style="fill: none; stroke: #526675; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 399.635944 237.516794 
+Q 460.966335 227.098563 521.194481 216.867571 
+" style="fill: none; stroke: #526675; stroke-linecap: round"/>
+    <path d="M 516.916031 215.565703 
+L 521.194481 216.867571 
+L 517.585917 219.509211 
+" style="fill: none; stroke: #526675; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 399.272746 337.033043 
+Q 460.964962 291.621034 521.756782 246.871811 
+" style="fill: none; stroke: #526675; stroke-linecap: round"/>
+    <path d="M 517.349797 247.632393 
+L 521.756782 246.871811 
+L 519.721056 250.853748 
+" style="fill: none; stroke: #526675; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 710.667692 261.362109 
+Q 710.667692 286.841712 710.667692 311.203281 
+" style="fill: none; stroke: #526675; stroke-linecap: round"/>
+    <path d="M 712.667692 307.203281 
+L 710.667692 311.203281 
+L 708.667692 307.203281 
+" style="fill: none; stroke: #526675; stroke-linecap: round"/>
+   </g>
+  </g>
+  <g id="text_6">
+   <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #17324d" x="468" y="19.7175" transform="rotate(-0 468 19.7175)">The actual alignment fusion rule and missing-timing fallback</text>
+  </g>
+  <g id="text_7">
+   <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #455665" transform="translate(23.4 478.304854)">Configuration/implementation diagram, not measured accuracy. Pure temporal-only and semantic-only settings serve as single-cue baselines. Fixed</text>
+   <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #455665" transform="translate(23.4 488.507178)">weighted cue fusion is not learned cross-attention or a neural early-plus-late hybrid architecture.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pcdb17428a5">
+   <rect x="10.8" y="72.96375" width="914.4" height="334.55625"/>
+  </clipPath>
+ </defs>
+</svg>

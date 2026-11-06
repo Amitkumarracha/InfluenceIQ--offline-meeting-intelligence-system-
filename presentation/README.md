@@ -1,6 +1,8 @@
 # InfluenceIQ — MAI presentation
 
-**25 October preparation:** start with the [one-page rehearsal card](PRESENTATION_ONE_PAGE_20261025.pdf), then the [current spoken script, backend/frontend reference, and 80 viva answers](PRESENTATION_CRASH_PACK_20261025.pdf). Editable sources: [rehearsal card](PRESENTATION_ONE_PAGE_20261025.md) and [full preparation pack](PRESENTATION_CRASH_PACK_20261025.md). These handouts retain historical metric scopes and incorporate the latest 656-test website validation; the existing slide deck is unchanged.
+**26 October evaluator presentation:** use the [26-slide PDF](EVALUATOR_PRESENTATION_20261026.pdf), [editable PowerPoint with speaker notes](EVALUATOR_PRESENTATION_20261026.pptx), and [full script, equations and 50 viva answers](EVALUATOR_PRESENTATION_SCRIPT_20261026.pdf). The [editable script](EVALUATOR_PRESENTATION_SCRIPT_20261026.md) explains novelty, the implemented structured summary, modalities, precise fusion categories, negative results and validation gaps. Regenerate the deck/HTML with `.venv/bin/python presentation/build_evaluator_presentation.py`.
+
+**25 October preparation:** the [one-page rehearsal card](PRESENTATION_ONE_PAGE_20261025.pdf) and [earlier spoken script, backend/frontend reference, and 80 viva answers](PRESENTATION_CRASH_PACK_20261025.pdf) remain additional references. Editable sources: [rehearsal card](PRESENTATION_ONE_PAGE_20261025.md) and [full preparation pack](PRESENTATION_CRASH_PACK_20261025.md). Their numerical tables retain the stated historical evaluation scopes.
 
 The final PowerPoint has **exactly 18 slides**, with **no backup slides**. Headings and slide order match the teammate's original PPT. The cover follows the supplied reference and reads **MAI Project AY 2026–27**.
 

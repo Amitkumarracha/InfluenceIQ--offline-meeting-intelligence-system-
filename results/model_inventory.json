@@ -1,0 +1,87 @@
+{
+  "models": [
+    {
+      "stage": "ASR",
+      "model": "Whisper Small / faster-whisper",
+      "status": "Pretrained; default CPU int8",
+      "evaluation": "WER / CER pilots"
+    },
+    {
+      "stage": "Optional ASR",
+      "model": "Whisper Medium / large-v3-turbo",
+      "status": "Pretrained; optional",
+      "evaluation": "WER / CER pilots"
+    },
+    {
+      "stage": "Speakers",
+      "model": "Sherpa-ONNX; pyannote-style segmentation + 3D-Speaker embedding",
+      "status": "Pretrained; default backend",
+      "evaluation": "Small DER calibration pilot"
+    },
+    {
+      "stage": "Speaker alternative",
+      "model": "Python pyannote.audio backend",
+      "status": "Installed alternative; not the configured default",
+      "evaluation": "Not a matched engine comparison in this collection"
+    },
+    {
+      "stage": "Slide semantics",
+      "model": "all-MiniLM-L6-v2 + cosine",
+      "status": "Frozen pretrained encoder",
+      "evaluation": "Constructed alignment diagnostic; real coverage only"
+    },
+    {
+      "stage": "Lexical alternative",
+      "model": "TF-IDF cosine",
+      "status": "Selectable alternative; not averaged with MiniLM",
+      "evaluation": "No matched TF-IDF vs MiniLM result shown here"
+    },
+    {
+      "stage": "Discussion review",
+      "model": "Random Forest + Logistic Regression",
+      "status": "Trained English model; 75/25 ensemble",
+      "evaluation": "Historical AMI reference-act evaluation"
+    },
+    {
+      "stage": "Events / decisions",
+      "model": "Bilingual rules and source-linked reconstruction",
+      "status": "Default; not a generative model",
+      "evaluation": "Historical role diagnostic; no general decision F1"
+    },
+    {
+      "stage": "UI contribution score",
+      "model": "Seven max-normalized weighted features",
+      "status": "Prototype fixed weights",
+      "evaluation": "GAP outcome-proxy diagnostic; not causal validity"
+    },
+    {
+      "stage": "Research ranking",
+      "model": "Training-fold scaling + Ridge",
+      "status": "Separate exploratory model",
+      "evaluation": "Grouped-CV outcome-alignment agreement"
+    },
+    {
+      "stage": "Android path",
+      "model": "whisper.cpp, native speakers and lexical TF-IDF",
+      "status": "Separate native implementation",
+      "evaluation": "No matched physical-device benchmark in this collection"
+    }
+  ],
+  "installed_discussion_details": {
+    "linear_class": "LogisticRegression",
+    "forest_class": "RandomForestClassifier",
+    "linear_C": 3.0,
+    "forest_trees": 100,
+    "forest_max_depth": 10,
+    "linear_weight": 0.25,
+    "forest_weight": 0.75,
+    "context_radius_units": 40,
+    "smoothing_radius_units": 5,
+    "threshold": 0.3577398635496262,
+    "feature_dimensions": {
+      "word": 12000,
+      "char": 18220,
+      "context_40": 12000
+    }
+  }
+}

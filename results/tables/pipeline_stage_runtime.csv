@@ -1,0 +1,12 @@
+stage,seconds,condition
+preprocessing,0.068676,90s English; warm models; uncached meeting inputs
+transcription,17.360149,90s English; warm models; uncached meeting inputs
+diarization,23.829777,90s English; warm models; uncached meeting inputs
+attribution,0.067808,90s English; warm models; uncached meeting inputs
+slides,0.237168,90s English; warm models; uncached meeting inputs
+alignment,0.13673,90s English; warm models; uncached meeting inputs
+events,0.013439,90s English; warm models; uncached meeting inputs
+decisions,0.065781,90s English; warm models; uncached meeting inputs
+interactions,0.011768,90s English; warm models; uncached meeting inputs
+influence,0.021807,90s English; warm models; uncached meeting inputs
+report,0.021883,90s English; warm models; uncached meeting inputs

@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1008pt" height="504pt" viewBox="0 0 1008 504" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-26T11:58:01.458288</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 504 
+L 1008 504 
+L 1008 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="table_1">
+    <g id="patch_2">
+     <path d="M 10.8 134.723206 
+L 306.72 134.723206 
+L 306.72 108.343539 
+L 10.8 108.343539 
+z
+" style="fill: #dceef0; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_1">
+     <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="158.76" y="123.871615" transform="rotate(-0 158.76 123.871615)">Information / method</text>
+    </g>
+    <g id="patch_3">
+     <path d="M 306.72 134.723206 
+L 592.776 134.723206 
+L 592.776 108.343539 
+L 306.72 108.343539 
+z
+" style="fill: #dceef0; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_2">
+     <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="449.748" y="123.871615" transform="rotate(-0 449.748 123.871615)">What operation is this?</text>
+    </g>
+    <g id="patch_4">
+     <path d="M 592.776 134.723206 
+L 997.2 134.723206 
+L 997.2 108.343539 
+L 592.776 108.343539 
+z
+" style="fill: #dceef0; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_3">
+     <text style="font-weight: 700; font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="794.988" y="123.871615" transform="rotate(-0 794.988 123.871615)">Current implementation</text>
+    </g>
+    <g id="patch_5">
+     <path d="M 10.8 161.102873 
+L 306.72 161.102873 
+L 306.72 134.723206 
+L 10.8 134.723206 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="40.392" y="150.251282" transform="rotate(-0 40.392 150.251282)">Word + speaker intervals</text>
+    </g>
+    <g id="patch_6">
+     <path d="M 306.72 161.102873 
+L 592.776 161.102873 
+L 592.776 134.723206 
+L 306.72 134.723206 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="335.3256" y="150.251282" transform="rotate(-0 335.3256 150.251282)">Temporal overlap association</text>
+    </g>
+    <g id="patch_7">
+     <path d="M 592.776 161.102873 
+L 997.2 161.102873 
+L 997.2 134.723206 
+L 592.776 134.723206 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="633.2184" y="150.251282" transform="rotate(-0 633.2184 150.251282)">Implemented; audio-derived information</text>
+    </g>
+    <g id="patch_8">
+     <path d="M 10.8 187.482541 
+L 306.72 187.482541 
+L 306.72 161.102873 
+L 10.8 161.102873 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="40.392" y="176.630949" transform="rotate(-0 40.392 176.630949)">Temporal + semantic evidence</text>
+    </g>
+    <g id="patch_9">
+     <path d="M 306.72 187.482541 
+L 592.776 187.482541 
+L 592.776 161.102873 
+L 306.72 161.102873 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="335.3256" y="176.630949" transform="rotate(-0 335.3256 176.630949)">Weighted score-level fusion</text>
+    </g>
+    <g id="patch_10">
+     <path d="M 592.776 187.482541 
+L 997.2 187.482541 
+L 997.2 161.102873 
+L 592.776 161.102873 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="633.2184" y="176.630949" transform="rotate(-0 633.2184 176.630949)">Implemented; optional timing; 0.5 / 0.5</text>
+    </g>
+    <g id="patch_11">
+     <path d="M 10.8 213.862208 
+L 306.72 213.862208 
+L 306.72 187.482541 
+L 10.8 187.482541 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="40.392" y="203.010616" transform="rotate(-0 40.392 203.010616)">Word + character + context TF-IDF</text>
+    </g>
+    <g id="patch_12">
+     <path d="M 306.72 213.862208 
+L 592.776 213.862208 
+L 592.776 187.482541 
+L 306.72 187.482541 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="335.3256" y="203.010616" transform="rotate(-0 335.3256 203.010616)">Feature concatenation</text>
+    </g>
+    <g id="patch_13">
+     <path d="M 592.776 213.862208 
+L 997.2 213.862208 
+L 997.2 187.482541 
+L 592.776 187.482541 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="633.2184" y="203.010616" transform="rotate(-0 633.2184 203.010616)">Implemented inside text classifier</text>
+    </g>
+    <g id="patch_14">
+     <path d="M 10.8 240.241875 
+L 306.72 240.241875 
+L 306.72 213.862208 
+L 10.8 213.862208 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="40.392" y="229.390284" transform="rotate(-0 40.392 229.390284)">Forest + logistic probabilities</text>
+    </g>
+    <g id="patch_15">
+     <path d="M 306.72 240.241875 
+L 592.776 240.241875 
+L 592.776 213.862208 
+L 306.72 213.862208 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="335.3256" y="229.390284" transform="rotate(-0 335.3256 229.390284)">Classifier-output ensemble</text>
+    </g>
+    <g id="patch_16">
+     <path d="M 592.776 240.241875 
+L 997.2 240.241875 
+L 997.2 213.862208 
+L 592.776 213.862208 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="633.2184" y="229.390284" transform="rotate(-0 633.2184 229.390284)">Implemented inside text; 0.75 / 0.25</text>
+    </g>
+    <g id="patch_17">
+     <path d="M 10.8 266.621542 
+L 306.72 266.621542 
+L 306.72 240.241875 
+L 10.8 240.241875 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="40.392" y="255.769951" transform="rotate(-0 40.392 255.769951)">MiniLM versus TF-IDF</text>
+    </g>
+    <g id="patch_18">
+     <path d="M 306.72 266.621542 
+L 592.776 266.621542 
+L 592.776 240.241875 
+L 306.72 240.241875 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_17">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="335.3256" y="255.769951" transform="rotate(-0 335.3256 255.769951)">Alternative representations</text>
+    </g>
+    <g id="patch_19">
+     <path d="M 592.776 266.621542 
+L 997.2 266.621542 
+L 997.2 240.241875 
+L 592.776 240.241875 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="633.2184" y="255.769951" transform="rotate(-0 633.2184 255.769951)">Selectable; not fused together</text>
+    </g>
+    <g id="patch_20">
+     <path d="M 10.8 293.001209 
+L 306.72 293.001209 
+L 306.72 266.621542 
+L 10.8 266.621542 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="40.392" y="282.149618" transform="rotate(-0 40.392 282.149618)">Participation + contribution features</text>
+    </g>
+    <g id="patch_21">
+     <path d="M 306.72 293.001209 
+L 592.776 293.001209 
+L 592.776 266.621542 
+L 306.72 266.621542 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_20">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="335.3256" y="282.149618" transform="rotate(-0 335.3256 282.149618)">Research feature combination</text>
+    </g>
+    <g id="patch_22">
+     <path d="M 592.776 293.001209 
+L 997.2 293.001209 
+L 997.2 266.621542 
+L 592.776 266.621542 
+z
+" style="fill: #f0f8f4; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_21">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="633.2184" y="282.149618" transform="rotate(-0 633.2184 282.149618)">Implemented in GAP ranking; no slide input</text>
+    </g>
+    <g id="patch_23">
+     <path d="M 10.8 319.380877 
+L 306.72 319.380877 
+L 306.72 293.001209 
+L 10.8 293.001209 
+z
+" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_22">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="40.392" y="308.529285" transform="rotate(-0 40.392 308.529285)">Early / intermediate audio–document network</text>
+    </g>
+    <g id="patch_24">
+     <path d="M 306.72 319.380877 
+L 592.776 319.380877 
+L 592.776 293.001209 
+L 306.72 293.001209 
+z
+" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_23">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="335.3256" y="308.529285" transform="rotate(-0 335.3256 308.529285)">Joint learned multimodal fusion</text>
+    </g>
+    <g id="patch_25">
+     <path d="M 592.776 319.380877 
+L 997.2 319.380877 
+L 997.2 293.001209 
+L 592.776 293.001209 
+z
+" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_24">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="633.2184" y="308.529285" transform="rotate(-0 633.2184 308.529285)">Not deployed; separate toy prototypes exist</text>
+    </g>
+    <g id="patch_26">
+     <path d="M 10.8 345.760544 
+L 306.72 345.760544 
+L 306.72 319.380877 
+L 10.8 319.380877 
+z
+" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_25">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="40.392" y="334.908952" transform="rotate(-0 40.392 334.908952)">Cross-attention / tensor / learned graph fusion</text>
+    </g>
+    <g id="patch_27">
+     <path d="M 306.72 345.760544 
+L 592.776 345.760544 
+L 592.776 319.380877 
+L 306.72 319.380877 
+z
+" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_26">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="335.3256" y="334.908952" transform="rotate(-0 335.3256 334.908952)">Learned interaction mechanisms</text>
+    </g>
+    <g id="patch_28">
+     <path d="M 592.776 345.760544 
+L 997.2 345.760544 
+L 997.2 319.380877 
+L 592.776 319.380877 
+z
+" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_27">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="633.2184" y="334.908952" transform="rotate(-0 633.2184 334.908952)">Not implemented</text>
+    </g>
+    <g id="patch_29">
+     <path d="M 10.8 372.140211 
+L 306.72 372.140211 
+L 306.72 345.760544 
+L 10.8 345.760544 
+z
+" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_28">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="40.392" y="361.28862" transform="rotate(-0 40.392 361.28862)">Learned reliability gating</text>
+    </g>
+    <g id="patch_30">
+     <path d="M 306.72 372.140211 
+L 592.776 372.140211 
+L 592.776 345.760544 
+L 306.72 345.760544 
+z
+" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_29">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="335.3256" y="361.28862" transform="rotate(-0 335.3256 361.28862)">Input-dependent weighting</text>
+    </g>
+    <g id="patch_31">
+     <path d="M 592.776 372.140211 
+L 997.2 372.140211 
+L 997.2 345.760544 
+L 592.776 345.760544 
+z
+" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_30">
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="633.2184" y="361.28862" transform="rotate(-0 633.2184 361.28862)">Not implemented; fixed missing-cue rule only</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_31">
+   <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle; fill: #17324d" x="504" y="19.7175" transform="rotate(-0 504 19.7175)">Which fusion methods have actually been used?</text>
+  </g>
+  <g id="text_32">
+   <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #455665" transform="translate(25.2 478.304854)">The temporal–semantic hybrid combines cues at the score level. It is not an architecture combining early and late neural fusion. Within-text</text>
+   <text style="font-size: 8.5px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; fill: #455665" transform="translate(25.2 488.507178)">concatenation/ensembling does not create extra input modalities.</text>
+  </g>
+ </g>
+</svg>

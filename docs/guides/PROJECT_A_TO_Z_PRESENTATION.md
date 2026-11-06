@@ -1,5 +1,7 @@
 # InfluenceIQ / Meet IQ: complete project study guide
 
+**26 October update:** the [new evaluator deck](../../presentation/EVALUATOR_PRESENTATION_20261026.pdf) and [complete script with 50 viva answers](../../presentation/EVALUATOR_PRESENTATION_SCRIPT_20261026.pdf) directly cover novelty, structured versus generative summarization, modalities, fusion comparisons, algorithms, limitations and current backend preparation.
+
 For an imminent presentation, use the [one-page rehearsal card](../../presentation/PRESENTATION_ONE_PAGE_20261025.pdf) and [14-minute script with 80 viva answers](../../presentation/PRESENTATION_CRASH_PACK_20261025.pdf) first. This chapter-by-chapter guide is the deeper reference.
 
 Prepared 25 October 2026 from the current workspace's code, configuration, presentation, and saved experimental records. This is an explanation, not a new benchmark or a change to application behavior. Some existing documentation describes older implementations; the distinctions below follow current source where inspected.

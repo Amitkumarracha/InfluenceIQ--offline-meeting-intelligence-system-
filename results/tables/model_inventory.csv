@@ -1,0 +1,12 @@
+stage,model_or_method,status,evaluation
+ASR,Whisper Small / faster-whisper,Pretrained; default CPU int8,WER / CER pilots
+Optional ASR,Whisper Medium / large-v3-turbo,Pretrained; optional,WER / CER pilots
+Speakers,Sherpa-ONNX; pyannote-style segmentation + 3D-Speaker embedding,Pretrained; default backend,Small DER calibration pilot
+Speaker alternative,Python pyannote.audio backend,Installed alternative; not the configured default,Not a matched engine comparison in this collection
+Slide semantics,all-MiniLM-L6-v2 + cosine,Frozen pretrained encoder,Constructed alignment diagnostic; real coverage only
+Lexical alternative,TF-IDF cosine,Selectable alternative; not averaged with MiniLM,No matched TF-IDF vs MiniLM result shown here
+Discussion review,Random Forest + Logistic Regression,Trained English model; 75/25 ensemble,Historical AMI reference-act evaluation
+Events / decisions,Bilingual rules and source-linked reconstruction,Default; not a generative model,Historical role diagnostic; no general decision F1
+UI contribution score,Seven max-normalized weighted features,Prototype fixed weights,GAP outcome-proxy diagnostic; not causal validity
+Research ranking,Training-fold scaling + Ridge,Separate exploratory model,Grouped-CV outcome-alignment agreement
+Android path,"whisper.cpp, native speakers and lexical TF-IDF",Separate native implementation,No matched physical-device benchmark in this collection

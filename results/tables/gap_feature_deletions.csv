@@ -1,0 +1,8 @@
+deleted_feature,pairwise_accuracy,constant_meetings,difference_from_full
+influence_proposal,0.5577380952380951,22,0.0
+influence_evidence,0.5577380952380951,22,0.0
+influence_objection,0.5577380952380951,22,0.0
+influence_revision,0.5577380952380951,22,0.0
+influence_decision,0.5029761904761905,24,-0.05476190476190468
+influence_interaction,0.5696428571428571,22,0.011904761904761973
+influence_slide_grounding,0.5577380952380951,22,0.0

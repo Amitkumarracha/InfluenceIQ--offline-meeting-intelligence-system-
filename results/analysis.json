@@ -1,0 +1,655 @@
+{
+  "date": "2026-10-26",
+  "scope": "Saved-result visual analysis and installed model inspection; no retraining or new benchmark",
+  "graphs": [
+    {
+      "name": "01_model_pipeline",
+      "title": "Implemented models and information flow",
+      "caption": "Conceptual dependency diagram, not measured performance. Speech and document contents are related through derived representations; no jointly trained raw-audio/image fusion network.",
+      "sources": [
+        "config/config.yaml",
+        "src/pipeline/orchestrator.py"
+      ],
+      "png": "graphs/01_model_pipeline.png",
+      "svg": "graphs/01_model_pipeline.svg",
+      "pdf": "graphs/01_model_pipeline.pdf"
+    },
+    {
+      "name": "02_fusion_methods_used",
+      "title": "Which fusion methods have actually been used?",
+      "caption": "The temporal\u2013semantic hybrid combines cues at the score level. It is not an architecture combining early and late neural fusion. Within-text concatenation/ensembling does not create extra input modalities.",
+      "sources": [
+        "src/fusion/multimodal_representation.py",
+        "src/meeting/discussions.py",
+        "config/config.yaml"
+      ],
+      "png": "graphs/02_fusion_methods_used.png",
+      "svg": "graphs/02_fusion_methods_used.svg",
+      "pdf": "graphs/02_fusion_methods_used.pdf"
+    },
+    {
+      "name": "03_controlled_fusion_top1",
+      "title": "Controlled fusion diagnostic: semantic-only performs best",
+      "caption": "24 author-designed cases / six constructed slides. Expected NO_CONFIDENT_SLIDE is included in correctness. This is not independent real-meeting accuracy; no claim of universal hybrid superiority.",
+      "sources": [
+        "outputs/evaluation/final_ca4/controlled_comparison.json"
+      ],
+      "png": "graphs/03_controlled_fusion_top1.png",
+      "svg": "graphs/03_controlled_fusion_top1.svg",
+      "pdf": "graphs/03_controlled_fusion_top1.pdf"
+    },
+    {
+      "name": "04_controlled_fusion_metrics",
+      "title": "Fusion quality and coverage measure different things",
+      "caption": "Constructed diagnostic only. Macro F1 includes the no-slide class. Hybrid coverage is 100% because it also links unrelated cases; higher coverage is not automatically better.",
+      "sources": [
+        "outputs/evaluation/final_ca4/controlled_comparison.json"
+      ],
+      "png": "graphs/04_controlled_fusion_metrics.png",
+      "svg": "graphs/04_controlled_fusion_metrics.svg",
+      "pdf": "graphs/04_controlled_fusion_metrics.pdf"
+    },
+    {
+      "name": "05_fusion_case_heatmap",
+      "title": "Where each alignment strategy succeeds and fails",
+      "caption": "Four cases per constructed group. Timing helps vague references but hurts offscreen/unrelated cases under the fixed 0.5/0.5 score rule and threshold 0.3.",
+      "sources": [
+        "outputs/evaluation/final_ca4/controlled_comparison.json"
+      ],
+      "png": "graphs/05_fusion_case_heatmap.png",
+      "svg": "graphs/05_fusion_case_heatmap.svg",
+      "pdf": "graphs/05_fusion_case_heatmap.pdf"
+    },
+    {
+      "name": "06_real_unlabelled_coverage",
+      "title": "Real example: 39 / 1,008 passages linked; accuracy unknown",
+      "caption": "1008 passages / 34 slides / 0 valid timed slides. Semantic and hybrid agree because of the missing-timing fallback. Independent relevance labels are unavailable; coverage is not accuracy.",
+      "sources": [
+        "outputs/evaluation/final_ca4/real_unlabelled_comparison.json"
+      ],
+      "png": "graphs/06_real_unlabelled_coverage.png",
+      "svg": "graphs/06_real_unlabelled_coverage.svg",
+      "pdf": "graphs/06_real_unlabelled_coverage.pdf"
+    },
+    {
+      "name": "07_discussion_model_vs_baseline",
+      "title": "Discussion review: high recall, limited precision",
+      "caption": "11,136 oracle AMI acts, 2,481 positives, 12 meetings / 3 project series; reused historical cohort. Always-negative accuracy is high because of imbalance, but it retrieves no positives. These results do not measure final decisions or raw-audio application accuracy.",
+      "sources": [
+        "professor_guidelines/evaluation/quality_scorecard/summary.json"
+      ],
+      "png": "graphs/07_discussion_model_vs_baseline.png",
+      "svg": "graphs/07_discussion_model_vs_baseline.svg",
+      "pdf": "graphs/07_discussion_model_vs_baseline.pdf"
+    },
+    {
+      "name": "08_discussion_confusion_matrix",
+      "title": "Installed discussion classifier: historical confusion counts",
+      "caption": "11,136 human reference dialogue acts: TN 5,627; FP 3,028; FN 467; TP 2,014. Reference text/boundaries differ from deployed ASR passages. Historical cohort was repeatedly inspected.",
+      "sources": [
+        "professor_guidelines/evaluation/quality_scorecard/summary.json"
+      ],
+      "png": "graphs/08_discussion_confusion_matrix.png",
+      "svg": "graphs/08_discussion_confusion_matrix.svg",
+      "pdf": "graphs/08_discussion_confusion_matrix.pdf"
+    },
+    {
+      "name": "09_classifier_family_comparison",
+      "title": "Saved discussion classifiers: local versus context features",
+      "caption": "Previously examined AMI reference-act cohort. Model-specific development selections differ; this is an exploratory comparison, not independent evidence of ensemble superiority. Installed blend is a separately selected configuration.",
+      "sources": [
+        "professor_guidelines/evaluation/classifier_comparison/comparison.csv",
+        "professor_guidelines/evaluation/quality_scorecard/summary.json"
+      ],
+      "png": "graphs/09_classifier_family_comparison.png",
+      "svg": "graphs/09_classifier_family_comparison.svg",
+      "pdf": "graphs/09_classifier_family_comparison.pdf"
+    },
+    {
+      "name": "10_speech_wer",
+      "title": "Speech models: WER across separate small cohorts",
+      "caption": "English development/historical each contain two clips; Hindi and Hinglish each contain eight samples. Missing medium historical bar means unrecorded, not zero. Cohorts are separate; no full-meeting multilingual accuracy claim.",
+      "sources": [
+        "professor_guidelines/evaluation/quality_scorecard/summary.json"
+      ],
+      "png": "graphs/10_speech_wer.png",
+      "svg": "graphs/10_speech_wer.svg",
+      "pdf": "graphs/10_speech_wer.pdf"
+    },
+    {
+      "name": "11_speech_cer",
+      "title": "Speech models: CER across separate small cohorts",
+      "caption": "English development/historical each contain two clips; Hindi and Hinglish each contain eight samples. Missing medium historical bar means unrecorded, not zero. Cohorts are separate; no full-meeting multilingual accuracy claim.",
+      "sources": [
+        "professor_guidelines/evaluation/quality_scorecard/summary.json"
+      ],
+      "png": "graphs/11_speech_cer.png",
+      "svg": "graphs/11_speech_cer.svg",
+      "pdf": "graphs/11_speech_cer.pdf"
+    },
+    {
+      "name": "12_speaker_threshold_development",
+      "title": "Speaker clustering threshold selection",
+      "caption": "Small development pilot only; threshold 0.9 was selected before the separate held-out excerpt comparison. This is not a full-corpus calibration curve.",
+      "sources": [
+        "professor_guidelines/evaluation/audio_summary.json"
+      ],
+      "png": "graphs/12_speaker_threshold_development.png",
+      "svg": "graphs/12_speaker_threshold_development.svg",
+      "pdf": "graphs/12_speaker_threshold_development.pdf"
+    },
+    {
+      "name": "13_speaker_heldout_der",
+      "title": "Diarization: two held-out excerpts and pooled errors",
+      "caption": "Two 120-second AMI excerpts; 0.25s collar, overlap included, optimal speaker mapping. Pool by reference speaker-time. Excerpt pilot only; no streaming or physical-device performance claim.",
+      "sources": [
+        "professor_guidelines/evaluation/audio_summary.json",
+        "professor_guidelines/evaluation/quality_scorecard/summary.json"
+      ],
+      "png": "graphs/13_speaker_heldout_der.png",
+      "svg": "graphs/13_speaker_heldout_der.svg",
+      "pdf": "graphs/13_speaker_heldout_der.pdf"
+    },
+    {
+      "name": "14_discussion_ensemble_weights",
+      "title": "Discussion classifier: 75% forest + 25% logistic",
+      "caption": "Installed model configuration, not accuracy or modality importance. Context radius 40 units; smoothing radius 5; threshold 0.35774. These combine text-classifier outputs.",
+      "sources": [
+        "models/discussion/manifest.json",
+        "models/discussion/model.joblib"
+      ],
+      "png": "graphs/14_discussion_ensemble_weights.png",
+      "svg": "graphs/14_discussion_ensemble_weights.svg",
+      "pdf": "graphs/14_discussion_ensemble_weights.pdf"
+    },
+    {
+      "name": "15_contribution_feature_weights",
+      "title": "Default contribution-score weights",
+      "caption": "Configuration values, not empirically learned feature importance. Features are max-normalized across participants, then weighted. Missing categories stay zero; the highest participant score need not be one.",
+      "sources": [
+        "config/config.yaml"
+      ],
+      "png": "graphs/15_contribution_feature_weights.png",
+      "svg": "graphs/15_contribution_feature_weights.svg",
+      "pdf": "graphs/15_contribution_feature_weights.pdf"
+    },
+    {
+      "name": "16_gap_participant_rankings",
+      "title": "GAP research ranking: outcome alignment, not causal influence",
+      "caption": "28 previously examined meetings / 84 people / 87 comparable pairs. Reference transcripts/speakers, no slides. Ridge research models are separate from the default UI score. Cross-validated exploratory point estimates.",
+      "sources": [
+        "docs/paper_20261024/analysis/results.json"
+      ],
+      "png": "graphs/16_gap_participant_rankings.png",
+      "svg": "graphs/16_gap_participant_rankings.svg",
+      "pdf": "graphs/16_gap_participant_rankings.pdf"
+    },
+    {
+      "name": "17_gap_difference_intervals",
+      "title": "Ranking differences: descriptive intervals include zero",
+      "caption": "Intervals are copied from the saved paired bootstrap, not newly estimated. Previously examined corpus and overlapping CV training sets limit interpretation; no reliable-superiority or fresh-confirmation claim.",
+      "sources": [
+        "docs/paper_20261024/analysis/results.json"
+      ],
+      "png": "graphs/17_gap_difference_intervals.png",
+      "svg": "graphs/17_gap_difference_intervals.svg",
+      "pdf": "graphs/17_gap_difference_intervals.pdf"
+    },
+    {
+      "name": "18_gap_feature_coverage",
+      "title": "Historical extraction coverage is sparse",
+      "caption": "Historical snapshot: 70 / 84 participants and 22 / 28 meetings had no contribution features. No slides were supplied. Later rule fixes were not rerun as a new GAP benchmark.",
+      "sources": [
+        "docs/paper_20261024/analysis/results.json"
+      ],
+      "png": "graphs/18_gap_feature_coverage.png",
+      "svg": "graphs/18_gap_feature_coverage.svg",
+      "pdf": "graphs/18_gap_feature_coverage.pdf"
+    },
+    {
+      "name": "19_gap_feature_deletions",
+      "title": "Fixed-score deletion diagnostic",
+      "caption": "Saved delete-one-feature results on the same historical GAP representation; not retraining or causal feature importance. Inactive features can be removed without changing predictions. No confidence intervals are available.",
+      "sources": [
+        "docs/paper_20261024/analysis/results.json"
+      ],
+      "png": "graphs/19_gap_feature_deletions.png",
+      "svg": "graphs/19_gap_feature_deletions.svg",
+      "pdf": "graphs/19_gap_feature_deletions.pdf"
+    },
+    {
+      "name": "20_pipeline_stage_runtime",
+      "title": "Stage timing: 90-second English functional recording",
+      "caption": "Warm models with uncached meeting inputs; two audio parts, two decks, four-speaker constraint. Excludes upload, queue, decode and final persistence. One laptop run; not a general latency benchmark.",
+      "sources": [
+        "outputs/evaluation/website_regression_20261025.json"
+      ],
+      "png": "graphs/20_pipeline_stage_runtime.png",
+      "svg": "graphs/20_pipeline_stage_runtime.svg",
+      "pdf": "graphs/20_pipeline_stage_runtime.pdf"
+    },
+    {
+      "name": "21_runtime_conditions",
+      "title": "Different runtime conditions must remain separate",
+      "caption": "Independent panels use different scales and input/cache/resource conditions. These are functional timing records, not a matched comparison of models or cloud hosts. Cached repeat is not fresh inference speed.",
+      "sources": [
+        "outputs/evaluation/website_regression_20261025.json",
+        "outputs/evaluation/huggingface_backend_20261026.json"
+      ],
+      "png": "graphs/21_runtime_conditions.png",
+      "svg": "graphs/21_runtime_conditions.svg",
+      "pdf": "graphs/21_runtime_conditions.pdf"
+    },
+    {
+      "name": "22_ami_discussion_split",
+      "title": "AMI discussion subset: meeting split and reference acts",
+      "caption": "47 selected meetings, not the entire AMI corpus. Related series stay together. Historical evaluation contains 12 meetings / three series and was repeatedly examined; act counts are not independent-meeting counts.",
+      "sources": [
+        "professor_guidelines/evaluation/decision_discussion/dataset_counts.json"
+      ],
+      "png": "graphs/22_ami_discussion_split.png",
+      "svg": "graphs/22_ami_discussion_split.svg",
+      "pdf": "graphs/22_ami_discussion_split.pdf"
+    },
+    {
+      "name": "23_gap_role_diagnostic",
+      "title": "Historical event-role coverage: a known failure finding",
+      "caption": "8,009 reference utterances. The evaluated historical snapshot emitted no proposals among 537 reference-positive proposal acts. Later keyword fixes do not retroactively update this diagnostic. Roles are not contribution/outcome links.",
+      "sources": [
+        "docs/paper_20261024/analysis/results.json"
+      ],
+      "png": "graphs/23_gap_role_diagnostic.png",
+      "svg": "graphs/23_gap_role_diagnostic.svg",
+      "pdf": "graphs/23_gap_role_diagnostic.pdf"
+    },
+    {
+      "name": "24_logistic_feature_coefficients",
+      "title": "Installed logistic component: strongest signed coefficients",
+      "caption": "Top ten negative and positive coefficients of the actual trusted installed model. Prefix identifies word/character/context feature space. Coefficients depend on correlated TF-IDF features; not causal explanations or full-ensemble probabilities.",
+      "sources": [
+        "models/discussion/model.joblib"
+      ],
+      "png": "graphs/24_logistic_feature_coefficients.png",
+      "svg": "graphs/24_logistic_feature_coefficients.svg",
+      "pdf": "graphs/24_logistic_feature_coefficients.pdf"
+    },
+    {
+      "name": "25_forest_feature_importance",
+      "title": "Installed random forest: top impurity-based feature importances",
+      "caption": "Actual forest component, not permutation importance or causal contribution. Correlated features and impurity-based biases limit interpretation; these importances do not measure the importance of physical input modalities.",
+      "sources": [
+        "models/discussion/model.joblib"
+      ],
+      "png": "graphs/25_forest_feature_importance.png",
+      "svg": "graphs/25_forest_feature_importance.svg",
+      "pdf": "graphs/25_forest_feature_importance.pdf"
+    },
+    {
+      "name": "26_discussion_feature_dimensions",
+      "title": "Discussion input: concatenated word, character and context features",
+      "caption": "Actual feature dimensions supplied to the installed classifiers. Stored unused context variants are excluded. Feature count is not model accuracy or an extra physical modality.",
+      "sources": [
+        "models/discussion/model.joblib"
+      ],
+      "png": "graphs/26_discussion_feature_dimensions.png",
+      "svg": "graphs/26_discussion_feature_dimensions.svg",
+      "pdf": "graphs/26_discussion_feature_dimensions.pdf"
+    },
+    {
+      "name": "27_speaker_additional_diagnostics",
+      "title": "Speaker pilot: complementary diagnostic measures",
+      "caption": "Selected threshold 0.9; only two held-out excerpts. DER/JER and count MAE are lower-is-better; precision/recall/F1 are higher-is-better. Speech detection metrics concern speech activity, not word transcription correctness.",
+      "sources": [
+        "professor_guidelines/evaluation/quality_scorecard/summary.json"
+      ],
+      "png": "graphs/27_speaker_additional_diagnostics.png",
+      "svg": "graphs/27_speaker_additional_diagnostics.svg",
+      "pdf": "graphs/27_speaker_additional_diagnostics.pdf"
+    },
+    {
+      "name": "28_temporal_semantic_fusion_flow",
+      "title": "The actual alignment fusion rule and missing-timing fallback",
+      "caption": "Configuration/implementation diagram, not measured accuracy. Pure temporal-only and semantic-only settings serve as single-cue baselines. Fixed weighted cue fusion is not learned cross-attention or a neural early-plus-late hybrid architecture.",
+      "sources": [
+        "config/config.yaml",
+        "src/fusion/multimodal_representation.py"
+      ],
+      "png": "graphs/28_temporal_semantic_fusion_flow.png",
+      "svg": "graphs/28_temporal_semantic_fusion_flow.svg",
+      "pdf": "graphs/28_temporal_semantic_fusion_flow.pdf"
+    }
+  ],
+  "tables": [
+    "tables/model_inventory.csv",
+    "tables/fusion_implementation.csv",
+    "tables/controlled_fusion_metrics.csv",
+    "tables/controlled_fusion_case_groups.csv",
+    "tables/real_fusion_coverage.csv",
+    "tables/discussion_metrics.csv",
+    "tables/classifier_comparison.csv",
+    "tables/speech_error_metrics.csv",
+    "tables/speaker_heldout_der.csv",
+    "tables/contribution_weights.csv",
+    "tables/gap_rankings.csv",
+    "tables/gap_contrasts.csv",
+    "tables/gap_feature_coverage.csv",
+    "tables/gap_feature_deletions.csv",
+    "tables/pipeline_stage_runtime.csv",
+    "tables/runtime_conditions.csv",
+    "tables/ami_discussion_split.csv",
+    "tables/gap_role_diagnostic.csv",
+    "tables/logistic_top_coefficients.csv",
+    "tables/forest_top_importance.csv",
+    "tables/discussion_feature_dimensions.csv",
+    "tables/speaker_additional_diagnostics.csv"
+  ],
+  "source_sha256": {
+    "outputs/evaluation/final_ca4/controlled_comparison.json": "be23695f16e519ab60ddcdfad17f5427ab5d16ca145c609f5abe7b19e0d44db5",
+    "outputs/evaluation/final_ca4/real_unlabelled_comparison.json": "5c71af5b08e678b5b523d299b2583e2750175e9918edc464742649c322c2063b",
+    "professor_guidelines/evaluation/quality_scorecard/summary.json": "e505d547d073d1068f0c0a557f657b12ed04a19b45530ca6ba6d15dd9b276681",
+    "professor_guidelines/evaluation/audio_summary.json": "449ddf226e62ede3ba8f43cb750024a282251bb299cb689585bf212a640d285f",
+    "docs/paper_20261024/analysis/results.json": "854265bf31a20c3a692bb92a6766877d9a5aa1b1889594fbf262f407d9080ca2",
+    "professor_guidelines/evaluation/decision_discussion/dataset_counts.json": "fcfe89909876516029316b1495f31987d7561e0a383f7a1c5e6024ba9b5ac0b3",
+    "models/discussion/manifest.json": "80db6ecfae3e4fcf4008ced5d238935ecf47c28c9be9fbfa1cf1e90996ff8098",
+    "config/config.yaml": "8c1eae3cf894720350c25f9aa5b734f1f3dc8a47fba36b7914dca0996f27f996",
+    "outputs/evaluation/website_regression_20261025.json": "cbaebf0e54eb45af91ffc7cea34146bb1ca73f2d06341aa99a70037d98753850",
+    "outputs/evaluation/huggingface_backend_20261026.json": "a0a59ce05de85fb55f59c13601a563b391e876625822f601834699fe21aae28a",
+    "professor_guidelines/evaluation/classifier_comparison/comparison.csv": "e27d07d6de11b32f2cc43399a0b06f77f5047aef74f0ff32664cc57dc3f73b1e",
+    "models/discussion/model.joblib": "1db06c011c554b056528a02c08a379d3aa88835aa28d78e312d6c801d12725bf",
+    "src/pipeline/orchestrator.py": "a7264a3156919af8f39e04bba18bcffb157aaf6f30523f8a5e9c5d14fa29d298",
+    "src/fusion/multimodal_representation.py": "162993b9ab4fd07a3b3f28d1c0055fca22e84aec4d952705eab614f2d1c7b735",
+    "src/meeting/discussions.py": "a56b32f336fa632f8f4306e49135e5b91773b89994b6d9bc682de0d95f330c94",
+    "scripts/generate_results.py": "ccca2c098fea3974e0b1167891dea088f86da2d70955a5ba09e34ba9169fe2ec"
+  },
+  "installed_discussion_model": {
+    "linear_class": "LogisticRegression",
+    "forest_class": "RandomForestClassifier",
+    "linear_C": 3.0,
+    "forest_trees": 100,
+    "forest_max_depth": 10,
+    "linear_weight": 0.25,
+    "forest_weight": 0.75,
+    "context_radius_units": 40,
+    "smoothing_radius_units": 5,
+    "threshold": 0.3577398635496262,
+    "feature_dimensions": {
+      "word": 12000,
+      "char": 18220,
+      "context_40": 12000
+    }
+  },
+  "controlled_fusion": [
+    {
+      "method": "temporal_only",
+      "correct": 12,
+      "total": 24,
+      "top1_accuracy": 0.5,
+      "macro_f1_including_no_slide": 0.41666666666666663,
+      "grounded_precision": 0.6,
+      "grounded_recall": 0.6,
+      "grounded_f1": 0.6,
+      "coverage": 0.8333333333333334
+    },
+    {
+      "method": "semantic_only",
+      "correct": 20,
+      "total": 24,
+      "top1_accuracy": 0.8333333333333334,
+      "macro_f1_including_no_slide": 0.8444444444444444,
+      "grounded_precision": 1.0,
+      "grounded_recall": 0.8,
+      "grounded_f1": 0.8888888888888888,
+      "coverage": 0.6666666666666666
+    },
+    {
+      "method": "temporal_semantic_hybrid",
+      "correct": 16,
+      "total": 24,
+      "top1_accuracy": 0.6666666666666666,
+      "macro_f1_including_no_slide": 0.5025641025641026,
+      "grounded_precision": 0.6666666666666666,
+      "grounded_recall": 0.8,
+      "grounded_f1": 0.7272727272727273,
+      "coverage": 1.0
+    }
+  ],
+  "real_fusion": {
+    "passages": 1008,
+    "slides": 34,
+    "timed_slides": 0,
+    "accuracy_available": false
+  },
+  "discussion_metrics": {
+    "installed": {
+      "precision": 0.3994446648155494,
+      "recall": 0.8117694478033051,
+      "f1": 0.5354246975940449,
+      "positive_support": 2481,
+      "average_precision": 0.533985450486222,
+      "confusion_matrix_tn_fp_fn_tp": [
+        5627,
+        3028,
+        467,
+        2014
+      ],
+      "accuracy": 0.6861530172413793,
+      "balanced_accuracy": 0.7309569364955288,
+      "specificity": 0.6501444251877527,
+      "macro_f1": 0.6492297398065824,
+      "mcc": 0.38614932369544536,
+      "roc_auc": 0.800336281912378,
+      "brier": 0.1624714646273942,
+      "negative_support": 8655
+    },
+    "always_negative": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "positive_support": 2481,
+      "average_precision": 0.22279094827586207,
+      "confusion_matrix_tn_fp_fn_tp": [
+        8655,
+        0,
+        2481,
+        0
+      ],
+      "accuracy": 0.7772090517241379,
+      "balanced_accuracy": 0.5,
+      "specificity": 1.0,
+      "macro_f1": 0.43731999393663784,
+      "mcc": 0.0,
+      "roc_auc": 0.5,
+      "brier": 0.22279094827586207,
+      "negative_support": 8655
+    },
+    "scope": "11,136 oracle AMI acts, 2,481 positives, 12 meetings / 3 project series; reused historical cohort"
+  },
+  "asr": [
+    {
+      "cohort": "English development (2 clips)",
+      "model": "small",
+      "wer": {
+        "rate": 0.29981718464351004,
+        "errors": 164,
+        "reference_length": 547
+      },
+      "cer": {
+        "rate": 0.20316132031613204,
+        "errors": 437,
+        "reference_length": 2151
+      }
+    },
+    {
+      "cohort": "English development (2 clips)",
+      "model": "medium",
+      "wer": {
+        "rate": 0.31444241316270566,
+        "errors": 172,
+        "reference_length": 547
+      },
+      "cer": {
+        "rate": 0.21803812180381218,
+        "errors": 469,
+        "reference_length": 2151
+      }
+    },
+    {
+      "cohort": "English historical (2 clips)",
+      "model": "small",
+      "wer": {
+        "rate": 0.6160919540229886,
+        "errors": 268,
+        "reference_length": 435
+      },
+      "cer": {
+        "rate": 0.4696601941747573,
+        "errors": 774,
+        "reference_length": 1648
+      }
+    },
+    {
+      "cohort": "Hindi (8 samples)",
+      "model": "small",
+      "wer": {
+        "rate": 0.5096153846153846,
+        "errors": 106,
+        "reference_length": 208
+      },
+      "cer": {
+        "rate": 0.20092915214866433,
+        "errors": 173,
+        "reference_length": 861
+      }
+    },
+    {
+      "cohort": "Hindi (8 samples)",
+      "model": "medium",
+      "wer": {
+        "rate": 0.3701923076923077,
+        "errors": 77,
+        "reference_length": 208
+      },
+      "cer": {
+        "rate": 0.14982578397212543,
+        "errors": 129,
+        "reference_length": 861
+      }
+    },
+    {
+      "cohort": "Hinglish (8 samples)",
+      "model": "small",
+      "wer": {
+        "rate": 0.6612903225806451,
+        "errors": 82,
+        "reference_length": 124
+      },
+      "cer": {
+        "rate": 0.5,
+        "errors": 267,
+        "reference_length": 534
+      }
+    },
+    {
+      "cohort": "Hinglish (8 samples)",
+      "model": "medium",
+      "wer": {
+        "rate": 0.5725806451612904,
+        "errors": 71,
+        "reference_length": 124
+      },
+      "cer": {
+        "rate": 0.5224719101123596,
+        "errors": 279,
+        "reference_length": 534
+      }
+    },
+    {
+      "cohort": "English development (2 clips)",
+      "model": "large-v3-turbo",
+      "wer": {
+        "rate": 0.28153564899451555,
+        "errors": 154,
+        "reference_length": 547
+      },
+      "cer": {
+        "rate": 0.19758251975825197,
+        "errors": 425,
+        "reference_length": 2151
+      }
+    },
+    {
+      "cohort": "English historical (2 clips)",
+      "model": "large-v3-turbo",
+      "wer": {
+        "rate": 0.639080459770115,
+        "errors": 278,
+        "reference_length": 435
+      },
+      "cer": {
+        "rate": 0.5351941747572816,
+        "errors": 882,
+        "reference_length": 1648
+      }
+    },
+    {
+      "cohort": "Hindi (8 samples)",
+      "model": "large-v3-turbo",
+      "wer": {
+        "rate": 0.28846153846153844,
+        "errors": 60,
+        "reference_length": 208
+      },
+      "cer": {
+        "rate": 0.09407665505226481,
+        "errors": 81,
+        "reference_length": 861
+      }
+    },
+    {
+      "cohort": "Hinglish (8 samples)",
+      "model": "large-v3-turbo",
+      "wer": {
+        "rate": 0.5725806451612904,
+        "errors": 71,
+        "reference_length": 124
+      },
+      "cer": {
+        "rate": 0.48314606741573035,
+        "errors": 258,
+        "reference_length": 534
+      }
+    }
+  ],
+  "speaker_pooled_der": {
+    "0.5": 0.6407961600720226,
+    "0.9": 0.4091163815075802
+  },
+  "speaker_additional_diagnostics": {
+    "threshold": 0.9,
+    "meetings": 2,
+    "pooled_der": 0.4091163815075802,
+    "pooled_jer": 0.6045105758869135,
+    "speech_precision": 0.8169535095152735,
+    "speech_recall": 0.9072933428707703,
+    "speech_f1": 0.859756802910687,
+    "speaker_count_mae": 1.5
+  },
+  "gap_pairwise_accuracy": {
+    "participation": 0.6178571428571428,
+    "contribution": 0.5339285714285714,
+    "combined": 0.6892857142857143,
+    "word_count": 0.6654761904761904,
+    "speaking_duration": 0.6785714285714286,
+    "constant_ties": 0.5,
+    "prototype_fixed_weights": 0.5577380952380951
+  },
+  "limitations": [
+    "Constructed fusion cases are not independent real-meeting accuracy.",
+    "Real slide-link coverage is not accuracy; ground-truth relevance labels missing.",
+    "Discussion results use historical human text/boundaries, not full ASR application outputs.",
+    "GAP is previously inspected outcome-proxy research with reference speakers and no slides.",
+    "Historical role/coverage snapshots were not rerun after later extraction fixes.",
+    "No matched TF-IDF/MiniLM, learned cross-attention or full end-to-end multimodal accuracy result is claimed.",
+    "No ROC/PR curves or uncertainty estimates were fabricated from summary metrics."
+  ]
+}

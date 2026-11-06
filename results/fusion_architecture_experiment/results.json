@@ -1,0 +1,466 @@
+{
+  "status": "NEW CONSTRUCTED-CASE PROTOTYPE EXPERIMENT \u2014 NOT DEPLOYED-SYSTEM ACCURACY",
+  "simulated_metrics": false,
+  "cases": 24,
+  "candidate_slides": 6,
+  "unique_passage_groups": 13,
+  "scope": "Derived transcript/document text embeddings plus timing, not raw acoustic/image fusion. No real meeting labels.",
+  "protocol": {
+    "folds": [
+      {
+        "fold": 1,
+        "training_cases": [
+          "case_01",
+          "case_02",
+          "case_03",
+          "case_04",
+          "case_05",
+          "case_06",
+          "case_08",
+          "case_09",
+          "case_10",
+          "case_11",
+          "case_12",
+          "case_13",
+          "case_14",
+          "case_15",
+          "case_16",
+          "case_21",
+          "case_22",
+          "case_24"
+        ],
+        "evaluation_cases": [
+          "case_07",
+          "case_17",
+          "case_18",
+          "case_19",
+          "case_20",
+          "case_23"
+        ]
+      },
+      {
+        "fold": 2,
+        "training_cases": [
+          "case_02",
+          "case_04",
+          "case_05",
+          "case_06",
+          "case_07",
+          "case_08",
+          "case_10",
+          "case_12",
+          "case_14",
+          "case_16",
+          "case_17",
+          "case_18",
+          "case_19",
+          "case_20",
+          "case_21",
+          "case_22",
+          "case_23",
+          "case_24"
+        ],
+        "evaluation_cases": [
+          "case_01",
+          "case_03",
+          "case_09",
+          "case_11",
+          "case_13",
+          "case_15"
+        ]
+      },
+      {
+        "fold": 3,
+        "training_cases": [
+          "case_01",
+          "case_03",
+          "case_04",
+          "case_07",
+          "case_08",
+          "case_09",
+          "case_11",
+          "case_12",
+          "case_13",
+          "case_15",
+          "case_16",
+          "case_17",
+          "case_18",
+          "case_19",
+          "case_20",
+          "case_22",
+          "case_23",
+          "case_24"
+        ],
+        "evaluation_cases": [
+          "case_02",
+          "case_05",
+          "case_06",
+          "case_10",
+          "case_14",
+          "case_21"
+        ]
+      },
+      {
+        "fold": 4,
+        "training_cases": [
+          "case_01",
+          "case_02",
+          "case_03",
+          "case_05",
+          "case_06",
+          "case_07",
+          "case_09",
+          "case_10",
+          "case_11",
+          "case_13",
+          "case_14",
+          "case_15",
+          "case_17",
+          "case_18",
+          "case_19",
+          "case_20",
+          "case_21",
+          "case_23"
+        ],
+        "evaluation_cases": [
+          "case_04",
+          "case_08",
+          "case_12",
+          "case_16",
+          "case_22",
+          "case_24"
+        ]
+      }
+    ],
+    "grouping": "All identical normalized passage texts stay in the same fold.",
+    "seed": 42,
+    "neural_epochs": 120,
+    "optimizer": "Adam lr=0.01 weight_decay=0.001",
+    "pair_acceptance_threshold": 0.5,
+    "hyperparameter_search": false,
+    "encoder": "Frozen all-MiniLM-L6-v2",
+    "class_weight": "Training-fold balanced loss / logistic weights",
+    "neural_parameter_counts": {
+      "early": 24705,
+      "intermediate": 13409
+    }
+  },
+  "methods": {
+    "early": {
+      "implementation": "Concatenate frozen passage/slide embeddings and timing cues, then train a 32-unit MLP.",
+      "metrics": {
+        "correct": 7,
+        "total": 24,
+        "top1_accuracy": 0.2916666666666667,
+        "macro_f1_including_no_slide": 0.29047619047619044,
+        "grounded_precision": 0.5,
+        "grounded_recall": 0.25,
+        "grounded_f1": 0.3333333333333333,
+        "coverage": 0.4166666666666667
+      },
+      "fit_and_predict_seconds_across_folds": 0.5464930480084149,
+      "predictions": [
+        "slide_01",
+        "NO_CONFIDENT_SLIDE",
+        "slide_03",
+        "NO_CONFIDENT_SLIDE",
+        "slide_01",
+        "NO_CONFIDENT_SLIDE",
+        "slide_03",
+        "NO_CONFIDENT_SLIDE",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "slide_02",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "slide_01",
+        "NO_CONFIDENT_SLIDE",
+        "slide_01"
+      ],
+      "by_case_group": {
+        "context_dependent": {
+          "correct": 1,
+          "total": 4,
+          "top1_accuracy": 0.25,
+          "macro_f1_including_no_slide": 0.2,
+          "grounded_precision": 1.0,
+          "grounded_recall": 0.25,
+          "grounded_f1": 0.4,
+          "coverage": 0.25
+        },
+        "exact_content": {
+          "correct": 2,
+          "total": 4,
+          "top1_accuracy": 0.5,
+          "macro_f1_including_no_slide": 0.4,
+          "grounded_precision": 1.0,
+          "grounded_recall": 0.5,
+          "grounded_f1": 0.6666666666666666,
+          "coverage": 0.5
+        },
+        "missing_slide_times": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.0
+        },
+        "offscreen_reference": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.75
+        },
+        "paraphrase": {
+          "correct": 2,
+          "total": 4,
+          "top1_accuracy": 0.5,
+          "macro_f1_including_no_slide": 0.4,
+          "grounded_precision": 1.0,
+          "grounded_recall": 0.5,
+          "grounded_f1": 0.6666666666666666,
+          "coverage": 0.5
+        },
+        "unrelated_or_blank": {
+          "correct": 2,
+          "total": 4,
+          "top1_accuracy": 0.5,
+          "macro_f1_including_no_slide": 0.3333333333333333,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.5
+        }
+      }
+    },
+    "intermediate": {
+      "implementation": "Train separate 16-unit passage/slide projections; fuse representations, differences/products and timing cues in a prediction head.",
+      "metrics": {
+        "correct": 9,
+        "total": 24,
+        "top1_accuracy": 0.375,
+        "macro_f1_including_no_slide": 0.36666666666666664,
+        "grounded_precision": 0.6,
+        "grounded_recall": 0.3,
+        "grounded_f1": 0.4,
+        "coverage": 0.4166666666666667
+      },
+      "fit_and_predict_seconds_across_folds": 0.313399680017028,
+      "predictions": [
+        "slide_01",
+        "NO_CONFIDENT_SLIDE",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "NO_CONFIDENT_SLIDE",
+        "slide_03",
+        "slide_04",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "slide_01"
+      ],
+      "by_case_group": {
+        "context_dependent": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.0
+        },
+        "exact_content": {
+          "correct": 3,
+          "total": 4,
+          "top1_accuracy": 0.75,
+          "macro_f1_including_no_slide": 0.6,
+          "grounded_precision": 1.0,
+          "grounded_recall": 0.75,
+          "grounded_f1": 0.8571428571428571,
+          "coverage": 0.75
+        },
+        "missing_slide_times": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.0
+        },
+        "offscreen_reference": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.75
+        },
+        "paraphrase": {
+          "correct": 3,
+          "total": 4,
+          "top1_accuracy": 0.75,
+          "macro_f1_including_no_slide": 0.6,
+          "grounded_precision": 1.0,
+          "grounded_recall": 0.75,
+          "grounded_f1": 0.8571428571428571,
+          "coverage": 0.75
+        },
+        "unrelated_or_blank": {
+          "correct": 3,
+          "total": 4,
+          "top1_accuracy": 0.75,
+          "macro_f1_including_no_slide": 0.42857142857142855,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.25
+        }
+      }
+    },
+    "late": {
+      "implementation": "Fit separate semantic-cosine and timing logistic experts; average probabilities when timing exists, otherwise use semantic probability.",
+      "metrics": {
+        "correct": 14,
+        "total": 24,
+        "top1_accuracy": 0.5833333333333334,
+        "macro_f1_including_no_slide": 0.4973905723905724,
+        "grounded_precision": 0.6842105263157895,
+        "grounded_recall": 0.65,
+        "grounded_f1": 0.6666666666666666,
+        "coverage": 0.7916666666666666
+      },
+      "fit_and_predict_seconds_across_folds": 0.01820127197424881,
+      "predictions": [
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "slide_02",
+        "slide_02",
+        "slide_04",
+        "slide_05",
+        "slide_01",
+        "slide_02",
+        "slide_03",
+        "slide_04",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "NO_CONFIDENT_SLIDE",
+        "slide_01",
+        "slide_01",
+        "NO_CONFIDENT_SLIDE",
+        "slide_01"
+      ],
+      "by_case_group": {
+        "context_dependent": {
+          "correct": 0,
+          "total": 4,
+          "top1_accuracy": 0.0,
+          "macro_f1_including_no_slide": 0.0,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.0
+        },
+        "exact_content": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "missing_slide_times": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "offscreen_reference": {
+          "correct": 1,
+          "total": 4,
+          "top1_accuracy": 0.25,
+          "macro_f1_including_no_slide": 0.13333333333333333,
+          "grounded_precision": 0.25,
+          "grounded_recall": 0.25,
+          "grounded_f1": 0.25,
+          "coverage": 1.0
+        },
+        "paraphrase": {
+          "correct": 4,
+          "total": 4,
+          "top1_accuracy": 1.0,
+          "macro_f1_including_no_slide": 1.0,
+          "grounded_precision": 1.0,
+          "grounded_recall": 1.0,
+          "grounded_f1": 1.0,
+          "coverage": 1.0
+        },
+        "unrelated_or_blank": {
+          "correct": 1,
+          "total": 4,
+          "top1_accuracy": 0.25,
+          "macro_f1_including_no_slide": 0.2,
+          "grounded_precision": 0.0,
+          "grounded_recall": 0.0,
+          "grounded_f1": 0.0,
+          "coverage": 0.75
+        }
+      }
+    }
+  },
+  "elapsed_seconds": 1.6013243929919554,
+  "source_sha256": "c685f1305b453cd2f9d26d773573db4556fa5bd29e32b496e82052fbd897859c",
+  "script_sha256": "bb32ab5cec71e08f7e337305a19acff44b8ecb8b01471734efa33fd59e9976c4",
+  "limitations": [
+    "Only 24 previously examined author-designed cases; 13 unique passage texts and one fixed six-slide catalog.",
+    "No independent real-meeting or unseen-slide evaluation; no ASR or raw image/acoustic features.",
+    "One seed, fixed hyperparameters/threshold, different architecture sizes; not an optimized or capacity-matched benchmark.",
+    "Late experts receive engineered similarity/timing cues; neural prototypes receive embeddings/timing.",
+    "Exploratory prototypes are not installed in the application and do not establish a general winner."
+  ]
+}
